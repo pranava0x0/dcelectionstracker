@@ -1,12 +1,15 @@
 # TariffShock — Tariff Impact Simulator
 
 > **Generated:** 2026-03-09 | **Sector:** Shipping / Trade Policy
+> **Last refreshed:** 2026-03-16 | **Reason:** Supreme Court Feb 2026 IEEPA ruling changes tariff landscape significantly; $166B refund processing adds new user need
 
 ---
 
 ## Problem Statement
 
-U.S. trade policy is in flux — the Supreme Court invalidated broad emergency tariffs, new blanket import surcharges (starting at 10%) were enacted under alternative trade acts, and nearshoring to Mexico is accelerating. Small and mid-sized importers are blindsided by cost changes and lack the tools large enterprises use to model tariff scenarios. Most are relying on spreadsheets, customs brokers' ad-hoc advice, or learning about cost changes only when goods arrive.
+U.S. trade policy entered a new phase in February 2026 when the Supreme Court ruled in *Learning Resources, Inc. v. Trump* that the sweeping "Liberation Day" IEEPA tariffs — imposed April 2, 2025 — were unconstitutional. The government estimates it collected **$166 billion** in IEEPA tariffs from more than **330,000 businesses**, and U.S. Customs is now building a system to process refunds. But the tariff landscape is far from resolved: **Section 301 tariffs on China** (up to 25% base + additional layers), **Section 232 tariffs on steel and aluminum**, and **USMCA-compliant sourcing advantages** all remain intact. Businesses face a three-front complexity: (1) understanding what tariffs remain legal and applicable today, (2) determining whether and how to claim refunds on the unconstitutional IEEPA collections, and (3) modeling sourcing decisions against this still-shifting policy terrain.
+
+Small and mid-sized importers — the 330,000 businesses most affected — are blindsided by this complexity. Many paid tariffs they may not owe, don't know how to file CBP protests, lack tracking for their refund status, and are still trying to understand their current duty obligations after the legal landscape shifted. Customs brokers are overwhelmed with refund inquiries and can't provide self-service tools. Enterprise importers have trade counsel; SMBs have spreadsheets and confusion. Meanwhile, nearshoring to Mexico accelerated dramatically (Mexico is now the top U.S. import source), creating a new set of USMCA compliance questions for companies that moved supply chains they may now want to re-evaluate.
 
 ## Target Audience / User
 
@@ -39,6 +42,7 @@ U.S. trade policy is in flux — the Supreme Court invalidated broad emergency t
 3. **Nearshoring calculator:** Input a product → see cost comparison across China, Vietnam, Mexico, India with tariff, shipping, and lead time factored in
 4. **Policy alert feed:** Real-time feed of tariff changes, USTR announcements, and court decisions filtered to user's HTS codes
 5. **Savings opportunity cards:** Proactive notifications like "Switching SKU X sourcing to Vietnam would save $12K/year at current rates"
+6. **IEEPA Refund Estimator:** Input HTS codes, origin country, shipment dates (April 2025 – Feb 2026), and value → estimates how much unconstitutional IEEPA tariff was paid; generates pre-filled CBP protest form data and tracks submission/refund status
 
 ## Competing / Existing Products
 
@@ -87,3 +91,12 @@ U.S. trade policy is in flux — the Supreme Court invalidated broad emergency t
 - Integration with customs brokers' systems
 - Historical tariff trend analysis
 - Community-sourced landed cost benchmarks
+
+---
+
+## Changelog
+
+| Date | Author | Summary |
+|---|---|---|
+| 2026-03-09 | Auto-generated | Initial spec created via trend-research-ideator skill |
+| 2026-03-16 | Trend refresh | Updated problem statement to reflect Feb 2026 SCOTUS ruling (*Learning Resources v. Trump*) invalidating IEEPA tariffs; added $166B refund context; 330K business claimants; Section 301/232 tariffs still intact; added IEEPA Refund Estimator as UX idea #6 |

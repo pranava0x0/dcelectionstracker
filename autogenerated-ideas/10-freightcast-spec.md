@@ -1,12 +1,22 @@
 # FreightCast — Predictive Freight Rate Dashboard
 
 > **Generated:** 2026-03-09 | **Sector:** Shipping / Logistics
+> **Last refreshed:** 2026-03-11 | **Reason:** CDL crackdown creating trucking capacity shock; March-May ocean contract window is live now; updated Q1 rate data
+> **Last refreshed:** 2026-03-15 | **Reason:** Strait of Hormuz effectively closed since Feb 28 (U.S.-Israeli strikes on Iran); oil above $100/barrel; Maersk and Hapag-Lloyd suspended Mideast routes; insurance withdrawal making Hormuz transit unviable; TL contract rates confirmed up mid-single digits first time in 4 years; post-Lunar New Year SCFI +6% followed by Transpacific rates dropping 13-14% as overcapacity persists
 
 ---
 
 ## Problem Statement
 
-The freight market is tightening — truckload contract rates are up mid-single digits, spot rates are running mid-teens above prior-year levels, and Q2 pricing is being negotiated on the firmest cost floor since 2022. Small and mid-sized shippers lack the rate intelligence tools that large 3PLs and enterprise shippers use. They're negotiating blind, accepting quoted rates without knowing if they're above or below market, and missing windows to lock in favorable contract rates.
+The freight market in Q1 2026 has two diverging stories unfolding simultaneously — and small shippers are caught in both without the tools to navigate either.
+
+**Trucking capacity shock:** The FMCSA's non-domiciled CDL rule took effect March 16, 2026, limiting eligibility for commercial driver's licenses to foreign nationals holding H-2A, H-2B, or E-2 visas only. FMCSA found ~200K non-domiciled CDL holders in the system; approximately 194K are expected to lose eligibility over the next five years as their credentials expire (~40K/year). California cancelled 13,000 licenses on March 6 alone. Multiple lawsuits are challenging the rule, but capacity is already tightening in Texas, California, and New York — the states with the highest concentration of affected drivers. Shippers who rely on spot trucking in these corridors need real-time visibility into capacity tightness and legal-challenge status.
+
+**Ocean contract window:** March through May is the annual ocean contract negotiation season for Transpacific eastbound trade lanes — the window when importers lock in rates for the year ahead. In 2026, shippers are negotiating from a favorable position: industry-wide overcapacity continues (3.7% more supply added in 2026), China import volumes are down 22.7% YoY as tariff diversification accelerates, and Drewry forecasts declining spot rates. Shippers who understand the market and negotiate strategically can lock in materially better rates. But most small shippers have no data; they accept the first quote their forwarder gives them.
+
+**Hormuz crisis overlay (March 2026):** The U.S.-Israeli strikes on Iran on February 28 triggered a major new variable. The Strait of Hormuz is now effectively closed to most Western-flagged commercial traffic — not via physical blockade, but through insurance withdrawal (Lloyd's war risk premiums at six-year highs). Maersk and Hapag-Lloyd suspended Mideast routes; CMA CGM and Hapag-Lloyd embargoed Persian Gulf ports (Jebel Ali, Khalifa, Dammam). Oil broke $100/barrel for the first time since 2022. For shippers sourcing from the Middle East, UAE, and Gulf states, this is a crisis with no immediate routing alternative. The knock-on: any Suez-route normalization that was expected to flood the market with redeployed capacity is now uncertain, keeping Transpacific and North Europe rates more supported than overcapacity alone would suggest.
+
+The combination creates a high-stakes, multi-variable intelligence gap: shippers need to know when to hold (wait for trucking capacity to stabilize as CDL litigation plays out) and when to move (lock ocean contracts before Hormuz risk reprices Transpacific demand), all while oil-driven cost increases ripple through fuel surcharges across every mode.
 
 ## Target Audience / User
 
@@ -55,11 +65,13 @@ The freight market is tightening — truckload contract rates are up mid-single 
 ## Data That Might Be Needed
 
 - **Rate data:** DAT, Truckstop, or Freightos APIs (or aggregated public data); USDA agricultural freight rates
-- **Market indicators:** OTRI (Outbound Tender Rejection Index) from FreightWaves SONAR; Cass Freight Index
+- **Market indicators:** OTRI (Outbound Tender Rejection Index) from FreightWaves SONAR; Cass Freight Index; ITS Logistics Port/Rail Ramp Freight Index (monthly)
 - **Fuel prices:** EIA weekly diesel price reports
 - **Economic indicators:** Consumer Confidence Index, PMI, retail sales (freight demand proxies)
-- **Capacity metrics:** FMCSA carrier authority data (new entrants/exits); CDL issuance trends
-- **Seasonal patterns:** Historical rate data by lane for seasonal modeling
+- **CDL/capacity data:** FMCSA carrier authority data (new entrants/exits); FMCSA non-domiciled CDL cancellation notices (public records); state DMV actions
+- **Legal challenge status:** Court dockets for AFL-CIO et al. v. FMCSA; Asian Law Caucus class action — scrape/monitor for stay orders and reversals
+- **Ocean data:** Drewry WCI (World Container Index) weekly rates; Xeneta spot vs. contract spread data; carrier capacity deployment schedules
+- **Seasonal patterns:** Historical rate data by lane for seasonal modeling; annual contract window calendar
 
 ## High-Level Design / Implementation Ideas
 
@@ -84,6 +96,8 @@ The freight market is tightening — truckload contract rates are up mid-single 
 
 ### Growth Path
 - LTL and intermodal mode coverage
-- Integration with TMS systems
-- Lane-specific capacity tightness indicators
+- Integration with TMS systems (Flexport, project44, FourKites)
+- Lane-specific capacity tightness indicators powered by CDL cancellation data
+- Ocean contract negotiation module with carrier comparison and counter-offer templates
 - Community benchmarks (anonymized user rate submissions)
+- CDL legal challenge outcome model (probability-weighted capacity impact scenarios)
