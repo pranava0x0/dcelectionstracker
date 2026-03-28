@@ -64,14 +64,14 @@ export default function PriceHistoryScreen({ route }: Props) {
     );
   }
 
-  // Compute chart bounds
-  const allPrices = history.flatMap((h) => h.points.map((p) => p.price));
-  const rawMin = allPrices.length > 0 ? Math.min(...allPrices) : 0;
-  const rawMax = allPrices.length > 0 ? Math.max(...allPrices) : 1;
-  // Add 5% padding so lines don't touch edges
-  const padding = (rawMax - rawMin) * 0.05 || 10;
-  const minPrice = rawMin - padding;
-  const maxPrice = rawMax + padding;
+  // Compute chart bounds using IQR to exclude outliers
+  const allPrices = history
+    .flatMap((h) => h.points.map((p) => p.price))
+    .sort((a, b) => a - b);
+  const { chartMin, chartMax } = getChartBounds(allPrices);
+  const padding = (chartMax - chartMin) * 0.05 || 10;
+  const minPrice = chartMin - padding;
+  const maxPrice = chartMax + padding;
   const priceRange = maxPrice - minPrice || 1;
 
   // All unique timestamps for x-axis
@@ -85,8 +85,11 @@ export default function PriceHistoryScreen({ route }: Props) {
   // Convert data point to pixel coordinates
   const toX = (timeIdx: number) =>
     Y_LABEL_WIDTH + (allTimes.length <= 1 ? drawableWidth / 2 : (timeIdx / (allTimes.length - 1)) * drawableWidth);
-  const toY = (price: number) =>
-    CHART_PADDING_TOP + drawableHeight - ((price - minPrice) / priceRange) * drawableHeight;
+  const toY = (price: number) => {
+    // Clamp price to chart bounds so outliers stay at the edge instead of flying off
+    const clamped = Math.max(minPrice, Math.min(maxPrice, price));
+    return CHART_PADDING_TOP + drawableHeight - ((clamped - minPrice) / priceRange) * drawableHeight;
+  };
 
   // Generate Y-axis tick values
   const yTicks = 4;
@@ -207,6 +210,7 @@ export default function PriceHistoryScreen({ route }: Props) {
                   x: toX(allTimes.indexOf(p.time)),
                   y: toY(p.price),
                   price: p.price,
+                  isOutlier: p.price < minPrice || p.price > maxPrice,
                 }))
                 .filter((p) => !isNaN(p.x) && !isNaN(p.y));
 
@@ -242,18 +246,39 @@ export default function PriceHistoryScreen({ route }: Props) {
                   {points.map((point, idx) => {
                     const isLow = allTimelow?.price === point.price;
                     return (
-                      <View
-                        key={`dot-${platformHistory.platform}-${idx}`}
-                        style={[
-                          styles.dot,
-                          {
-                            left: point.x - DOT_SIZE / 2,
-                            top: point.y - DOT_SIZE / 2,
-                            backgroundColor: isLow ? COLORS.green : color,
-                            borderColor: isLow ? COLORS.green : color,
-                          },
-                        ]}
-                      />
+                      <React.Fragment key={`dot-${platformHistory.platform}-${idx}`}>
+                        <View
+                          style={[
+                            styles.dot,
+                            {
+                              left: point.x - DOT_SIZE / 2,
+                              top: point.y - DOT_SIZE / 2,
+                              backgroundColor: point.isOutlier
+                                ? 'transparent'
+                                : isLow
+                                  ? COLORS.green
+                                  : color,
+                              borderColor: isLow ? COLORS.green : color,
+                              borderStyle: point.isOutlier ? 'dashed' : 'solid',
+                            },
+                          ]}
+                        />
+                        {/* Price label for outlier points pinned to edge */}
+                        {point.isOutlier && (
+                          <Text
+                            style={[
+                              styles.outlierLabel,
+                              {
+                                left: point.x + DOT_SIZE,
+                                top: point.y - 7,
+                                color,
+                              },
+                            ]}
+                          >
+                            ${point.price.toFixed(0)}
+                          </Text>
+                        )}
+                      </React.Fragment>
                     );
                   })}
                 </React.Fragment>
@@ -276,7 +301,7 @@ export default function PriceHistoryScreen({ route }: Props) {
       {allPrices.length > 0 && (
         <View style={styles.rangeFooter}>
           <Text style={styles.rangeText}>
-            Range: ${rawMin.toFixed(0)} — ${rawMax.toFixed(0)}
+            Range: ${chartMin.toFixed(0)} — ${chartMax.toFixed(0)}
           </Text>
           <Text style={styles.rangeText}>
             {allTimes.length} scrape{allTimes.length !== 1 ? 's' : ''}
@@ -285,6 +310,37 @@ export default function PriceHistoryScreen({ route }: Props) {
       )}
     </ScrollView>
   );
+}
+
+/**
+ * Compute Y-axis bounds using IQR to exclude outliers.
+ * Prices beyond 1.5x IQR from the quartiles are treated as outliers
+ * and don't stretch the chart. They get clamped to the edge instead.
+ */
+function getChartBounds(sorted: number[]): { chartMin: number; chartMax: number } {
+  if (sorted.length === 0) return { chartMin: 0, chartMax: 1 };
+  if (sorted.length <= 4) {
+    return { chartMin: sorted[0], chartMax: sorted[sorted.length - 1] };
+  }
+
+  const q1 = sorted[Math.floor(sorted.length * 0.25)];
+  const q3 = sorted[Math.floor(sorted.length * 0.75)];
+  const iqr = q3 - q1;
+  const fence = 1.5 * iqr;
+
+  const lowerBound = q1 - fence;
+  const upperBound = q3 + fence;
+
+  // Chart range is the min/max of non-outlier data
+  const inliers = sorted.filter((p) => p >= lowerBound && p <= upperBound);
+  if (inliers.length === 0) {
+    return { chartMin: sorted[0], chartMax: sorted[sorted.length - 1] };
+  }
+
+  return {
+    chartMin: inliers[0],
+    chartMax: inliers[inliers.length - 1],
+  };
 }
 
 function formatTime(isoString: string): string {
@@ -432,6 +488,12 @@ const styles = StyleSheet.create({
     height: DOT_SIZE,
     borderRadius: DOT_SIZE / 2,
     borderWidth: 2,
+  },
+  outlierLabel: {
+    position: 'absolute',
+    ...FONTS.caption,
+    fontSize: 9,
+    fontWeight: '600',
   },
   emptyChart: {
     flex: 1,
