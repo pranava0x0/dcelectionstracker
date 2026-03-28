@@ -7,7 +7,7 @@ from typing import List
 
 from backend.models import Listing
 from backend.scrapers.base import BaseScraper
-from backend.scrapers.utils import safe_click
+from backend.scrapers.utils import flag_multi_session_listings, safe_click
 
 logger = logging.getLogger(__name__)
 
@@ -29,9 +29,6 @@ class StubHubScraper(BaseScraper):
         page_text = driver.find_element(By.TAG_NAME, "body").text
         listings = []
 
-        # Detect multi-session listings
-        is_multi_session = "all sessions" in page_text.lower() or "all session" in page_text.lower()
-
         pattern = re.compile(
             r"Section\s+(\w+)\s+Row\s+(\w+)\s+"
             r".*?\$([\d,]+)\s*(?:incl\.\s*fees|Now)",
@@ -45,7 +42,10 @@ class StubHubScraper(BaseScraper):
                 section=m.group(1),
                 row=m.group(2),
                 qty=str(self.qty),
-                fee_policy="Included" + (" (All Sessions)" if is_multi_session else ""),
+                fee_policy="Included",
             ))
+
+        # Flag multi-session using shared detector
+        listings = flag_multi_session_listings(listings, page_text)
 
         return listings

@@ -21,29 +21,55 @@
 
 ### Testing
 ```bash
-python3 -m pytest tests/ -v    # 36 tests (DB, API, scrapers)
+python3 -m pytest tests/ -v    # 77 tests (DB, API, scrapers, search, arbitrage, multi-session)
 cd mobile && npx tsc --noEmit  # TypeScript check
 ```
 
 ### Key Commands
 ```bash
-python3 -m backend.database --backfill   # Parse ticket_prices.md → SQLite
-python3 -m backend.database --stats      # Show DB stats
-python3 -m backend.scraper --dry-run     # Scrape without saving
-python3 -m backend.scraper               # Scrape + save to DB
+python3 -m backend.database --backfill       # Parse ticket_prices.md → SQLite
+python3 -m backend.database --stats          # Show DB stats
+python3 -m backend.database --migrate-urls   # Migrate hardcoded URLs → event_urls table
+python3 -m backend.scraper --event-id 1      # Scrape specific event
+python3 -m backend.scraper --all             # Scrape all tracked events
+python3 -m backend.scraper --dry-run --event-id 1  # Scrape without saving
+python3 -m backend.search "duke basketball"  # Search SeatGeek for events
+python3 -m backend.scheduler                # Auto-scrape every 15 min
+python3 -m backend.scheduler --interval 30  # Custom interval
+python3 -m backend.scheduler --once         # Single run
 ```
+
+### Multi-Event Support
+- Events are stored in the `events` table; per-platform URLs in `event_urls`
+- Use `POST /api/events/track` to add a new event with URLs
+- Use `GET /api/search?q=duke` to search via SeatGeek API (requires `SEATGEEK_CLIENT_ID` env var)
+- Mobile app has event picker pills + AddEvent screen for searching
+- After first setup, run `python3 -m backend.database --migrate-urls` to migrate the original hardcoded Duke game URLs
 
 ### Anti-Bot Notes
 - `undetected-chromedriver` preferred over raw selenium (patches automation flags)
 - UA rotation pool in `backend/scrapers/utils.py` — update periodically
-- SeatGeek scraper has been unreliable (bot detection) — may need Playwright fallback
+- SeatGeek scraper now API-first (`backend/scrapers/seatgeek_api.py`) — falls back to browser if no `SEATGEEK_CLIENT_ID`
+- Base scraper has retry with exponential backoff on blocked/empty responses (2 retries, 10s base)
 - Gametime has shown anomalous $29 prices — price validation catches these
 - Always add 1.5-3s jittered delay between sites
 - Cookie persistence in `.cookies/` helps appear as returning visitor
 
+### Multi-Session Detection
+- Listings flagged as `is_multi_session=True` in DB when page text matches patterns (all sessions, multi-game, package deal, etc.)
+- Multi-session listings excluded from default cheapest-price summaries and arbitrage detection
+- StubHub scraper uses shared `flag_multi_session_listings()` from `backend/scrapers/utils.py`
+- Detection patterns defined in `MULTI_SESSION_PATTERNS` — extend as needed
+
+### Cross-Platform Arbitrage
+- `GET /api/events/{id}/arbitrage` detects price gaps for same section/row across platforms
+- Default threshold: 15% price difference
+- Excludes anomalous and multi-session listings
+- Mobile types ready (`ArbitrageAlert`, `ArbitrageResponse`)
+
 ### Gotchas
 - SQLite needs `check_same_thread=False` for FastAPI (concurrent request handling)
-- StubHub sometimes shows "All Sessions" prices that look cheap but are multi-game — detected by parser
+- StubHub sometimes shows "All Sessions" prices — now detected by multi-session detector and excluded from comparisons
 - For physical device testing, update `mobile/src/constants/api.ts` with local IP
 - Expo Go on iOS needs same WiFi network as the dev machine
 

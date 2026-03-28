@@ -187,6 +187,43 @@ def validate_prices(listings: List[Listing], min_price: float = 20.0) -> List[Li
     return listings
 
 
+# ── Multi-session detection ──────────────────────────────────────────────
+
+MULTI_SESSION_PATTERNS = [
+    r"all\s+sessions?",
+    r"session\s+\d+\s*[&+]\s*\d+",
+    r"multi[- ]?game",
+    r"package\s+deal",
+    r"\d+[- ]game\s+pack",
+    r"combo\s+ticket",
+    r"series\s+pass",
+]
+
+import re as _re
+
+_MULTI_SESSION_RE = _re.compile(
+    "|".join(MULTI_SESSION_PATTERNS), _re.IGNORECASE
+)
+
+
+def detect_multi_session(text: str) -> bool:
+    """Return True if text contains multi-session/package indicators."""
+    return bool(_MULTI_SESSION_RE.search(text))
+
+
+def flag_multi_session_listings(listings: List[Listing], page_text: str) -> List[Listing]:
+    """Flag listings as multi-session based on page text and fee_policy hints."""
+    is_multi = detect_multi_session(page_text)
+    if is_multi:
+        for listing in listings:
+            listing.is_multi_session = True
+        if listings:
+            logger.info(
+                f"[{listings[0].platform}] Flagged {len(listings)} listings as multi-session"
+            )
+    return listings
+
+
 # ── Cookie persistence ────────────────────────────────────────────────────
 
 def save_cookies(driver, platform: str) -> None:

@@ -91,6 +91,20 @@ class TestHistoryEndpoint:
         assert r.status_code == 404
 
 
+class TestArbitrageEndpoint:
+    def test_arbitrage_returns_data(self, client: TestClient) -> None:
+        r = client.get("/api/events/1/arbitrage")
+        assert r.status_code == 200
+        data = r.json()
+        assert "alerts" in data
+        assert "total_opportunities" in data
+        assert isinstance(data["alerts"], list)
+
+    def test_arbitrage_not_found(self, client: TestClient) -> None:
+        r = client.get("/api/events/999/arbitrage")
+        assert r.status_code == 404
+
+
 class TestPlatformEndpoint:
     def test_platform_listings(self, client: TestClient) -> None:
         r = client.get("/api/events/1/platforms/tickpick")
@@ -104,3 +118,95 @@ class TestPlatformEndpoint:
         r = client.get("/api/events/1/platforms/seatgeek")
         assert r.status_code == 200
         assert r.json() == []
+
+
+class TestEventUrlEndpoints:
+    def test_get_urls_empty(self, client: TestClient) -> None:
+        r = client.get("/api/events/1/urls")
+        assert r.status_code == 200
+        assert r.json() == {}
+
+    def test_add_and_get_url(self, client: TestClient) -> None:
+        r = client.put("/api/events/1/urls", json={
+            "platform": "seatgeek",
+            "url": "https://seatgeek.com/event/123",
+        })
+        assert r.status_code == 200
+
+        r = client.get("/api/events/1/urls")
+        urls = r.json()
+        assert urls["seatgeek"] == "https://seatgeek.com/event/123"
+
+    def test_delete_url(self, client: TestClient) -> None:
+        client.put("/api/events/1/urls", json={
+            "platform": "stubhub",
+            "url": "https://stubhub.com/event/456",
+        })
+
+        r = client.delete("/api/events/1/urls/stubhub")
+        assert r.status_code == 200
+
+        r = client.get("/api/events/1/urls")
+        assert "stubhub" not in r.json()
+
+    def test_delete_url_not_found(self, client: TestClient) -> None:
+        r = client.delete("/api/events/1/urls/nonexistent")
+        assert r.status_code == 404
+
+    def test_url_not_found_event(self, client: TestClient) -> None:
+        r = client.get("/api/events/999/urls")
+        assert r.status_code == 404
+
+
+class TestTrackEventEndpoint:
+    def test_track_new_event(self, client: TestClient) -> None:
+        r = client.post("/api/events/track", json={
+            "name": "Duke vs UNC",
+            "venue": "Cameron Indoor Stadium",
+            "event_date": "2026-03-30",
+            "urls": {"seatgeek": "https://seatgeek.com/duke-unc/123"},
+        })
+        assert r.status_code == 200
+        data = r.json()
+        assert data["event"]["name"] == "Duke vs UNC"
+        assert "seatgeek" in data["urls"]
+
+    def test_track_event_no_urls(self, client: TestClient) -> None:
+        r = client.post("/api/events/track", json={
+            "name": "Some Game",
+            "venue": "Some Arena",
+            "event_date": "2026-04-01",
+        })
+        assert r.status_code == 200
+        data = r.json()
+        assert data["urls"] == {}
+
+    def test_track_event_idempotent(self, client: TestClient) -> None:
+        payload = {
+            "name": "Repeat Event",
+            "venue": "Repeat Venue",
+            "event_date": "2026-04-02",
+            "urls": {"tickpick": "https://tp.com/1"},
+        }
+        r1 = client.post("/api/events/track", json=payload)
+        r2 = client.post("/api/events/track", json=payload)
+        assert r1.json()["event"]["id"] == r2.json()["event"]["id"]
+
+
+class TestTrackedEventsEndpoint:
+    def test_tracked_events_empty(self, client: TestClient) -> None:
+        r = client.get("/api/events/tracked")
+        assert r.status_code == 200
+        assert r.json() == []
+
+    def test_tracked_events_after_adding_urls(self, client: TestClient) -> None:
+        client.put("/api/events/1/urls", json={
+            "platform": "seatgeek",
+            "url": "https://sg.com/1",
+        })
+
+        r = client.get("/api/events/tracked")
+        assert r.status_code == 200
+        tracked = r.json()
+        assert len(tracked) >= 1
+        assert tracked[0]["url_count"] >= 1

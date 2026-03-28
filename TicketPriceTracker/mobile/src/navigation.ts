@@ -8,4 +8,9 @@ export type RootStackParamList = {
     eventId: number;
     platform: string;
   };
+  PriceHistory: {
+    eventId: number;
+    eventName: string;
+  };
+  AddEvent: undefined;
 };

@@ -27,6 +27,7 @@ class TestDatabase:
         ).fetchall()
         table_names = [t["name"] for t in tables]
         assert "events" in table_names
+        assert "event_urls" in table_names
         assert "scrapes" in table_names
         assert "listings" in table_names
 
@@ -111,6 +112,26 @@ class TestDatabase:
         assert len(summaries) == 1
         assert summaries[0].cheapest_price == 300  # anomaly excluded
 
+    def test_multi_session_excluded_from_summaries(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        scrape_id = db.create_scrape(event_id, datetime.now())
+
+        listings = [
+            Listing(platform="stubhub", price=200, section="105", row="D", qty="2", is_multi_session=True),
+            Listing(platform="stubhub", price=350, section="417", row="H", qty="2"),
+        ]
+        db.insert_listings(scrape_id, listings)
+
+        # Default: excludes multi-session
+        summaries = db.get_platform_summaries(scrape_id)
+        assert len(summaries) == 1
+        assert summaries[0].cheapest_price == 350
+
+        # Opt-in: includes multi-session
+        summaries_all = db.get_platform_summaries(scrape_id, include_multi_session=True)
+        assert len(summaries_all) == 1
+        assert summaries_all[0].cheapest_price == 200
+
     def test_get_latest_scrape(self, db: Database) -> None:
         event_id = db.upsert_event("Test", "Venue", "2026-03-27")
         db.create_scrape(event_id, datetime(2026, 3, 27, 19, 0, 0))
@@ -150,6 +171,137 @@ class TestDatabase:
         assert stats["scrapes"] == 1
         assert stats["listings"] == 1
         assert stats["anomalies"] == 0
+
+    # ── Event URLs ─────────────────────────────────────────────────
+
+    def test_upsert_event_url(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        db.upsert_event_url(event_id, "seatgeek", "https://seatgeek.com/event/123")
+
+        urls = db.get_event_urls(event_id)
+        assert urls == {"seatgeek": "https://seatgeek.com/event/123"}
+
+    def test_upsert_event_url_replaces(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        db.upsert_event_url(event_id, "seatgeek", "https://old-url.com")
+        db.upsert_event_url(event_id, "seatgeek", "https://new-url.com")
+
+        urls = db.get_event_urls(event_id)
+        assert urls["seatgeek"] == "https://new-url.com"
+
+    def test_get_event_urls_multiple(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        db.upsert_event_url(event_id, "seatgeek", "https://sg.com/1")
+        db.upsert_event_url(event_id, "stubhub", "https://sh.com/2")
+        db.upsert_event_url(event_id, "tickpick", "https://tp.com/3")
+
+        urls = db.get_event_urls(event_id)
+        assert len(urls) == 3
+        assert "seatgeek" in urls
+        assert "stubhub" in urls
+        assert "tickpick" in urls
+
+    def test_get_event_urls_empty(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        urls = db.get_event_urls(event_id)
+        assert urls == {}
+
+    def test_delete_event_url(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        db.upsert_event_url(event_id, "seatgeek", "https://sg.com/1")
+        db.upsert_event_url(event_id, "stubhub", "https://sh.com/2")
+
+        deleted = db.delete_event_url(event_id, "seatgeek")
+        assert deleted is True
+
+        urls = db.get_event_urls(event_id)
+        assert len(urls) == 1
+        assert "stubhub" in urls
+
+    def test_delete_event_url_not_found(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        deleted = db.delete_event_url(event_id, "nonexistent")
+        assert deleted is False
+
+    def test_list_tracked_events(self, db: Database) -> None:
+        eid1 = db.upsert_event("Event A", "Venue A", "2026-03-27")
+        eid2 = db.upsert_event("Event B", "Venue B", "2026-04-01")
+        db.upsert_event("Event C", "Venue C", "2026-04-05")  # no URLs
+
+        db.upsert_event_url(eid1, "seatgeek", "https://sg.com/1")
+        db.upsert_event_url(eid1, "stubhub", "https://sh.com/2")
+        db.upsert_event_url(eid2, "tickpick", "https://tp.com/3")
+
+        tracked = db.list_tracked_events()
+        assert len(tracked) == 2
+        assert tracked[0]["name"] == "Event A"
+        assert tracked[0]["url_count"] == 2
+        assert tracked[1]["name"] == "Event B"
+        assert tracked[1]["url_count"] == 1
+
+    def test_list_tracked_events_empty(self, db: Database) -> None:
+        db.upsert_event("Event A", "Venue A", "2026-03-27")
+        tracked = db.list_tracked_events()
+        assert tracked == []
+
+
+class TestArbitrageDetection:
+    def test_detects_arbitrage(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        scrape_id = db.create_scrape(event_id, datetime.now())
+
+        listings = [
+            Listing(platform="vividseats", price=291, section="417", row="H", qty="2"),
+            Listing(platform="gametime", price=363, section="417", row="H", qty="2"),
+        ]
+        db.insert_listings(scrape_id, listings)
+
+        alerts = db.detect_arbitrage(scrape_id, min_savings_pct=15.0)
+        assert len(alerts) == 1
+        assert alerts[0].cheap_platform == "vividseats"
+        assert alerts[0].expensive_platform == "gametime"
+        assert alerts[0].savings == 72
+        assert alerts[0].savings_pct > 15
+
+    def test_no_arbitrage_below_threshold(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        scrape_id = db.create_scrape(event_id, datetime.now())
+
+        listings = [
+            Listing(platform="vividseats", price=290, section="408", row="C", qty="2"),
+            Listing(platform="tickpick", price=295, section="408", row="C", qty="2"),
+        ]
+        db.insert_listings(scrape_id, listings)
+
+        alerts = db.detect_arbitrage(scrape_id, min_savings_pct=15.0)
+        assert len(alerts) == 0
+
+    def test_no_arbitrage_single_platform(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        scrape_id = db.create_scrape(event_id, datetime.now())
+
+        listings = [
+            Listing(platform="tickpick", price=290, section="408", row="C", qty="2"),
+            Listing(platform="tickpick", price=320, section="408", row="C", qty="2"),
+        ]
+        db.insert_listings(scrape_id, listings)
+
+        alerts = db.detect_arbitrage(scrape_id)
+        assert len(alerts) == 0
+
+    def test_multi_session_excluded(self, db: Database) -> None:
+        event_id = db.upsert_event("Test", "Venue", "2026-03-27")
+        scrape_id = db.create_scrape(event_id, datetime.now())
+
+        listings = [
+            Listing(platform="stubhub", price=200, section="105", row="D", qty="2", is_multi_session=True),
+            Listing(platform="vividseats", price=400, section="105", row="D", qty="2"),
+        ]
+        db.insert_listings(scrape_id, listings)
+
+        # Multi-session should be excluded — only one platform with valid listings
+        alerts = db.detect_arbitrage(scrape_id)
+        assert len(alerts) == 0
 
 
 class TestMarkdownParsing:

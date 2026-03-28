@@ -19,6 +19,7 @@ export interface PlatformSummary {
   fee_policy: string;
   listing_count: number;
   url: string | null;
+  is_multi_session: boolean;
 }
 
 export interface EventLatestResponse {
@@ -38,6 +39,7 @@ export interface Listing {
   qty: string;
   fee_policy: string;
   is_anomaly: boolean;
+  is_multi_session: boolean;
   url: string | null;
 }
 
@@ -50,4 +52,48 @@ export interface PricePoint {
 export interface EventHistoryResponse {
   event: Event;
   history: PricePoint[];
+}
+
+export interface ArbitrageAlert {
+  section: string;
+  row: string;
+  cheap_platform: string;
+  cheap_price: number;
+  expensive_platform: string;
+  expensive_price: number;
+  savings: number;
+  savings_pct: number;
+  cheap_url: string | null;
+}
+
+export interface ArbitrageResponse {
+  event: Event;
+  scraped_at: string;
+  alerts: ArbitrageAlert[];
+  total_opportunities: number;
+}
+
+export interface SearchResult {
+  name: string;
+  venue: string;
+  city: string;
+  event_date: string;
+  seatgeek_url: string;
+  seatgeek_id: number;
+}
+
+export interface TrackedEvent {
+  id: number;
+  name: string;
+  venue: string;
+  event_date: string;
+  created_at: string | null;
+  url_count: number;
+}
+
+export interface TrackEventRequest {
+  name: string;
+  venue: string;
+  event_date: string;
+  urls: Record<string, string>;
 }

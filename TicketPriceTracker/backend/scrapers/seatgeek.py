@@ -1,4 +1,9 @@
-"""SeatGeek scraper."""
+"""SeatGeek scraper — API-first with browser fallback.
+
+Tries the SeatGeek API (requires SEATGEEK_CLIENT_ID env var) first
+since it's fast and reliable. Falls back to browser scraping if the
+API key is missing or the API call fails.
+"""
 
 import logging
 import re
@@ -7,6 +12,7 @@ from typing import List
 
 from backend.models import Listing
 from backend.scrapers.base import BaseScraper
+from backend.scrapers.seatgeek_api import fetch_seatgeek_listings
 from backend.scrapers.utils import safe_click
 
 logger = logging.getLogger(__name__)
@@ -16,6 +22,18 @@ class SeatGeekScraper(BaseScraper):
     platform_name = "seatgeek"
 
     def _extract_listings(self, driver) -> List[Listing]:
+        """Try API first, fall back to browser scraping."""
+        # Try API-based fetching first (much more reliable)
+        api_listings = fetch_seatgeek_listings(self.url, qty=self.qty)
+        if api_listings:
+            logger.info(f"[seatgeek] Got {len(api_listings)} listings via API")
+            return api_listings
+
+        logger.info("[seatgeek] API unavailable, falling back to browser scrape")
+        return self._extract_from_browser(driver)
+
+    def _extract_from_browser(self, driver) -> List[Listing]:
+        """Browser-based extraction as fallback."""
         from selenium.webdriver.common.by import By
 
         # Dismiss quantity dialog

@@ -14,6 +14,9 @@ from backend.scrapers.utils import (
     validate_prices,
 )
 
+MAX_RETRIES = 2
+RETRY_BACKOFF_BASE = 10  # seconds
+
 logger = logging.getLogger(__name__)
 
 
@@ -51,21 +54,7 @@ class BaseScraper(ABC):
             driver = create_stealth_driver()
 
         try:
-            logger.info(f"[{self.platform_name}] Loading {self.url}")
-            driver.get(self.url)
-
-            # Try loading saved cookies and refresh
-            if load_cookies(driver, self.platform_name):
-                driver.refresh()
-                time.sleep(2)
-
-            # Wait for page to render
-            time.sleep(5)
-
-            listings = self._extract_listings(driver)
-
-            # Save cookies for next time
-            save_cookies(driver, self.platform_name)
+            listings = self._scrape_with_retry(driver)
 
             # Validate and filter
             listings = validate_prices(listings)
@@ -92,16 +81,7 @@ class BaseScraper(ABC):
             driver = create_stealth_driver()
 
         try:
-            logger.info(f"[{self.platform_name}] Loading {self.url}")
-            driver.get(self.url)
-
-            if load_cookies(driver, self.platform_name):
-                driver.refresh()
-                time.sleep(2)
-
-            time.sleep(5)
-            listings = self._extract_listings(driver)
-            save_cookies(driver, self.platform_name)
+            listings = self._scrape_with_retry(driver)
             listings = validate_prices(listings)
             valid = [l for l in listings if not l.is_anomaly]
             valid.sort(key=lambda x: x.price)
@@ -115,3 +95,48 @@ class BaseScraper(ABC):
         finally:
             if own_driver:
                 driver.quit()
+
+    def _scrape_with_retry(self, driver) -> List[Listing]:
+        """Load page and extract listings with retry on failure."""
+        for attempt in range(MAX_RETRIES + 1):
+            try:
+                logger.info(f"[{self.platform_name}] Loading {self.url} (attempt {attempt + 1})")
+                driver.get(self.url)
+
+                if load_cookies(driver, self.platform_name):
+                    driver.refresh()
+                    time.sleep(2)
+
+                time.sleep(5)
+                listings = self._extract_listings(driver)
+                save_cookies(driver, self.platform_name)
+
+                # Check for blocked/empty response
+                if not listings and attempt < MAX_RETRIES:
+                    page_text = ""
+                    try:
+                        from selenium.webdriver.common.by import By
+                        page_text = driver.find_element(By.TAG_NAME, "body").text.lower()
+                    except Exception:
+                        pass
+
+                    blocked_signals = ["access denied", "blocked", "captcha", "verify you are human"]
+                    if any(sig in page_text for sig in blocked_signals):
+                        wait = RETRY_BACKOFF_BASE * (2 ** attempt)
+                        logger.warning(
+                            f"[{self.platform_name}] Blocked detected, retrying in {wait}s"
+                        )
+                        time.sleep(wait)
+                        continue
+
+                return listings
+            except Exception as e:
+                if attempt < MAX_RETRIES:
+                    wait = RETRY_BACKOFF_BASE * (2 ** attempt)
+                    logger.warning(
+                        f"[{self.platform_name}] Attempt {attempt + 1} failed: {e}, retrying in {wait}s"
+                    )
+                    time.sleep(wait)
+                else:
+                    raise
+        return []

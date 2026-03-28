@@ -10,8 +10,13 @@ export const API_BASE_URL = 'http://localhost:8000';
 export const ENDPOINTS = {
   health: '/api/health',
   events: '/api/events',
+  trackedEvents: '/api/events/tracked',
   eventLatest: (eventId: number) => `/api/events/${eventId}/latest`,
   eventHistory: (eventId: number) => `/api/events/${eventId}/history`,
   platformListings: (eventId: number, platform: string) =>
     `/api/events/${eventId}/platforms/${platform}`,
+  eventUrls: (eventId: number) => `/api/events/${eventId}/urls`,
+  eventArbitrage: (eventId: number) => `/api/events/${eventId}/arbitrage`,
+  search: '/api/search',
+  trackEvent: '/api/events/track',
 } as const;

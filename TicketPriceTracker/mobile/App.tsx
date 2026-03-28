@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashboardScreen from './src/screens/DashboardScreen';
 import PlatformDetailScreen from './src/screens/PlatformDetailScreen';
+import AddEventScreen from './src/screens/AddEventScreen';
+import PriceHistoryScreen from './src/screens/PriceHistoryScreen';
 import { COLORS } from './src/constants/theme';
 import type { RootStackParamList } from './src/navigation';
 
@@ -29,6 +31,16 @@ export default function App() {
           name="PlatformDetail"
           component={PlatformDetailScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PriceHistory"
+          component={PriceHistoryScreen}
+          options={{ title: 'Price History' }}
+        />
+        <Stack.Screen
+          name="AddEvent"
+          component={AddEventScreen}
+          options={{ title: 'Add Event' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
