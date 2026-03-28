@@ -5,6 +5,22 @@
 
 ---
 
+## Priority 0 — Mobile UX (Urgent)
+
+### 0. Back Navigation from Ticket Prices to Main Page
+**Goal:** Add a back button/gesture on the ticket prices screen so users can return to the main event search page.
+**Why:** Currently there is no way to navigate back from the ticket prices view, trapping users in that screen. This is a basic mobile UX requirement.
+**Implementation:**
+- Use React Navigation's built-in back button (header back arrow) or add an explicit "Back" button in the UI
+- Ensure hardware back button works on Android
+- Verify stack navigator is correctly configured so the main page is in the history stack
+
+**Frameworks:** React Navigation (already in use)
+**Complexity:** Trivial (< 1 hour)
+**Priority:** High
+
+---
+
 ## Priority 1 — Foundation (Do First)
 
 ### 1. SQLite Price History Store
