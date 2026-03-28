@@ -1,13 +1,14 @@
 /**
- * Price History screen — shows price trends over time per platform.
+ * Price History screen — line chart showing price trends over time.
  *
- * Pure React Native implementation (no charting library needed).
- * Renders a horizontal bar chart per scrape time, color-coded by platform.
+ * Pure React Native implementation using absolute-positioned views
+ * to draw lines between data points. No charting library needed.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
+  LayoutChangeEvent,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -27,10 +28,21 @@ import type { RootStackParamList } from '../navigation';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PriceHistory'>;
 
+const CHART_HEIGHT = 220;
+const DOT_SIZE = 8;
+const CHART_PADDING_TOP = 20;
+const CHART_PADDING_BOTTOM = 30;
+const Y_LABEL_WIDTH = 50;
+
 export default function PriceHistoryScreen({ route }: Props) {
   const { eventId, eventName } = route.params;
   const { history, loading, error, refresh, allTimelow } =
     usePriceHistory(eventId);
+  const [chartWidth, setChartWidth] = useState(0);
+
+  const onChartLayout = (e: LayoutChangeEvent) => {
+    setChartWidth(e.nativeEvent.layout.width);
+  };
 
   if (loading && history.length === 0) {
     return (
@@ -54,14 +66,34 @@ export default function PriceHistoryScreen({ route }: Props) {
 
   // Compute chart bounds
   const allPrices = history.flatMap((h) => h.points.map((p) => p.price));
-  const minPrice = allPrices.length > 0 ? Math.min(...allPrices) : 0;
-  const maxPrice = allPrices.length > 0 ? Math.max(...allPrices) : 1;
+  const rawMin = allPrices.length > 0 ? Math.min(...allPrices) : 0;
+  const rawMax = allPrices.length > 0 ? Math.max(...allPrices) : 1;
+  // Add 5% padding so lines don't touch edges
+  const padding = (rawMax - rawMin) * 0.05 || 10;
+  const minPrice = rawMin - padding;
+  const maxPrice = rawMax + padding;
   const priceRange = maxPrice - minPrice || 1;
 
-  // Get all unique timestamps for the x-axis
+  // All unique timestamps for x-axis
   const allTimes = Array.from(
     new Set(history.flatMap((h) => h.points.map((p) => p.time))),
   ).sort();
+
+  const drawableWidth = chartWidth - Y_LABEL_WIDTH;
+  const drawableHeight = CHART_HEIGHT - CHART_PADDING_TOP - CHART_PADDING_BOTTOM;
+
+  // Convert data point to pixel coordinates
+  const toX = (timeIdx: number) =>
+    Y_LABEL_WIDTH + (allTimes.length <= 1 ? drawableWidth / 2 : (timeIdx / (allTimes.length - 1)) * drawableWidth);
+  const toY = (price: number) =>
+    CHART_PADDING_TOP + drawableHeight - ((price - minPrice) / priceRange) * drawableHeight;
+
+  // Generate Y-axis tick values
+  const yTicks = 4;
+  const yLabels: number[] = [];
+  for (let i = 0; i <= yTicks; i++) {
+    yLabels.push(minPrice + (priceRange * i) / yTicks);
+  }
 
   return (
     <ScrollView
@@ -94,61 +126,141 @@ export default function PriceHistoryScreen({ route }: Props) {
 
       {/* Platform legend */}
       <View style={styles.legend}>
-        {history.map((h) => (
-          <View key={h.platform} style={styles.legendItem}>
-            <View
-              style={[
-                styles.legendDot,
-                { backgroundColor: getPlatformColor(h.platform) },
-              ]}
-            />
-            <Text style={styles.legendText}>
-              {PLATFORM_NAMES[h.platform] || h.platform}
-            </Text>
-          </View>
-        ))}
+        {history.map((h) => {
+          const lastPoint = h.points[h.points.length - 1];
+          return (
+            <View key={h.platform} style={styles.legendItem}>
+              <View
+                style={[
+                  styles.legendDot,
+                  { backgroundColor: getPlatformColor(h.platform) },
+                ]}
+              />
+              <Text style={styles.legendText}>
+                {PLATFORM_NAMES[h.platform] || h.platform}
+                {lastPoint ? ` $${lastPoint.price.toFixed(0)}` : ''}
+              </Text>
+            </View>
+          );
+        })}
       </View>
 
-      {/* Chart: vertical bars per time, grouped by platform */}
-      <View style={styles.chart}>
-        {allTimes.map((time, timeIdx) => (
-          <View key={time} style={styles.chartRow}>
-            <Text style={styles.timeLabel}>{formatTime(time)}</Text>
-            <View style={styles.barsContainer}>
-              {history.map((platformHistory) => {
-                const point = platformHistory.points.find(
-                  (p) => p.time === time,
-                );
-                if (!point) return null;
+      {/* Line Chart */}
+      <View
+        style={[styles.chartContainer, { height: CHART_HEIGHT }]}
+        onLayout={onChartLayout}
+      >
+        {chartWidth > 0 && allTimes.length > 0 && (
+          <>
+            {/* Y-axis grid lines and labels */}
+            {yLabels.map((price, i) => {
+              const y = toY(price);
+              return (
+                <React.Fragment key={`y-${i}`}>
+                  <View
+                    style={[
+                      styles.gridLine,
+                      { top: y, left: Y_LABEL_WIDTH, width: drawableWidth },
+                    ]}
+                  />
+                  <Text
+                    style={[
+                      styles.yLabel,
+                      { top: y - 7, left: 0 },
+                    ]}
+                  >
+                    ${price.toFixed(0)}
+                  </Text>
+                </React.Fragment>
+              );
+            })}
 
-                const widthPct =
-                  ((point.price - minPrice) / priceRange) * 80 + 20; // min 20%
-                const color = getPlatformColor(platformHistory.platform);
-                const isLowest = allTimelow?.price === point.price;
+            {/* X-axis labels */}
+            {allTimes.map((time, idx) => {
+              const x = toX(idx);
+              // Only show a few labels to avoid overlap
+              const showLabel =
+                allTimes.length <= 6 ||
+                idx === 0 ||
+                idx === allTimes.length - 1 ||
+                idx % Math.ceil(allTimes.length / 5) === 0;
+              if (!showLabel) return null;
+              return (
+                <Text
+                  key={`x-${idx}`}
+                  style={[
+                    styles.xLabel,
+                    { left: x - 30, top: CHART_HEIGHT - CHART_PADDING_BOTTOM + 4 },
+                  ]}
+                  numberOfLines={1}
+                >
+                  {formatShortTime(time)}
+                </Text>
+              );
+            })}
 
-                return (
-                  <View key={platformHistory.platform} style={styles.barRow}>
-                    <View
-                      style={[
-                        styles.bar,
-                        {
-                          width: `${widthPct}%`,
-                          backgroundColor: color,
-                          borderColor: isLowest ? COLORS.green : 'transparent',
-                          borderWidth: isLowest ? 1 : 0,
-                        },
-                      ]}
-                    >
-                      <Text style={styles.barPrice}>
-                        ${point.price.toFixed(0)}
-                      </Text>
-                    </View>
-                  </View>
-                );
-              })}
-            </View>
-          </View>
-        ))}
+            {/* Lines and dots for each platform */}
+            {history.map((platformHistory) => {
+              const color = getPlatformColor(platformHistory.platform);
+              const points = platformHistory.points
+                .map((p) => ({
+                  x: toX(allTimes.indexOf(p.time)),
+                  y: toY(p.price),
+                  price: p.price,
+                }))
+                .filter((p) => !isNaN(p.x) && !isNaN(p.y));
+
+              return (
+                <React.Fragment key={platformHistory.platform}>
+                  {/* Connecting lines */}
+                  {points.map((point, idx) => {
+                    if (idx === 0) return null;
+                    const prev = points[idx - 1];
+                    const dx = point.x - prev.x;
+                    const dy = point.y - prev.y;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+                    return (
+                      <View
+                        key={`line-${platformHistory.platform}-${idx}`}
+                        style={[
+                          styles.line,
+                          {
+                            left: prev.x,
+                            top: prev.y,
+                            width: length,
+                            backgroundColor: color,
+                            transform: [{ rotate: `${angle}deg` }],
+                          },
+                        ]}
+                      />
+                    );
+                  })}
+
+                  {/* Data point dots */}
+                  {points.map((point, idx) => {
+                    const isLow = allTimelow?.price === point.price;
+                    return (
+                      <View
+                        key={`dot-${platformHistory.platform}-${idx}`}
+                        style={[
+                          styles.dot,
+                          {
+                            left: point.x - DOT_SIZE / 2,
+                            top: point.y - DOT_SIZE / 2,
+                            backgroundColor: isLow ? COLORS.green : color,
+                            borderColor: isLow ? COLORS.green : color,
+                          },
+                        ]}
+                      />
+                    );
+                  })}
+                </React.Fragment>
+              );
+            })}
+          </>
+        )}
 
         {allTimes.length === 0 && (
           <View style={styles.emptyChart}>
@@ -164,7 +276,7 @@ export default function PriceHistoryScreen({ route }: Props) {
       {allPrices.length > 0 && (
         <View style={styles.rangeFooter}>
           <Text style={styles.rangeText}>
-            Range: ${minPrice.toFixed(0)} — ${maxPrice.toFixed(0)}
+            Range: ${rawMin.toFixed(0)} — ${rawMax.toFixed(0)}
           </Text>
           <Text style={styles.rangeText}>
             {allTimes.length} scrape{allTimes.length !== 1 ? 's' : ''}
@@ -186,6 +298,18 @@ function formatTime(isoString: string): string {
     });
   } catch {
     return isoString.slice(0, 16);
+  }
+}
+
+function formatShortTime(isoString: string): string {
+  try {
+    const d = new Date(isoString);
+    return d.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+    });
+  } catch {
+    return isoString.slice(5, 10);
   }
 }
 
@@ -270,40 +394,50 @@ const styles = StyleSheet.create({
     ...FONTS.caption,
     color: COLORS.textSecondary,
   },
-  chart: {
-    marginBottom: SPACING.lg,
-  },
-  chartRow: {
-    marginBottom: SPACING.lg,
-  },
-  timeLabel: {
-    ...FONTS.caption,
-    marginBottom: SPACING.xs,
-  },
-  barsContainer: {
-    gap: SPACING.xs,
-  },
-  barRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  bar: {
-    height: 28,
-    borderRadius: 4,
-    justifyContent: 'center',
-    paddingHorizontal: SPACING.sm,
-    minWidth: 60,
-  },
-  barPrice: {
-    ...FONTS.badge,
-    color: COLORS.textPrimary,
-    fontWeight: '700',
-  },
-  emptyChart: {
+  chartContainer: {
     backgroundColor: COLORS.bgCard,
     borderRadius: 10,
-    padding: SPACING.xl,
+    marginBottom: SPACING.lg,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  gridLine: {
+    position: 'absolute',
+    height: 1,
+    backgroundColor: COLORS.border,
+    opacity: 0.3,
+  },
+  yLabel: {
+    position: 'absolute',
+    width: Y_LABEL_WIDTH - 4,
+    textAlign: 'right',
+    ...FONTS.caption,
+    fontSize: 10,
+  },
+  xLabel: {
+    position: 'absolute',
+    width: 60,
+    textAlign: 'center',
+    ...FONTS.caption,
+    fontSize: 10,
+  },
+  line: {
+    position: 'absolute',
+    height: 2,
+    transformOrigin: 'left center',
+  },
+  dot: {
+    position: 'absolute',
+    width: DOT_SIZE,
+    height: DOT_SIZE,
+    borderRadius: DOT_SIZE / 2,
+    borderWidth: 2,
+  },
+  emptyChart: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
+    padding: SPACING.xl,
   },
   rangeFooter: {
     flexDirection: 'row',

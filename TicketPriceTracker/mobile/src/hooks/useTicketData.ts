@@ -14,13 +14,18 @@ interface UseTicketDataResult {
   lastRefreshed: Date | null;
 }
 
-export function useTicketData(eventId: number = 1): UseTicketDataResult {
+export function useTicketData(eventId: number): UseTicketDataResult {
   const [data, setData] = useState<EventLatestResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
 
   const fetchData = useCallback(async () => {
+    if (!eventId || eventId <= 0) {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -48,6 +53,8 @@ export function useTicketData(eventId: number = 1): UseTicketDataResult {
   }, [eventId]);
 
   useEffect(() => {
+    // Don't clear data — keep stale data visible while new data loads
+    // to avoid a flash of loading/empty state when switching events
     fetchData();
   }, [fetchData]);
 
