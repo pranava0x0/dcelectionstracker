@@ -51,7 +51,7 @@ python3 -m backend.scheduler --once         # Single run
 - UA rotation pool in `backend/scrapers/utils.py` — update periodically
 - SeatGeek scraper now API-first (`backend/scrapers/seatgeek_api.py`) — falls back to browser if no `SEATGEEK_CLIENT_ID`
 - Base scraper has retry with exponential backoff on blocked/empty responses (2 retries, 10s base)
-- Gametime has shown anomalous $29 prices — price validation catches these
+- Gametime produced a $29 listing (Section 423 Row L) that passed the $20 min-price validator — it was manually deleted. Consider raising min_price threshold or using median-relative validation for the lower bound too
 - Always add 1.5-3s jittered delay between sites
 - Cookie persistence in `.cookies/` helps appear as returning visitor
 
@@ -67,11 +67,18 @@ python3 -m backend.scheduler --once         # Single run
 - Excludes anomalous and multi-session listings
 - Mobile types ready (`ArbitrageAlert`, `ArbitrageResponse`)
 
+### Price History Chart
+- Pure RN line chart (no charting library) — dots + rotated View lines
+- IQR-based outlier detection for Y-axis bounds: prices beyond 1.5x IQR from Q1/Q3 are clamped to chart edge with a dashed dot and price label
+- Prevents one outlier from squeezing the entire graph into a flat line
+
 ### Gotchas
 - SQLite needs `check_same_thread=False` for FastAPI (concurrent request handling)
 - StubHub sometimes shows "All Sessions" prices — now detected by multi-session detector and excluded from comparisons
 - For physical device testing, update `mobile/src/constants/api.ts` with local IP
 - Expo Go on iOS needs same WiFi network as the dev machine
+- **Don't `setData(null)` on event switch** in React hooks — causes a flash through loading/empty states. Keep stale data visible while new data loads.
+- `start.sh` doesn't handle pre-existing processes on ports 8000/8081. Kill old processes first or use `--port` flags to avoid conflicts.
 
 ---
 
