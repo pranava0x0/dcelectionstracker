@@ -28,7 +28,7 @@ export default function App() {
         <Stack.Screen
           name="PlatformDetail"
           component={PlatformDetailScreen}
-          options={{ title: 'Platform Details' }}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

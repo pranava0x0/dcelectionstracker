@@ -34,7 +34,7 @@ function formatPrice(price: number): string {
   return `$${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
-export default function PlatformDetailScreen({ route }: Props) {
+export default function PlatformDetailScreen({ route, navigation }: Props) {
   const { eventId, platform } = route.params;
   const { listings, loading, error } = usePlatformListings(eventId, platform);
 
@@ -43,16 +43,26 @@ export default function PlatformDetailScreen({ route }: Props) {
 
   if (loading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={COLORS.green} />
+      <View style={styles.screen}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButtonTop}>
+          <Text style={styles.backText}>{'‹ Back'}</Text>
+        </TouchableOpacity>
+        <View style={styles.center}>
+          <ActivityIndicator size="large" color={COLORS.green} />
+        </View>
       </View>
     );
   }
 
   if (error) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>{error}</Text>
+      <View style={styles.screen}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButtonTop}>
+          <Text style={styles.backText}>{'‹ Back'}</Text>
+        </TouchableOpacity>
+        <View style={styles.center}>
+          <Text style={styles.errorText}>{error}</Text>
+        </View>
       </View>
     );
   }
@@ -61,6 +71,9 @@ export default function PlatformDetailScreen({ route }: Props) {
     <ScrollView style={styles.screen} contentContainerStyle={styles.scrollContent}>
       {/* Platform header */}
       <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Text style={styles.backText}>{'‹ Back'}</Text>
+        </TouchableOpacity>
         <View style={[styles.platformDot, { backgroundColor: platformColor }]} />
         <Text style={styles.platformName}>{displayName}</Text>
       </View>
@@ -159,6 +172,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: SPACING.md,
     marginBottom: SPACING.xs,
+    flexWrap: 'wrap',
+  },
+  backButtonTop: {
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xl,
+    paddingBottom: SPACING.sm,
+  },
+  backButton: {
+    marginRight: SPACING.sm,
+  },
+  backText: {
+    fontSize: 18,
+    color: COLORS.textSecondary,
+    fontWeight: '400' as const,
   },
   platformDot: {
     width: 14,
