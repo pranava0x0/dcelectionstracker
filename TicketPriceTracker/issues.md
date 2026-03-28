@@ -1,56 +1,10 @@
 # Issues Log
 
-_Last updated: 2026-03-28_
+_Last updated: 2026-03-28 (post-fix)_
 
 ---
 
 ## Open Issues
-
-### [UAT-001] Event picker pill text truncated too aggressively
-- **Severity**: high
-- **Page/Section**: Dashboard — EventPicker component
-- **Discovered**: 2026-03-28
-- **Status**: open
-- **Description**: Event names in the horizontal pill selector are truncated to ~15 characters with "..." (e.g. "Ticket Prices: Duke vs S...", "NCAA East Regional - S..."). The pill `maxWidth: 200` is too narrow for meaningful event names. The date line is also truncated ("Sunday, Ma" instead of "Sunday, Mar 29"). Users cannot distinguish between events without reading the full name.
-- **Steps to Reproduce**:
-  1. Open dashboard with 2+ tracked events
-  2. Observe pill labels — both names are cut off and hard to distinguish
-- **Fix**: _(pending)_ — Increase `maxWidth` on pills or show a shorter derived name (e.g. team vs team + date). Consider showing just the short date in the pill and the full name in the header.
-
-### [UAT-002] Countdown shows raw event_date string instead of computed countdown for non-ISO dates
-- **Severity**: high
-- **Page/Section**: Dashboard — EventHeader component
-- **Discovered**: 2026-03-28
-- **Status**: open
-- **Description**: The Elite Eight event shows "STARTS IN Sunday, March 29, 2026 @ TBD" as raw text instead of a countdown like "STARTS IN 1d 12h". This is because `event_date` is stored as a human-readable string ("Sunday, March 29, 2026 @ TBD") which the `EventHeader` countdown logic cannot parse into a `Date` object. The Friday event correctly shows "LIVE NOW" because its date string happened to be parseable.
-- **Steps to Reproduce**:
-  1. Switch to the "NCAA East Regional - Session 2" event
-  2. Observe the "STARTS IN" line — shows raw date string instead of countdown
-- **Fix**: _(pending)_ — Either: (a) store `event_date` in ISO format (YYYY-MM-DDTHH:MM:SS) and display the human-readable version separately, or (b) make the countdown parser more robust with fallback formatting.
-
-### [UAT-003] Add Event search error persists after clearing input
-- **Severity**: low
-- **Page/Section**: Add Event screen
-- **Discovered**: 2026-03-28
-- **Status**: open
-- **Description**: After a failed search (e.g. "Search API key not configured"), the red error banner persists even after the user clears the search input and clicks Search again on an empty query. The error should be cleared when the user clears input or starts a new action. Currently the empty query check in `handleSearch` prevents the search call but doesn't clear the old error.
-- **Steps to Reproduce**:
-  1. Go to Add Event
-  2. Type "yankees" and click Search (fails with API key error)
-  3. Clear the search input
-  4. Click Search again — error banner still visible
-- **Fix**: _(pending)_ — Clear the error state in `handleSearch` before the early return, or clear it in `useEventSearch.clear()` when the input changes.
-
-### [UAT-004] Event picker date uses formatShortDate on non-ISO date strings
-- **Severity**: low
-- **Page/Section**: Dashboard — EventPicker component
-- **Discovered**: 2026-03-28
-- **Status**: open
-- **Description**: The `formatShortDate()` function in EventPicker tries to parse `event_date` with `new Date()`. For the Friday event stored as "Friday, March 27, 2026 @ 7:10 PM", `new Date()` can parse most of it but strips the day-of-week prefix. For the Sunday event stored as "Sunday, March 29, 2026 @ TBD", the "@ TBD" causes parsing to fail, falling back to `dateStr.slice(0, 10)` which shows "Sunday, Ma" — a meaningless truncation.
-- **Steps to Reproduce**:
-  1. Open dashboard
-  2. Observe the second pill date — shows "Sunday, Ma" instead of a proper date
-- **Fix**: _(pending)_ — Use ISO date format for `event_date` storage, or improve the fallback parser in `formatShortDate` to extract a date from freeform strings.
 
 ### [UAT-005] Price anomaly validator min threshold too low — $29 Gametime listing slipped through
 - **Severity**: medium
@@ -66,6 +20,41 @@ _Last updated: 2026-03-28_
 ---
 
 ## Resolved Issues
+
+### [UAT-001] Event picker pill text truncated too aggressively
+- **Severity**: high
+- **Discovered**: 2026-03-28 | **Resolved**: 2026-03-28
+- **Status**: resolved
+- **Description**: Pill `maxWidth: 200` and `shortName()` truncating at 27 chars made event names unreadable.
+- **Fix**: Increased `maxWidth` to 260, raised truncation threshold to 35 chars (32 + "..."). Extracted `shortName()` to `mobile/src/utils/dateUtils.ts`.
+
+### [UAT-002] Countdown shows raw event_date string for non-ISO dates
+- **Severity**: high
+- **Discovered**: 2026-03-28 | **Resolved**: 2026-03-28
+- **Status**: resolved
+- **Description**: Freeform dates like "Sunday, March 29, 2026 @ TBD" were returned as-is when parsing failed. Also showed "LIVE NOW" incorrectly (see UAT-006).
+- **Fix**: Extracted date cleaning into `cleanEventDate()` in `dateUtils.ts`. Strips day-of-week prefix and "@ TBD". TBD dates now show a formatted date string instead of a countdown. Added immediate `setCountdown` call in `useEffect` to fix stale state on event switch.
+
+### [UAT-003] Add Event search error persists after clearing input
+- **Severity**: low
+- **Discovered**: 2026-03-28 | **Resolved**: 2026-03-28
+- **Status**: resolved
+- **Description**: Error banner persisted after clearing search input because `handleSearch` early-returned on empty query without clearing error state.
+- **Fix**: Wired up existing `clear()` function from `useEventSearch` hook in the `else` branch of `handleSearch` in `AddEventScreen.tsx`.
+
+### [UAT-004] Event picker date shows "Sunday, Ma" for unparseable dates
+- **Severity**: low
+- **Discovered**: 2026-03-28 | **Resolved**: 2026-03-28
+- **Status**: resolved
+- **Description**: `formatShortDate()` fallback `dateStr.slice(0, 10)` produced meaningless truncations for freeform date strings.
+- **Fix**: Rewrote `formatShortDate()` in `dateUtils.ts` — strips day-of-week and "@ TBD" before parsing, then falls back to regex extraction of "Month Day" pattern. Now correctly shows "Mar 29" for "Sunday, March 29, 2026 @ TBD".
+
+### [UAT-006] Countdown shows "LIVE NOW" for future event with TBD time
+- **Severity**: high
+- **Discovered**: 2026-03-28 | **Resolved**: 2026-03-28
+- **Status**: resolved
+- **Description**: "Sunday, March 29, 2026 @ TBD" parsed as midnight UTC March 29, which was in the past in US timezones → showed "LIVE NOW" one day early.
+- **Fix**: `getCountdown()` now detects TBD times via `cleanEventDate()` and returns a formatted date string instead of computing a countdown. Never shows "LIVE NOW" for TBD events.
 
 ### [DATA-001] Gametime $29 anomalous listing in database
 - **Date**: 2026-03-28

@@ -21,8 +21,9 @@
 
 ### Testing
 ```bash
-python3 -m pytest tests/ -v    # 77 tests (DB, API, scrapers, search, arbitrage, multi-session)
-cd mobile && npx tsc --noEmit  # TypeScript check
+python3 -m pytest tests/ -v        # 77 tests (DB, API, scrapers, search, arbitrage, multi-session)
+cd mobile && npm test              # 19 Jest tests (date utils, countdown, formatting)
+cd mobile && npx tsc --noEmit      # TypeScript check
 ```
 
 ### Key Commands
@@ -72,6 +73,14 @@ python3 -m backend.scheduler --once         # Single run
 - IQR-based outlier detection for Y-axis bounds: prices beyond 1.5x IQR from Q1/Q3 are clamped to chart edge with a dashed dot and price label
 - Prevents one outlier from squeezing the entire graph into a flat line
 
+### Date Handling in Mobile App
+- `event_date` is stored as freeform text (e.g. "Friday, March 27, 2026 @ 7:10 PM", "Sunday, March 29, 2026 @ TBD")
+- All date parsing/formatting logic is in `mobile/src/utils/dateUtils.ts` — **never parse dates inline in components**
+- `cleanEventDate()` strips day-of-week prefix and handles "@ TBD" markers
+- `getCountdown()` handles TBD times gracefully — shows formatted date, never shows "LIVE NOW" for TBD events
+- `formatShortDate()` has regex fallback to extract "Month Day" from freeform strings
+- When `useState` initializes a value from props, always add an immediate `setState` in `useEffect` to handle prop changes (prevents stale state on event switch)
+
 ### Gotchas
 - SQLite needs `check_same_thread=False` for FastAPI (concurrent request handling)
 - StubHub sometimes shows "All Sessions" prices — now detected by multi-session detector and excluded from comparisons
@@ -79,6 +88,9 @@ python3 -m backend.scheduler --once         # Single run
 - Expo Go on iOS needs same WiFi network as the dev machine
 - **Don't `setData(null)` on event switch** in React hooks — causes a flash through loading/empty states. Keep stale data visible while new data loads.
 - `start.sh` doesn't handle pre-existing processes on ports 8000/8081. Kill old processes first or use `--port` flags to avoid conflicts.
+- **Port 8000 conflicts**: Other projects (e.g. KeepInTouch) may use port 8000. Use `--port 8002` or similar when running alongside other apps. Update `mobile/src/constants/api.ts` to match.
+- **`new Date()` with "@ TBD"**: JS `new Date("March 29, 2026 TBD")` silently parses as midnight UTC, which can appear as "past" in US timezones. Always strip TBD before parsing — see `cleanEventDate()` in dateUtils.ts.
+- **Expo `props.pointerEvents` warning**: Benign deprecation warning from Expo internals, not app code. Can be ignored.
 
 ---
 

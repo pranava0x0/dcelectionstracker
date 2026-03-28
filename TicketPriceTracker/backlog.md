@@ -5,81 +5,32 @@
 
 ---
 
-## Priority 0 — Mobile UX (Urgent)
+## Completed
 
-### 0. Back Navigation from Ticket Prices to Main Page
-**Goal:** Add a back button/gesture on the ticket prices screen so users can return to the main event search page.
-**Why:** Currently there is no way to navigate back from the ticket prices view, trapping users in that screen. This is a basic mobile UX requirement.
+> Items below have been implemented and merged.
+
+- **#0 Back Navigation** — Done (commit ec57dd3)
+- **#1 SQLite Price History Store** — Done (backend/database.py, events/scrapes/listings/event_urls tables)
+- **#2 Automated Scheduler** — Done (backend/scheduler.py, `python -m backend.scheduler`)
+- **#3 SeatGeek Scraper Fix + Anti-Block** — Done (API-first via seatgeek_api.py, retry with exponential backoff in base scraper)
+- **#4 Multi-Event Config + CLI** — Done (events table, POST /api/events/track, GET /api/search, CLI flags)
+- **#5 Price History Charts** — Done (PriceHistoryScreen with line chart, IQR outlier handling)
+- **#7 Cross-Platform Arbitrage Detector** — Done (GET /api/events/{id}/arbitrage, 15% threshold)
+- **#8 StubHub Multi-Session Detector** — Done (is_multi_session field, regex patterns, excluded from summaries)
+- **#15 SeatGeek API Integration** — Done (backend/scrapers/seatgeek_api.py, falls back to browser)
+
+---
+
+## Priority 1 — Next Up
+
+### Improve price anomaly validator (see issues.md UAT-005)
+**Goal:** Add a median-relative lower bound to `validate_prices()` so prices like $29 get flagged when the median is $300.
+**Why:** The $20 absolute floor is too low. Gametime produced a $29 listing that passed validation and polluted the chart.
 **Implementation:**
-- Use React Navigation's built-in back button (header back arrow) or add an explicit "Back" button in the UI
-- Ensure hardware back button works on Android
-- Verify stack navigator is correctly configured so the main page is in the history stack
-
-**Frameworks:** React Navigation (already in use)
-**Complexity:** Trivial (< 1 hour)
+- After computing median of valid prices, flag anything < 0.2x median as anomalous
+- Optionally make min_price configurable per event
+**Complexity:** Low (1 hour)
 **Priority:** High
-
----
-
-## Priority 1 — Foundation (Do First)
-
-### 1. SQLite Price History Store
-**Goal:** Persist every scrape run to a local database instead of appending to a flat markdown file.
-**Why:** Everything downstream (charts, alerts, buy/wait ML, trend analysis) depends on structured historical data. Currently `ticket_prices.md` is append-only markdown — unqueryable.
-**Implementation:**
-- Schema: `events(id, name, venue, date)`, `scrapes(id, event_id, scraped_at)`, `listings(id, scrape_id, platform, price, section, row, qty, fee_policy)`
-- Deduplication: unique key on `(scrape_id, platform, section, row, price)` — `INSERT OR IGNORE`
-- Backfill: parse existing `ticket_prices.md` entries into DB on first run
-- Tool: Python `sqlite3` stdlib, Pydantic for row validation
-
-**Frameworks:** Python + SQLite + Pydantic
-**Complexity:** Low-Medium (1–2 days)
-**Uniqueness vs. competition:** Foundational — required before any differentiation is possible.
-
----
-
-### 2. Automated Scheduler (Cron / Interval Polling)
-**Goal:** Run scrapes on a configurable interval (e.g., every 15 min) automatically without manual invocation.
-**Why:** Price data is only useful if it's continuous. Currently requires manual runs.
-**Implementation:**
-- `schedule` Python library or a cron job calling `python scraper.py --event <id>`
-- Configurable per-event polling interval in a `config.yaml`
-- Log each run to `logs/scrape_YYYY-MM-DD.log`
-- Graceful shutdown on `SIGTERM`; skip run if previous still in flight
-
-**Frameworks:** Python `schedule` or system cron + `logging`
-**Complexity:** Low (half a day)
-**Uniqueness:** Table stakes. Distill.io and Visualping do this generically; this is ticketing-native.
-
----
-
-### 3. SeatGeek Scraper Fix + Robust Anti-Block Layer
-**Goal:** Fix the SeatGeek scraper (currently returns "site may have blocked scraping") and add shared resilience across all scrapers.
-**Why:** SeatGeek is one of the best-value platforms — missing it distorts comparisons. Also Gametime showed a $29 price that was clearly a data error; validation is needed.
-**Implementation:**
-- Rotate User-Agent strings per request
-- Playwright-based headless browser fallback for JS-heavy pages (SeatGeek, StubHub)
-- Price sanity validation: flag any price > 5× median or < $10 for events where floor is known to be $50+
-- Per-platform retry with exponential backoff on 429/503
-- Log all block events to `issues.md`
-
-**Frameworks:** Playwright (Python), `fake-useragent`, `tenacity`
-**Complexity:** Medium (1–2 days)
-**UX note:** Anomalous prices (the $29 Gametime listing) should be flagged with a ⚠️ in output, not silently included as "best deal."
-
----
-
-### 4. Multi-Event Config + CLI
-**Goal:** Track multiple events simultaneously via a config file, not hardcoded strings.
-**Why:** Current tool appears to be hardcoded for one NCAA game. Generalizing unlocks all downstream value.
-**Implementation:**
-- `events.yaml`: list of events with `name`, `venue`, `date`, `urls` per platform, `qty`, `poll_interval_min`
-- CLI: `python tracker.py add-event`, `python tracker.py list`, `python tracker.py run --event <id>`, `python tracker.py report --event <id>`
-- Validate URLs at add-time; warn if platform URL pattern is unrecognized
-
-**Frameworks:** Python `click` or `argparse`, PyYAML
-**Complexity:** Low-Medium (1 day)
-**Uniqueness:** Event-Spy supports multiple events on a freemium model — this is the same baseline.
 
 ---
 
@@ -325,4 +276,4 @@ See `issues.md` for known scraper bugs, anomalous price detections, and blocked 
 
 ---
 
-*Last updated: 2026-03-27*
+*Last updated: 2026-03-28*

@@ -6,46 +6,20 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { BORDER_RADIUS, COLORS, FONTS, SPACING } from '../constants/theme';
+import { getCountdown } from '../utils/dateUtils';
 import type { Event } from '../types';
 
 interface EventHeaderProps {
   event: Event;
 }
 
-function getCountdown(eventDateStr: string): string {
-  // Try to parse the date string
-  // Format: "Friday, March 27, 2026 @ 7:10 PM"
-  const cleaned = eventDateStr
-    .replace(/^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s*/i, '')
-    .replace('@', '')
-    .trim();
-
-  const target = new Date(cleaned);
-  if (isNaN(target.getTime())) {
-    return eventDateStr;
-  }
-
-  const now = new Date();
-  const diff = target.getTime() - now.getTime();
-
-  if (diff <= 0) {
-    return 'LIVE NOW';
-  }
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-  if (days > 0) {
-    return `${days}d ${hours}h ${minutes}m`;
-  }
-  return `${hours}h ${minutes}m`;
-}
-
 export default function EventHeader({ event }: EventHeaderProps) {
   const [countdown, setCountdown] = useState(() => getCountdown(event.event_date));
 
   useEffect(() => {
+    // Immediately update when event changes (fixes stale state on switch)
+    setCountdown(getCountdown(event.event_date));
+
     const interval = setInterval(() => {
       setCountdown(getCountdown(event.event_date));
     }, 60000); // Update every minute
