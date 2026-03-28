@@ -156,14 +156,7 @@ def validate_prices(listings: List[Listing], min_price: float = 20.0) -> List[Li
     if not listings:
         return listings
 
-    valid_prices = [l.price for l in listings if l.price >= min_price]
-    if not valid_prices:
-        return listings
-
-    valid_prices.sort()
-    median = valid_prices[len(valid_prices) // 2]
-    upper_bound = median * 10
-
+    # First pass: flag anything below min_price
     for listing in listings:
         if listing.price < min_price:
             listing.is_anomaly = True
@@ -171,7 +164,20 @@ def validate_prices(listings: List[Listing], min_price: float = 20.0) -> List[Li
                 f"Anomaly: {listing.platform} ${listing.price} < ${min_price} "
                 f"(Section {listing.section}, Row {listing.row})"
             )
-        elif listing.price > upper_bound:
+
+    valid_prices = [l.price for l in listings if not l.is_anomaly]
+    if not valid_prices:
+        return listings
+
+    valid_prices.sort()
+    median = valid_prices[len(valid_prices) // 2]
+    upper_bound = median * 10
+
+    # Second pass: flag anything above upper bound
+    for listing in listings:
+        if listing.is_anomaly:
+            continue
+        if listing.price > upper_bound:
             listing.is_anomaly = True
             logger.warning(
                 f"Anomaly: {listing.platform} ${listing.price} > 10x median ${median} "
