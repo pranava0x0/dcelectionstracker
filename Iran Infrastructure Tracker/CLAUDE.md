@@ -101,21 +101,33 @@ Never blindly write code. Always follow this loop:
 
 ## Issue Tracking (`issues.md`)
 
-Maintain a living `issues.md` in the project root as an audit trail.
+Maintain `issues.md` in the project root. **Update it on every bug encounter and fix.**
 
-- Log bugs with: date, module/area, description, root cause (**code bug** vs. **test bug**), and status (Open / Fixed).
-- Update entries when resolved: what the fix was + the commit that resolved it.
+- Log bugs to the **Active Issues** table with: ID, date, area, description, severity (critical/high/medium/low), size (S/M/L), root cause, and status.
+- When fixed: remove from Active, add a one-line entry to **Resolved Summary** with the fix commit hash.
+- Summarizing keeps the file under token limits -- never let Active grow past ~20 rows.
 - After every bug fix, check whether a new regression test is needed.
 
 ---
 
 ## Backlog (`backlog.md`)
 
-Maintain a `backlog.md` for ideas, features, and enhancements.
+Maintain `backlog.md` for feature ideas and enhancements.
 
-- When ideas come up during development, add them immediately — don't lose them.
-- Each item: brief description + priority (low / medium / high).
-- Review and reprioritize periodically.
+- Add items to the **Active Backlog** table with: ID, feature, priority, complexity (simple/moderate/complex), size (S/M/L/XL), impact statement, and status.
+- When shipped: remove from Active, add a one-line entry to **Shipped Summary** with the commit/PR.
+- Summarizing keeps the file under token limits -- never let Active grow past ~20 rows.
+
+---
+
+## Design System (`design.md`)
+
+Maintain `design.md` as the single source of truth for visual design decisions.
+
+- Adapted from Apple's design language; tailored for this project's data-dense analytical UI.
+- All color tokens, typography rules, component patterns, and layout principles live here.
+- When adding new components or changing visual patterns, update `design.md` first.
+- Reference `design.md` before writing any UI code to ensure consistency.
 
 ---
 
