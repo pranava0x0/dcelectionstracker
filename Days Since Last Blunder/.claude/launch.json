@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "blunder-tracker",
-      "runtimeExecutable": "/usr/bin/ruby",
-      "runtimeArgs": ["/Users/pranava/Documents/Projects/Days Since Last Blunder/serve.rb"],
+      "runtimeExecutable": "/Users/pranava/.fnm/node-versions/v22.22.1/installation/bin/node",
+      "runtimeArgs": ["/Users/pranava/Documents/Projects/Days Since Last Blunder/serve.mjs"],
       "port": 8080
     }
   ]

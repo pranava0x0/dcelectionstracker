@@ -179,6 +179,36 @@ Maintain a `backlog.md` for ideas, features, and enhancements.
 
 ---
 
+## Project-Specific Reference Files
+
+Always read these files at the start of any session before making changes:
+
+- **`backlog.md`** — Feature ideas and spin-off tracker concepts. Add new ideas here immediately. Check before proposing new features — it may already be tracked.
+- **`issues.md`** — Living bug audit trail. Log every bug the moment it is found (during UAT, testing, or code review). Update status when fixed. Never leave a bug unlogged.
+- **`design.md`** — Full design system: colors, typography, spacing, components, do's/don'ts. All UI changes must conform to this document. Never introduce new hex values or break the established hierarchy without updating this file.
+
+---
+
+## Dev Server
+
+This project is a **static HTML/CSS/JS app** served by a minimal Node.js HTTP server.
+
+**To start the server:**
+```bash
+node serve.mjs
+```
+Server runs on **port 8080**. The entry point is `index.html` at `http://localhost:8080`.
+
+**Key facts:**
+- No build step. No `npm install`. No `package.json`. Edit HTML/CSS/JS directly.
+- Node binary location (for `.claude/launch.json`): `/Users/pranava/.fnm/node-versions/v22.22.1/installation/bin/node`
+- `serve.mjs` reads files from its own directory — always run it from the project root.
+- Do not use `npm start`, `npx`, or any other package-manager invocation. There are no packages.
+- The Claude preview tool uses this server. Start it with `node serve.mjs` before running any preview/UAT.
+- If port 8080 is already in use: `lsof -ti:8080 | xargs kill -9` then restart.
+
+---
+
 ## Working with AI Agents
 
 *Meta-principles for getting the most out of AI-assisted development.*
