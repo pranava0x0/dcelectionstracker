@@ -41,7 +41,7 @@ export default function ElectionsPage(): JSX.Element {
       </p>
 
       <hr className="mt-8 rule-thick" />
-      <div className="mt-6 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Countdown targetIso={PRIMARY_DATE} label="Until DC primary" />
         <Countdown targetIso={GENERAL_DATE} label="Until DC general" />
       </div>
@@ -95,26 +95,33 @@ export default function ElectionsPage(): JSX.Element {
           </a>
           .
         </p>
-        <ul className="mt-5 grid grid-cols-1 gap-px bg-rule md:grid-cols-2">
-          {races2026.map((r) => (
-            <li
-              key={r.office}
-              className="flex flex-col gap-2 bg-paper p-4"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="display text-base text-ink">{r.office}</h3>
-                <span
-                  className={
-                    "rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
-                    statusTag(r.status)
-                  }
-                >
-                  {r.status}
-                </span>
-              </div>
-              <p className="text-sm leading-snug text-fg">{r.oneLine}</p>
-            </li>
-          ))}
+        <ul className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {races2026.map((r) => {
+            const stripe =
+              r.status === "open"
+                ? "card-stripe-red"
+                : r.status === "special"
+                  ? "card-stripe-blue"
+                  : "card-stripe-black";
+            return (
+              <li key={r.office} className={`card card-hover ${stripe}`}>
+                <div className="p-4">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="display text-base text-ink">{r.office}</h3>
+                    <span
+                      className={
+                        "rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
+                        statusTag(r.status)
+                      }
+                    >
+                      {r.status}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm leading-snug text-fg">{r.oneLine}</p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </section>
 
@@ -124,14 +131,14 @@ export default function ElectionsPage(): JSX.Element {
         <h2 className="display mt-1 text-3xl text-ink">
           Register · check · request · find
         </h2>
-        <ul className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
+        <ul className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {registrationLinks.map((l) => (
-            <li key={l.url} className="bg-paper">
+            <li key={l.url}>
               <a
                 href={l.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block px-4 py-3 text-sm text-fg hover:bg-bg hover:text-primary"
+                className="card card-hover block px-4 py-3 text-sm text-fg hover:text-primary"
               >
                 {l.label} <span aria-hidden className="text-subtle">↗</span>
               </a>

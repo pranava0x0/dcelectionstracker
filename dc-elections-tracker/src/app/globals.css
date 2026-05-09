@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --bg: 45 22% 95%;          /* warm cream / off-white */
-  --paper: 0 0% 100%;        /* pure white card / article */
-  --fg: 0 0% 9%;             /* near-black */
-  --muted: 0 0% 35%;         /* mid gray */
-  --subtle: 0 0% 58%;        /* light gray captions / mono labels */
-  --border: 0 0% 84%;        /* hairline gray */
-  --rule: 0 0% 9%;           /* black hairline for editorial dividers */
-  --primary: 358 86% 53%;    /* signature red */
-  --primary-fg: 0 0% 100%;   /* white on red */
-  --accent-blue: 210 65% 42%;
+  --bg: 40 14% 97%;          /* near-white, very faint warm tint */
+  --paper: 0 0% 100%;        /* pure white card */
+  --fg: 0 0% 11%;            /* rich black */
+  --muted: 0 0% 32%;         /* mid gray */
+  --subtle: 0 0% 56%;        /* light gray */
+  --border: 0 0% 86%;        /* hairline */
+  --rule: 0 0% 11%;          /* black hairline for editorial dividers */
+  --primary: 15 88% 52%;     /* original 538 orange-red */
+  --primary-fg: 0 0% 100%;   /* white on orange */
+  --accent-blue: 210 65% 38%;
   --good: 145 55% 32%;
-  --black: 0 0% 9%;
+  --black: 0 0% 11%;
 }
 
 html,
@@ -46,26 +46,29 @@ button:focus-visible {
   color: hsl(var(--fg));
 }
 
-/* The heavy condensed editorial display look — no web font, just weight + tracking. */
+/* Slab serif headline stack — original 538 vibe.
+   Roboto Slab (Android), Rockwell (Windows), Cambria/Georgia (everywhere). */
 .display {
-  font-family: "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+  font-family: "Roboto Slab", Rockwell, "Rockwell Std", "Cambria", Georgia,
+    "Times New Roman", serif;
   font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.04;
+  letter-spacing: -0.01em;
+  line-height: 1.06;
 }
 
 .display-tight {
-  font-family: "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+  font-family: "Roboto Slab", Rockwell, "Rockwell Std", "Cambria", Georgia,
+    "Times New Roman", serif;
   font-weight: 900;
-  letter-spacing: -0.025em;
-  line-height: 0.98;
+  letter-spacing: -0.015em;
+  line-height: 1.0;
 }
 
 .kicker {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: hsl(var(--primary));
 }
@@ -82,9 +85,54 @@ button:focus-visible {
   margin: 0;
 }
 
+/* Card system — floating with soft shadow, lift on hover. */
+.card {
+  background: hsl(var(--paper));
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 1px 0 hsl(var(--rule) / 0.04);
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
+}
+
+.card-link:hover .card,
+.card.card-hover:hover {
+  border-color: hsl(var(--rule));
+  box-shadow:
+    0 1px 0 hsl(var(--rule) / 0.08),
+    0 8px 22px hsl(var(--rule) / 0.08);
+  transform: translateY(-2px);
+}
+
+.card-stripe-red::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: hsl(var(--primary));
+}
+
+.card-stripe-black::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: hsl(var(--rule));
+}
+
+.card-stripe-blue::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: hsl(var(--accent-blue));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-pulseDot {
     animation: none !important;
+  }
+  .card-link:hover .card,
+  .card.card-hover:hover {
+    transform: none !important;
   }
 }

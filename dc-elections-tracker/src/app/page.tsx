@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Countdown } from "@/components/Countdown";
 import { IssueCard } from "@/components/IssueCard";
+import { LatestCard } from "@/components/LatestCard";
 import { issues } from "@/data/issues";
+import { alerts } from "@/data/alerts";
 import { PRIMARY_DATE, GENERAL_DATE, importantDates } from "@/data/elections";
 import { path } from "@/lib/links";
 
@@ -11,6 +13,7 @@ export default function HomePage(): JSX.Element {
     .slice(0, 4);
 
   const today = new Date().toISOString().slice(0, 10);
+  const latest = alerts.slice(0, 3);
 
   return (
     <>
@@ -52,17 +55,14 @@ export default function HomePage(): JSX.Element {
           </div>
 
           <hr className="mt-12 rule-thick" />
-          <div className="mt-6 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Countdown targetIso={PRIMARY_DATE} label="Until DC primary" />
             <Countdown targetIso={GENERAL_DATE} label="Until DC general" />
           </div>
 
-          <ul className="mt-px grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
+          <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {upcomingDates.map((d) => (
-              <li
-                key={d.iso}
-                className="flex items-baseline gap-3 bg-paper px-4 py-3"
-              >
+              <li key={d.iso} className="card flex items-baseline gap-3 px-4 py-3">
                 <time
                   className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary"
                   dateTime={d.iso}
@@ -77,7 +77,30 @@ export default function HomePage(): JSX.Element {
       </section>
 
       <section className="bg-bg">
-        <div className="mx-auto max-w-6xl px-4 py-14">
+        <div className="mx-auto max-w-6xl px-4 pb-12">
+          <hr className="rule-thick" />
+          <div className="mt-3 flex flex-wrap items-baseline justify-between gap-4">
+            <span className="kicker">Latest from DC</span>
+            <Link
+              href={path("/sources/")}
+              className="font-mono text-[11px] font-bold uppercase tracking-wider text-muted hover:text-primary"
+            >
+              All recent moves →
+            </Link>
+          </div>
+          <h2 className="display mt-1 text-3xl text-ink sm:text-4xl">
+            Three things that just changed
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
+            {latest.map((a) => (
+              <LatestCard key={`${a.date}-${a.headline}`} alert={a} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-bg">
+        <div className="mx-auto max-w-6xl px-4 pb-14 pt-6">
           <hr className="rule-thick" />
           <div className="mt-3 flex flex-wrap items-baseline justify-between gap-4">
             <span className="kicker">The 2026 brief</span>
@@ -96,7 +119,7 @@ export default function HomePage(): JSX.Element {
             recent moves, and the questions to put to candidates.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-px bg-rule md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {issues.map((i) => (
               <IssueCard key={i.slug} issue={i} />
             ))}

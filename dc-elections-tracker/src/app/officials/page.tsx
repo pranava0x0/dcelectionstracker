@@ -7,25 +7,20 @@ export const metadata: Metadata = {
     "Every elected official in DC government — Mayor, AG, Council, Delegate, shadow representatives, State Board of Education — with party label and term-end date.",
 };
 
-function partyBadge(party: string): JSX.Element {
-  const tone =
-    party === "D"
-      ? "bg-[#2a6db8] text-white"
-      : party === "I"
-        ? "bg-ink text-white"
-        : party === "R"
-          ? "bg-primary text-primary-fg"
-          : "bg-muted text-white";
-  return (
-    <span
-      className={
-        "inline-flex h-5 min-w-[20px] items-center justify-center rounded-sm px-1.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
-        tone
-      }
-    >
-      {party}
-    </span>
-  );
+function partyTone(party: string): { stripe: string; pill: string } {
+  if (party === "D") {
+    return {
+      stripe: "bg-[hsl(210_65%_38%)]",
+      pill: "bg-[hsl(210_65%_38%)] text-white",
+    };
+  }
+  if (party === "I") {
+    return { stripe: "bg-ink", pill: "bg-ink text-white" };
+  }
+  if (party === "R") {
+    return { stripe: "bg-primary", pill: "bg-primary text-primary-fg" };
+  }
+  return { stripe: "bg-muted", pill: "bg-muted text-white" };
 }
 
 export default function OfficialsPage(): JSX.Element {
@@ -83,38 +78,53 @@ export default function OfficialsPage(): JSX.Element {
           <span className="kicker mt-3 inline-block">{group.group}</span>
           <p className="mt-1 max-w-3xl text-sm text-fg">{group.blurb}</p>
 
-          <ul className="mt-4 border-y border-rule bg-paper">
-            {group.members.map((m) => (
-              <li
-                key={`${group.group}-${m.name}`}
-                className="grid grid-cols-1 gap-2 border-b border-border p-4 last:border-b-0 sm:grid-cols-12 sm:items-baseline"
-              >
-                <div className="flex items-center gap-2 sm:col-span-4">
-                  {partyBadge(m.party)}
-                  <span className="display text-base text-ink">{m.name}</span>
-                </div>
-                <div className="text-sm text-fg sm:col-span-3">{m.role}</div>
-                <div className="font-mono text-[11px] uppercase tracking-wider text-muted sm:col-span-2">
-                  Term ends {m.termEnds}
-                </div>
-                <div className="text-sm leading-snug text-fg sm:col-span-3">
-                  {m.notes ? <span>{m.notes} </span> : null}
-                  <a
-                    href={m.source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
-                  >
-                    {m.source.label} ↗
-                  </a>
-                </div>
-              </li>
-            ))}
+          <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {group.members.map((m) => {
+              const tone = partyTone(m.party);
+              return (
+                <li
+                  key={`${group.group}-${m.name}`}
+                  className="card card-hover overflow-hidden"
+                >
+                  <div className={`h-1 ${tone.stripe}`} />
+                  <div className="p-4">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="display text-lg text-ink">{m.name}</span>
+                      <span
+                        className={
+                          "inline-flex h-5 min-w-[20px] items-center justify-center rounded-sm px-1.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
+                          tone.pill
+                        }
+                      >
+                        {m.party}
+                      </span>
+                    </div>
+                    <div className="mt-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
+                      {m.role}
+                    </div>
+                    <div className="mt-3 font-mono text-[11px] uppercase tracking-wider text-subtle">
+                      Term ends {m.termEnds}
+                    </div>
+                    {m.notes ? (
+                      <p className="mt-3 text-sm leading-snug text-fg">{m.notes}</p>
+                    ) : null}
+                    <a
+                      href={m.source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-block font-mono text-[10px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
+                    >
+                      {m.source.label} ↗
+                    </a>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </section>
       ))}
 
-      <aside className="mt-14 border-l-4 border-primary bg-paper p-5">
+      <aside className="card card-stripe-red mt-14 p-5">
         <span className="kicker">Footnote</span>
         <h2 className="display mt-1 text-xl text-ink">
           A note on Advisory Neighborhood Commissions
