@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 45 22% 95%;          /* warm cream / off-white */
+  --paper: 0 0% 100%;        /* pure white card / article */
+  --fg: 0 0% 9%;             /* near-black */
+  --muted: 0 0% 35%;         /* mid gray */
+  --subtle: 0 0% 58%;        /* light gray captions / mono labels */
+  --border: 0 0% 84%;        /* hairline gray */
+  --rule: 0 0% 9%;           /* black hairline for editorial dividers */
+  --primary: 358 86% 53%;    /* signature red */
+  --primary-fg: 0 0% 100%;   /* white on red */
+  --accent-blue: 210 65% 42%;
+  --good: 145 55% 32%;
+  --black: 0 0% 9%;
+}
+
+html,
+body {
+  background: hsl(var(--bg));
+  color: hsl(var(--fg));
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial,
+    "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+::selection {
+  background: hsl(var(--primary) / 0.25);
+  color: hsl(var(--fg));
+}
+
+/* The heavy condensed editorial display look — no web font, just weight + tracking. */
+.display {
+  font-family: "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+}
+
+.display-tight {
+  font-family: "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+.kicker {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid hsl(var(--rule));
+  margin: 0;
+}
+
+.rule-thick {
+  border: 0;
+  border-top: 3px solid hsl(var(--rule));
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-pulseDot {
+    animation: none !important;
+  }
+}

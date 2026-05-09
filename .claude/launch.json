@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dc-elections-tracker-static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "3000", "dc-elections-tracker/out"],
+      "port": 3000
+    },
+    {
+      "name": "dc-elections-tracker-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "dc-elections-tracker", "run", "dev"],
+      "port": 3000
+    }
+  ]
+}

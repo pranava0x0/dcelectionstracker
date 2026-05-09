@@ -1,0 +1,144 @@
+import type { Metadata } from "next";
+import { Countdown } from "@/components/Countdown";
+import {
+  PRIMARY_DATE,
+  GENERAL_DATE,
+  importantDates,
+  races2026,
+  registrationLinks,
+} from "@/data/elections";
+
+export const metadata: Metadata = {
+  title: "2026 elections — DC Elections Tracker",
+  description:
+    "DC primary June 16, 2026. General November 3, 2026. Mayor, Council Chair, AG, four Council seats, two at-large seats, U.S. House Delegate, plus all ANCs.",
+};
+
+function statusTag(status: "open" | "incumbent" | "special"): string {
+  if (status === "open") return "bg-primary text-primary-fg";
+  if (status === "special") return "bg-ink text-white";
+  return "bg-bg text-fg border border-rule";
+}
+
+export default function ElectionsPage(): JSX.Element {
+  const future = importantDates.filter(
+    (d) => new Date(d.iso).getTime() >= Date.now() - 24 * 3600 * 1000
+  );
+
+  return (
+    <article className="mx-auto max-w-5xl px-4 pb-20 pt-10">
+      <p className="kicker">2026 cycle</p>
+      <h1 className="display-tight mt-3 text-5xl text-ink sm:text-6xl">
+        Every DC race on the ballot in 2026
+      </h1>
+      <p className="mt-4 max-w-3xl text-[17px] leading-snug text-fg">
+        DC primary:{" "}
+        <span className="font-mono font-semibold text-ink">June 16, 2026</span>. General
+        election:{" "}
+        <span className="font-mono font-semibold text-ink">November 3, 2026</span>.
+        Ranked-choice voting debuts in this primary under Initiative 83. All ~345
+        Advisory Neighborhood Commission seats are on the November 3 ballot.
+      </p>
+
+      <hr className="mt-8 rule-thick" />
+      <div className="mt-6 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
+        <Countdown targetIso={PRIMARY_DATE} label="Until DC primary" />
+        <Countdown targetIso={GENERAL_DATE} label="Until DC general" />
+      </div>
+
+      <section className="mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Calendar</span>
+        <h2 className="display mt-1 text-3xl text-ink">Key dates</h2>
+        <ul className="mt-5 border-y border-rule bg-paper">
+          {future.map((d) => (
+            <li
+              key={d.iso}
+              className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-6"
+            >
+              <time
+                className="font-mono text-[12px] font-bold uppercase tracking-wider text-primary sm:w-28"
+                dateTime={d.iso}
+              >
+                {d.iso}
+              </time>
+              <span className="text-[15px] text-fg sm:flex-1">{d.label}</span>
+              {d.source ? (
+                <a
+                  href={d.source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                >
+                  {d.source.label} ↗
+                </a>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Ballot</span>
+        <h2 className="display mt-1 text-3xl text-ink">Races</h2>
+        <p className="mt-2 max-w-3xl text-sm text-fg">
+          Twelve citywide and ward-level races, plus all ANC seats. Declared candidates
+          aren&apos;t listed on this site in v1 — see the official list at{" "}
+          <a
+            className="border-b border-primary text-primary hover:opacity-80"
+            href="https://www.dcboe.org/candidates"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            dcboe.org/candidates
+          </a>
+          .
+        </p>
+        <ul className="mt-5 grid grid-cols-1 gap-px bg-rule md:grid-cols-2">
+          {races2026.map((r) => (
+            <li
+              key={r.office}
+              className="flex flex-col gap-2 bg-paper p-4"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="display text-base text-ink">{r.office}</h3>
+                <span
+                  className={
+                    "rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
+                    statusTag(r.status)
+                  }
+                >
+                  {r.status}
+                </span>
+              </div>
+              <p className="text-sm leading-snug text-fg">{r.oneLine}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Take action</span>
+        <h2 className="display mt-1 text-3xl text-ink">
+          Register · check · request · find
+        </h2>
+        <ul className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
+          {registrationLinks.map((l) => (
+            <li key={l.url} className="bg-paper">
+              <a
+                href={l.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-3 text-sm text-fg hover:bg-bg hover:text-primary"
+              >
+                {l.label} <span aria-hidden className="text-subtle">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </article>
+  );
+}
