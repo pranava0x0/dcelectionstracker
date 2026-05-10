@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { path } from "@/lib/links";
 
 export function Footer(): JSX.Element {
   const buildDate = new Date().toISOString().slice(0, 10);
@@ -16,13 +15,13 @@ export function Footer(): JSX.Element {
         </p>
         <hr className="mt-8 border-white/20" />
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-wider text-white/70">
-          <Link href={path("/sources/")} className="hover:text-primary">
+          <Link href="/sources/" className="hover:text-primary">
             All sources
           </Link>
-          <Link href={path("/officials/")} className="hover:text-primary">
+          <Link href="/officials/" className="hover:text-primary">
             Officials
           </Link>
-          <Link href={path("/elections/")} className="hover:text-primary">
+          <Link href="/elections/" className="hover:text-primary">
             2026 elections
           </Link>
           <a

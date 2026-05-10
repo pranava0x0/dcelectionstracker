@@ -48,7 +48,7 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
   return (
     <article className="mx-auto max-w-4xl px-4 pb-20 pt-10">
       <p className="kicker">Issue</p>
-      <h1 className="display-tight mt-3 text-5xl text-ink sm:text-6xl">
+      <h1 className="display-tight mt-3 text-4xl text-ink sm:text-5xl">
         {issue.title}
       </h1>
       <p className="mt-4 max-w-3xl text-xl font-medium leading-snug text-primary">

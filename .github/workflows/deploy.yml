@@ -35,10 +35,24 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
+      - name: Test
+        run: npm test
+
       - name: Build static export
         env:
           NEXT_PUBLIC_BASE_PATH: /dcelectionstracker
         run: npm run build
+
+      # Regression guard for UAT-008: <Link> hrefs were getting basePath
+      # prepended twice, producing /dcelectionstracker/dcelectionstracker/...
+      # 404s on every internal nav. Anything that re-introduces manual
+      # basePath prefixing inside <Link> will trip this check.
+      - name: Assert no double-prefixed basePath in build output
+        run: |
+          if grep -rE "dcelectionstracker/dcelectionstracker/" out/; then
+            echo "::error::Double-prefixed basePath in build output — see UAT-008"
+            exit 1
+          fi
 
       - name: Add .nojekyll
         run: touch out/.nojekyll

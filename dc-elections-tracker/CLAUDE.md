@@ -23,19 +23,19 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - **Next.js 14 App Router** with `output: "export"` — static site, no server runtime.
 - **TypeScript strict.** No `any`. No `// @ts-expect-error` without a comment.
 - **Tailwind 3** with HSL CSS variables. Light editorial theme inspired by FiveThirtyEight.
-- **`trailingSlash: true`** in `next.config.js`. All internal links use the `path()` helper from `src/lib/links.ts` so the basePath prefix is applied consistently.
-- **`basePath`** is read from `NEXT_PUBLIC_BASE_PATH`. Empty in dev; set in the GitHub Actions deploy workflow.
+- **`trailingSlash: true`** in `next.config.js`. Internal navigation uses `next/link` with raw paths (e.g. `<Link href="/officials/">`); Next.js auto-prepends the basePath. Do NOT manually prefix `<Link>` hrefs — that double-prepends and produces URLs like `/dcelectionstracker/dcelectionstracker/officials/` (see git history under "Fix double-prefixed basePath").
+- **`basePath`** is set in `next.config.js` from `NEXT_PUBLIC_BASE_PATH`. Empty in dev; set in the GitHub Actions deploy workflow.
 - **No tracking pixels, no third-party SDKs, no client-side data fetching.** Static export only. The only client-side JavaScript is the `Countdown` component's `useEffect` (updates every minute) and the `AlertTicker` marquee (CSS animation).
 - **Single source of truth** for issue content: `src/data/issues.ts`. All five (six, in v1) issue pages render from one shared `IssueDetail` component.
 
 ## Don't list
 
 - Don't change the visible product name. It is "DC Elections Tracker," everywhere.
-- Don't pull in icon libraries, UI kits, animation libraries, fonts, or analytics. Visual gravitas comes from typography and restraint, not dependencies.
+- Don't pull in icon libraries, UI kits, animation libraries, fonts, or analytics — i.e. anything that ships to the browser. Visual gravitas comes from typography and restraint, not dependencies. This rule is about **runtime** weight; build/dev tooling (test runners, linters, type-checkers) is fine to add when warranted.
 - Don't write claim-without-source content. If a fact lacks a primary source, either find one or omit the claim.
 - Don't editorialize about candidates. Officials are listed by name, ward, party, term-end. Voting records (when added) are factual.
 - Don't add server routes, API endpoints, or `getServerSideProps`. Static export only.
-- Don't break the link helper invariant — never hardcode `/issues/foo/` in a `<Link>`. Always use `path("/issues/foo/")`.
+- Don't manually prepend `basePath` to `<Link>` hrefs (no `path()` helper, no string concat). Pass raw paths like `/issues/foo/`. Next.js handles the prefix.
 - Don't widen the editorial scope without updating `backlog.md`.
 
 ## File map
@@ -63,17 +63,30 @@ src/
     elections.ts
     alerts.ts                      # marquee items
   lib/
-    links.ts                       # path() helper
+    party.ts                       # partyTone() — party label/color mapping
+    headline.ts                    # build-time hero countdown copy
+    *.test.ts                      # vitest unit tests, colocated
 ```
 
 ## Local dev
 
 ```
 npm install
-npm run dev   # http://localhost:3000
-npm run build # static export to ./out/
+npm run dev        # http://localhost:3000
+npm run build      # static export to ./out/
+npm run typecheck  # tsc --noEmit
+npm test           # vitest run — pure-function unit tests in src/lib/
 ```
 
 `next.config.js` only sets `output: "export"` outside of development to dodge a Next.js 14.2.x dev-server false-positive on `generateStaticParams` for dynamic routes. Production builds (`next build`) still emit the static export to `out/` exactly as before.
 
-GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy.yml`. The workflow sets `NEXT_PUBLIC_BASE_PATH` to match the GitHub Pages URL prefix.
+GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy.yml`. The workflow runs typecheck → test → build → upload, so a failing unit test blocks deploy. `NEXT_PUBLIC_BASE_PATH` is set in the workflow to match the GitHub Pages URL prefix.
+
+## Tests
+
+Unit tests live next to the modules they cover (`src/lib/*.test.ts`) and run via [vitest](https://vitest.dev). Scope is intentionally narrow — only pure functions whose behavior is non-obvious or has documented edge cases:
+
+- `src/lib/party.test.ts` — `partyTone()` mapping for every documented party plus the unknown-fallback.
+- `src/lib/headline.test.ts` — `timeUntilPrimaryHeadline()` across past, <7d, 1w, 5w (the launch headline), 8w, and >12w (numeric fallback) regimes.
+
+Tests use a fixed `now` argument rather than `Date.now()` so they don't drift over time. Markup-level fixes (mobile nav, skip link, kicker text) are not unit-tested — those are verified by the build + manual UAT. If we ever add React Testing Library, that's where it would go.
