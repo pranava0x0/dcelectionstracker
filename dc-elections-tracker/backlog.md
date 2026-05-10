@@ -21,8 +21,11 @@ Sorted within tier by impact ÷ effort (best bang first).
 
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
+| BL-28 | Apply 2026-05-10 data refresh: 1 alert + 4 recentMoves + Carroll name in whoDecides | S | S | ★★★ | All code-ready; see refresh report in conversation. Alert: camera act committee vote. Moves: H.R. 5183, camera act floor, Feb evictions, Commanders deal. Fix: name Jeffery Carroll as interim MPD chief. |
+| BL-26 | Update all race card one-liners with declared candidate names (feeds BL-03) | S | S | ★★★ | 7 of 12 race cards have zero candidate info; primary is 37 days away; takes an hour — do this first |
 | BL-16 | RCV explainer page + interactive ballot simulator | M | M | ★★★ | DC's first-ever ranked-choice primary; DCBOE has no public education campaign; every voter needs this |
 | BL-03 | Declared 2026 candidate list on /elections/ — all races, alphabetical, OCF/DCBOE filing links only | S | S | ★★★ | Primary is weeks away; no other static non-partisan source aggregates all races in one place |
+| BL-27 | Delegate race explainer — what the Delegate can/can't do + doxxing controversy context | M | M | ★★ | Most contentious race on the ballot; 5 declared; doxxing scandal happened; no context on site |
 | BL-17 | SBOE candidate guide — all candidates for the 4 ward seats (Wards 2, 4, 7, 8) + at-large on June ballot | M | M | ★★ | WaPo and DCist barely cover SBOE; 4 of 9 seats are on the June ballot; clear differentiation |
 | BL-12 | "Who voted how" matrix — Council × major bills (Secure DC, Peace DC, RENTAL Act, FY26 budget, Sanctuary repeal pause), with ward labels | M | M | ★★ | Most-cited missing feature in civic tracker feedback nationally (Chicago Sun-Times model) |
 | BL-01 | Per-councilmember voting record on flagship bills — individual pages or inline table in IssueDetail | M | M | ★★ | Same underlying data as BL-12; both can ship together once the voting-record data type is built |
