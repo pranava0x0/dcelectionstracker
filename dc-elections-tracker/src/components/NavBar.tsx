@@ -30,7 +30,7 @@ export function NavBar(): JSX.Element {
             <Link
               key={item.href}
               href={item.href}
-              className="font-mono text-[11px] font-semibold uppercase tracking-wider text-white/70 transition-colors hover:text-white"
+              className="whitespace-nowrap font-mono text-[11px] font-semibold uppercase tracking-wider text-white/70 transition-colors hover:text-white"
             >
               {item.label}
             </Link>
