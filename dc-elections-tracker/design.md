@@ -91,7 +91,25 @@ Section body (cards or list)
 
 ## Responsive breakpoints
 
-Tailwind defaults. Single-column below `sm`; two-column issue and race cards at `md`; three-column at `lg`. Stat tiles wrap 1 → 2 → 4 columns.
+Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
+
+| Class    | Width band       | Tailwind prefix |
+|----------|------------------|-----------------|
+| mobile   | `< 640px`        | (no prefix)     |
+| tablet   | `640 – 1023px`   | `sm:`, `md:`    |
+| desktop  | `>= 1024px`      | `lg:`           |
+
+- **Hero h1** scales `text-3xl` (issue) / `text-4xl` (page) → `sm:text-4xl/5xl` → `md:text-6xl` (home only) → `lg:text-5xl/6xl/7xl`.
+- **Issue cards** wrap 1 → `sm:` 2 → `lg:` 3.
+- **Officials cards** wrap 1 → `sm:` 2 → `lg:` 3.
+- **Stat tiles** in `IssueDetail` wrap 1 → `sm:` 2 → `lg:` 4.
+- **What's at stake** wraps 1 → `sm:` 2 → `lg:` 3.
+- **NavBar**: full inline nav at `lg`; below `lg`, a `<details>`-driven hamburger drawer with 40px tap target (Apple HIG minimum). On mobile (`< sm`) the CTA pill collapses from "Are you registered?" to "Register" and the wordmark drops from `text-base` to `text-sm` so it fits at 320px.
+- **AlertTicker**: the "Recent moves" label hides below `sm`; the "LIVE" pill always shows.
+- **Countdown**: day count `text-5xl` on mobile → `text-6xl` at `sm`.
+- **Footer**: build line wraps to its own row below `sm` (`basis-full`); shares the row with nav links at `sm` and up.
+
+Autodetection is pure CSS. A desktop browser dragged narrow, or a device rotated, reflows on the same media queries with no JavaScript involved.
 
 ## What we don't do
 

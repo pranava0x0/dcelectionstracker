@@ -43,7 +43,7 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 ```
 src/
   app/
-    layout.tsx
+    layout.tsx                     # exports `viewport` (width=device-width, initial-scale=1)
     page.tsx                       # /
     issues/[slug]/page.tsx         # /issues/<slug>/
     officials/page.tsx
@@ -51,7 +51,7 @@ src/
     sources/page.tsx
     globals.css
   components/
-    NavBar.tsx
+    NavBar.tsx                     # desktop inline nav at lg, <details> hamburger below
     AlertTicker.tsx
     Footer.tsx
     IssueCard.tsx
@@ -65,8 +65,24 @@ src/
   lib/
     party.ts                       # partyTone() — party label/color mapping
     headline.ts                    # build-time hero countdown copy
+    viewport.ts                    # classifyViewport(width) — pure, Tailwind-aligned
+    useViewport.ts                 # client hook (only when CSS can't express the branch)
     *.test.ts                      # vitest unit tests, colocated
 ```
+
+## Responsive contract
+
+Mobile-first, single source of breakpoints in `src/lib/viewport.ts` and matched 1:1 with the Tailwind utility prefixes used everywhere:
+
+| Class      | Width band       | Tailwind prefix | Layout shape                                    |
+|------------|------------------|-----------------|-------------------------------------------------|
+| mobile     | `< 640px`        | (no prefix)     | Single column, condensed wordmark, short CTAs   |
+| tablet     | `640 – 1023px`   | `sm:`, `md:`    | 2-up grids, full CTA labels, hamburger nav      |
+| desktop    | `>= 1024px`      | `lg:`           | 3-up / 4-up grids, inline nav, largest hero     |
+
+**Autodetection is the browser's job.** CSS media queries respond instantly to a desktop window being dragged narrower or to device rotation; no JS feature-detection or user-agent sniffing. Components express their layout in Tailwind responsive classes, and that's it.
+
+If a component genuinely needs to know the device class in JS (rare — the only reason would be branching layout that can't be expressed in CSS), use `useViewport()` from `src/lib/useViewport.ts`. The pure `classifyViewport(width)` helper is what gets unit-tested; the hook is a thin SSR-safe wrapper that listens for `resize`. The 9-item NavBar uses pure CSS (`hidden lg:flex` + `<details> lg:hidden`) — there is no JS detection in production code today.
 
 ## Local dev
 
@@ -88,5 +104,6 @@ Unit tests live next to the modules they cover (`src/lib/*.test.ts`) and run via
 
 - `src/lib/party.test.ts` — `partyTone()` mapping for every documented party plus the unknown-fallback.
 - `src/lib/headline.test.ts` — `timeUntilPrimaryHeadline()` across past, <7d, 1w, 5w (the launch headline), 8w, and >12w (numeric fallback) regimes.
+- `src/lib/viewport.test.ts` — `classifyViewport()` across phone/tablet/desktop bands, exact breakpoint boundaries, the desktop-window-resized-narrow case, and non-finite fallbacks.
 
 Tests use a fixed `now` argument rather than `Date.now()` so they don't drift over time. Markup-level fixes (mobile nav, skip link, kicker text) are not unit-tested — those are verified by the build + manual UAT. If we ever add React Testing Library, that's where it would go.

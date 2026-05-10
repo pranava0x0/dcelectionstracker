@@ -55,15 +55,17 @@ export function Countdown({ targetIso, label, compact }: Props): JSX.Element {
 
   return (
     <div
-      className="card card-stripe-red p-5"
+      className="card card-stripe-red p-4 sm:p-5"
       aria-label={`${label} countdown`}
     >
       <div className="kicker !text-fg">{label}</div>
       {parts.passed ? (
-        <div className="display mt-3 text-3xl text-subtle">Election day passed.</div>
+        <div className="display mt-3 text-2xl text-subtle sm:text-3xl">
+          Election day passed.
+        </div>
       ) : (
-        <div className="mt-3 flex items-baseline gap-3">
-          <span className="display-tight text-6xl tabular-nums text-primary">
+        <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span className="display-tight text-5xl tabular-nums text-primary sm:text-6xl">
             {parts.days}
           </span>
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-fg">

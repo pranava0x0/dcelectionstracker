@@ -26,12 +26,12 @@ export default function ElectionsPage(): JSX.Element {
   );
 
   return (
-    <article className="mx-auto max-w-5xl px-4 pb-20 pt-10">
+    <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
       <p className="kicker">2026 cycle</p>
-      <h1 className="display-tight mt-3 text-5xl text-ink sm:text-6xl">
+      <h1 className="display-tight mt-3 text-4xl text-ink sm:text-5xl lg:text-6xl">
         Every DC race on the ballot in 2026
       </h1>
-      <p className="mt-4 max-w-3xl text-[17px] leading-snug text-fg">
+      <p className="mt-4 max-w-3xl text-base leading-snug text-fg sm:text-[17px]">
         DC primary:{" "}
         <span className="font-mono font-semibold text-ink">June 16, 2026</span>. General
         election:{" "}
@@ -46,10 +46,10 @@ export default function ElectionsPage(): JSX.Element {
         <Countdown targetIso={GENERAL_DATE} label="Until DC general" />
       </div>
 
-      <section className="mt-14">
+      <section className="mt-10 sm:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Calendar</span>
-        <h2 className="display mt-1 text-3xl text-ink">Key dates</h2>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Key dates</h2>
         <ul className="mt-5 border-y border-rule bg-paper">
           {future.map((d) => (
             <li
@@ -78,10 +78,10 @@ export default function ElectionsPage(): JSX.Element {
         </ul>
       </section>
 
-      <section className="mt-14">
+      <section className="mt-10 sm:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Ballot</span>
-        <h2 className="display mt-1 text-3xl text-ink">Races</h2>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Races</h2>
         <p className="mt-2 max-w-3xl text-sm text-fg">
           Twelve citywide and ward-level races, plus all ANC seats. Declared candidates
           aren&apos;t listed on this site in v1 — see the official list at{" "}
@@ -95,7 +95,7 @@ export default function ElectionsPage(): JSX.Element {
           </a>
           .
         </p>
-        <ul className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {races2026.map((r) => {
             const stripe =
               r.status === "open"
@@ -125,10 +125,10 @@ export default function ElectionsPage(): JSX.Element {
         </ul>
       </section>
 
-      <section className="mt-14">
+      <section className="mt-10 sm:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Take action</span>
-        <h2 className="display mt-1 text-3xl text-ink">
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
           Register · check · request · find
         </h2>
         <ul className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">

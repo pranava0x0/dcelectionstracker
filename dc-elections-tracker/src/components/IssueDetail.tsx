@@ -11,7 +11,7 @@ function StatTile({ stat }: { stat: Stat }): JSX.Element {
     >
       <div
         className={
-          "display text-4xl tabular-nums " +
+          "display text-3xl tabular-nums sm:text-4xl " +
           (isAlarm ? "text-primary" : "text-ink")
         }
       >
@@ -34,39 +34,39 @@ function StatTile({ stat }: { stat: Stat }): JSX.Element {
 
 function SectionHead({ kicker, title }: { kicker: string; title: string }): JSX.Element {
   return (
-    <header className="mt-14">
+    <header className="mt-10 sm:mt-14">
       <hr className="rule-thick" />
       <div className="mt-3 flex items-baseline justify-between gap-4">
         <span className="kicker">{kicker}</span>
       </div>
-      <h2 className="display mt-1 text-3xl text-ink">{title}</h2>
+      <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">{title}</h2>
     </header>
   );
 }
 
 export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
   return (
-    <article className="mx-auto max-w-4xl px-4 pb-20 pt-10">
+    <article className="mx-auto max-w-4xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
       <p className="kicker">Issue</p>
-      <h1 className="display-tight mt-3 text-4xl text-ink sm:text-5xl">
+      <h1 className="display-tight mt-3 text-3xl text-ink sm:text-4xl lg:text-5xl">
         {issue.title}
       </h1>
-      <p className="mt-4 max-w-3xl text-xl font-medium leading-snug text-primary">
+      <p className="mt-3 max-w-3xl text-lg font-medium leading-snug text-primary sm:mt-4 sm:text-xl">
         {issue.oneLiner}
       </p>
-      <hr className="mt-8 rule-thick" />
-      <p className="mt-6 max-w-3xl text-[17px] leading-relaxed text-fg">
+      <hr className="mt-6 rule-thick sm:mt-8" />
+      <p className="mt-5 max-w-3xl text-base leading-relaxed text-fg sm:mt-6 sm:text-[17px]">
         {issue.hero}
       </p>
 
-      <section className="mt-10 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2 lg:grid-cols-4">
+      <section className="mt-8 grid grid-cols-1 gap-px bg-rule sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
         {issue.stats.map((s, i) => (
           <StatTile key={i} stat={s} />
         ))}
       </section>
 
       <SectionHead kicker="The fight" title="What's at stake" />
-      <div className="mt-5 grid grid-cols-1 gap-px bg-rule md:grid-cols-3">
+      <div className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2 lg:grid-cols-3">
         {issue.whatsAtStake.map((s, i) => (
           <div key={i} className="bg-paper p-5">
             <h3 className="display text-lg text-ink">{s.headline}</h3>
@@ -115,9 +115,9 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
       </ol>
 
       <SectionHead kicker="Ask" title="Questions to put to candidates" />
-      <ul className="mt-5 space-y-3 border-l-2 border-primary pl-5">
+      <ul className="mt-5 space-y-3 border-l-2 border-primary pl-4 sm:pl-5">
         {issue.voterQuestions.map((q, i) => (
-          <li key={i} className="text-[17px] leading-relaxed text-fg">
+          <li key={i} className="text-base leading-relaxed text-fg sm:text-[17px]">
             {q}
           </li>
         ))}

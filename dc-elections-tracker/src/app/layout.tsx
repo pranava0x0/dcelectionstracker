@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import { AlertTicker } from "@/components/AlertTicker";
@@ -9,6 +9,15 @@ export const metadata: Metadata = {
   description:
     "Independent, sourced, opinionated voter brief for Washington, DC. The mayor's seat, the Delegate seat, and seats on Council are all open in 2026. Every claim links to a primary source.",
   metadataBase: undefined,
+};
+
+// Lets the browser pick the right layout band (mobile / tablet / desktop)
+// from the same Tailwind breakpoints used throughout the site. No fixed
+// width or zoom cap — accessibility tools must be able to zoom.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

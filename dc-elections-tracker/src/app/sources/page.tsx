@@ -33,12 +33,12 @@ export default function SourcesPage(): JSX.Element {
   const total = grouped.reduce((sum, g) => sum + g.sources.length, 0);
 
   return (
-    <article className="mx-auto max-w-5xl px-4 pb-20 pt-10">
+    <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
       <p className="kicker">Reference</p>
-      <h1 className="display-tight mt-3 text-5xl text-ink sm:text-6xl">
+      <h1 className="display-tight mt-3 text-4xl text-ink sm:text-5xl lg:text-6xl">
         Every source cited on this site
       </h1>
-      <p className="mt-4 max-w-3xl text-[17px] leading-snug text-fg">
+      <p className="mt-4 max-w-3xl text-base leading-snug text-fg sm:text-[17px]">
         Deduplicated by URL, grouped by issue.{" "}
         <span className="font-mono font-semibold text-ink">{total}</span> unique sources
         across {grouped.length} topics. Primary sources (DC Council, OCFO, MPD, OSSE,
@@ -47,7 +47,7 @@ export default function SourcesPage(): JSX.Element {
       </p>
 
       {grouped.map((g) => (
-        <section key={g.topic} className="mt-12">
+        <section key={g.topic} className="mt-10 sm:mt-12">
           <hr className="rule-thick" />
           <span className="kicker mt-3 inline-block">{g.topic}</span>
           <ul className="mt-3 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
