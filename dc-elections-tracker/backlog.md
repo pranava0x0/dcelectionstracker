@@ -21,10 +21,8 @@ Sorted within tier by impact ÷ effort (best bang first).
 
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
-| BL-28 | Apply 2026-05-10 data refresh: 1 alert + 4 recentMoves + Carroll name in whoDecides | S | S | ★★★ | All code-ready; see refresh report in conversation. Alert: camera act committee vote. Moves: H.R. 5183, camera act floor, Feb evictions, Commanders deal. Fix: name Jeffery Carroll as interim MPD chief. |
-| BL-26 | Update all race card one-liners with declared candidate names (feeds BL-03) | S | S | ★★★ | 7 of 12 race cards have zero candidate info; primary is 37 days away; takes an hour — do this first |
 | BL-16 | RCV explainer page + interactive ballot simulator | M | M | ★★★ | DC's first-ever ranked-choice primary; DCBOE has no public education campaign; every voter needs this |
-| BL-03 | Declared 2026 candidate list on /elections/ — all races, alphabetical, OCF/DCBOE filing links only | S | S | ★★★ | Primary is weeks away; no other static non-partisan source aggregates all races in one place |
+| BL-03 | Declared 2026 candidate list on /elections/ — full per-race rosters with OCF/DCBOE filing links and party badges (extends BL-26 inline names) | S | S | ★★★ | BL-26 added top-5 names per race; BL-03 promotes those into structured per-race candidate cards |
 | BL-27 | Delegate race explainer — what the Delegate can/can't do + doxxing controversy context | M | M | ★★ | Most contentious race on the ballot; 5 declared; doxxing scandal happened; no context on site |
 | BL-17 | SBOE candidate guide — all candidates for the 4 ward seats (Wards 2, 4, 7, 8) + at-large on June ballot | M | M | ★★ | WaPo and DCist barely cover SBOE; 4 of 9 seats are on the June ballot; clear differentiation |
 | BL-12 | "Who voted how" matrix — Council × major bills (Secure DC, Peace DC, RENTAL Act, FY26 budget, Sanctuary repeal pause), with ward labels | M | M | ★★ | Most-cited missing feature in civic tracker feedback nationally (Chicago Sun-Times model) |
@@ -207,7 +205,6 @@ Sorted within tier by impact ÷ effort.
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
 | BL-08 | Federal RIF tracker — running counter of DC-resident federal employees affected by 2025–2026 RIFs, by agency | M | M | ★★ | Top voter issue; 72K DC-region federal job losses (BLS); differentiated from national trackers by DC-resident focus |
-| BL-23 | Voter registration + DCBOE admin stats tile — registered voters count, mail ballots requested, drop box count | S | S | ★★ | Functional voter info that drives turnout; no backend needed; DCBOE publishes as PDFs |
 | BL-14 | Polling-place lookup by address (link to BL-02 once it ships; standalone fallback before then) | M | M | ★★ | DCBOE has a locator but it's opaque on mobile; surfacing it in DC Elections Tracker flow improves access |
 | BL-18 | Campaign finance summary cards — per candidate: total raised, top 5 donors, industry breakdown | L | L | ★★ | NYC CFB and Philadelphia ArcGIS dashboards prove voters want this; OCF exports are public |
 | BL-13 | Translate landing page + key dates to Spanish | M | M | ★ | Growing Spanish-speaking population; Ward 1/4/14th St. NW communities; immigration enforcement is a live issue |
@@ -272,23 +269,6 @@ export type Endorsement = {
 **Key DC endorsers to track:** Washington Post · DCist/WAMU Voter Guide · SEIU 32BJ · Washington Teachers Union (WTU) · DC Federation of Civic Associations · DC for Democracy · Ward-level Democratic clubs.
 
 **Render:** Badge list on candidate cards + filterable `/elections/endorsements/` table. Editorial note: "Endorsements are listed as facts. This tracker does not make endorsements."
-
----
-
-#### BL-23 · Voter Registration + DCBOE Admin Stats Tile
-
-**Data** (small addition to `elections.ts`):
-```ts
-export const dcboeStats = {
-  asOf: "2026-05-10",
-  activeRegisteredVoters: 525000,
-  mailBallotsRequested: 0,         // update starting May 11
-  dropBoxLocations: 0,             // DCBOE publishes list after May 22
-  source: "https://dcboe.org/",
-};
-```
-
-**Render:** Stat tiles on `/elections/`: registered voters count · "Mail ballots go out May 11" · "Drop boxes open May 22." Plain functional info, no alarm flags.
 
 ---
 
@@ -396,23 +376,6 @@ Researched but not promoted to a recent-moves block in v1. Pull from research tr
 - Nov 2025 HUD ADA findings against DCHA
 - Apr 2024 Connecticut Avenue bike lane cancellation, then Council restoration
 - 2025-05-12 PIT count: homelessness down 9% to 5,138; family homelessness −18.1%
-
----
-
-## UAT-sourced improvements (added 2026-05-10)
-
-Found during first UAT session. Cross-referenced with existing backlog to avoid duplication.
-
-| ID | Item | Priority | Complexity | Notes |
-|---|---|---|---|---|
-| BL-UAT-01 | Mobile hamburger / drawer nav | P1 | S | All 9 nav items hidden at <1024px; users can't reach 7 of 9 routes on phone. Minimum viable: `<details>` toggle, no JS needed. See UAT-002 |
-| BL-UAT-02 | Fix Next.js dev-mode issue page crash | P1 | S | Upgrade to Next.js ≥14.3 or env-var-gate `output: export` for local dev. Blocks all dev-time testing of issue pages. See UAT-001 |
-| BL-UAT-03 | Dynamic "X weeks until primary" headline | P1 | S | Replace hardcoded "Five weeks" in `src/app/page.tsx:29` with computed week diff from `PRIMARY_DATE`. Goes stale in days. See UAT-004 |
-| BL-UAT-04 | Abbreviate "Nonpartisan" party badge | P2 | S | Show "NP" instead of full word in the tiny pill chip. Add `partyTone` cases for `"Nonpartisan"` and `"Statehood Green"`. See UAT-003 |
-| BL-UAT-05 | Skip-to-content link | P2 | S | Add `<a href="#main-content">Skip to content</a>` as first body child; add `id="main-content"` to `<main>`. Keyboard + screen reader UX. See UAT-007 |
-| BL-UAT-06 | Remove dead https guard in `path()` | P3 | S | Dead code in `src/lib/links.ts` — second `if` block is unreachable. Delete it. See UAT-005 |
-| BL-UAT-07 | Format slug in IssueCard/IssueDetail kicker | P3 | S | Replace `issue.slug` in kicker with formatted label (replace hyphens, title-case). See UAT-006 |
-| BL-UAT-08 | Document dev-mode workaround in CLAUDE.md | P1 | S | Add note: "Issue pages only work with `next build && npx serve out/` — `next dev` crashes on dynamic routes due to Next.js 14.2.x bug." |
 
 ---
 

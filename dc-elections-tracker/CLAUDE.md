@@ -60,7 +60,7 @@ src/
   data/
     issues.ts                      # single source of truth
     officials.ts
-    elections.ts
+    elections.ts                   # races, key dates, electionStats (DCBOE registration counts)
     alerts.ts                      # marquee items
   lib/
     party.ts                       # partyTone() — party label/color mapping

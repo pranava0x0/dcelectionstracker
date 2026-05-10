@@ -4,7 +4,7 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-10 (run 1 — first live web research pass)_
+_Last updated: 2026-05-10 (run 2 — applied run-1 changes to data files; added registration-stats source and candidate aggregators)_
 
 ---
 
@@ -24,6 +24,7 @@ _Last updated: 2026-05-10 (run 1 — first live web research pass)_
 - [2025-08-11] NPR — Trump invokes Home Rule §740, first time in DC history — https://www.npr.org/2025/08/12/nx-s1-5498728/trump-washington-dc-police-takeover
 - [2025-08-11] Washington Post — Trump National Guard DC crime crackdown — https://www.washingtonpost.com/politics/2025/08/11/trump-national-guard-dc-crime-crackdown/
 - [ongoing] ACLU-DC — DC Home Rule explainer — https://www.acludc.org/news/dc-home-rule-what-it-how-it-works-and-why-it-matters/
+- [2026-02-28] DCBOE Monthly Voter Registration Statistics — 476,066 active registered voters in DC — https://www.dcboe.org/data,-maps,-forms/voter-registration-statistics
 - [ongoing] DCBOE — Voter registration portal — https://www.dcboe.org/voters/register-to-vote
 - [ongoing] DCBOE — Ranked-choice voting (Initiative 83) — https://www.dcboe.org/elections/ranked-choice-voting
 - [ongoing] DCBOE — Homepage — https://dcboe.org/
@@ -60,6 +61,19 @@ _Last updated: 2026-05-10 (run 1 — first live web research pass)_
 ### DC Council Ward 6 2026
 - [2026-05-08] HillRag — Ward 6 race: a study in contrasts — https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/
 - [2026-04-30] HillRag — Who is running for Ward 6 Council — https://www.hillrag.com/2026/04/30/who-is-running-for-ward-6-council/
+
+### Council Ward 5 2026
+- [2026-ongoing] Wikipedia — 2026 DC Council elections (Ward 5 candidates incl. Carmichael challenger) — https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election
+
+### Shadow Senator / Shadow Representative 2026
+- [2026-ongoing] Ballotpedia — 2026 DC Shadow Senator (Strauss vs. Batchelor vs. Winfield-Dean) — https://ballotpedia.org/United_States_Senate_election_in_the_District_of_Columbia,_2026
+- [2026-ongoing] Wikipedia — 2026 DC Shadow Representative (Garcia) — https://en.wikipedia.org/wiki/2026_United_States_Shadow_Representative_election_in_the_District_of_Columbia
+
+### Attorney General 2026
+- [2026-ongoing] Wikipedia — 2026 DC Attorney General election (Schwalb vs. Szymkowicz) — https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election
+
+### Council At-Large special (McDuffie seat)
+- [2026-04-30] HillRag — Who is running in the At-Large special election — https://www.hillrag.com/2026/04/30/who-is-running-in-the-at-large-special-election/
 
 ### All races overview
 - [2026-ongoing] Greater Greater Washington — 2026 elections hub — https://ggwash.org/elections/2026

@@ -66,7 +66,8 @@ Cards use **gap-based grids** (`gap-4` to `gap-5`), not flush hairline grids. Th
 - **LatestCard** — short floating card surfacing a single recent move. Date in orange mono, slab-serif headline, "Read source ↗" footer in mono. Used in the home-page "Latest from DC" row.
 - **IssueDetail** — kicker, slab-serif headline, orange one-liner, hero graf. Then a flush hairline-bordered 4-up stat grid (data-table feel), followed by sectioned blocks divided by 3px black rules: What's at stake → Who decides → Recent moves → Questions to candidates → Live sources.
 - **Officials baseball cards** — small floating cards in a 3-up grid. 4px party-color stripe at top (blue for D, black for I, orange for R). Big slab-serif name, mono role, mono term-end, optional notes line, source link.
-- **Race cards (`/elections/`)** — floating cards in a 2- or 3-up grid with a stripe by status (orange for OPEN, blue for SPECIAL, black for INCUMBENT) and a matching uppercase mono pill in the corner.
+- **Race cards (`/elections/`)** — floating cards in a 2- or 3-up grid with a stripe by status (orange for OPEN, blue for SPECIAL, black for INCUMBENT) and a matching uppercase mono pill in the corner. Body line includes inline declared-candidate names sourced from the DCBOE filing list.
+- **DCBOE administration tiles (`/elections/`)** — 3-up `card` grid: large `display-tight` value (registered-voter count or date label), short body, mono uppercase source link with ↗ glyph. Same component vocabulary as the issue stat grid — no new primitives.
 - **Countdown** — floating card with orange top stripe, mono kicker, giant orange day count, small mono `Hh Mm` remainder.
 
 ## Visual rhythm of a page
