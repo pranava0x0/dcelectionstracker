@@ -64,16 +64,31 @@ src/
     alerts.ts                      # marquee items
   lib/
     links.ts                       # path() helper
+    party.ts                       # partyTone() — party label/color mapping
+    headline.ts                    # build-time hero countdown copy
+    *.test.ts                      # vitest unit tests, colocated
 ```
 
 ## Local dev
 
 ```
 npm install
-npm run dev   # http://localhost:3000
-npm run build # static export to ./out/
+npm run dev        # http://localhost:3000
+npm run build      # static export to ./out/
+npm run typecheck  # tsc --noEmit
+npm test           # vitest run — pure-function unit tests in src/lib/
 ```
 
 `next.config.js` only sets `output: "export"` outside of development to dodge a Next.js 14.2.x dev-server false-positive on `generateStaticParams` for dynamic routes. Production builds (`next build`) still emit the static export to `out/` exactly as before.
 
-GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy.yml`. The workflow sets `NEXT_PUBLIC_BASE_PATH` to match the GitHub Pages URL prefix.
+GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy.yml`. The workflow runs typecheck → test → build → upload, so a failing unit test blocks deploy. `NEXT_PUBLIC_BASE_PATH` is set in the workflow to match the GitHub Pages URL prefix.
+
+## Tests
+
+Unit tests live next to the modules they cover (`src/lib/*.test.ts`) and run via [vitest](https://vitest.dev). Scope is intentionally narrow — only pure functions whose behavior is non-obvious or has documented edge cases:
+
+- `src/lib/links.test.ts` — `path()` and `isExternal()` across basePath-set and basePath-unset modes.
+- `src/lib/party.test.ts` — `partyTone()` mapping for every documented party plus the unknown-fallback.
+- `src/lib/headline.test.ts` — `timeUntilPrimaryHeadline()` across past, <7d, 1w, 5w (the launch headline), 8w, and >12w (numeric fallback) regimes.
+
+Tests use a fixed `now` argument rather than `Date.now()` so they don't drift over time. Markup-level fixes (mobile nav, skip link, kicker text) are not unit-tested — those are verified by the build + manual UAT. If we ever add React Testing Library, that's where it would go.

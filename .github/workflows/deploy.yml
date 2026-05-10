@@ -35,6 +35,9 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
+      - name: Test
+        run: npm test
+
       - name: Build static export
         env:
           NEXT_PUBLIC_BASE_PATH: /dcelectionstracker
