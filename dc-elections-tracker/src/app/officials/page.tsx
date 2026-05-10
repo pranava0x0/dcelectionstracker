@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 
 export default function OfficialsPage(): JSX.Element {
   return (
-    <article className="mx-auto max-w-5xl px-4 pb-20 pt-10">
+    <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
       <p className="kicker">Reference</p>
-      <h1 className="display-tight mt-3 text-5xl text-ink sm:text-6xl">
+      <h1 className="display-tight mt-3 text-4xl text-ink sm:text-5xl lg:text-6xl">
         Who currently holds office in DC
       </h1>
-      <p className="mt-4 max-w-3xl text-[17px] leading-snug text-fg">
+      <p className="mt-4 max-w-3xl text-base leading-snug text-fg sm:text-[17px]">
         Mayor, Attorney General, all 13 Council members, the U.S. House Delegate, three
         statehood-advocacy &quot;shadow&quot; representatives, and the nine-member State
         Board of Education. Party labels and term-end dates are drawn from{" "}
@@ -58,7 +58,7 @@ export default function OfficialsPage(): JSX.Element {
       </p>
 
       {officials.map((group) => (
-        <section key={group.group} className="mt-12">
+        <section key={group.group} className="mt-10 sm:mt-12">
           <hr className="rule-thick" />
           <span className="kicker mt-3 inline-block">{group.group}</span>
           <p className="mt-1 max-w-3xl text-sm text-fg">{group.blurb}</p>
@@ -110,9 +110,9 @@ export default function OfficialsPage(): JSX.Element {
         </section>
       ))}
 
-      <aside className="card card-stripe-red mt-14 p-5">
+      <aside className="card card-stripe-red mt-10 p-4 sm:mt-14 sm:p-5">
         <span className="kicker">Footnote</span>
-        <h2 className="display mt-1 text-xl text-ink">
+        <h2 className="display mt-1 text-lg text-ink sm:text-xl">
           A note on Advisory Neighborhood Commissions
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-fg">

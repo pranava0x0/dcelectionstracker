@@ -19,20 +19,20 @@ export default function HomePage(): JSX.Element {
   return (
     <>
       <section>
-        <div className="mx-auto max-w-6xl px-4 pb-14 pt-12 sm:pt-16">
-          <div className="flex items-center gap-3 text-fg">
+        <div className="mx-auto max-w-6xl px-4 pb-12 pt-10 sm:pb-14 sm:pt-12 lg:pt-16">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-fg">
             <span className="kicker">Washington, DC · 2026</span>
             <span className="font-mono text-[11px] uppercase tracking-wider text-subtle">
               Updated {today}
             </span>
           </div>
-          <h1 className="display-tight mt-4 max-w-5xl text-5xl text-ink sm:text-7xl">
+          <h1 className="display-tight mt-4 max-w-5xl text-4xl text-ink sm:text-5xl md:text-6xl lg:text-7xl">
             {primaryHeadline}{" "}
             <span className="text-primary">
               Here&apos;s what just happened to your city.
             </span>
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-snug text-fg sm:text-xl">
+          <p className="mt-5 max-w-3xl text-base leading-snug text-fg sm:mt-6 sm:text-lg lg:text-xl">
             The mayor&apos;s seat is open for the first time since 2014. The U.S. House
             Delegate seat is open for the first time in 35 years. Four Council seats are
             on the ballot, plus the Council Chair, the Attorney General, two at-large
@@ -40,16 +40,16 @@ export default function HomePage(): JSX.Element {
             below links to a primary source.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
             <Link
               href="/elections/"
-              className="rounded-sm bg-primary px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-primary-fg hover:opacity-90"
+              className="rounded-sm bg-primary px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-primary-fg hover:opacity-90 sm:py-2"
             >
               Are you registered?
             </Link>
             <Link
               href="/officials/"
-              className="rounded-sm border border-rule bg-paper px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg"
+              className="rounded-sm border border-rule bg-paper px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg sm:py-2"
             >
               Who currently holds office →
             </Link>
@@ -89,10 +89,10 @@ export default function HomePage(): JSX.Element {
               All recent moves →
             </Link>
           </div>
-          <h2 className="display mt-1 text-3xl text-ink sm:text-4xl">
+          <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
             Three things that just changed
           </h2>
-          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3">
             {latest.map((a) => (
               <LatestCard key={`${a.date}-${a.headline}`} alert={a} />
             ))}
@@ -112,7 +112,7 @@ export default function HomePage(): JSX.Element {
               All sources →
             </Link>
           </div>
-          <h2 className="display mt-1 text-3xl text-ink sm:text-4xl">
+          <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
             Six issues on the 2026 ballot
           </h2>
           <p className="mt-2 max-w-3xl text-[15px] text-fg">
@@ -120,7 +120,7 @@ export default function HomePage(): JSX.Element {
             recent moves, and the questions to put to candidates.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {issues.map((i) => (
               <IssueCard key={i.slug} issue={i} />
             ))}
@@ -129,11 +129,13 @@ export default function HomePage(): JSX.Element {
       </section>
 
       <section>
-        <div className="mx-auto max-w-6xl px-4 py-16">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
           <hr className="rule-thick" />
           <span className="kicker mt-3 inline-block">Editorial standard</span>
-          <h2 className="display mt-1 text-3xl text-ink">Where this site stands</h2>
-          <p className="mt-4 max-w-3xl text-[17px] leading-relaxed text-fg">
+          <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
+            Where this site stands
+          </h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-fg sm:text-[17px]">
             Independent. Non-partisan, but not neutral about transparency,
             accountability, and who pays. Every numeric claim links to a primary or
             authoritative source — DC Council, OCFO, MPD, OSSE, DCBOE, congress.gov,

@@ -14,7 +14,7 @@ export function AlertTicker(): JSX.Element {
         <span className="shrink-0 bg-primary px-2 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-primary-fg">
           Live
         </span>
-        <span className="shrink-0 border-y border-r border-rule px-2 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-fg">
+        <span className="hidden shrink-0 border-y border-r border-rule px-2 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-fg sm:inline-block">
           Recent moves
         </span>
         <div className="relative w-full overflow-hidden py-1.5 pl-3">
