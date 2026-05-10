@@ -47,7 +47,7 @@ function SectionHead({ kicker, title }: { kicker: string; title: string }): JSX.
 export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
   return (
     <article className="mx-auto max-w-4xl px-4 pb-20 pt-10">
-      <p className="kicker">Issue · {issue.slug}</p>
+      <p className="kicker">Issue</p>
       <h1 className="display-tight mt-3 text-5xl text-ink sm:text-6xl">
         {issue.title}
       </h1>

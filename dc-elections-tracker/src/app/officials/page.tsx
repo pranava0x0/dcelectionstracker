@@ -7,20 +7,31 @@ export const metadata: Metadata = {
     "Every elected official in DC government — Mayor, AG, Council, Delegate, shadow representatives, State Board of Education — with party label and term-end date.",
 };
 
-function partyTone(party: string): { stripe: string; pill: string } {
+function partyTone(party: string): { stripe: string; pill: string; label: string } {
   if (party === "D") {
     return {
       stripe: "bg-[hsl(210_65%_38%)]",
       pill: "bg-[hsl(210_65%_38%)] text-white",
+      label: "D",
     };
   }
   if (party === "I") {
-    return { stripe: "bg-ink", pill: "bg-ink text-white" };
+    return { stripe: "bg-ink", pill: "bg-ink text-white", label: "I" };
   }
   if (party === "R") {
-    return { stripe: "bg-primary", pill: "bg-primary text-primary-fg" };
+    return { stripe: "bg-primary", pill: "bg-primary text-primary-fg", label: "R" };
   }
-  return { stripe: "bg-muted", pill: "bg-muted text-white" };
+  if (party === "Statehood Green") {
+    return {
+      stripe: "bg-[hsl(140_45%_35%)]",
+      pill: "bg-[hsl(140_45%_35%)] text-white",
+      label: "SG",
+    };
+  }
+  if (party === "Nonpartisan") {
+    return { stripe: "bg-muted", pill: "bg-muted text-white", label: "NP" };
+  }
+  return { stripe: "bg-muted", pill: "bg-muted text-white", label: party };
 }
 
 export default function OfficialsPage(): JSX.Element {
@@ -95,8 +106,9 @@ export default function OfficialsPage(): JSX.Element {
                           "inline-flex h-5 min-w-[20px] items-center justify-center rounded-sm px-1.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
                           tone.pill
                         }
+                        title={m.party}
                       >
-                        {m.party}
+                        {tone.label}
                       </span>
                     </div>
                     <div className="mt-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">

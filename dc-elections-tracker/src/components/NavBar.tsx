@@ -16,7 +16,7 @@ const navItems = [
 export function NavBar(): JSX.Element {
   return (
     <header className="sticky top-0 z-30 bg-ink text-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href={path("/")} className="flex items-center gap-2.5">
           <span
             aria-hidden
@@ -37,12 +37,61 @@ export function NavBar(): JSX.Element {
             </Link>
           ))}
         </nav>
-        <Link
-          href={path("/elections/")}
-          className="rounded-sm bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-fg transition-opacity hover:opacity-90"
-        >
-          Are you registered?
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href={path("/elections/")}
+            className="rounded-sm bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-fg transition-opacity hover:opacity-90"
+          >
+            Are you registered?
+          </Link>
+          <details className="group lg:hidden">
+            <summary
+              className="nav-summary inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-sm border border-white/20 hover:bg-white/10"
+              aria-label="Toggle navigation menu"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden
+              >
+                <path
+                  d="M2 4h12M2 8h12M2 12h12"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="square"
+                  className="group-open:hidden"
+                />
+                <path
+                  d="M3 3l10 10M13 3L3 13"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="square"
+                  className="hidden group-open:block"
+                />
+              </svg>
+            </summary>
+            <nav
+              className="absolute inset-x-0 top-full border-t border-white/10 bg-ink"
+              aria-label="Primary mobile"
+            >
+              <ul className="mx-auto max-w-6xl px-2 py-1">
+                {navItems.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={path(item.href)}
+                      className="block px-3 py-3 font-mono text-[11px] font-semibold uppercase tracking-wider text-white/80 hover:bg-white/5 hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </details>
+        </div>
       </div>
       <div className="h-px w-full bg-primary" aria-hidden />
     </header>
