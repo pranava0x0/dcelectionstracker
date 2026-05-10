@@ -31,7 +31,7 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 ## Don't list
 
 - Don't change the visible product name. It is "DC Elections Tracker," everywhere.
-- Don't pull in icon libraries, UI kits, animation libraries, fonts, or analytics. Visual gravitas comes from typography and restraint, not dependencies.
+- Don't pull in icon libraries, UI kits, animation libraries, fonts, or analytics — i.e. anything that ships to the browser. Visual gravitas comes from typography and restraint, not dependencies. This rule is about **runtime** weight; build/dev tooling (test runners, linters, type-checkers) is fine to add when warranted.
 - Don't write claim-without-source content. If a fact lacks a primary source, either find one or omit the claim.
 - Don't editorialize about candidates. Officials are listed by name, ward, party, term-end. Voting records (when added) are factual.
 - Don't add server routes, API endpoints, or `getServerSideProps`. Static export only.
