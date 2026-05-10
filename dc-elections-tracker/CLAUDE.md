@@ -74,11 +74,6 @@ npm run dev   # http://localhost:3000
 npm run build # static export to ./out/
 ```
 
-**Known dev-mode limitation (UAT-001):** `next dev` crashes on all 6 issue pages (`/issues/[slug]/`) with _"missing generateStaticParams"_ — a Next.js 14.2.x bug with `output: export`. The function exists; the dev server incorrectly rejects it. Static pages (`/`, `/officials/`, `/elections/`, `/sources/`) work fine in dev.
-
-To test issue pages locally:
-```
-npm run build && npx serve out/   # serves the static export on port 3000
-```
+`next.config.js` only sets `output: "export"` outside of development to dodge a Next.js 14.2.x dev-server false-positive on `generateStaticParams` for dynamic routes. Production builds (`next build`) still emit the static export to `out/` exactly as before.
 
 GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy.yml`. The workflow sets `NEXT_PUBLIC_BASE_PATH` to match the GitHub Pages URL prefix.

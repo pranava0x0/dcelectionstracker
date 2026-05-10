@@ -19,9 +19,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-bg">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-primary focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:font-bold focus:uppercase focus:tracking-wider focus:text-primary-fg"
+        >
+          Skip to content
+        </a>
         <NavBar />
         <AlertTicker />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
       </body>
     </html>
