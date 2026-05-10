@@ -5,7 +5,6 @@ import { LatestCard } from "@/components/LatestCard";
 import { issues } from "@/data/issues";
 import { alerts } from "@/data/alerts";
 import { PRIMARY_DATE, GENERAL_DATE, importantDates } from "@/data/elections";
-import { path } from "@/lib/links";
 import { timeUntilPrimaryHeadline } from "@/lib/headline";
 
 export default function HomePage(): JSX.Element {
@@ -43,13 +42,13 @@ export default function HomePage(): JSX.Element {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
-              href={path("/elections/")}
+              href="/elections/"
               className="rounded-sm bg-primary px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-primary-fg hover:opacity-90"
             >
               Are you registered?
             </Link>
             <Link
-              href={path("/officials/")}
+              href="/officials/"
               className="rounded-sm border border-rule bg-paper px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg"
             >
               Who currently holds office →
@@ -84,7 +83,7 @@ export default function HomePage(): JSX.Element {
           <div className="mt-3 flex flex-wrap items-baseline justify-between gap-4">
             <span className="kicker">Latest from DC</span>
             <Link
-              href={path("/sources/")}
+              href="/sources/"
               className="font-mono text-[11px] font-bold uppercase tracking-wider text-muted hover:text-primary"
             >
               All recent moves →
@@ -107,7 +106,7 @@ export default function HomePage(): JSX.Element {
           <div className="mt-3 flex flex-wrap items-baseline justify-between gap-4">
             <span className="kicker">The 2026 brief</span>
             <Link
-              href={path("/sources/")}
+              href="/sources/"
               className="font-mono text-[11px] font-bold uppercase tracking-wider text-muted hover:text-primary"
             >
               All sources →

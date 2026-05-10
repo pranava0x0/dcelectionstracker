@@ -23,8 +23,8 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - **Next.js 14 App Router** with `output: "export"` — static site, no server runtime.
 - **TypeScript strict.** No `any`. No `// @ts-expect-error` without a comment.
 - **Tailwind 3** with HSL CSS variables. Light editorial theme inspired by FiveThirtyEight.
-- **`trailingSlash: true`** in `next.config.js`. All internal links use the `path()` helper from `src/lib/links.ts` so the basePath prefix is applied consistently.
-- **`basePath`** is read from `NEXT_PUBLIC_BASE_PATH`. Empty in dev; set in the GitHub Actions deploy workflow.
+- **`trailingSlash: true`** in `next.config.js`. Internal navigation uses `next/link` with raw paths (e.g. `<Link href="/officials/">`); Next.js auto-prepends the basePath. Do NOT manually prefix `<Link>` hrefs — that double-prepends and produces URLs like `/dcelectionstracker/dcelectionstracker/officials/` (see git history under "Fix double-prefixed basePath").
+- **`basePath`** is set in `next.config.js` from `NEXT_PUBLIC_BASE_PATH`. Empty in dev; set in the GitHub Actions deploy workflow.
 - **No tracking pixels, no third-party SDKs, no client-side data fetching.** Static export only. The only client-side JavaScript is the `Countdown` component's `useEffect` (updates every minute) and the `AlertTicker` marquee (CSS animation).
 - **Single source of truth** for issue content: `src/data/issues.ts`. All five (six, in v1) issue pages render from one shared `IssueDetail` component.
 
@@ -35,7 +35,7 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - Don't write claim-without-source content. If a fact lacks a primary source, either find one or omit the claim.
 - Don't editorialize about candidates. Officials are listed by name, ward, party, term-end. Voting records (when added) are factual.
 - Don't add server routes, API endpoints, or `getServerSideProps`. Static export only.
-- Don't break the link helper invariant — never hardcode `/issues/foo/` in a `<Link>`. Always use `path("/issues/foo/")`.
+- Don't manually prepend `basePath` to `<Link>` hrefs (no `path()` helper, no string concat). Pass raw paths like `/issues/foo/`. Next.js handles the prefix.
 - Don't widen the editorial scope without updating `backlog.md`.
 
 ## File map
@@ -63,7 +63,6 @@ src/
     elections.ts
     alerts.ts                      # marquee items
   lib/
-    links.ts                       # path() helper
     party.ts                       # partyTone() — party label/color mapping
     headline.ts                    # build-time hero countdown copy
     *.test.ts                      # vitest unit tests, colocated
@@ -87,7 +86,6 @@ GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy
 
 Unit tests live next to the modules they cover (`src/lib/*.test.ts`) and run via [vitest](https://vitest.dev). Scope is intentionally narrow — only pure functions whose behavior is non-obvious or has documented edge cases:
 
-- `src/lib/links.test.ts` — `path()` and `isExternal()` across basePath-set and basePath-unset modes.
 - `src/lib/party.test.ts` — `partyTone()` mapping for every documented party plus the unknown-fallback.
 - `src/lib/headline.test.ts` — `timeUntilPrimaryHeadline()` across past, <7d, 1w, 5w (the launch headline), 8w, and >12w (numeric fallback) regimes.
 

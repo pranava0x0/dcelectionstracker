@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { path } from "@/lib/links";
 
 const navItems = [
   { href: "/issues/statehood/", label: "Statehood" },
@@ -17,7 +16,7 @@ export function NavBar(): JSX.Element {
   return (
     <header className="sticky top-0 z-30 bg-ink text-white">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href={path("/")} className="flex items-center gap-2.5">
+        <Link href="/" className="flex items-center gap-2.5">
           <span
             aria-hidden
             className="inline-block h-2 w-2 rounded-full bg-primary animate-pulseDot"
@@ -30,7 +29,7 @@ export function NavBar(): JSX.Element {
           {navItems.map((item) => (
             <Link
               key={item.href}
-              href={path(item.href)}
+              href={item.href}
               className="font-mono text-[11px] font-semibold uppercase tracking-wider text-white/70 transition-colors hover:text-white"
             >
               {item.label}
@@ -39,7 +38,7 @@ export function NavBar(): JSX.Element {
         </nav>
         <div className="flex items-center gap-2">
           <Link
-            href={path("/elections/")}
+            href="/elections/"
             className="rounded-sm bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-fg transition-opacity hover:opacity-90"
           >
             Are you registered?
@@ -81,7 +80,7 @@ export function NavBar(): JSX.Element {
                 {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
-                      href={path(item.href)}
+                      href={item.href}
                       className="block px-3 py-3 font-mono text-[11px] font-semibold uppercase tracking-wider text-white/80 hover:bg-white/5 hover:text-white"
                     >
                       {item.label}

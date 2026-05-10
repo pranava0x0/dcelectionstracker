@@ -1,6 +1,6 @@
 # DC Elections Tracker — Issues
 
-Bug log. Populated by UAT session 2026-05-10. All 7 first-pass UAT bugs closed 2026-05-10.
+Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
@@ -11,6 +11,7 @@ Bug log. Populated by UAT session 2026-05-10. All 7 first-pass UAT bugs closed 2
 | UAT-005 | closed | Dead code in `path()` helper — unreachable http/https guard | low |
 | UAT-006 | closed | Raw slug shown in IssueCard and IssueDetail kicker line | low |
 | UAT-007 | closed | No skip-to-content link for keyboard / screen reader navigation | low |
+| UAT-008 | closed | Clicking nav tabs on the deployed site double-prefixes basePath in the URL | high |
 
 ---
 
@@ -77,3 +78,12 @@ _(none)_
 - **Closed**: 2026-05-10
 - **Status**: closed
 - **Fix**: Added `<a href="#main-content">Skip to content</a>` as the first child of `<body>`, styled with `sr-only focus:not-sr-only` so it only appears on keyboard focus (top-left, primary background, mono uppercase to match the site voice). Added `id="main-content"` to `<main>`. Verified: skip link present in accessibility tree on the home page.
+
+### [UAT-008] Clicking nav tabs on the deployed site double-prefixes basePath in the URL
+- **Severity**: high
+- **Page/Section**: All pages — every internal `<Link>`
+- **Discovered**: 2026-05-10
+- **Closed**: 2026-05-10
+- **Status**: closed
+- **Description**: On the GitHub Pages deploy, clicking any nav item or internal link sent the user to `/dcelectionstracker/dcelectionstracker/<route>/` — a 404. Root cause: `<Link href={path("/officials/")}>` produced `/dcelectionstracker/officials/`, then `next/link` auto-prepended the configured `basePath` again (Next.js Link does this for any internal href). The `path()` helper was redundant inside `<Link>` and actively harmful. Reproduced by running `NEXT_PUBLIC_BASE_PATH=/dcelectionstracker npm run build` and grepping `out/index.html` for `href=".*officials"` — every match showed the double prefix.
+- **Fix**: Removed `path()` from all 12 `<Link>` callsites in `NavBar.tsx`, `Footer.tsx`, `IssueCard.tsx`, and `app/page.tsx`. Hrefs are now raw paths like `"/officials/"`. With no remaining consumers, `src/lib/links.ts` and its test were deleted. CLAUDE.md "Tech invariants" and "Don't list" entries reversed to forbid manual basePath prefixing in `<Link>`. Verified: rebuilt with `NEXT_PUBLIC_BASE_PATH=/dcelectionstracker npm run build`; all internal hrefs now render as a single `/dcelectionstracker/<route>/`.

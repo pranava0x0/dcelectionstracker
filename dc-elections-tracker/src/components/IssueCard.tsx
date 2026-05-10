@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Issue } from "@/data/issues";
-import { path } from "@/lib/links";
 
 type Props = { issue: Issue };
 
@@ -11,7 +10,7 @@ export function IssueCard({ issue }: Props): JSX.Element {
 
   return (
     <Link
-      href={path(`/issues/${issue.slug}/`)}
+      href={`/issues/${issue.slug}/`}
       className="card-link block"
     >
       <article className={`card ${stripe} flex h-full flex-col p-5`}>
