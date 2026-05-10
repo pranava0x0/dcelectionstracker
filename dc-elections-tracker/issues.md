@@ -1,6 +1,7 @@
 # DC Elections Tracker — Issues
 
 Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
+`/dc-data-refresh` run 2 (2026-05-10) shipped BL-28, BL-26, BL-23, BL-UAT-08 — no new issues filed.
 
 | ID | Status | Title | Severity |
 |---|---|---|---|

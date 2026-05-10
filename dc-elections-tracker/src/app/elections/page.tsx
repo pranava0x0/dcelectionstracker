@@ -6,6 +6,7 @@ import {
   importantDates,
   races2026,
   registrationLinks,
+  electionStats,
 } from "@/data/elections";
 
 export const metadata: Metadata = {
@@ -48,6 +49,28 @@ export default function ElectionsPage(): JSX.Element {
 
       <section className="mt-10 sm:mt-14">
         <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">By the numbers</span>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">DCBOE administration</h2>
+        <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {electionStats.map((s) => (
+            <li key={s.label} className="card p-4">
+              <div className="display-tight text-3xl text-ink sm:text-4xl">{s.value}</div>
+              <div className="mt-2 text-sm leading-snug text-fg">{s.label}</div>
+              <a
+                href={s.source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-block font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+              >
+                {s.source.label} ↗
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-10 sm:mt-14">
+        <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Calendar</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Key dates</h2>
         <ul className="mt-5 border-y border-rule bg-paper">
@@ -83,8 +106,9 @@ export default function ElectionsPage(): JSX.Element {
         <span className="kicker mt-3 inline-block">Ballot</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Races</h2>
         <p className="mt-2 max-w-3xl text-sm text-fg">
-          Twelve citywide and ward-level races, plus all ANC seats. Declared candidates
-          aren&apos;t listed on this site in v1 — see the official list at{" "}
+          Twelve citywide and ward-level races, plus all ANC seats. Declared
+          candidates listed below are sourced from the DCBOE Feb 2, 2026 primary filing
+          list and verified secondary coverage. Full official list:{" "}
           <a
             className="border-b border-primary text-primary hover:opacity-80"
             href="https://www.dcboe.org/candidates"
