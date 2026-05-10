@@ -17,37 +17,37 @@ export const importantDates: ImportantDate[] = [
   {
     iso: "2026-05-11",
     label: "Mail ballots begin going out",
-    source: { label: "DCBOE 2026 Primary Calendar", url: "https://dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
+    source: { label: "DCBOE 2026 Primary Calendar", url: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
   },
   {
     iso: "2026-05-22",
     label: "Drop boxes open",
-    source: { label: "DCBOE", url: "https://dcboe.org/" },
+    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
   },
   {
     iso: "2026-05-26",
     label: "Voter registration deadline (advance) — same-day registration available during early voting and on election day",
-    source: { label: "DCBOE", url: "https://dcboe.org/" },
+    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
   },
   {
     iso: "2026-06-08",
     label: "Early voting begins",
-    source: { label: "DCBOE", url: "https://dcboe.org/" },
+    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
   },
   {
     iso: "2026-06-14",
     label: "Early voting ends",
-    source: { label: "DCBOE", url: "https://dcboe.org/" },
+    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
   },
   {
     iso: "2026-06-16",
     label: "DC Primary Election Day — polls 7am to 8pm. Ranked-choice voting debuts (Initiative 83).",
-    source: { label: "DCBOE", url: "https://dcboe.org/" },
+    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
   },
   {
     iso: "2026-11-03",
     label: "General Election Day. All ~345 ANC seats also on the ballot.",
-    source: { label: "DCBOE", url: "https://dcboe.org/" },
+    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
   },
 ];
 
