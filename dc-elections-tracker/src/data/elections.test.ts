@@ -4,6 +4,7 @@ import {
   COMPARISON_RACE_SLUGS,
   ISSUE_COLUMN_TAGLINES,
   PROFILED_RACE_SLUGS,
+  ballotForWard,
   candidates2026,
   candidatesForRace,
   externalToolsForRace,
@@ -182,5 +183,49 @@ describe("per-seat race pages + candidate profiles (BL-32)", () => {
         expect(t.blurb.length).toBeGreaterThan(0);
       }
     }
+  });
+});
+
+describe("ballotForWard helper (BL-02)", () => {
+  it("includes all citywide primary races for every ward", () => {
+    const expected = [
+      "mayor",
+      "council-chair",
+      "attorney-general",
+      "us-house-delegate",
+      "council-at-large-bonds",
+      "council-at-large-special",
+      "shadow-senator",
+      "shadow-representative",
+    ];
+    for (let w = 1; w <= 8; w++) {
+      const ballot = ballotForWard(String(w));
+      for (const race of expected) {
+        expect(ballot.primaryRaceSlugs).toContain(race);
+      }
+    }
+  });
+
+  it("adds the council ward race only for wards 1, 3, 5, 6 (the wards on the 2026 ballot)", () => {
+    for (const w of ["1", "3", "5", "6"]) {
+      expect(ballotForWard(w).primaryRaceSlugs).toContain(`council-ward-${w}`);
+    }
+    for (const w of ["2", "4", "7", "8"]) {
+      expect(ballotForWard(w).primaryRaceSlugs).not.toContain(`council-ward-${w}`);
+    }
+  });
+
+  it("flags sboeOnGeneralBallot true for wards 1, 3, 5, 6 only", () => {
+    for (const w of ["1", "3", "5", "6"]) {
+      expect(ballotForWard(w).sboeOnGeneralBallot).toBe(true);
+    }
+    for (const w of ["2", "4", "7", "8"]) {
+      expect(ballotForWard(w).sboeOnGeneralBallot).toBe(false);
+    }
+  });
+
+  it("normalizes a 'Ward 5' prefix input", () => {
+    expect(ballotForWard("Ward 5").primaryRaceSlugs).toContain("council-ward-5");
+    expect(ballotForWard("Ward 5").sboeOnGeneralBallot).toBe(true);
   });
 });

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AddressLookup } from "@/components/AddressLookup";
 import { CandidateComparison } from "@/components/CandidateComparison";
 import { Countdown } from "@/components/Countdown";
 import {
@@ -52,6 +53,20 @@ export default function ElectionsPage(): JSX.Element {
         <Countdown targetIso={PRIMARY_DATE} label="Until DC primary" />
         <Countdown targetIso={GENERAL_DATE} label="Until DC general" />
       </div>
+
+      <section className="mt-10 sm:mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Lookup</span>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
+          What&apos;s on your ballot
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm text-fg sm:text-[15px]">
+          Enter your DC address to see your ward, ANC, single-member district, the races
+          on your June 16 primary ballot, and how your current Council member has voted
+          on tracked bills.
+        </p>
+        <AddressLookup />
+      </section>
 
       <section className="mt-10 sm:mt-14">
         <hr className="rule-thick" />

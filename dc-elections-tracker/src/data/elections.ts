@@ -337,6 +337,42 @@ export function externalToolsForRace(slug: string): ExternalTool[] {
   return [...(RACE_EXTERNAL_TOOLS[slug] ?? []), ...COMMON_EXTERNAL_TOOLS];
 }
 
+// Race slugs every DC voter sees on the June 16, 2026 primary ballot regardless of ward.
+const CITYWIDE_PRIMARY_RACES: string[] = [
+  "mayor",
+  "council-chair",
+  "attorney-general",
+  "us-house-delegate",
+  "council-at-large-bonds",
+  "council-at-large-special",
+  "shadow-senator",
+  "shadow-representative",
+];
+
+// Wards whose Council seat is on the 2026 primary ballot.
+const COUNCIL_WARDS_ON_2026_BALLOT = new Set(["1", "3", "5", "6"]);
+
+// Wards whose SBOE seat is on the November 3, 2026 general ballot (terms ending Jan 2027).
+// Note: SBOE is nonpartisan and never appears on the June primary.
+const SBOE_WARDS_ON_2026_BALLOT = new Set(["1", "3", "5", "6"]);
+
+export type BallotForWard = {
+  primaryRaceSlugs: string[]; // races on the user's June 16 primary ballot
+  sboeOnGeneralBallot: boolean; // whether the user's ward has an SBOE seat up on Nov 3
+};
+
+export function ballotForWard(ward: string): BallotForWard {
+  const normalized = ward.replace(/^ward\s*/i, "").trim();
+  const primaryRaceSlugs = [...CITYWIDE_PRIMARY_RACES];
+  if (COUNCIL_WARDS_ON_2026_BALLOT.has(normalized)) {
+    primaryRaceSlugs.push(`council-ward-${normalized}`);
+  }
+  return {
+    primaryRaceSlugs,
+    sboeOnGeneralBallot: SBOE_WARDS_ON_2026_BALLOT.has(normalized),
+  };
+}
+
 // Ordered list of comparable issue slugs (matches the order the issue pages appear in
 // the site nav and on the homepage). Used by the candidate comparison matrix (BL-19).
 export const COMPARABLE_ISSUES: ComparableIssueSlug[] = [

@@ -273,6 +273,23 @@ export type CandidateForum = {
 
 #### BL-02 · Address-Based Ward + ANC Lookup
 
+**v1 shipped (2026-05-10)** — `AddressLookup.tsx` inline on `/elections/` near the top, below the countdowns. Submit-on-button (no debounced typeahead) — one outbound fetch per submit, zero on page load. Output block shows: ward (with current councilmember link), ANC + SMD (with oanc.dc.gov link), "Races you'll vote on in 2026" derived from `ballotForWard(ward)`, the council member's voting record on the 3 BL-12 tracked bills, and a DCBOE polling-place link. Error states: "Address not found" (404-style card with DCBOE fallback link) and "Lookup service didn't respond" (network/CORS error card with same fallback). Both spell out "DC Board of Elections (DCBOE)" on first reference per the editorial style rule.
+
+**Known limitation — CORS proxy dependency:**
+- `citizenatlas.dc.gov` MAR API does NOT return CORS headers, so browsers block direct cross-origin fetches.
+- v1 routes the request through **corsproxy.io** (a free public CORS proxy, no API key, no advertised rate limit). The request path is: user-browser → corsproxy.io → DC government → user-browser. Neither the proxy nor this site stores or logs addresses.
+- The privacy note in the UI is honest about this routing.
+- If corsproxy.io becomes unreliable or imposes a paywall, v2 upgrade path is a self-hosted Cloudflare Worker proxy (free tier covers our volume by orders of magnitude; ~30-minute build).
+- This is the only feature on the site that does runtime client-side fetching; the editorial rule in CLAUDE.md was amended to explicitly allow user-triggered fetches (not load-time fetches).
+
+**Backlogged v2 ideas:**
+- Self-hosted Cloudflare Worker proxy (replace corsproxy.io dependency)
+- Save the looked-up address to `localStorage` so it persists across visits — adds convenience but invites "what else are you storing" anxiety; needs editorial review first
+- Show census tract / lat-lng / nearest Metro station (low voter value, more for power users)
+- Print-friendly "my ballot plan" output
+- Show the user's ANC commissioner directly (requires ANC commissioner roster — pairs with BL-05)
+- BL-25 ("What's on my ballot" full personalization) — extends BL-02 with SMD-level race detail (needs candidate-per-SMD mapping)
+
 **Model:** NYC Board of Elections sample ballot lookup · VOTE411.org · DC OP Address GIS API (MAR).
 
 **Approach (static-friendly):** DC's Master Address Repository API at `https://citizenatlas.dc.gov/newwebservices/locationverifier.asmx` returns ward, ANC, and SMD for any DC address, no API key required. Call from the client on user submit.
