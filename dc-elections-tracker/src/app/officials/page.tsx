@@ -92,17 +92,41 @@ export default function OfficialsPage(): JSX.Element {
                     <div className="mt-3 font-mono text-[11px] uppercase tracking-wider text-subtle">
                       Term ends {m.termEnds}
                     </div>
-                    {m.notes ? (
-                      <p className="mt-3 text-sm leading-snug text-fg">{m.notes}</p>
-                    ) : null}
-                    <a
-                      href={m.source.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-block font-mono text-[10px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
-                    >
-                      {m.source.label} ↗
-                    </a>
+
+                    {/* Mobile (< sm): notes + source link collapse behind a "Background ↓" toggle. */}
+                    <details className="group mt-3 sm:hidden">
+                      <summary className="flex cursor-pointer items-baseline justify-between gap-2 font-mono text-[11px] font-bold uppercase tracking-wider text-muted hover:text-primary">
+                        <span>{m.notes ? "Background" : "Source"}</span>
+                        <span aria-hidden className="transition-transform group-open:rotate-180">↓</span>
+                      </summary>
+                      {m.notes ? (
+                        <p className="mt-2 text-sm leading-snug text-fg">{m.notes}</p>
+                      ) : null}
+                      <a
+                        href={m.source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block font-mono text-[10px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
+                      >
+                        {m.source.label} ↗
+                      </a>
+                    </details>
+
+                    {/* Tablet & desktop (>= sm): notes + source always visible. */}
+                    <div className="hidden sm:block">
+                      {m.notes ? (
+                        <p className="mt-3 text-sm leading-snug text-fg">{m.notes}</p>
+                      ) : null}
+                      <a
+                        href={m.source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-block font-mono text-[10px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
+                      >
+                        {m.source.label} ↗
+                      </a>
+                    </div>
+
                     <MemberVotingMiniRecord memberSlug={m.slug} />
                   </div>
                 </li>

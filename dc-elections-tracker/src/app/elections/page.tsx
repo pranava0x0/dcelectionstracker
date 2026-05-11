@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AddressLookup } from "@/components/AddressLookup";
 import { CandidateComparison } from "@/components/CandidateComparison";
+import { CollapsibleSection } from "@/components/CollapsibleSection";
 import { Countdown } from "@/components/Countdown";
 import {
   PRIMARY_DATE,
@@ -69,10 +70,7 @@ export default function ElectionsPage(): JSX.Element {
         <AddressLookup />
       </section>
 
-      <section className="mt-10 sm:mt-14">
-        <hr className="rule-thick" />
-        <span className="kicker mt-3 inline-block">By the numbers</span>
-        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">DCBOE administration</h2>
+      <CollapsibleSection kicker="By the numbers" title="DCBOE administration">
         <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {electionStats.map((s) => (
             <li key={s.label} className="card p-4">
@@ -89,12 +87,9 @@ export default function ElectionsPage(): JSX.Element {
             </li>
           ))}
         </ul>
-      </section>
+      </CollapsibleSection>
 
-      <section className="mt-10 sm:mt-14">
-        <hr className="rule-thick" />
-        <span className="kicker mt-3 inline-block">Calendar</span>
-        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Key dates</h2>
+      <CollapsibleSection kicker="Calendar" title="Key dates">
         <ul className="mt-5 border-y border-rule bg-paper">
           {future.map((d) => (
             <li
@@ -121,7 +116,7 @@ export default function ElectionsPage(): JSX.Element {
             </li>
           ))}
         </ul>
-      </section>
+      </CollapsibleSection>
 
       <section className="mt-10 sm:mt-14">
         <hr className="rule-thick" />

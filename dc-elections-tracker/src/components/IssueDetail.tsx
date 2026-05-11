@@ -1,4 +1,5 @@
 import type { Issue, Stat } from "@/data/issues";
+import { CollapsibleSection } from "./CollapsibleSection";
 
 function StatTile({ stat }: { stat: Stat }): JSX.Element {
   const isAlarm = stat.alarm === true;
@@ -75,18 +76,19 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
         ))}
       </div>
 
-      <SectionHead kicker="Power" title="Who decides" />
-      <ul className="mt-5 border-y border-rule bg-paper">
-        {issue.whoDecides.map((d, i) => (
-          <li
-            key={i}
-            className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-6"
-          >
-            <span className="display text-base text-ink sm:w-1/3">{d.name}</span>
-            <span className="text-sm leading-snug text-fg sm:flex-1">{d.role}</span>
-          </li>
-        ))}
-      </ul>
+      <CollapsibleSection kicker="Power" title="Who decides">
+        <ul className="mt-5 border-y border-rule bg-paper">
+          {issue.whoDecides.map((d, i) => (
+            <li
+              key={i}
+              className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-6"
+            >
+              <span className="display text-base text-ink sm:w-1/3">{d.name}</span>
+              <span className="text-sm leading-snug text-fg sm:flex-1">{d.role}</span>
+            </li>
+          ))}
+        </ul>
+      </CollapsibleSection>
 
       <SectionHead kicker="Timeline" title="Recent moves" />
       <ol className="mt-5 border-y border-rule bg-paper">
@@ -114,30 +116,32 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
         ))}
       </ol>
 
-      <SectionHead kicker="Ask" title="Questions to put to candidates" />
-      <ul className="mt-5 space-y-3 border-l-2 border-primary pl-4 sm:pl-5">
-        {issue.voterQuestions.map((q, i) => (
-          <li key={i} className="text-base leading-relaxed text-fg sm:text-[17px]">
-            {q}
-          </li>
-        ))}
-      </ul>
+      <CollapsibleSection kicker="Ask" title="Questions to put to candidates">
+        <ul className="mt-5 space-y-3 border-l-2 border-primary pl-4 sm:pl-5">
+          {issue.voterQuestions.map((q, i) => (
+            <li key={i} className="text-base leading-relaxed text-fg sm:text-[17px]">
+              {q}
+            </li>
+          ))}
+        </ul>
+      </CollapsibleSection>
 
-      <SectionHead kicker="Reference" title="Live sources" />
-      <ul className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
-        {issue.liveSources.map((s, i) => (
-          <li key={i} className="bg-paper">
-            <a
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-4 py-3 text-sm text-fg hover:bg-bg hover:text-primary"
-            >
-              {s.label} <span aria-hidden className="text-subtle">↗</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <CollapsibleSection kicker="Reference" title="Live sources">
+        <ul className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
+          {issue.liveSources.map((s, i) => (
+            <li key={i} className="bg-paper">
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-3 text-sm text-fg hover:bg-bg hover:text-primary"
+              >
+                {s.label} <span aria-hidden className="text-subtle">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </CollapsibleSection>
     </article>
   );
 }
