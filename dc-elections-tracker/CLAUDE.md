@@ -51,6 +51,12 @@ src/
                                    # the slug is excluded from allIssueSlugs() via STATIC_ROUTE_SLUGS.
     officials/page.tsx
     elections/page.tsx
+    elections/[race]/page.tsx           # per-seat race page, generateStaticParams from
+                                        # PROFILED_RACE_SLUGS (mayor, council-at-large-bonds,
+                                        # council-ward-1, us-house-delegate). dynamicParams=false. (BL-32)
+    elections/[race]/[candidate]/page.tsx # per-candidate profile, generateStaticParams from
+                                        # candidatesForRace(race).map((c) => ({race, candidate: c.slug})).
+                                        # dynamicParams=false. (BL-32)
     sources/page.tsx
     globals.css
   components/
@@ -68,8 +74,10 @@ src/
     issues.ts                      # 6 issues + minimal ranked-choice entry for the homepage card
     officials.ts                   # Officials w/ slug FK target. councilMembers() + getOfficialBySlug() helpers.
     elections.ts                   # races2026[] + candidates2026[] linked by raceSlug (BL-03)
+                                   # Candidate.slug (kebab-case, globally unique) + Candidate.bio? (BL-32)
                                    # Candidate.positions?: Partial<Record<ComparableIssueSlug, Position>>
                                    # COMPARABLE_ISSUES, COMPARISON_RACE_SLUGS, ISSUE_COLUMN_TAGLINES (BL-19)
+                                   # PROFILED_RACE_SLUGS, ExternalTool, externalToolsForRace() (BL-32)
     votes.ts                       # billVotes[] — BillVote with memberSlug FK to Official (BL-12 + BL-01)
                                    # Helpers: votesForMember(slug). VOTE_LABEL / VOTE_DESCRIPTION maps.
     alerts.ts                      # marquee items
@@ -122,7 +130,7 @@ Unit tests live next to the modules they cover and run via [vitest](https://vite
 - `src/lib/viewport.test.ts` — `classifyViewport()` across phone/tablet/desktop bands, exact breakpoint boundaries, the desktop-window-resized-narrow case, and non-finite fallbacks.
 - `src/lib/rcv.test.ts` — `runIRV()` instant-runoff algorithm: first-round majority, lowest-candidate elimination + transfer, exhausted ballots, lowest-first-round-support tiebreaker, alphabetical-last tiebreaker, the documented base-electorate scenarios (B wins without user; user `[A,C,B]` flips to A on tiebreak).
 - `src/lib/rcv-rankings.test.ts` — pure helpers for the RCV simulator's ranking state: `userBallotFromRankings()` (rank-order projection), `nextRank()` (gap-filling sequential rank), `withoutRank()` (renumber-on-removal), `userVoteJourney()` (trace a ballot through eliminated candidates round-by-round). Refactored out of `RcvSimulator.tsx` for testability.
-- `src/data/elections.test.ts` — `getRaceBySlug()` and `candidatesForRace()` (alphabetical sort, withdrawn filter, unknown-slug fallback) plus dataset-integrity invariants: every `Candidate.raceSlug` references a real Race; every candidate has a sourced label + url; at most one incumbent per race; all Race slugs are unique. Also (BL-19) every `ComparableIssueSlug` has a tag-line, every populated `Position` cites a sourceLabel + http(s) sourceUrl + non-empty stance, position keys reference known issue slugs, and stances stay ≤ 30 words. Catches silent data drift the data-refresh skill could introduce.
+- `src/data/elections.test.ts` — `getRaceBySlug()` and `candidatesForRace()` (alphabetical sort, withdrawn filter, unknown-slug fallback) plus dataset-integrity invariants: every `Candidate.raceSlug` references a real Race; every candidate has a sourced label + url; at most one incumbent per race; all Race slugs are unique. Also (BL-19) every `ComparableIssueSlug` has a tag-line, every populated `Position` cites a sourceLabel + http(s) sourceUrl + non-empty stance, position keys reference known issue slugs, and stances stay ≤ 30 words. Also (BL-32) every `Candidate.slug` is unique kebab-case; `PROFILED_RACE_SLUGS` references real races and each profiled race has ≥1 candidate; `getCandidateBySlug()` works; `externalToolsForRace()` returns ≥2 common tools per race with valid URLs. Catches silent data drift the data-refresh skill could introduce.
 - `src/data/votes.test.ts` (BL-12 / BL-01) — every `Official.slug` is unique kebab-case; `getOfficialBySlug()` + `councilMembers()` return the expected shapes; every `BillVote.memberSlug` references a real Official; every bill records a vote for every current council member (no orphan rows in the matrix); no duplicate memberSlugs per bill; vote values are valid; vote dates are ISO; `votesForMember()` returns the right entries; the documented Secure DC and RENTAL Act tallies match the dataset (catches silent vote-data drift).
 
 Tests use a fixed `now` argument rather than `Date.now()` so they don't drift over time. Markup-level fixes (mobile nav, skip link, kicker text) are not unit-tested — those are verified by the build + manual UAT (`~/.claude/skills/dc-uat.md`). The RCV simulator's interactive behavior (click-to-rank, tabulate, reset) is not unit-tested in v1 — the IRV math and ranking helpers are covered above, and the UI wiring is verified by UAT BF-10. If we ever add React Testing Library, that's where component-render tests would go.

@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CandidateComparison } from "@/components/CandidateComparison";
 import { Countdown } from "@/components/Countdown";
 import {
   PRIMARY_DATE,
   GENERAL_DATE,
+  PROFILED_RACE_SLUGS,
   candidatesForRace,
   importantDates,
   races2026,
   registrationLinks,
 } from "@/data/elections";
 import { partyTone } from "@/lib/party";
+
+const profiledRaces = new Set(PROFILED_RACE_SLUGS);
 
 export const metadata: Metadata = {
   title: "2026 elections — DC Elections Tracker",
@@ -138,9 +142,20 @@ export default function ElectionsPage(): JSX.Element {
                       <ul className="mt-3 space-y-2">
                         {candidates.map((c) => {
                           const tone = partyTone(c.party);
+                          const hasProfile = profiledRaces.has(r.slug);
+                          const nameNode = hasProfile ? (
+                            <Link
+                              href={`/elections/${r.slug}/${c.slug}/`}
+                              className="text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-primary"
+                            >
+                              {c.name}
+                            </Link>
+                          ) : (
+                            <span className="text-ink">{c.name}</span>
+                          );
                           return (
                             <li
-                              key={`${r.slug}-${c.name}`}
+                              key={`${r.slug}-${c.slug}`}
                               className="flex items-baseline gap-2 text-sm"
                             >
                               <span
@@ -152,7 +167,7 @@ export default function ElectionsPage(): JSX.Element {
                               >
                                 {tone.label}
                               </span>
-                              <span className="text-ink">{c.name}</span>
+                              {nameNode}
                               {c.incumbent ? (
                                 <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-muted">
                                   incumbent
@@ -171,10 +186,21 @@ export default function ElectionsPage(): JSX.Element {
                           );
                         })}
                       </ul>
-                      <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-subtle">
-                        Source: declared per linked outlets. Confirm filing status at
-                        dcboe.org/candidates.
-                      </p>
+                      {profiledRaces.has(r.slug) ? (
+                        <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-subtle">
+                          <Link
+                            href={`/elections/${r.slug}/`}
+                            className="hover:text-primary"
+                          >
+                            See the full {r.office.toLowerCase()} race page →
+                          </Link>
+                        </p>
+                      ) : (
+                        <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-subtle">
+                          Source: declared per linked outlets. Confirm filing status at
+                          dcboe.org/candidates.
+                        </p>
+                      )}
                     </details>
                   ) : (
                     <p className="mt-3 border-t border-rule pt-3 font-mono text-[11px] uppercase tracking-wider text-subtle">

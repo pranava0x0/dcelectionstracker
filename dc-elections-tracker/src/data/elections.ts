@@ -46,6 +46,7 @@ export const ISSUE_COLUMN_TAGLINES: Record<ComparableIssueSlug, string> = {
 };
 
 export type Candidate = {
+  slug: string; // kebab-case, globally unique within candidates2026. Used by /elections/[race]/[candidate]/ routes (BL-32).
   name: string;
   raceSlug: string;
   party: CandidateParty;
@@ -56,6 +57,7 @@ export type Candidate = {
   dcboeUrl?: string;
   websiteUrl?: string;
   notes?: string;
+  bio?: string; // ≤ 2 sentences, factual only — never editorial. Shown on the per-candidate profile page (BL-32).
   // Comparison-matrix positions (BL-19). Sparse — only populate cells you can cite directly
   // from the candidate (website, press release, debate quote). Reporter characterizations
   // and endorsement-org summaries are NOT valid sources. Missing keys render as
@@ -128,6 +130,7 @@ export const races2026: Race[] = [
 export const candidates2026: Candidate[] = [
   // Mayor (Democratic primary)
   {
+    slug: "janeese-lewis-george",
     name: "Janeese Lewis George",
     raceSlug: "mayor",
     party: "D",
@@ -143,6 +146,7 @@ export const candidates2026: Candidate[] = [
     },
   },
   {
+    slug: "kenyan-mcduffie",
     name: "Kenyan McDuffie",
     raceSlug: "mayor",
     party: "D",
@@ -164,6 +168,7 @@ export const candidates2026: Candidate[] = [
     },
   },
   {
+    slug: "vincent-orange",
     name: "Vincent Orange",
     raceSlug: "mayor",
     party: "D",
@@ -189,62 +194,62 @@ export const candidates2026: Candidate[] = [
       },
     },
   },
-  { name: "Gary Goodweather", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
-  { name: "Hope Solomon", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" } },
-  { name: "Rini Sampath", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" } },
-  { name: "Ernest Johnson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
-  { name: "Kathy Henderson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
+  { slug: "gary-goodweather", name: "Gary Goodweather", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
+  { slug: "hope-solomon", name: "Hope Solomon", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" } },
+  { slug: "rini-sampath", name: "Rini Sampath", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" } },
+  { slug: "ernest-johnson", name: "Ernest Johnson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
+  { slug: "kathy-henderson", name: "Kathy Henderson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
 
   // Council Chair (Democratic primary)
-  { name: "Phil Mendelson", raceSlug: "council-chair", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
-  { name: "Calvin Gurley", raceSlug: "council-chair", party: "D", filingStatus: "declared", source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
+  { slug: "phil-mendelson", name: "Phil Mendelson", raceSlug: "council-chair", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
+  { slug: "calvin-gurley", name: "Calvin Gurley", raceSlug: "council-chair", party: "D", filingStatus: "declared", source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
 
   // Attorney General (Democratic primary)
-  { name: "Brian Schwalb", raceSlug: "attorney-general", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" } },
-  { name: "J.P. Szymkowicz", raceSlug: "attorney-general", party: "D", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, websiteUrl: "https://jp4dc.com/" },
+  { slug: "brian-schwalb", name: "Brian Schwalb", raceSlug: "attorney-general", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" } },
+  { slug: "jp-szymkowicz", name: "J.P. Szymkowicz", raceSlug: "attorney-general", party: "D", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, websiteUrl: "https://jp4dc.com/" },
 
   // US House Delegate (Democratic primary)
-  { name: "Brooke Pinto", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Ward 2 Councilmember." },
-  { name: "Robert White", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "At-Large Councilmember." },
-  { name: "Kinney Zalesne", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "NOTUS", url: "https://www.notus.org/money/dc-delegate-candidates-election-2026-brooke-pinto-robert-white-kinney-zalesne" } },
-  { name: "Trent Holbrook", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Former senior legislative counsel to Del. Norton." },
-  { name: "Gregory Jaczko", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Former NRC chair." },
+  { slug: "brooke-pinto", name: "Brooke Pinto", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Ward 2 Councilmember." },
+  { slug: "robert-white", name: "Robert White", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "At-Large Councilmember." },
+  { slug: "kinney-zalesne", name: "Kinney Zalesne", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "NOTUS", url: "https://www.notus.org/money/dc-delegate-candidates-election-2026-brooke-pinto-robert-white-kinney-zalesne" } },
+  { slug: "trent-holbrook", name: "Trent Holbrook", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Former senior legislative counsel to Del. Norton." },
+  { slug: "gregory-jaczko", name: "Gregory Jaczko", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Former NRC chair." },
 
   // Council At-Large (open Democratic seat — Bonds retiring)
-  { name: "Kevin B. Chavous", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former community and policy director for Bonds; endorsed by Bonds." },
-  { name: "Candace Tiana Nelson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former ANC 4A commissioner." },
-  { name: "Leniqua'dominique Jenkins", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former Ward 7 ANC commissioner and Bonds staffer." },
-  { name: "Oye Owolewa", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Current US Shadow Representative." },
-  { name: "Nate Fleming", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former shadow representative." },
+  { slug: "kevin-b-chavous", name: "Kevin B. Chavous", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former community and policy director for Bonds; endorsed by Bonds." },
+  { slug: "candace-tiana-nelson", name: "Candace Tiana Nelson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former ANC 4A commissioner." },
+  { slug: "leniqua-jenkins", name: "Leniqua'dominique Jenkins", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former Ward 7 ANC commissioner and Bonds staffer." },
+  { slug: "oye-owolewa", name: "Oye Owolewa", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Current US Shadow Representative." },
+  { slug: "nate-fleming", name: "Nate Fleming", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former shadow representative." },
 
   // Council At-Large (special — Independent seat vacated by McDuffie running for mayor)
-  { name: "Doni Crawford", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", incumbent: true, source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" }, notes: "Appointed interim incumbent." },
-  { name: "Khalil Lee", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" } },
-  { name: "Jacque Patterson", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" } },
-  { name: "Elissa Silverman", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" }, notes: "Previously held an At-Large Independent seat." },
-  { name: "Doug Sloan", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" } },
+  { slug: "doni-crawford", name: "Doni Crawford", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", incumbent: true, source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" }, notes: "Appointed interim incumbent." },
+  { slug: "khalil-lee", name: "Khalil Lee", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" } },
+  { slug: "jacque-patterson", name: "Jacque Patterson", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" } },
+  { slug: "elissa-silverman", name: "Elissa Silverman", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" }, notes: "Previously held an At-Large Independent seat." },
+  { slug: "doug-sloan", name: "Doug Sloan", raceSlug: "council-at-large-special", party: "I", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" } },
 
   // Council Ward 1 (Democratic primary — open seat, Nadeau not running)
-  { name: "Rashida Brown", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Advisory Neighborhood Commissioner." },
-  { name: "Miguel Trindade Deramo", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Advisory Neighborhood Commissioner." },
-  { name: "Aparna Raj", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Communications manager and tenant organizer." },
-  { name: "Terry Lynch", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" } },
-  { name: "Jackie Reyes Yanes", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Former Bowser administration official." },
-  { name: "Brian Footer", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "Washington Blade", url: "https://www.washingtonblade.com/2025/07/10/brian-footer-announces-candidacy-ward-1-dc-council/" }, notes: "Advisory Neighborhood Commissioner." },
+  { slug: "rashida-brown", name: "Rashida Brown", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Advisory Neighborhood Commissioner." },
+  { slug: "miguel-trindade-deramo", name: "Miguel Trindade Deramo", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Advisory Neighborhood Commissioner." },
+  { slug: "aparna-raj", name: "Aparna Raj", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Communications manager and tenant organizer." },
+  { slug: "terry-lynch", name: "Terry Lynch", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" } },
+  { slug: "jackie-reyes-yanes", name: "Jackie Reyes Yanes", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Former Bowser administration official." },
+  { slug: "brian-footer", name: "Brian Footer", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "Washington Blade", url: "https://www.washingtonblade.com/2025/07/10/brian-footer-announces-candidacy-ward-1-dc-council/" }, notes: "Advisory Neighborhood Commissioner." },
 
   // Council Ward 3 (Democratic primary)
-  { name: "Matthew Frumin", raceSlug: "council-ward-3", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Matthew_Frumin" } },
+  { slug: "matthew-frumin", name: "Matthew Frumin", raceSlug: "council-ward-3", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Matthew_Frumin" } },
 
   // Council Ward 5 (Democratic primary)
-  { name: "Zachary Parker", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
-  { name: "Bernita Carmichael", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
+  { slug: "zachary-parker", name: "Zachary Parker", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
+  { slug: "bernita-carmichael", name: "Bernita Carmichael", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
 
   // Council Ward 6 (Democratic primary)
-  { name: "Charles Allen", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
-  { name: "Gloria A. Nauden", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
+  { slug: "charles-allen", name: "Charles Allen", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
+  { slug: "gloria-a-nauden", name: "Gloria A. Nauden", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
 
   // Shadow Senator (Democratic primary)
-  { name: "Paul Strauss", raceSlug: "shadow-senator", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Paul_Strauss" } },
+  { slug: "paul-strauss", name: "Paul Strauss", raceSlug: "shadow-senator", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Paul_Strauss" } },
 
   // Shadow Representative (Democratic primary) — Owolewa not running; declared field unconfirmed in v1.
 ];
@@ -257,6 +262,79 @@ export function candidatesForRace(raceSlug: string): Candidate[] {
 
 export function getRaceBySlug(slug: string): Race | undefined {
   return races2026.find((r) => r.slug === slug);
+}
+
+export function getCandidateBySlug(slug: string): Candidate | undefined {
+  return candidates2026.find((c) => c.slug === slug);
+}
+
+// Races that get a dedicated /elections/[race]/ page + per-candidate profiles (BL-32 v1
+// scope). Limited to the 4 open seats with the most declared candidates and press
+// coverage. Other races are still discoverable via /elections/ (BL-03 expand-on-click) and
+// can be promoted into this list once their candidate pool fills out and the data-refresh
+// skill has populated bios + positions.
+export const PROFILED_RACE_SLUGS = [
+  "mayor",
+  "council-at-large-bonds",
+  "council-ward-1",
+  "us-house-delegate",
+];
+
+// External voter-research tools to link from each per-race page (BL-32). Per-race
+// overrides extend the common list.
+export type ExternalTool = { label: string; url: string; blurb: string };
+
+const COMMON_EXTERNAL_TOOLS: ExternalTool[] = [
+  {
+    label: "DCBOE — Official primary candidate list",
+    url: "https://www.dcboe.org/candidates",
+    blurb: "Authoritative filing roster from the DC Board of Elections.",
+  },
+  {
+    label: "DC OCF — Campaign finance filings",
+    url: "https://efs.ocf.dc.gov/",
+    blurb: "Per-committee fundraising and expenditure reports.",
+  },
+];
+
+const RACE_EXTERNAL_TOOLS: Record<string, ExternalTool[]> = {
+  mayor: [
+    {
+      label: "Ballotpedia — 2026 DC mayoral",
+      url: "https://ballotpedia.org/Mayoral_election_in_Washington,_D.C._(2026)",
+      blurb: "Cross-checked candidate roster and prior-election context.",
+    },
+    {
+      label: "Wikipedia — 2026 DC mayoral",
+      url: "https://en.wikipedia.org/wiki/2026_Washington,_D.C.,_mayoral_election",
+      blurb: "Running summary with endorsement and event references.",
+    },
+  ],
+  "us-house-delegate": [
+    {
+      label: "Ballotpedia — 2026 DC Delegate race",
+      url: "https://ballotpedia.org/United_States_House_of_Representatives_election_in_the_District_of_Columbia,_2026",
+      blurb: "Cross-checked candidate roster and prior-election context.",
+    },
+  ],
+  "council-at-large-bonds": [
+    {
+      label: "Ballotpedia — 2026 DC Council races",
+      url: "https://ballotpedia.org/City_elections_in_Washington,_D.C._(2026)",
+      blurb: "Cross-checked candidate roster across all 2026 Council seats.",
+    },
+  ],
+  "council-ward-1": [
+    {
+      label: "Ballotpedia — 2026 DC Council races",
+      url: "https://ballotpedia.org/City_elections_in_Washington,_D.C._(2026)",
+      blurb: "Cross-checked candidate roster across all 2026 Council seats.",
+    },
+  ],
+};
+
+export function externalToolsForRace(slug: string): ExternalTool[] {
+  return [...(RACE_EXTERNAL_TOOLS[slug] ?? []), ...COMMON_EXTERNAL_TOOLS];
 }
 
 // Ordered list of comparable issue slugs (matches the order the issue pages appear in

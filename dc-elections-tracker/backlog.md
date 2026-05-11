@@ -163,9 +163,16 @@ export type CandidatePosition = {
 
 #### BL-32 · Per-Seat Race Pages + Candidate Profile Cards
 
-**Why:** Voters need a single place to evaluate every candidate for a specific seat — their positions, their record at public forums, recent news, and links to the tools that compare them. No static non-partisan DC source does this at the seat level today. This is the biggest feature gap between DC Elections Tracker and a full voter guide.
+**v1 shipped (2026-05-10)** — nested under `/elections/` (rather than top-level `/[race-slug]/` per the original spec) for namespace consistency. Routes: `/elections/[race]/page.tsx` + `/elections/[race]/[candidate]/page.tsx`, both with `generateStaticParams` + `dynamicParams = false`. 4 races profiled (the open seats with the most declared candidates and press coverage): `mayor`, `council-at-large-bonds`, `council-ward-1`, `us-house-delegate` — 24 candidate profiles total. Race pages render the existing candidate roster from BL-03, a positions matrix using BL-19 data, and an external-voter-guides section (DCBOE/OCF/Ballotpedia/Wikipedia). Candidate profiles render identity block + links row + optional bio + per-issue position list + breadcrumb back. `/elections/` candidate `<details>` lists now link candidate names to their profile when the race is profiled.
 
-**Route structure:**
+**Backlogged v2 additions** (deferred to data-refresh skill + later editorial passes):
+- **Forums & events attended** — needs a new `CandidateForum` type + per-candidate `forumsAttended[]` list. Source: DC LWV, DC Democratic State Committee, ward Dem clubs, WAMU/DCist.
+- **News & media** per candidate — curated list of recent coverage (factual citations only, no editorial summaries). Cross-reference with BL-33 (media source database) once that ships.
+- **Social/government links** beyond `websiteUrl` — LinkedIn, Twitter/X, Instagram, Facebook, government site for incumbents. Schema is forward-compatible; just need to populate.
+- **Candidate-provided photos** — optional `photoUrl?`. No scraped headshots per editorial rule.
+- **Expanding profiled-race scope** — adding the remaining 8 races (Council Chair, AG, Wards 3/5/6, At-Large special, Shadow Senator/Rep) just requires populating `bio`/`positions` and adding their slugs to `PROFILED_RACE_SLUGS`. The route generation is already generic.
+
+**Original route shape (kept for reference; not implemented as written):**
 ```
 /[race-slug]/                  # per-seat race page
 /[race-slug]/[candidate-slug]/ # per-candidate profile page

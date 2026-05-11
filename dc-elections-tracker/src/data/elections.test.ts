@@ -3,8 +3,11 @@ import {
   COMPARABLE_ISSUES,
   COMPARISON_RACE_SLUGS,
   ISSUE_COLUMN_TAGLINES,
+  PROFILED_RACE_SLUGS,
   candidates2026,
   candidatesForRace,
+  externalToolsForRace,
+  getCandidateBySlug,
   getRaceBySlug,
   races2026,
 } from "./elections";
@@ -140,6 +143,43 @@ describe("candidate comparison matrix (BL-19)", () => {
         if (!pos) continue;
         const wordCount = pos.stance.split(/\s+/).filter(Boolean).length;
         expect(wordCount, `${c.name} / ${issue} is ${wordCount} words`).toBeLessThanOrEqual(30);
+      }
+    }
+  });
+});
+
+describe("per-seat race pages + candidate profiles (BL-32)", () => {
+  it("every candidate has a kebab-case slug and slugs are unique", () => {
+    const slugs = candidates2026.map((c) => c.slug);
+    for (const s of slugs) expect(s, `bad slug: ${s}`).toMatch(/^[a-z][a-z0-9-]*$/);
+    expect(new Set(slugs).size, "duplicate candidate slug detected").toBe(slugs.length);
+  });
+
+  it("PROFILED_RACE_SLUGS reference real races", () => {
+    const valid = new Set(races2026.map((r) => r.slug));
+    for (const slug of PROFILED_RACE_SLUGS) expect(valid.has(slug)).toBe(true);
+  });
+
+  it("every profiled race has at least one declared candidate", () => {
+    for (const slug of PROFILED_RACE_SLUGS) {
+      expect(candidatesForRace(slug).length, `${slug} has zero candidates`).toBeGreaterThan(0);
+    }
+  });
+
+  it("getCandidateBySlug returns the matching candidate or undefined", () => {
+    expect(getCandidateBySlug("janeese-lewis-george")?.name).toBe("Janeese Lewis George");
+    expect(getCandidateBySlug("kenyan-mcduffie")?.raceSlug).toBe("mayor");
+    expect(getCandidateBySlug("not-a-slug")).toBeUndefined();
+  });
+
+  it("externalToolsForRace returns common tools at minimum for every race", () => {
+    for (const slug of PROFILED_RACE_SLUGS) {
+      const tools = externalToolsForRace(slug);
+      expect(tools.length).toBeGreaterThanOrEqual(2);
+      for (const t of tools) {
+        expect(t.url).toMatch(/^https:\/\//);
+        expect(t.label.length).toBeGreaterThan(0);
+        expect(t.blurb.length).toBeGreaterThan(0);
       }
     }
   });
