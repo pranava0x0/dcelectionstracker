@@ -13,7 +13,7 @@ export default function OfficialsPage(): JSX.Element {
   return (
     <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
       <p className="kicker">Reference</p>
-      <h1 className="display-tight mt-3 text-4xl text-ink sm:text-5xl lg:text-6xl">
+      <h1 className="display-tight mt-3 text-3xl text-ink sm:text-5xl lg:text-6xl">
         Who currently holds office in DC
       </h1>
       <p className="mt-4 max-w-3xl text-base leading-snug text-fg sm:text-[17px]">
@@ -106,7 +106,7 @@ export default function OfficialsPage(): JSX.Element {
                         href={m.source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-block font-mono text-[10px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
+                        className="mt-2 inline-block py-1 font-mono text-xs font-bold uppercase tracking-wider text-primary hover:opacity-80"
                       >
                         {m.source.label} ↗
                       </a>
@@ -121,7 +121,7 @@ export default function OfficialsPage(): JSX.Element {
                         href={m.source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-block font-mono text-[10px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
+                        className="mt-3 inline-block py-1 font-mono text-xs font-bold uppercase tracking-wider text-primary hover:opacity-80"
                       >
                         {m.source.label} ↗
                       </a>
@@ -136,7 +136,7 @@ export default function OfficialsPage(): JSX.Element {
         </section>
       ))}
 
-      <section className="mt-10 sm:mt-14">
+      <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Records</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">

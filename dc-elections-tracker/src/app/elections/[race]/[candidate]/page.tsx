@@ -118,7 +118,7 @@ export default function CandidateProfilePage({ params }: { params: Params }): JS
       </section>
 
       {candidate.bio ? (
-        <section className="mt-10 sm:mt-14">
+        <section className="mt-8 sm:mt-12 lg:mt-14">
           <hr className="rule-thick" />
           <span className="kicker mt-3 inline-block">Bio</span>
           <h2 className="display mt-1 text-xl text-ink sm:text-2xl">Background</h2>
@@ -128,7 +128,7 @@ export default function CandidateProfilePage({ params }: { params: Params }): JS
         </section>
       ) : null}
 
-      <section className="mt-10 sm:mt-14">
+      <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Positions</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
@@ -179,7 +179,7 @@ export default function CandidateProfilePage({ params }: { params: Params }): JS
         </ul>
       </section>
 
-      <section className="mt-10 sm:mt-14">
+      <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Race</span>
         <h2 className="display mt-1 text-xl text-ink sm:text-2xl">

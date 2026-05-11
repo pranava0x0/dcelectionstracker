@@ -13,7 +13,7 @@ type Props = {
 // This is JS-free and avoids fighting browser internals for [open] state.
 export function CollapsibleSection({ kicker, title, children }: Props): JSX.Element {
   return (
-    <section className="mt-10 sm:mt-14">
+    <section className="mt-8 sm:mt-12 lg:mt-14">
       <hr className="rule-thick" />
 
       {/* Mobile (< sm): collapsed by default. Summary carries the kicker + title. */}

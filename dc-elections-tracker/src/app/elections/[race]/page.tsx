@@ -121,7 +121,7 @@ export default function RacePage({ params }: { params: Params }): JSX.Element {
         </ul>
       </section>
 
-      <section className="mt-10 sm:mt-14">
+      <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Positions</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Issue-by-issue comparison</h2>
@@ -262,7 +262,7 @@ export default function RacePage({ params }: { params: Params }): JSX.Element {
         </div>
       </section>
 
-      <section className="mt-10 sm:mt-14">
+      <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Other tools</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">External voter guides for this race</h2>

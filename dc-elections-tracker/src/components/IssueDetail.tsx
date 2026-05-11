@@ -1,5 +1,6 @@
 import type { Issue, Stat } from "@/data/issues";
 import { CollapsibleSection } from "./CollapsibleSection";
+import { JumpStrip } from "./JumpStrip";
 
 function StatTile({ stat }: { stat: Stat }): JSX.Element {
   const isAlarm = stat.alarm === true;
@@ -24,7 +25,7 @@ function StatTile({ stat }: { stat: Stat }): JSX.Element {
           href={stat.source.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-auto font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+          className="mt-auto inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted hover:text-primary"
         >
           {stat.source.label} <span aria-hidden>↗</span>
         </a>
@@ -33,9 +34,17 @@ function StatTile({ stat }: { stat: Stat }): JSX.Element {
   );
 }
 
-function SectionHead({ kicker, title }: { kicker: string; title: string }): JSX.Element {
+function SectionHead({
+  kicker,
+  title,
+  id,
+}: {
+  kicker: string;
+  title: string;
+  id?: string;
+}): JSX.Element {
   return (
-    <header className="mt-10 sm:mt-14">
+    <header id={id} className="mt-8 sm:mt-12 lg:mt-14 scroll-mt-16">
       <hr className="rule-thick" />
       <div className="mt-3 flex items-baseline justify-between gap-4">
         <span className="kicker">{kicker}</span>
@@ -55,18 +64,29 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
       <p className="mt-3 max-w-3xl text-lg font-medium leading-snug text-primary sm:mt-4 sm:text-xl">
         {issue.oneLiner}
       </p>
+      <JumpStrip
+        chips={[
+          { href: "#stats", label: "Stats" },
+          { href: "#stakes", label: "Stakes" },
+          { href: "#timeline", label: "Timeline" },
+        ]}
+      />
+
       <hr className="mt-6 rule-thick sm:mt-8" />
       <p className="mt-5 max-w-3xl text-base leading-relaxed text-fg sm:mt-6 sm:text-[17px]">
         {issue.hero}
       </p>
 
-      <section className="mt-8 grid grid-cols-1 gap-px bg-rule sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
+      <section
+        id="stats"
+        className="mt-8 grid scroll-mt-16 grid-cols-1 gap-px bg-rule sm:mt-10 sm:grid-cols-2 lg:grid-cols-4"
+      >
         {issue.stats.map((s, i) => (
           <StatTile key={i} stat={s} />
         ))}
       </section>
 
-      <SectionHead kicker="The fight" title="What's at stake" />
+      <SectionHead id="stakes" kicker="The fight" title="What's at stake" />
       <div className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2 lg:grid-cols-3">
         {issue.whatsAtStake.map((s, i) => (
           <div key={i} className="bg-paper p-5">
@@ -90,7 +110,7 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
         </ul>
       </CollapsibleSection>
 
-      <SectionHead kicker="Timeline" title="Recent moves" />
+      <SectionHead id="timeline" kicker="Timeline" title="Recent moves" />
       <ol className="mt-5 border-y border-rule bg-paper">
         {issue.recentMoves.map((m, i) => (
           <li
@@ -108,7 +128,7 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
               href={m.source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+              className="inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted hover:text-primary"
             >
               {m.source.label} ↗
             </a>

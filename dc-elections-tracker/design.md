@@ -100,7 +100,10 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 | tablet   | `640 – 1023px`   | `sm:`, `md:`    |
 | desktop  | `>= 1024px`      | `lg:`           |
 
-- **Hero h1** scales `text-3xl` (issue) / `text-4xl` (page) → `sm:text-4xl/5xl` → `md:text-6xl` (home only) → `lg:text-5xl/6xl/7xl`.
+- **Hero h1** scales `text-3xl` (issue) / `text-3xl` (page-level on mobile) / `text-4xl` (home) → `sm:text-4xl/5xl` → `md:text-6xl` (home only) → `lg:text-5xl/6xl/7xl`. The page-level hero on `/officials/` and `/elections/` drops from `text-4xl` to `text-3xl` at mobile to keep more of the page above the fold; the home hero stays `text-4xl` for impact.
+- **Section spacing**: editorial sections separate with `mt-8 sm:mt-12 lg:mt-14`. The mobile gap is intentionally tighter (32px vs 56px at desktop) to cut vertical air on phones without losing the 3px black-rule rhythm.
+- **Card padding**: `p-4 sm:p-5` for hero cards (IssueCard, Countdown, AddressLookup result/error). `p-3` is the floor at mobile; `p-5` is the desktop maximum.
+- **Source attribution links** at the bottom of stat tiles, election-admin tiles, key-date rows, recent-moves rows, and officials cards use `text-xs` (12px) with `py-1` for tap-target padding — never `text-[10px]` or `text-[11px]`. Inline `[src]` superscripts inside body prose stay at `text-[10px]` (small by design — they're footnotes, not buttons).
 - **Issue cards** wrap 1 → `sm:` 2 → `lg:` 3.
 - **Officials cards** wrap 1 → `sm:` 2 → `lg:` 3.
 - **Stat tiles** in `IssueDetail` wrap 1 → `sm:` 2 → `lg:` 4.
@@ -111,6 +114,12 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 - **Footer**: build line wraps to its own row below `sm` (`basis-full`); shares the row with nav links at `sm` and up.
 
 Autodetection is pure CSS. A desktop browser dragged narrow, or a device rotated, reflows on the same media queries with no JavaScript involved.
+
+### Mobile jump-to chip strip
+
+Long mobile pages (`/elections/`, every `/issues/[slug]/`) carry a `JumpStrip` rendered immediately under the hero. It is a horizontal-scroll `<nav>` of `h-10` (40px) anchor chips, hidden at `sm+` where the page is short enough to scan. Each chip links to a section `id` further down the page; `html { scroll-behavior: smooth }` in `globals.css` makes the jump animate (disabled under `prefers-reduced-motion: reduce`). Anchored sections carry `scroll-mt-16` so the sticky `NavBar` doesn't hide their headers after a jump.
+
+The strip only links to **always-inline** sections — never to a `CollapsibleSection`, since tapping a chip to land on a closed `<details>` summary is a worse experience than the user expects. New always-inline sections that show up below the fold should be added to the chip set; collapsibles should not.
 
 ## Mobile patterns for dense data
 

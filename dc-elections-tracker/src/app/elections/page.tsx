@@ -4,6 +4,7 @@ import { AddressLookup } from "@/components/AddressLookup";
 import { CandidateComparison } from "@/components/CandidateComparison";
 import { CollapsibleSection } from "@/components/CollapsibleSection";
 import { Countdown } from "@/components/Countdown";
+import { JumpStrip } from "@/components/JumpStrip";
 import {
   PRIMARY_DATE,
   GENERAL_DATE,
@@ -38,7 +39,7 @@ export default function ElectionsPage(): JSX.Element {
   return (
     <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
       <p className="kicker">2026 cycle</p>
-      <h1 className="display-tight mt-3 text-4xl text-ink sm:text-5xl lg:text-6xl">
+      <h1 className="display-tight mt-3 text-3xl text-ink sm:text-5xl lg:text-6xl">
         Every DC race on the ballot in 2026
       </h1>
       <p className="mt-4 max-w-3xl text-base leading-snug text-fg sm:text-[17px]">
@@ -50,13 +51,22 @@ export default function ElectionsPage(): JSX.Element {
         Advisory Neighborhood Commission seats are on the November 3 ballot.
       </p>
 
+      <JumpStrip
+        chips={[
+          { href: "#lookup", label: "Lookup" },
+          { href: "#races", label: "Races" },
+          { href: "#compare", label: "Compare" },
+          { href: "#action", label: "Take action" },
+        ]}
+      />
+
       <hr className="mt-8 rule-thick" />
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Countdown targetIso={PRIMARY_DATE} label="Until DC primary" />
         <Countdown targetIso={GENERAL_DATE} label="Until DC general" />
       </div>
 
-      <section className="mt-10 sm:mt-14">
+      <section id="lookup" className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Lookup</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
@@ -80,7 +90,7 @@ export default function ElectionsPage(): JSX.Element {
                 href={s.source.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-block font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                className="mt-3 inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted hover:text-primary"
               >
                 {s.source.label} ↗
               </a>
@@ -108,7 +118,7 @@ export default function ElectionsPage(): JSX.Element {
                   href={d.source.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                  className="inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted hover:text-primary"
                 >
                   {d.source.label} ↗
                 </a>
@@ -118,7 +128,7 @@ export default function ElectionsPage(): JSX.Element {
         </ul>
       </CollapsibleSection>
 
-      <section className="mt-10 sm:mt-14">
+      <section id="races" className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Ballot</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Races</h2>
@@ -247,7 +257,7 @@ export default function ElectionsPage(): JSX.Element {
         </ul>
       </section>
 
-      <section className="mt-10 sm:mt-14">
+      <section id="compare" className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Compare</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
@@ -256,7 +266,7 @@ export default function ElectionsPage(): JSX.Element {
         <CandidateComparison />
       </section>
 
-      <section className="mt-10 sm:mt-14">
+      <section id="action" className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Take action</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
