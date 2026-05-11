@@ -31,6 +31,11 @@ Sorted within tier by impact ÷ effort (best bang first).
 | BL-19 | Candidate comparison matrix — Mayor race + Ward 1/3/5/6 + At-Large, one row per issue (housing, policing, federal workers, schools, budget) | M | M | ★★ | Open mayoral race (first since 2014); voters need side-by-side; Philadelphia Committee of Seventy model |
 | BL-04 | Candidate questionnaire snapshot — one row per declared candidate × 5 yes/no policy questions | M | M | ★ | Ballotpedia has thin DC coverage; standardized Q&A differentiates from WaPo narrative coverage |
 | BL-02 | Address-based ward + ANC lookup — paste address → ward, ANC, SMD, polling place | L | L | ★★ | Highest-traffic feature on comparable civic sites (Chicago Votes, VOTE411, NYC Board of Elections) |
+| BL-36 | Collapse 6 individual issue links in primary nav → single "Issues" item | M | M | ★★ | Subsumed by BL-47 (full nav restructure); ship BL-47 instead. |
+| BL-44 | Endorsements section on candidate profile pages | S | S | ★★ | Major DC endorsers (WaPo, DC for Democracy, WTU, ward Dem clubs, SEIU 32BJ) roll in 4–6 weeks before the primary — peak relevance is now. Add `endorsements?` array to `Candidate` and render a grouped badge list on each profile page. Can ship independently of BL-20 (site-wide endorsement index). |
+| BL-45 | Candidate forums + voter guide links on race/seat pages — plus data-refresh skill update | M | M | ★★ | Forums and published voter guides (LWV, DC for Democracy, ward clubs, WAMU/DCist) are how voters compare candidates head-to-head. Data refresh skill must actively check for new forums and guides in the 6 weeks before June 16. See spec below. |
+| BL-46 | Rethink race status labels — remove "incumbent" tag, replace with neutral seat-status language | S | S | ★ | Labeling a race "incumbent" implicitly signals an entrenched winner and may cause voters to skip evaluating challengers. Remove from the race-level `status` field; surface the current officeholder as a factual note on the race page instead. See spec below. |
+| BL-47 | IMPORTANT — Restructure primary nav into two tabs: Issues + Elections | L | L | ★★★ | Current nav has 9 flat items — 6 issue pages sit alongside Officials, Elections, and Sources at equal weight. Collapse to Issues → `/issues/` index and Elections → `/elections/` hub (which absorbs Officials as a prominent section). Nav becomes 2 items; Sources moves to footer. Supersedes BL-36. See spec below. |
 
 ---
 
@@ -309,6 +314,143 @@ export type CandidateForum = {
 
 ---
 
+#### BL-44 · Endorsements on Candidate Profile Pages
+
+**Why urgent:** Endorsements from major DC organizations (Washington Post, DC for Democracy, Washington Teachers Union, SEIU 32BJ, ward Democratic clubs) are the top sorting signal for many low-information voters and arrive 4–6 weeks before the primary. Adding them to profile pages while they're still decision-relevant maximizes value.
+
+**Data shape** (extend `Candidate` in `src/data/elections.ts`):
+```ts
+export type CandidateEndorsement = {
+  endorser: string;                                                      // e.g. "Washington Post"
+  endorserType: "newspaper" | "union" | "civic" | "elected" | "party";
+  date: string;                                                          // ISO
+  sourceUrl: string;
+};
+
+// Add to Candidate:
+endorsements?: CandidateEndorsement[];
+```
+
+**Render:** On `/elections/[race]/[candidate]/`, add an "Endorsements" section below the bio. Group badges by type (newspaper → union → civic → elected → party). Each badge links to the endorsement source. If `endorsements` is absent or empty, omit the section entirely — no "No endorsements" placeholder. On `/elections/[race]/`, show a compact count or abbreviated badge row per candidate in the candidate grid.
+
+**Key DC endorsers to seed (when they announce):** Washington Post editorial board · DC for Democracy · Washington Teachers Union (WTU) · SEIU 32BJ · DC Federation of Civic Associations · Ward 1/3/5/6 Democratic clubs · DC DSA · individual elected officials cross-endorsing.
+
+**Relationship to BL-20:** BL-20 is a site-wide `/elections/endorsements/` index page and filterable table — larger scope, deferred to P2. BL-44 is the per-profile display; it can and should ship before BL-20. The same `CandidateEndorsement` type feeds both.
+
+**Data refresh:** Check weekly in the 6 weeks before June 16 for new endorsements. Sources: endorsing org websites, DCist/WaPo coverage, candidate social media announcements.
+
+---
+
+#### BL-45 · Candidate Forums + Voter Guide Links on Race Pages
+
+**Why urgent:** Forums are the primary venue where voters compare candidates directly. DC LWV, DC for Democracy, ward Democratic clubs, and WAMU/DCist host forums in the 6–8 weeks before the primary. Voter guides from these orgs are often the only structured comparison for down-ballot races. The data-refresh skill must actively watch for announcements.
+
+**Data shape** (add to `src/data/elections.ts`):
+```ts
+export type CandidateForum = {
+  id: string;                   // kebab-case, e.g. "lwv-mayor-2026-05-15"
+  raceSlug: string;             // FK to Race.slug
+  date: string;                 // ISO
+  title: string;
+  host: string;
+  format: "in-person" | "virtual" | "hybrid";
+  recordingUrl?: string;
+  summaryUrl?: string;
+  attendedSlugs: string[];      // FK to Candidate.slug — who attended; empty until confirmed
+};
+
+export type VoterGuide = {
+  id: string;
+  raceSlug: string | "all";     // "all" for citywide guides covering multiple races
+  publisher: string;
+  url: string;
+  publishedDate?: string;       // ISO — may not be known until the guide drops
+  note?: string;                // e.g. "Includes written questionnaire responses"
+};
+```
+
+**Render:** On `/elections/[race]/`, add two sections below the candidate grid:
+1. **Forums** — table: date, host, format, recording/summary links, attended-by chip per candidate. Sort by date. Missing `attendedSlugs` renders as "attendance TBD."
+2. **Voter guides** — link list: publisher name, publication date if known, note.
+
+These sections should be absent (not rendered as empty) until at least one forum or guide exists for the race.
+
+**Data integrity:** Add tests in `elections.test.ts` — every `CandidateForum.raceSlug` references a real race; every `attendedSlug` references a real candidate; `date` is a valid ISO string.
+
+**Data-refresh skill instructions:** In the 6 weeks before June 16, check weekly for new forums and voter guides from:
+- DC League of Women Voters (lwvdc.org) — typically hosts mayoral + ward forums
+- DC for Democracy (dcfordemocracy.org) — progressive endorsement + voter guide
+- Ward Democratic clubs (Ward 1, 3, 5, 6 — most active)
+- WAMU/DCist "The Politics Hour" and voter guide
+- Greater Greater Washington primary coverage
+- Ballotpedia DC pages (aggregates guides)
+- VOTE411.org (LWV's national guide platform, sometimes includes DC)
+- Candidate websites and social media (candidates announce forums they're attending)
+
+When a guide drops, log the URL and date immediately — voter guides sometimes go offline after the election.
+
+---
+
+#### BL-46 · Rethink Race Status Labels — Replace "Incumbent" with Neutral Seat-Status Language
+
+**Why:** The current `Race.status` field has three values: `"open"`, `"incumbent"`, and `"special"`. The `"incumbent"` label implies the race belongs to the current holder and can cause voters to skip evaluating challengers. Every race is contested; the site should convey factual seat context without implying a presumptive winner.
+
+**Proposed change:**
+
+| Current | Proposed | Meaning |
+|---|---|---|
+| `"open"` | `"open"` | No incumbent is running; the seat is fully uncontested by a prior holder |
+| `"incumbent"` | `"includes-incumbent"` | The current officeholder is running, alongside challengers |
+| `"special"` | `"special"` | Mid-term vacancy; special election rules apply |
+
+The **race-level card** currently renders a colored pill (`open` = red, `incumbent` = black border, `special` = blue). New rendering:
+- `"open"` → red pill "OPEN SEAT" (unchanged)
+- `"includes-incumbent"` → black-border pill "INCUMBENT RUNNING" (factual, neutral — names the fact rather than implying dominance)
+- `"special"` → blue pill "SPECIAL ELECTION" (unchanged)
+
+On the **race page** (`/elections/[race]/`), add a one-line factual note below the race title when the incumbent is running: "Current officeholder: [Name] ([Party]) — also declared in this race." Link [Name] to their profile.
+
+The per-candidate `incumbent: boolean` flag on `Candidate` is unaffected — it is the factual record of who holds the seat and is used separately in candidate lists.
+
+**Scope:** `src/data/elections.ts` (update `Race.status` type union + seed values), `/elections/page.tsx` + `/elections/[race]/page.tsx` (update the pill render), `elections.test.ts` (update any status-value assertions).
+
+---
+
+#### BL-47 · Primary Nav Restructure: Issues Tab + Elections Tab
+
+**Why:** The current 9-item flat nav — Statehood | Public Safety | Housing | Budget | Transit | Schools | Officials | Elections | Sources — makes the header read as a site map. Six of nine items are editorial content pages; utility pages (Officials, Elections) compete visually with content. For a voter landing on the site 5 weeks before the primary, the nav creates unnecessary scan cost.
+
+**Proposed nav (2 items):**
+
+| Item | Route | What it covers |
+|---|---|---|
+| Issues | `/issues/` (new index page) | IssueCard grid for all 7 issues + brief intro |
+| Elections | `/elections/` (existing) | Countdowns, address lookup, races, candidates + prominent Officials link |
+
+Sources moves to footer-only (already there). Officials stays at `/officials/` (no route change) but exits the primary nav; it becomes a prominently linked section within `/elections/`.
+
+**Key decisions:**
+
+1. **`/issues/` index page (new).** Reuses the existing `IssueCard` grid component already on the homepage. Copy: "Six issues on the 2026 DC ballot. Every stat links to a primary source." The homepage IssueCard section stays — it is content on the homepage, not navigation.
+
+2. **Officials absorbed into Elections hub.** On `/elections/page.tsx`, add a "Who currently holds office" section near the top (after the address lookup) with a card linking to `/officials/`. This keeps the route intact while making it discoverable from the primary entry point voters already use.
+
+3. **Sources demoted to footer.** Remove from the `navItems` array in `NavBar.tsx`. Footer already includes it; no user journey is broken.
+
+4. **No route deletions.** All existing URLs remain valid. This is a nav-surface change only for most of it; the only new route is `/issues/`.
+
+**Result:** Nav collapses from 9 items to 2. On mobile the hamburger drawer goes from 9 taps to 2. Issue pages remain at the same URLs — `/issues/statehood/` etc. — and are reached via the Issues index.
+
+**Scope:**
+- `NavBar.tsx` — remove 7 items from `navItems`, keep Issues + Elections
+- `src/app/issues/page.tsx` — new index page (reuse `IssueCard` grid)
+- `src/app/elections/page.tsx` — add Officials section link
+- No data changes, no route deletions
+
+**Supersedes:** BL-36 (Issues index page — that work is the `/issues/page.tsx` piece of this). Makes BL-26 (nav separator) irrelevant.
+
+---
+
 ## P2 — Ship before November 3, 2026 general
 
 Sorted within tier by impact ÷ effort.
@@ -322,6 +464,10 @@ Sorted within tier by impact ÷ effort.
 | BL-13 | Translate landing page + key dates to Spanish | M | M | ★ | Growing Spanish-speaking population; Ward 1/4/14th St. NW communities; immigration enforcement is a live issue |
 | BL-20 | Endorsement tracker — newspapers, unions, civic orgs, elected officials by race | S | M | ★ | NYC and Chicago voter guides show endorsements are top sorting signal for low-info voters |
 | BL-05 | ANC commissioner directory — all 46 ANCs, ~345 SMDs, sourced from oanc.dc.gov | M | L | ★ | Civic infrastructure that builds long-term authority; deferred because primary is ward-level |
+| BL-37 | Remove AlertTicker marquee — alert content is already shown as cards on the homepage | S | S | ★ | The marquee ribbon and the "Three things that just changed" cards both render from the same `alerts.ts` data. Users see the same headlines twice. Removing the marquee reduces visual noise; the cards are more readable and actionable anyway. If the marquee is kept for ambient signal value, remove the cards instead — but not both. Adjacent to BL-31 (replace marquee with vertical ticker): if BL-31 ships first, BL-37 is resolved. |
+| BL-39 | Move candidate comparison matrix off the main `/elections/` scroll — link to it from race cards instead | S | S | ★ | The elections page has 7 sequential sections; the comparison matrix is near the bottom and rarely reached. Options: extract to `/elections/compare/` (a route the BL-19 spec explicitly considered but deferred), or collapse the matrix behind a `<details>` toggle. No data changes; pure render relocation. |
+| BL-42 | Per-candidate news/coverage links — multiple sourced items per candidate | M | M | ★ | Each candidate profile should list recent coverage (DCist, WaPo, WAMU, City Paper) as a dated, sourced list. Add `news?: { date: string; outlet: string; headline: string; url: string }[]` to `Candidate`. Render on profile pages under a "Coverage" section. Editorial rule: factual citations only, no commentary. Deferred in BL-32 v1; this formalizes the data shape and render. Data refresh skill populates. |
+| BL-43 | Fundraising numbers on candidate profiles — total raised, top donors, cash on hand | L | L | ★★ | DC OCF publishes committee-level contribution data. Pre-primary 10-day disclosure (June 6, 2026) is the high-value vintage. Add a `finance?` block to `Candidate`, populated by a Node script from OCF CSV exports. Renders as stat tiles on the profile page and a summary badge on the race page. Extends BL-18 (site-wide finance cards); both share the same OCF data pipeline. See BL-18 spec for the pipeline approach. |
 
 ---
 
@@ -442,6 +588,9 @@ Sorted within tier by impact ÷ effort.
 | BL-10 | Light search across all issue pages — client-side, build-time index (Pagefind) | M | S | · | Low voter impact vs. cost; useful for journalists and power users |
 | BL-11 | RSS / Atom feed of recent moves across all issues | S | S | · | Niche but serves journalists and RSS users; small lift once `alerts.ts` is stable |
 | BL-09 | Shadow Senator / Shadow Rep explainer mini-page | S | S | · | Good civic education; low voter impact vs. other P3 items |
+| BL-38 | Remove "Sources" from primary nav — it is already in the footer | S | S | · | Sources is a reference/audit page, not a primary voter destination. Moving it to footer-only frees a slot in the header and reduces nav cognitive load. No route changes; delete the nav entry in `NavBar.tsx` only. |
+| BL-40 | Make voter FAQ section collapsible on issue pages (collapsed by default) | S | S | ★ | Each issue page has 7 sections; the FAQ is a deep-dive secondary resource. Wrapping it in a `<details>` element lets voters see the primary content (stats, what's at stake, who decides) without scrolling past a long Q&A list. Use `<details open>` at desktop if desired. `IssueDetail.tsx` only. |
+| BL-41 | Move "Where this site stands" editorial section off the homepage | S | S | · | The editorial standard section sits below the issue cards and takes up prime scroll real estate. It is important for trust but not a primary voter goal. Move to a `/about/` page (new route) or fold into the footer. Homepage still mentions sourcing inline via the hero paragraph. |
 
 ---
 
