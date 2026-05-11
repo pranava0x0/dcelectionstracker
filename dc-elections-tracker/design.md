@@ -112,9 +112,21 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 
 Autodetection is pure CSS. A desktop browser dragged narrow, or a device rotated, reflows on the same media queries with no JavaScript involved.
 
+## Mobile patterns for dense data
+
+Three components carry tabular data that doesn't fit a 375px viewport without horizontal scroll — the Council voting-record matrix, the per-race candidate position table, and the RCV round-by-round results. Each ships a parallel mobile-only stacked render alongside the original table. Both renders read from the same source data — no duplicated content, no JS branching, just Tailwind responsive utilities.
+
+- **Sibling-pair pattern.** A `<ul className="sm:hidden">` (mobile cards) sits beside a `<div className="hidden sm:block">` (the original table). The pair shares the surrounding section heading and intro copy; only the data presentation differs.
+- **Wrap-grid for fixed-width chips.** When a row has many short values (e.g. each Council member's vote on a bill), mobile renders them as a 4-column wrap-grid of `h-11` (44px) chips with a small mono caption beneath. The chip color encodes the value; the caption identifies the row. `title` and `aria-label` carry the full description for hover and screen readers. Used by `VotingRecordMatrix`.
+- **`<details>` per row.** When each row has many descriptive cells (e.g. a candidate's stated positions across six issues), mobile renders each row as a `<details>` whose summary shows a quick metric (e.g. "3/6 stated") so the user can skip empty rows; expanding the summary reveals the cells as a stacked list. Used by `/elections/[race]/` issue-by-issue comparison.
+- **Row strip with inline pills.** When the row count is bounded and each row has a short result-tag plus a sequence of numbers (RCV rounds), mobile renders each row as a strip with the tag in the header and the numbers wrapping on a single mono row beneath. Used by `RcvSimulator` results.
+
+Tap targets in these mobile renders meet the 44px minimum. The desktop table is the canonical layout — design changes to either render should keep the two in sync.
+
 ## What we don't do
 
 - No icon library. Arrows are unicode `→` and `↗`. The pulsing dot is a `<span>`, not an SVG.
 - No web fonts. The slab-serif feel comes from a system fallback chain.
 - No animation beyond the marquee, the masthead dot, and the card hover lift.
 - No skeleton loaders, spinners, or progressive enhancement — static export means content renders with the document.
+- No `min-w-[…px]` forcing horizontal scroll on data tables that have a mobile viewport user. If a table can't fit a phone, it gets a mobile-stacked render per the patterns above — not a sideways-scrolling overflow.
