@@ -21,10 +21,11 @@ Sorted within tier by impact ÷ effort (best bang first).
 
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
-| BL-27 | Fix "Are you registered?" nav button — currently links to `/elections/` instead of DCBOE registration | S | S | ★★★ | Button is the highest-visibility CTA on every page; misdirects voters to an internal page instead of the DCBOE registration tool |
+| BL-35 | Fix "Are you registered?" nav button — currently links to `/elections/` instead of DCBOE registration | S | S | ★★★ | Button is the highest-visibility CTA on every page; misdirects voters to an internal page instead of the DCBOE registration tool |
 | BL-16 | RCV explainer page + interactive ballot simulator | M | M | ★★★ | DC's first-ever ranked-choice primary; DCBOE has no public education campaign; every voter needs this |
-| BL-03 | Declared 2026 candidate list on /elections/ — all races, alphabetical, OCF/DCBOE filing links only | S | S | ★★★ | Primary is weeks away; no other static non-partisan source aggregates all races in one place |
+| BL-03 | Declared 2026 candidate list on /elections/ — full per-race rosters with OCF/DCBOE filing links and party badges (extends BL-26 inline names) | S | S | ★★★ | BL-26 added top-5 names per race; BL-03 promotes those into structured per-race candidate cards |
 | BL-32 | Per-seat race pages + candidate profile cards — each seat gets a dedicated page with candidate roster, issue positions, forums attended, news/media, and links to external comparison tools | XL | XL | ★★★ | Core voter-decision tool; no static non-partisan DC source does this at seat level; see full spec below |
+| BL-27 | Delegate race explainer — what the Delegate can/can't do + doxxing controversy context | M | M | ★★ | Most contentious race on the ballot; 5 declared; doxxing scandal happened; no context on site |
 | BL-17 | SBOE candidate guide — all candidates for the 4 ward seats (Wards 2, 4, 7, 8) + at-large on June ballot | M | M | ★★ | WaPo and DCist barely cover SBOE; 4 of 9 seats are on the June ballot; clear differentiation |
 | BL-12 | "Who voted how" matrix — Council × major bills (Secure DC, Peace DC, RENTAL Act, FY26 budget, Sanctuary repeal pause), with ward labels | M | M | ★★ | Most-cited missing feature in civic tracker feedback nationally (Chicago Sun-Times model) |
 | BL-01 | Per-councilmember voting record on flagship bills — individual pages or inline table in IssueDetail | M | M | ★★ | Same underlying data as BL-12; both can ship together once the voting-record data type is built |
@@ -309,7 +310,6 @@ Sorted within tier by impact ÷ effort.
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
 | BL-08 | Federal RIF tracker — running counter of DC-resident federal employees affected by 2025–2026 RIFs, by agency | M | M | ★★ | Top voter issue; 72K DC-region federal job losses (BLS); differentiated from national trackers by DC-resident focus |
-| BL-23 | Voter registration + DCBOE admin stats tile — registered voters count, mail ballots requested, drop box count | S | S | ★★ | Functional voter info that drives turnout; no backend needed; DCBOE publishes as PDFs |
 | BL-14 | Polling-place lookup by address (link to BL-02 once it ships; standalone fallback before then) | M | M | ★★ | DCBOE has a locator but it's opaque on mobile; surfacing it in DC Elections Tracker flow improves access |
 | BL-18 | Campaign finance summary cards — per candidate: total raised, top 5 donors, industry breakdown | L | L | ★★ | NYC CFB and Philadelphia ArcGIS dashboards prove voters want this; OCF exports are public |
 | BL-13 | Translate landing page + key dates to Spanish | M | M | ★ | Growing Spanish-speaking population; Ward 1/4/14th St. NW communities; immigration enforcement is a live issue |
@@ -374,23 +374,6 @@ export type Endorsement = {
 **Key DC endorsers to track:** Washington Post · DCist/WAMU Voter Guide · SEIU 32BJ · Washington Teachers Union (WTU) · DC Federation of Civic Associations · DC for Democracy · Ward-level Democratic clubs.
 
 **Render:** Badge list on candidate cards + filterable `/elections/endorsements/` table. Editorial note: "Endorsements are listed as facts. This tracker does not make endorsements."
-
----
-
-#### BL-23 · Voter Registration + DCBOE Admin Stats Tile
-
-**Data** (small addition to `elections.ts`):
-```ts
-export const dcboeStats = {
-  asOf: "2026-05-10",
-  activeRegisteredVoters: 525000,
-  mailBallotsRequested: 0,         // update starting May 11
-  dropBoxLocations: 0,             // DCBOE publishes list after May 22
-  source: "https://dcboe.org/",
-};
-```
-
-**Render:** Stat tiles on `/elections/`: registered voters count · "Mail ballots go out May 11" · "Drop boxes open May 22." Plain functional info, no alarm flags.
 
 ---
 
@@ -533,6 +516,7 @@ Found during first UAT session. Cross-referenced with existing backlog to avoid 
 | BL-UAT-08 | Document dev-mode workaround in CLAUDE.md | P1 | S | Add note: "Issue pages only work with `next build && npx serve out/` — `next dev` crashes on dynamic routes due to Next.js 14.2.x bug." |
 
 ---
+
 
 ## Editorial backlog (non-feature)
 
