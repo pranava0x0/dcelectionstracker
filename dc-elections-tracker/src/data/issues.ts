@@ -17,7 +17,34 @@ export type Issue = {
   liveSources: Source[];
 };
 
+// Slugs whose pages live as static routes under src/app/issues/<slug>/page.tsx
+// instead of the [slug] dynamic route + IssueDetail. They appear in the homepage
+// issue grid but are excluded from allIssueSlugs() so the [slug] route doesn't
+// try to render them. The arrays below (whatsAtStake, whoDecides, recentMoves,
+// voterQuestions, liveSources) are intentionally empty for these — the static
+// page composes its own equivalents inline.
+export const STATIC_ROUTE_SLUGS = new Set(["ranked-choice"]);
+
 export const issues: Issue[] = [
+  {
+    slug: "ranked-choice",
+    title: "Ranked-choice voting",
+    oneLiner: "DC's first-ever ranked-choice primary is June 16, 2026. Rank up to five candidates per race.",
+    hero: "",
+    stats: [
+      {
+        value: "1st",
+        label: "ranked-choice primary in DC history (June 16, 2026)",
+        alarm: true,
+        source: { label: "DCBOE — Ranked-Choice Voting", url: "https://www.dcboe.org/elections/ranked-choice-voting" },
+      },
+    ],
+    whatsAtStake: [],
+    whoDecides: [],
+    recentMoves: [],
+    voterQuestions: [],
+    liveSources: [],
+  },
   {
     slug: "statehood",
     title: "Statehood & Federal Pressure",
@@ -593,5 +620,5 @@ export function getIssueBySlug(slug: string): Issue | undefined {
 }
 
 export function allIssueSlugs(): string[] {
-  return issues.map((i) => i.slug);
+  return issues.map((i) => i.slug).filter((slug) => !STATIC_ROUTE_SLUGS.has(slug));
 }

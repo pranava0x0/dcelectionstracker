@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { CandidateComparison } from "@/components/CandidateComparison";
 import { Countdown } from "@/components/Countdown";
 import {
   PRIMARY_DATE,
   GENERAL_DATE,
+  candidatesForRace,
   importantDates,
   races2026,
   registrationLinks,
 } from "@/data/elections";
+import { partyTone } from "@/lib/party";
 
 export const metadata: Metadata = {
   title: "2026 elections — DC Elections Tracker",
@@ -83,8 +86,9 @@ export default function ElectionsPage(): JSX.Element {
         <span className="kicker mt-3 inline-block">Ballot</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Races</h2>
         <p className="mt-2 max-w-3xl text-sm text-fg">
-          Twelve citywide and ward-level races, plus all ANC seats. Declared candidates
-          aren&apos;t listed on this site in v1 — see the official list at{" "}
+          Twelve citywide and ward-level races, plus all ANC seats. Tap a race to see
+          declared candidates as of {new Date().toISOString().slice(0, 10)}. The DCBOE
+          primary candidate roster is the authoritative source — see{" "}
           <a
             className="border-b border-primary text-primary hover:opacity-80"
             href="https://www.dcboe.org/candidates"
@@ -103,8 +107,10 @@ export default function ElectionsPage(): JSX.Element {
                 : r.status === "special"
                   ? "card-stripe-blue"
                   : "card-stripe-black";
+            const candidates = candidatesForRace(r.slug);
+            const count = candidates.length;
             return (
-              <li key={r.office} className={`card card-hover ${stripe}`}>
+              <li key={r.slug} className={`card ${stripe} self-start`}>
                 <div className="p-4">
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="display text-base text-ink">{r.office}</h3>
@@ -118,11 +124,77 @@ export default function ElectionsPage(): JSX.Element {
                     </span>
                   </div>
                   <p className="mt-2 text-sm leading-snug text-fg">{r.oneLine}</p>
+
+                  {count > 0 ? (
+                    <details className="group mt-3 border-t border-rule pt-3">
+                      <summary className="flex cursor-pointer items-center justify-between gap-2 font-mono text-[11px] font-bold uppercase tracking-wider text-primary hover:opacity-80">
+                        <span>
+                          {count} declared candidate{count === 1 ? "" : "s"}
+                        </span>
+                        <span aria-hidden className="transition-transform group-open:rotate-180">
+                          ↓
+                        </span>
+                      </summary>
+                      <ul className="mt-3 space-y-2">
+                        {candidates.map((c) => {
+                          const tone = partyTone(c.party);
+                          return (
+                            <li
+                              key={`${r.slug}-${c.name}`}
+                              className="flex items-baseline gap-2 text-sm"
+                            >
+                              <span
+                                className={
+                                  "inline-block rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
+                                  tone.pill
+                                }
+                                title={c.party === "TBD" ? "Party not yet declared" : c.party}
+                              >
+                                {tone.label}
+                              </span>
+                              <span className="text-ink">{c.name}</span>
+                              {c.incumbent ? (
+                                <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-muted">
+                                  incumbent
+                                </span>
+                              ) : null}
+                              <a
+                                href={c.source.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="ml-auto font-mono text-[10px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                                aria-label={`${c.name} source: ${c.source.label}`}
+                              >
+                                {c.source.label} ↗
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-subtle">
+                        Source: declared per linked outlets. Confirm filing status at
+                        dcboe.org/candidates.
+                      </p>
+                    </details>
+                  ) : (
+                    <p className="mt-3 border-t border-rule pt-3 font-mono text-[11px] uppercase tracking-wider text-subtle">
+                      No declared candidates listed yet
+                    </p>
+                  )}
                 </div>
               </li>
             );
           })}
         </ul>
+      </section>
+
+      <section className="mt-10 sm:mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Compare</span>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
+          Side-by-side candidate positions
+        </h2>
+        <CandidateComparison />
       </section>
 
       <section className="mt-10 sm:mt-14">

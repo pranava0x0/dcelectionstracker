@@ -41,12 +41,14 @@ export default function HomePage(): JSX.Element {
           </p>
 
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
-            <Link
-              href="/elections/"
+            <a
+              href="https://www.dcboe.org/voters/register-to-vote"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-sm bg-primary px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-primary-fg hover:opacity-90 sm:py-2"
             >
               Are you registered?
-            </Link>
+            </a>
             <Link
               href="/officials/"
               className="rounded-sm border border-rule bg-paper px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg sm:py-2"
@@ -113,7 +115,7 @@ export default function HomePage(): JSX.Element {
             </Link>
           </div>
           <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
-            Six issues on the 2026 ballot
+            Seven issues on the 2026 ballot
           </h2>
           <p className="mt-2 max-w-3xl text-[15px] text-fg">
             Each issue page has four hero stats, what&apos;s at stake, who decides, the

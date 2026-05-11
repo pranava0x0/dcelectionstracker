@@ -45,7 +45,10 @@ src/
   app/
     layout.tsx                     # exports `viewport` (width=device-width, initial-scale=1)
     page.tsx                       # /
-    issues/[slug]/page.tsx         # /issues/<slug>/
+    issues/[slug]/page.tsx         # /issues/<slug>/ — 6 data-driven slugs
+    issues/ranked-choice/page.tsx  # /issues/ranked-choice/ — static custom page (BL-16)
+                                   # Content (stats, FAQ, recentMoves, sources) is inline;
+                                   # the slug is excluded from allIssueSlugs() via STATIC_ROUTE_SLUGS.
     officials/page.tsx
     elections/page.tsx
     sources/page.tsx
@@ -56,17 +59,29 @@ src/
     Footer.tsx
     IssueCard.tsx
     IssueDetail.tsx
+    LatestCard.tsx
     Countdown.tsx
+    RcvSimulator.tsx               # "use client" — only client-interactive component (BL-16)
+    CandidateComparison.tsx        # side-by-side candidate positions per issue (BL-19)
+    VotingRecordMatrix.tsx         # Council voting record matrix + per-member mini-record (BL-12 + BL-01)
   data/
-    issues.ts                      # single source of truth
-    officials.ts
-    elections.ts
+    issues.ts                      # 6 issues + minimal ranked-choice entry for the homepage card
+    officials.ts                   # Officials w/ slug FK target. councilMembers() + getOfficialBySlug() helpers.
+    elections.ts                   # races2026[] + candidates2026[] linked by raceSlug (BL-03)
+                                   # Candidate.positions?: Partial<Record<ComparableIssueSlug, Position>>
+                                   # COMPARABLE_ISSUES, COMPARISON_RACE_SLUGS, ISSUE_COLUMN_TAGLINES (BL-19)
+    votes.ts                       # billVotes[] — BillVote with memberSlug FK to Official (BL-12 + BL-01)
+                                   # Helpers: votesForMember(slug). VOTE_LABEL / VOTE_DESCRIPTION maps.
     alerts.ts                      # marquee items
+    elections.test.ts              # helpers + dataset-integrity + comparison tests, colocated
+    votes.test.ts                  # vote data integrity, slug FK + tally invariants (BL-12)
   lib/
     party.ts                       # partyTone() — party label/color mapping
     headline.ts                    # build-time hero countdown copy
     viewport.ts                    # classifyViewport(width) — pure, Tailwind-aligned
     useViewport.ts                 # client hook (only when CSS can't express the branch)
+    rcv.ts                         # IRV algorithm + BASE_ELECTORATE (BL-16)
+    rcv-rankings.ts                # pure helpers for RcvSimulator's ranking state (BL-16)
     *.test.ts                      # vitest unit tests, colocated
 ```
 
@@ -100,10 +115,14 @@ GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy
 
 ## Tests
 
-Unit tests live next to the modules they cover (`src/lib/*.test.ts`) and run via [vitest](https://vitest.dev). Scope is intentionally narrow — only pure functions whose behavior is non-obvious or has documented edge cases:
+Unit tests live next to the modules they cover and run via [vitest](https://vitest.dev). Scope is intentionally narrow — only pure functions whose behavior is non-obvious or has documented edge cases, plus dataset-integrity checks where stale references would break the UI silently:
 
 - `src/lib/party.test.ts` — `partyTone()` mapping for every documented party plus the unknown-fallback.
 - `src/lib/headline.test.ts` — `timeUntilPrimaryHeadline()` across past, <7d, 1w, 5w (the launch headline), 8w, and >12w (numeric fallback) regimes.
 - `src/lib/viewport.test.ts` — `classifyViewport()` across phone/tablet/desktop bands, exact breakpoint boundaries, the desktop-window-resized-narrow case, and non-finite fallbacks.
+- `src/lib/rcv.test.ts` — `runIRV()` instant-runoff algorithm: first-round majority, lowest-candidate elimination + transfer, exhausted ballots, lowest-first-round-support tiebreaker, alphabetical-last tiebreaker, the documented base-electorate scenarios (B wins without user; user `[A,C,B]` flips to A on tiebreak).
+- `src/lib/rcv-rankings.test.ts` — pure helpers for the RCV simulator's ranking state: `userBallotFromRankings()` (rank-order projection), `nextRank()` (gap-filling sequential rank), `withoutRank()` (renumber-on-removal), `userVoteJourney()` (trace a ballot through eliminated candidates round-by-round). Refactored out of `RcvSimulator.tsx` for testability.
+- `src/data/elections.test.ts` — `getRaceBySlug()` and `candidatesForRace()` (alphabetical sort, withdrawn filter, unknown-slug fallback) plus dataset-integrity invariants: every `Candidate.raceSlug` references a real Race; every candidate has a sourced label + url; at most one incumbent per race; all Race slugs are unique. Also (BL-19) every `ComparableIssueSlug` has a tag-line, every populated `Position` cites a sourceLabel + http(s) sourceUrl + non-empty stance, position keys reference known issue slugs, and stances stay ≤ 30 words. Catches silent data drift the data-refresh skill could introduce.
+- `src/data/votes.test.ts` (BL-12 / BL-01) — every `Official.slug` is unique kebab-case; `getOfficialBySlug()` + `councilMembers()` return the expected shapes; every `BillVote.memberSlug` references a real Official; every bill records a vote for every current council member (no orphan rows in the matrix); no duplicate memberSlugs per bill; vote values are valid; vote dates are ISO; `votesForMember()` returns the right entries; the documented Secure DC and RENTAL Act tallies match the dataset (catches silent vote-data drift).
 
-Tests use a fixed `now` argument rather than `Date.now()` so they don't drift over time. Markup-level fixes (mobile nav, skip link, kicker text) are not unit-tested — those are verified by the build + manual UAT. If we ever add React Testing Library, that's where it would go.
+Tests use a fixed `now` argument rather than `Date.now()` so they don't drift over time. Markup-level fixes (mobile nav, skip link, kicker text) are not unit-tested — those are verified by the build + manual UAT (`~/.claude/skills/dc-uat.md`). The RCV simulator's interactive behavior (click-to-rank, tabulate, reset) is not unit-tested in v1 — the IRV math and ranking helpers are covered above, and the UI wiring is verified by UAT BF-10. If we ever add React Testing Library, that's where component-render tests would go.
