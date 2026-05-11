@@ -468,10 +468,42 @@ Sorted within tier by impact ÷ effort.
 | BL-39 | Move candidate comparison matrix off the main `/elections/` scroll — link to it from race cards instead | S | S | ★ | The elections page has 7 sequential sections; the comparison matrix is near the bottom and rarely reached. Options: extract to `/elections/compare/` (a route the BL-19 spec explicitly considered but deferred), or collapse the matrix behind a `<details>` toggle. No data changes; pure render relocation. |
 | BL-42 | Per-candidate news/coverage links — multiple sourced items per candidate | M | M | ★ | Each candidate profile should list recent coverage (DCist, WaPo, WAMU, City Paper) as a dated, sourced list. Add `news?: { date: string; outlet: string; headline: string; url: string }[]` to `Candidate`. Render on profile pages under a "Coverage" section. Editorial rule: factual citations only, no commentary. Deferred in BL-32 v1; this formalizes the data shape and render. Data refresh skill populates. |
 | BL-43 | Fundraising numbers on candidate profiles — total raised, top donors, cash on hand | L | L | ★★ | DC OCF publishes committee-level contribution data. Pre-primary 10-day disclosure (June 6, 2026) is the high-value vintage. Add a `finance?` block to `Candidate`, populated by a Node script from OCF CSV exports. Renders as stat tiles on the profile page and a summary badge on the race page. Extends BL-18 (site-wide finance cards); both share the same OCF data pipeline. See BL-18 spec for the pipeline approach. |
+| BL-48 | Mobile UX phase B — collapse-by-default for secondary content on mobile (responsive `<details>`) | M | M | ★★ | Follow-on to shipped Phase A (table → mobile stack). Wrap IssueDetail's "Who decides", "Questions to candidates", and "Live sources" in `<details>` that is closed at `<sm` and open at `sm+`. Same for officials cards (notes + source) and `/elections/` secondary sections (DCBOE administration, Key dates). Roughly halves page height on mobile without hiding anything on tablet/desktop. Adjacent to / can subsume BL-30 (collapsible officials groups) and BL-40 (FAQ collapse on issue pages). See spec below. |
+| BL-49 | Mobile UX phase C — density + typography pass (mobile-only) | S | S | ★ | Follow-on to BL-48. Tighten card padding (`p-4 sm:p-5` → `p-3 sm:p-4 lg:p-5`), section gaps (`mt-10 sm:mt-14` → `mt-7 sm:mt-12 lg:mt-14`), and hero compression on mobile (`text-3xl` → `text-[28px]` on issue/race/officials/elections H1s; home stays `text-4xl`). Bump `text-[10px]/[11px]` source labels site-wide to `text-[12px]` with 44px tap-target padding. Subsumes BL-29 (stat tile source labels too small). |
+| BL-50 | Mobile UX phase D — mobile-only "jump-to" chip strip on long pages | S | S | ★ | Horizontal-scroll anchor chips just under the hero on `/elections/` and `/issues/[slug]/`, hidden at `sm+`. Anchor links + `scroll-behavior: smooth`. No JS. Skip on home, officials, and candidate profile (shorter pages). Pairs with BL-48 collapsibles so voters can both jump and expand. |
+| BL-51 | Mobile UX phase E — UAT + design.md update | S | S | · | Run `/dc-uat` at 375 / 640 / 1024 across `/`, `/elections/`, `/elections/mayor/`, a candidate profile, `/officials/`, `/issues/housing/`, `/issues/ranked-choice/`. Verify `prefers-reduced-motion` still pauses marquee + card-hover lift. Update `design.md` to document the new mobile patterns (table-to-stack, `<details>` open-at-`sm`, mobile chip strip) so the data-refresh skill respects them. |
 
 ---
 
 ### Specs — P2 items
+
+#### BL-48 · Mobile UX phase B — collapse-by-default secondary content on mobile
+
+**Why:** With Phase A shipped (the three horizontal-scroll tables now stack on mobile), the next biggest mobile pain is total page length. The `/issues/[slug]/` pages have 6 sections separated by 3px black rules; "Who decides", "Questions to candidates", and "Live sources" are tertiary content that doesn't need to be inline at the top on a 375px screen. `/officials/` cards show name + role + term-end + notes + source link + voting record always; on mobile the notes and source are noise on first scan. `/elections/` has a 5-card "DCBOE administration" stat block and an 8-row "Key dates" list that compete with the more important race cards below.
+
+**Approach:** Use `<details>` consistently with a small CSS trick to be **closed at `<sm` and open at `sm+`**. Add to `globals.css`:
+
+```css
+@media (min-width: 640px) {
+  details[data-sm-open] {
+    /* open by default at sm and up; mobile keeps native closed default */
+  }
+  details[data-sm-open] > summary {
+    /* still tappable to collapse if the user wants */
+  }
+}
+```
+
+And use a tiny inline script-free pattern: render `<details data-sm-open open>` on the server, and add CSS that closes it at `<sm` via `[hidden]` toggling on the content sibling. Simpler alternative: render two copies (one `<details>` at `sm:hidden`, one always-open block at `hidden sm:block`) — costs duplication but is JS-free and reuses the Phase A pattern.
+
+**Scope (one PR):**
+- `IssueDetail.tsx` — wrap "Who decides", "Questions to candidates", "Live sources" in responsive `<details>`
+- `officials/page.tsx` — wrap each card's notes + source link in responsive `<details>`
+- `elections/page.tsx` — wrap "DCBOE administration" stats and "Key dates" in responsive `<details>`
+
+**Out of scope:** RcvSimulator (already short), AddressLookup result block (decision content), `/elections/[race]/[candidate]/` (linear narrative, fine).
+
+---
 
 #### BL-17 · SBOE Candidate Guide
 

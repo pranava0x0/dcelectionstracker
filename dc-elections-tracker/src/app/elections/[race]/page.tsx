@@ -130,8 +130,70 @@ export default function RacePage({ params }: { params: Params }): JSX.Element {
           Cells without a stated position read &ldquo;No position stated&rdquo; — we
           don&apos;t infer.
         </p>
-        <div className="mt-5 overflow-x-auto border border-rule">
-          <table className="w-full min-w-[800px] border-collapse text-sm">
+        {/* Mobile (< sm): one <details> per candidate listing every issue
+            position inside. Replaces the min-w-[800px] horizontal-scroll table. */}
+        <ul className="mt-5 space-y-3 sm:hidden">
+          {candidates.map((c) => {
+            const tone = partyTone(c.party);
+            const statedCount = COMPARABLE_ISSUES.filter((slug) => c.positions?.[slug]).length;
+            return (
+              <li key={c.slug} className="border border-rule bg-paper">
+                <details className="group">
+                  <summary className="flex cursor-pointer items-baseline justify-between gap-3 p-3">
+                    <div className="flex items-baseline gap-2">
+                      <span
+                        className={
+                          "inline-flex h-5 min-w-[20px] items-center justify-center rounded-sm px-1.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
+                          tone.pill
+                        }
+                      >
+                        {tone.label}
+                      </span>
+                      <Link
+                        href={`/elections/${race.slug}/${c.slug}/`}
+                        className="display text-sm text-ink underline decoration-rule decoration-2 underline-offset-4"
+                      >
+                        {c.name}
+                      </Link>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-subtle">
+                        {statedCount}/{COMPARABLE_ISSUES.length} stated
+                      </span>
+                      <span aria-hidden className="transition-transform group-open:rotate-180">
+                        ↓
+                      </span>
+                    </div>
+                  </summary>
+                  <ul className="border-t border-rule">
+                    {COMPARABLE_ISSUES.map((slug) => (
+                      <li key={slug} className="border-b border-border p-4 last:border-b-0">
+                        <div className="flex flex-col gap-1">
+                          <Link
+                            href={`/issues/${slug}/`}
+                            className="display text-sm text-ink hover:text-primary"
+                          >
+                            {issueTitle(slug)}
+                          </Link>
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-subtle">
+                            {ISSUE_COLUMN_TAGLINES[slug]}
+                          </span>
+                        </div>
+                        <div className="mt-2">
+                          <PositionCell candidate={c} slug={slug} />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Tablet & desktop (>= sm): original side-by-side comparison table. */}
+        <div className="mt-5 hidden overflow-x-auto border border-rule sm:block">
+          <table className="w-full border-collapse text-sm">
             <thead className="bg-bg">
               <tr>
                 <th
