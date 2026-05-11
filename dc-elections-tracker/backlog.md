@@ -21,8 +21,10 @@ Sorted within tier by impact ÷ effort (best bang first).
 
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
+| BL-35 | Fix "Are you registered?" nav button — currently links to `/elections/` instead of DCBOE registration | S | S | ★★★ | Button is the highest-visibility CTA on every page; misdirects voters to an internal page instead of the DCBOE registration tool |
 | BL-16 | RCV explainer page + interactive ballot simulator | M | M | ★★★ | DC's first-ever ranked-choice primary; DCBOE has no public education campaign; every voter needs this |
 | BL-03 | Declared 2026 candidate list on /elections/ — full per-race rosters with OCF/DCBOE filing links and party badges (extends BL-26 inline names) | S | S | ★★★ | BL-26 added top-5 names per race; BL-03 promotes those into structured per-race candidate cards |
+| BL-32 | Per-seat race pages + candidate profile cards — each seat gets a dedicated page with candidate roster, issue positions, forums attended, news/media, and links to external comparison tools | XL | XL | ★★★ | Core voter-decision tool; no static non-partisan DC source does this at seat level; see full spec below |
 | BL-27 | Delegate race explainer — what the Delegate can/can't do + doxxing controversy context | M | M | ★★ | Most contentious race on the ballot; 5 declared; doxxing scandal happened; no context on site |
 | BL-17 | SBOE candidate guide — all candidates for the 4 ward seats (Wards 2, 4, 7, 8) + at-large on June ballot | M | M | ★★ | WaPo and DCist barely cover SBOE; 4 of 9 seats are on the June ballot; clear differentiation |
 | BL-12 | "Who voted how" matrix — Council × major bills (Secure DC, Peace DC, RENTAL Act, FY26 budget, Sanctuary repeal pause), with ward labels | M | M | ★★ | Most-cited missing feature in civic tracker feedback nationally (Chicago Sun-Times model) |
@@ -180,6 +182,109 @@ export type CandidatePosition = {
 
 ---
 
+#### BL-32 · Per-Seat Race Pages + Candidate Profile Cards
+
+**Why:** Voters need a single place to evaluate every candidate for a specific seat — their positions, their record at public forums, recent news, and links to the tools that compare them. No static non-partisan DC source does this at the seat level today. This is the biggest feature gap between DC Elections Tracker and a full voter guide.
+
+**Route structure:**
+```
+/[race-slug]/                  # per-seat race page
+/[race-slug]/[candidate-slug]/ # per-candidate profile page
+```
+Example: `/mayor/` · `/mayor/muriel-bowser/`
+
+All routes use Next.js `generateStaticParams` — static export only, no server runtime.
+
+---
+
+**Per-seat race page (`/elections/[race-slug]/`):**
+
+1. **Header** — race title, office description (1–2 sentences: what the seat does, term length, salary if public), election date, filing deadline status.
+2. **Candidate grid** — one card per declared candidate. Each card: name, party badge, photo placeholder (no photos until candidate provides one), filing status pill ("declared" / "filed" / "withdrawn"), and a "View profile →" link.
+3. **Issue position matrix** — table or grid: rows = candidates, columns = 4–5 key issues for that race (pulled from the relevant `issues.ts` issue page). Each cell: candidate's stated position in ≤ 20 words + source icon (links to primary source). If no stated position: "No position stated" in muted text — never inferred.
+4. **Forums & events attended** — list of public candidate forums, debates, town halls. Per event: date, host org, format (in-person/virtual), link to recording or summary. Per candidate: attended / not invited / did not attend. Source: DC LWV, DC Democratic State Committee, ward Dem clubs, WAMU/DCist.
+5. **News & media** — curated list of recent coverage. Per item: ISO date, outlet, headline, URL. No editorial commentary — factual citation only. Max 10 items; oldest drops off when new ones are added.
+6. **External comparison tools** — a clearly labeled "Other tools" section linking to: DCBOE official candidate page · DC OCF campaign finance · Ballotpedia race page · WAMU/DCist voter guide · DC LWV guide (when published) · VoteSmart profile (where available). Each link labeled with the tool name and what it provides ("DC OCF — campaign finance filings").
+
+---
+
+**Per-candidate profile page (`/elections/[race-slug]/[candidate-slug]/`):**
+
+1. **Identity block** — name, party, race, filing status, photo (optional; candidate-provided only).
+2. **Links row** — icon links for: personal website · government/official website · LinkedIn · Twitter/X · Instagram · Facebook · DC OCF committee page · Ballotpedia · DCBOE filing. All `target="_blank" rel="noopener noreferrer"`. Only render icons where a URL exists.
+3. **Bio** — ≤ 3 sentences. Source cited. No editorial framing.
+4. **Positions on key issues** — same 4–5 issue columns as the race matrix, expanded to full sentences with source links. "No position stated" where absent.
+5. **Forums attended** — same event list as the race page, filtered to this candidate.
+6. **News & media** — filtered to coverage of this candidate specifically.
+7. **Back to race** — breadcrumb link back to `/[race-slug]/`.
+
+---
+
+**Data shapes (new file `src/data/candidates.ts`):**
+```ts
+export type CandidateProfile = {
+  slug: string;
+  name: string;
+  race: string;              // matches Race.slug
+  party: Party | "TBD";
+  filingStatus: "declared" | "filed" | "withdrawn" | "petitioning";
+  bio?: string;              // ≤ 3 sentences + sourceUrl
+  photoUrl?: string;         // candidate-provided only
+  links: {
+    website?: string;
+    governmentSite?: string;
+    linkedin?: string;
+    twitter?: string;
+    instagram?: string;
+    facebook?: string;
+    ocf?: string;
+    ballotpedia?: string;
+    dcboe?: string;
+  };
+  positions: {
+    issue: string;           // matches issue slug
+    position: string;        // ≤ 25 words
+    sourceUrl: string;
+  }[];
+  forumsAttended: string[];  // matches CandidateForum.id
+  news: {
+    date: string;            // ISO
+    outlet: string;
+    headline: string;
+    url: string;
+  }[];
+};
+
+export type CandidateForum = {
+  id: string;
+  date: string;              // ISO
+  title: string;
+  host: string;
+  format: "in-person" | "virtual" | "hybrid";
+  race: string;              // matches Race.slug
+  recordingUrl?: string;
+  summaryUrl?: string;
+};
+```
+
+**External comparison tools to link per race:**
+- DCBOE candidate filing portal (dcboe.org)
+- DC OCF committee search (ocf.dc.gov)
+- Ballotpedia DC race page
+- WAMU / DCist voter guide (when live)
+- DC League of Women Voters guide (when live)
+- VoteSmart (votesmart.org) where profiles exist
+
+**Editorial rules:**
+- Every position cell must cite a primary source (candidate website, debate transcript, WaPo/DCist quote). Inferred positions are not allowed.
+- Photos are optional and candidate-provided only — no scraped headshots.
+- News items are factual citations, not editorial summaries. No commentary.
+- "No position stated" is a valid and honest cell value — do not fill gaps with inference.
+
+**Scope for v1 (P1 races):** Mayor · Council Chair · At-Large (Bonds open seat) · Ward 1 · Ward 3 · Ward 5 · Ward 6 · Attorney General · US House Delegate.
+
+---
+
 #### BL-02 · Address-Based Ward + ANC Lookup
 
 **Model:** NYC Board of Elections sample ballot lookup · VOTE411.org · DC OP Address GIS API (MAR).
@@ -279,6 +384,11 @@ Sorted within tier by impact ÷ effort.
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
 | BL-22 | Ward-level election results map — choropleth of June 16 results by ward/precinct | L | L | ★★ | Post-primary data journalism; build Leaflet + GeoJSON template now, populate after June 16 |
+| BL-30 | Collapsible category groups on `/officials/` and `/elections/` — collapsed by default on mobile, expanded on desktop | S | S | ★ | Pages grow long as more officials/races are added; grouping by category (e.g. "DC Board of Elections", "DC Council", "Mayor") with a `<details>`-based toggle reduces scroll burden on mobile without hiding content on desktop |
+| BL-31 | Replace horizontal marquee in `AlertTicker` with a vertical rolling ticker (physical-board style) | M | M | ★★ | Horizontal scroll is slow to read and easy to miss; a vertical rotate-up animation (one item at a time, like a Reuters/departure-board ticker) is faster to scan and more visually distinctive. Each alert must fit in 1 line on desktop and max 2 lines on mobile — copy should be trimmed to enforce this. No external animation library; implement with a CSS `@keyframes` translate-up + opacity fade cycling through `alerts.ts` items via a small `useEffect`. `prefers-reduced-motion` should pause the cycle and show the first item statically. |
+| BL-26 | Nav separator: visually split Officials + Elections from issue links | S | S | · | Officials/Elections are utility nav; issue pages are editorial content — a `|` divider or spacing gap makes the distinction legible without adding a new nav group |
+| BL-28 | Stat tile grid vertical alignment broken on desktop — alarm prefix ("–") wraps to its own line, misaligning the number across cards | S | S | · | The "–$342M/yr" stat renders the minus sign on a separate line from the value, creating ragged tops across the 4-up desktop grid |
+| BL-29 | Stat tile source attribution links are too small to read/tap — increase size across all issue pages | S | S | ★ | Current `text-[10px]` mono label is barely legible at desktop and undersized as a tap target on mobile; applies to every `IssueDetail` stat tile on every issue page |
 | BL-06 | WMATA service map embed — real-time service alerts from WMATA RSS at build time | M | M | ★ | Service cuts are a real issue but not tied to candidate accountability in the same way |
 | BL-07 | Eviction filings map by ward / building — sourced from DC Courts | L | L | ★ | Eviction data (7-year high) is a strong issue page addition; requires DC Courts data pipeline |
 | BL-10 | Light search across all issue pages — client-side, build-time index (Pagefind) | M | S | · | Low voter impact vs. cost; useful for journalists and power users |
@@ -311,6 +421,16 @@ export type RaceResult = {
 **Render:** Choropleth with ward-level color intensity by leading candidate. Slider to step through RCV rounds. Click a ward → vote breakdown for that round.
 
 **Source:** DCBOE unofficial and certified results (dcboe.org/elections/election-results).
+
+---
+
+#### BL-26 · Nav Separator: Officials + Elections vs. Issue Links
+
+**Why:** The desktop inline nav (`NavBar.tsx`) lists all 9 routes as a flat sequence. Officials and Elections are utility/directory pages; the five issue pages (Housing, Public Safety, Economy, Schools, Federal Power) are editorial content. A visual separator makes that split legible at a glance without restructuring the nav.
+
+**Simplest approach:** insert a `|` character (or a short `<span aria-hidden="true">` divider) between the last issue link and the Officials link in the `lg:flex` row. Same separator can be a faint `border-l` rule in the `<details>` mobile drawer.
+
+**Scope:** `NavBar.tsx` only. No data changes, no route changes. Test that the separator does not appear in the skip-to-content focus ring or screen reader output (`aria-hidden="true"` on the divider element).
 
 ---
 
@@ -379,8 +499,34 @@ Researched but not promoted to a recent-moves block in v1. Pull from research tr
 
 ---
 
+## UAT-sourced improvements (added 2026-05-10)
+
+Found during first UAT session. Cross-referenced with existing backlog to avoid duplication.
+
+| ID | Item | Priority | Complexity | Notes |
+|---|---|---|---|---|
+| BL-UAT-01 | Mobile hamburger / drawer nav | P1 | S | All 9 nav items hidden at <1024px; users can't reach 7 of 9 routes on phone. Minimum viable: `<details>` toggle, no JS needed. See UAT-002 |
+| BL-UAT-09 | Mobile nav drawer stays open after tapping a link — should collapse on navigation | P2 | S | `<details>` element doesn't auto-close when a child `<a>` is tapped; user lands on new page with nav still expanded. Fix: add a small click handler that removes the `open` attribute on any nav link click, or use `router` events if Next.js navigation doesn't trigger a full page reload |
+| BL-UAT-02 | Fix Next.js dev-mode issue page crash | P1 | S | Upgrade to Next.js ≥14.3 or env-var-gate `output: export` for local dev. Blocks all dev-time testing of issue pages. See UAT-001 |
+| BL-UAT-03 | Dynamic "X weeks until primary" headline | P1 | S | Replace hardcoded "Five weeks" in `src/app/page.tsx:29` with computed week diff from `PRIMARY_DATE`. Goes stale in days. See UAT-004 |
+| BL-UAT-04 | Abbreviate "Nonpartisan" party badge | P2 | S | Show "NP" instead of full word in the tiny pill chip. Add `partyTone` cases for `"Nonpartisan"` and `"Statehood Green"`. See UAT-003 |
+| BL-UAT-05 | Skip-to-content link | P2 | S | Add `<a href="#main-content">Skip to content</a>` as first body child; add `id="main-content"` to `<main>`. Keyboard + screen reader UX. See UAT-007 |
+| BL-UAT-06 | Remove dead https guard in `path()` | P3 | S | Dead code in `src/lib/links.ts` — second `if` block is unreachable. Delete it. See UAT-005 |
+| BL-UAT-07 | Format slug in IssueCard/IssueDetail kicker | P3 | S | Replace `issue.slug` in kicker with formatted label (replace hyphens, title-case). See UAT-006 |
+| BL-UAT-08 | Document dev-mode workaround in CLAUDE.md | P1 | S | Add note: "Issue pages only work with `next build && npx serve out/` — `next dev` crashes on dynamic routes due to Next.js 14.2.x bug." |
+
+---
+
+
 ## Editorial backlog (non-feature)
 
+- **Media source database (BL-33):** Web-search for podcasts, YouTube channels/playlists, and local news outlets that have covered the DC 2026 election cycle. Seed a new `src/data/media.ts` file with the full list — one record per channel or outlet, with a `type` field (`"podcast" | "youtube" | "local-news" | "newsletter"`), a canonical URL, and a `coverageNote` (≤ 1 sentence on what they cover). This list is the pull source for the news/media sections on race pages (BL-32), candidate profiles, and the data-refresh skill. The file should grow over time — add new sources as they're discovered; never remove a source that has published election coverage. Examples to seed: DCist/WAMU, Washington City Paper, The DC Line, Kojo Nnamdi Show, The Politics Hour, relevant YouTube town-hall recordings, Ward-level civic org channels.
+
+- **Media metadata enrichment (BL-34, deferred):** Once `media.ts` exists, add per-item metadata linking each episode or article to specific issues (by issue slug) and candidates (by candidate slug). Shape: `{ issueSlug?: string[]; candidateSlugs?: string[] }`. This enables filtered views on race pages and candidate profiles ("coverage of this candidate" / "coverage of housing issues"). Deferred until BL-33 is seeded and BL-32 race pages exist to consume it.
+
+- **Questions to candidates refresh (all issue pages):** Review and update the "Questions to put to candidates" block in every `IssueDetail` page against current trending issues — RCV implementation, federal workforce cuts, rent freeze ballot initiative, FY27 budget gap, Sanctuary Values repeal. Questions should reflect what's actually contested in the 2026 primary cycle, not just structural/perennial issues. Each question must be answerable in a yes/no or short position statement; vague questions should be tightened or cut. Aim for 4–6 sharp questions per issue page. Cross-reference with `alerts.ts` recent moves to surface what's newly relevant.
+
+- On `/elections/`, spell out "DCBOE" as "DC Board of Elections (DCBOE)" on first reference; subsequent uses of the abbreviation are fine. Same rule applies to any source label in `elections.ts` that currently reads just "DCBOE".
 - Add a `last_verified` ISO date to every Stat in `src/data/issues.ts`. Surface stale stats (> 90 days) in a build-time warning.
 - Track every URL we cite in `src/data/issues.ts` and run a build-time link checker (HEAD requests; can run in CI but not during user build).
 - Style guide: "Mayor Bowser (D)" on first reference, "Bowser" thereafter; same pattern for all elected officials.

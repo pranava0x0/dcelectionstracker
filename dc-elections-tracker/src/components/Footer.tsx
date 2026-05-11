@@ -33,7 +33,7 @@ export function Footer(): JSX.Element {
             Source on GitHub
           </a>
           <span className="basis-full text-white/50 sm:ml-auto sm:basis-auto">
-            Built {buildDate} · No tracking, no SDKs, no server.
+            Last updated {buildDate}
           </span>
         </div>
       </div>
