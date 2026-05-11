@@ -107,18 +107,53 @@ export const importantDates: ImportantDate[] = [
 ];
 
 export const races2026: Race[] = [
-  { slug: "mayor", office: "Mayor", status: "open", oneLine: "Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014." },
-  { slug: "council-chair", office: "Council Chair", status: "incumbent", oneLine: "Phil Mendelson (D) seeks a fourth full term." },
-  { slug: "attorney-general", office: "Attorney General", status: "incumbent", oneLine: "Brian Schwalb (D) seeks re-election." },
-  { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years." },
-  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring." },
-  { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Special election to fill the Independent seat vacated by Kenyan McDuffie." },
-  { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Brianne Nadeau not seeking re-election." },
-  { slug: "council-ward-3", office: "Council Ward 3", status: "incumbent", oneLine: "Matthew Frumin (D) seeks re-election." },
-  { slug: "council-ward-5", office: "Council Ward 5", status: "incumbent", oneLine: "Zachary Parker (D) seeks re-election." },
-  { slug: "council-ward-6", office: "Council Ward 6", status: "incumbent", oneLine: "Charles Allen (D) seeks re-election." },
+  { slug: "mayor", office: "Mayor", status: "open", oneLine: "Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014. 10 declared Democrats; profile page lists the full roster." },
+  { slug: "council-chair", office: "Council Chair", status: "incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
+  { slug: "attorney-general", office: "Attorney General", status: "incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
+  { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years. 5 declared Democrats." },
+  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 5 declared Democrats including Owolewa and Chavous." },
+  { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Nonpartisan special election to fill the Independent seat vacated by Kenyan McDuffie. Filed: Crawford, Silverman, Patterson, Lee, Sloan." },
+  { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Nadeau not seeking re-election. 6 declared Democrats." },
+  { slug: "council-ward-3", office: "Council Ward 3", status: "incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
+  { slug: "council-ward-5", office: "Council Ward 5", status: "incumbent", oneLine: "Zachary Parker (D) seeks re-election; challenged by Bernita Carmichael." },
+  { slug: "council-ward-6", office: "Council Ward 6", status: "incumbent", oneLine: "Charles Allen (D) seeks re-election; challenged by Gloria Nauden." },
   { slug: "shadow-senator", office: "Shadow Senator", status: "incumbent", oneLine: "Paul Strauss (D) seeks re-election. Statehood-advocacy seat with no congressional vote, salary, or office." },
   { slug: "shadow-representative", office: "Shadow Representative", status: "open", oneLine: "Open seat — Owolewa not seeking re-election (running for At-Large Council)." },
+];
+
+export type ElectionStat = {
+  value: string;
+  label: string;
+  source: { label: string; url: string };
+};
+
+// DCBOE publishes a monthly Voter Registration Statistics PDF. Numbers below
+// reflect the most recent report; update on each refresh run.
+export const electionStats: ElectionStat[] = [
+  {
+    value: "476,066",
+    label: "Active registered voters in DC (Feb 28, 2026)",
+    source: {
+      label: "DCBOE registration statistics",
+      url: "https://www.dcboe.org/data,-maps,-forms/voter-registration-statistics",
+    },
+  },
+  {
+    value: "May 11",
+    label: "Mail ballots begin going out for the June 16 primary",
+    source: {
+      label: "DCBOE 2026 Primary Calendar",
+      url: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf",
+    },
+  },
+  {
+    value: "May 22",
+    label: "Drop boxes open citywide; full list posted by DCBOE",
+    source: {
+      label: "DCBOE",
+      url: "https://www.dcboe.org/",
+    },
+  },
 ];
 
 // Declared candidates for the June 16, 2026 primary, hand-seeded from publicly reported

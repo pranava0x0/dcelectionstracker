@@ -81,6 +81,7 @@ src/
                                    # COMPARABLE_ISSUES, COMPARISON_RACE_SLUGS, ISSUE_COLUMN_TAGLINES (BL-19)
                                    # PROFILED_RACE_SLUGS, ExternalTool, externalToolsForRace() (BL-32)
                                    # ballotForWard(ward) → race slugs + SBOE flag (BL-02)
+                                   # electionStats — DCBOE registration counts (BL-23)
     votes.ts                       # billVotes[] — BillVote with memberSlug FK to Official (BL-12 + BL-01)
                                    # Helpers: votesForMember(slug). VOTE_LABEL / VOTE_DESCRIPTION maps.
     alerts.ts                      # marquee items

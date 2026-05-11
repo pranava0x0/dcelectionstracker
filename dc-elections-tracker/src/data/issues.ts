@@ -97,6 +97,11 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-01-27",
+        headline: "House committee reports H.R. 5183, DC Home Rule Improvement Act of 2025",
+        source: { label: "Congress.gov", url: "https://www.congress.gov/bill/119th-congress/house-bill/5183" },
+      },
+      {
         date: "2026-02-18",
         headline: "Trump signs PL 119-78 — first congressional override of a DC tax law",
         source: { label: "Congress.gov", url: "https://www.congress.gov/bill/119th-congress/house-joint-resolution/142/text" },
@@ -200,12 +205,17 @@ export const issues: Issue[] = [
       },
     ],
     whoDecides: [
-      { name: "MPD Chief", role: "Day-to-day command of the Metropolitan Police Department. Chief Pamela Smith resigned in December 2025 amid allegations of crime-statistics falsification; an interim chief leads the department in May 2026." },
+      { name: "MPD Interim Chief Jeffery Carroll", role: "Day-to-day command of the Metropolitan Police Department. Chief Pamela Smith resigned in December 2025 amid allegations of crime-statistics falsification; Carroll, a 24-year MPD veteran, was appointed interim chief by Mayor Bowser on Jan 6, 2026." },
       { name: "U.S. Attorney for DC, Jeanine Pirro", role: "Prosecutes local crime in DC. Trump appointee, confirmed by the Senate Aug 2, 2025." },
       { name: "DC Council Judiciary Committee", role: "Authors the criminal code and oversees MPD, DOC, and DYRS budgets. Chair: Brooke Pinto (D, Ward 2)." },
       { name: "DC Superior Court judges", role: "Hand down sentences and rule on suppression motions. Federal judges in DC have repeatedly suppressed evidence in 2026 USAO gun cases." },
     ],
     recentMoves: [
+      {
+        date: "2026-01-06",
+        headline: "Mayor Bowser names Jeffery Carroll, 24-year MPD veteran, interim chief",
+        source: { label: "Mayor's office", url: "https://mayor.dc.gov/release/mayor-bowser-announces-jeffery-carroll-interim-chief-police" },
+      },
       {
         date: "2026-04-18",
         headline: "DC homicides −52% YTD, carjackings −44% vs. same period in 2025",
@@ -306,6 +316,11 @@ export const issues: Issue[] = [
       { name: "DC Zoning Commission", role: "Approves Comp Plan map amendments and IZ-relevant zoning text changes. The 'DC 2050' rewrite is in progress." },
     ],
     recentMoves: [
+      {
+        date: "2026-02-28",
+        headline: "FY26 eviction filings tracking near 7-year high through February",
+        source: { label: "New America", url: "https://www.newamerica.org/insights/an-update-on-dc-evictions-june-2025-through-february-2026/" },
+      },
       {
         date: "2026-01-01",
         headline: "RENTAL Act takes effect: eviction notice cut from 30 to 10 days",
@@ -417,6 +432,11 @@ export const issues: Issue[] = [
         source: { label: "DC Policy Center", url: "https://www.dcpolicycenter.org/publications/chart-of-the-week-dc-population-growth-slowed-key-trends-concerning/" },
       },
       {
+        date: "2025-09-17",
+        headline: "Council gives final 11–2 approval to $3.8B Commanders / RFK stadium deal",
+        source: { label: "Commanders / DC Council", url: "https://www.commanders.com/news/d-c-council-gives-final-approval-for-rfk-stadium-project" },
+      },
+      {
         date: "2025-07-15",
         headline: "Council passes $21.8B FY26 'Grow DC' budget on first reading",
         source: { label: "DC Council Budget Office", url: "https://www.dccouncilbudget.com/fy-2026-budget" },
@@ -490,6 +510,11 @@ export const issues: Issue[] = [
       { name: "U.S. Department of Transportation", role: "Holds federal authority over interstate highways, NPS roads inside DC, and (per the January 2026 proposal) potentially over DC's automated camera program." },
     ],
     recentMoves: [
+      {
+        date: "2026-03-19",
+        headline: "House committee advances Stop DC CAMERA Act 21–19 to ban DC traffic cameras",
+        source: { label: "Congress.gov H.R. 5525", url: "https://www.congress.gov/bill/119th-congress/house-bill/5525/text" },
+      },
       {
         date: "2026-01-15",
         headline: "USDOT formally proposes banning DC's automated traffic cameras",
