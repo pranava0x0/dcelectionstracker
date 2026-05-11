@@ -37,19 +37,23 @@ export function NavBar(): JSX.Element {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Link
-            href="/elections/"
+          <a
+            href="https://www.dcboe.org/voters/register-to-vote"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden whitespace-nowrap rounded-sm bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-fg transition-opacity hover:opacity-90 sm:inline-block"
           >
             Are you registered?
-          </Link>
-          <Link
-            href="/elections/"
+          </a>
+          <a
+            href="https://www.dcboe.org/voters/register-to-vote"
+            target="_blank"
+            rel="noopener noreferrer"
             className="whitespace-nowrap rounded-sm bg-primary px-2.5 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-primary-fg transition-opacity hover:opacity-90 sm:hidden"
             aria-label="Are you registered to vote?"
           >
             Register
-          </Link>
+          </a>
           <details className="group lg:hidden">
             <summary
               className="nav-summary inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm border border-white/20 hover:bg-white/10"

@@ -21,12 +21,11 @@ Sorted within tier by impact ÷ effort (best bang first).
 
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
-| BL-35 | Fix "Are you registered?" nav button — currently links to `/elections/` instead of DCBOE registration | S | S | ★★★ | Button is the highest-visibility CTA on every page; misdirects voters to an internal page instead of the DCBOE registration tool |
-| BL-16 | RCV explainer page + interactive ballot simulator | M | M | ★★★ | DC's first-ever ranked-choice primary; DCBOE has no public education campaign; every voter needs this |
-| BL-03 | Declared 2026 candidate list on /elections/ — full per-race rosters with OCF/DCBOE filing links and party badges (extends BL-26 inline names) | S | S | ★★★ | BL-26 added top-5 names per race; BL-03 promotes those into structured per-race candidate cards |
-| BL-32 | Per-seat race pages + candidate profile cards — each seat gets a dedicated page with candidate roster, issue positions, forums attended, news/media, and links to external comparison tools | XL | XL | ★★★ | Core voter-decision tool; no static non-partisan DC source does this at seat level; see full spec below |
+| ✅ BL-35 | Fix "Are you registered?" CTA — shipped v1 2026-05-10. Header + hero CTAs link to DCBOE registration in a new tab. (Renumbered from BL-27; commit history references the old number.) | S | S | ★★★ | Highest-visibility CTA on every page; was misdirecting voters to an internal page. |
+| ✅ BL-16 | RCV explainer page + interactive ballot simulator — shipped v1 2026-05-10 at /issues/ranked-choice/. Pure IRV + click-to-rank simulator + 6th issue card on the homepage. | M | M | ★★★ | DC's first-ever ranked-choice primary; DCBOE has no public education campaign; every voter needs this |
+| ✅ BL-03 | Declared 2026 candidate list — shipped v1 2026-05-10. Per-race rosters of 38 candidates with OCF/DCBOE filing links and party badges, expand-on-click `<details>` under each race card. (Extends BL-26 inline names into structured cards.) | S | S | ★★★ | Primary is weeks away; no other static non-partisan source aggregates all races in one place |
+| ✅ BL-32 | Per-seat race pages + candidate profile cards — shipped v1 2026-05-10 for 4 open seats (mayor, council-at-large-bonds, council-ward-1, us-house-delegate) = 4 race pages + 24 profiles. | XL | XL | ★★★ | Core voter-decision tool; no static non-partisan DC source does this at seat level; see full spec below |
 | BL-27 | Delegate race explainer — what the Delegate can/can't do + doxxing controversy context | M | M | ★★ | Most contentious race on the ballot; 5 declared; doxxing scandal happened; no context on site |
-| BL-17 | SBOE candidate guide — all candidates for the 4 ward seats (Wards 2, 4, 7, 8) + at-large on June ballot | M | M | ★★ | WaPo and DCist barely cover SBOE; 4 of 9 seats are on the June ballot; clear differentiation |
 | BL-12 | "Who voted how" matrix — Council × major bills (Secure DC, Peace DC, RENTAL Act, FY26 budget, Sanctuary repeal pause), with ward labels | M | M | ★★ | Most-cited missing feature in civic tracker feedback nationally (Chicago Sun-Times model) |
 | BL-01 | Per-councilmember voting record on flagship bills — individual pages or inline table in IssueDetail | M | M | ★★ | Same underlying data as BL-12; both can ship together once the voting-record data type is built |
 | BL-19 | Candidate comparison matrix — Mayor race + Ward 1/3/5/6 + At-Large, one row per issue (housing, policing, federal workers, schools, budget) | M | M | ★★ | Open mayoral race (first since 2014); voters need side-by-side; Philadelphia Committee of Seventy model |
@@ -50,6 +49,8 @@ Sorted within tier by impact ÷ effort (best bang first).
 3. **Your ballot** — annotated sample ballot layout showing the ranking columns (1st–5th choice per race). Source: DCBOE sample ballot PDF once published; until then, use the ballot format from the official DC law.
 4. **Common questions** (FAQ accordion or flat list): Do I have to rank all five? What if my first choice wins in round 1? What if all my ranked choices are eliminated (exhausted ballot)? Does ranking a second choice hurt my first choice? Does this take longer to count?
 5. **Interactive simulator** (client-side JS only — no backend): Present 5 fictional candidates. User drags or clicks to set a ranking 1st–5th (or fewer). On "Tabulate," run the instant-runoff algorithm in JS and display a round-by-round table: who was eliminated, whose votes transferred where, final result. Reusable with a "Try again" button. No real candidate names until DCBOE publishes official ballots.
+
+**v1 ships with click-to-rank.** Deferred interaction variants worth A/B-ing post-primary: (b) per-row `<select>` dropdowns 1–5/skip (max accessibility; least visceral), (c) HTML5 drag-to-reorder into a ranking column (most NYC-like; touch-flaky, no library available because of dep rule). The pure `runIRV` function in `src/lib/rcv.ts` is interaction-agnostic so either alternative is a `RcvSimulator.tsx`-only swap.
 6. **Stat tiles:** 74% of DC voters approved I-83 (Nov 2024) · 5 = max candidates rankable per race · 8 ward Council seats use RCV · [alarm] First RCV election in DC history.
 
 **Data:** No new `rcv.ts` needed; inline the static FAQ content directly in the page or as a `const` in the page file. The simulator runs off a small pure function (< 80 lines of TS).
@@ -78,72 +79,31 @@ export type Candidate = {
 
 **Render:** Below each `Race` card on `/elections/`, a sorted (alphabetical) list of declared candidates with party badge, filing status, and icon links to OCF + DCBOE filings. No commentary. No photos until official filing period closes.
 
+**v1 ships with (b) expand-on-click `<details>` under each race card** (collapsed by default, native disclosure, no JS). Deferred render alternatives worth A/B-ing post-primary:
+- **(a) Always-inline candidate lists** under each race card — most discoverable, but makes the page much taller. Worth testing post-primary if voter feedback shows the disclosure is being missed.
+- **(c) Separate `/elections/candidates/` route** — one page, all candidates grouped by race. Cleaner separation; defeats the side-by-side-with-race-context value of the current layout. Could be paired with BL-32 per-seat pages once those exist.
+
+Candidate data shape is now in `src/data/elections.ts` (`Candidate` type with `raceSlug` foreign key + `candidatesForRace()` helper); switching renders is a `/elections/page.tsx`-only swap.
+
 **Scope:** Mayor · Council Chair · At-Large (Bonds seat + special) · Wards 1/3/5/6 · Attorney General · US House Delegate · Shadow Senator (Strauss seat) · Shadow Representative · SBOE Wards 2/4/7/8 + At-Large.
 
 **Sources:** DC OCF (ocf.dc.gov — search by office) · DCBOE candidate filing portal · Washington Post / DCist candidate announcements (secondary, to fill gaps before OCF records update).
 
 ---
 
-#### BL-17 · SBOE Candidate Guide
-
-**Why:** Four of nine SBOE seats are on the June 16 primary ballot (Wards 2, 4, 7, 8) plus the at-large seat. These are among the least-covered races in DC; Ballotpedia pages are stubs; WaPo rarely runs SBOE profiles. The DC SBOE sets academic standards, approves the DC Healthy Youth Act curriculum, oversees OSSE accountability, and has authority over public charter school authorization.
-
-**Data shape** (add to or alongside `elections.ts`):
-```ts
-export type SBOECandidate = {
-  name: string;
-  ward: string | "At-Large";
-  incumbentSince?: string;
-  bio: string;              // ≤ 2 sentences
-  keyPositions: {
-    schoolFunding: string;  // ≤ 1 sentence each
-    charterExpansion: string;
-    schoolSafety: string;
-    teacherPay: string;
-  };
-  questionnaire?: {
-    q1: string; q2: string; q3: string; q4: string; q5: string;
-  };
-  websiteUrl?: string;
-  source: { label: string; url: string };
-};
-```
-
-**Page:** New `/sboe/` route or a dedicated SBOE section at the bottom of `/elections/`. Given depth, a standalone page is preferred. Editorial note at top: "The DC State Board of Education sets academic standards and holds OSSE accountable. It does not run schools directly."
-
-**UI:** Same IssueCard-style bordered grid (no rounded corners). One card per candidate with name, ward, bio line, and a 4-row mini-table for key positions.
-
-**Sources:** DCBOE candidate filings · sboe.dc.gov · Ballotpedia (for prior election results) · DC Policy Center education research.
-
----
-
 #### BL-12 + BL-01 · Voting Record Matrix + Per-Member Record
 
-**These share the same underlying data.** Build the data layer once; render in two places.
+**v1 shipped (2026-05-10)** — inline on `/officials/` (BL-12 matrix as a 3-bill × 13-member table at the bottom of the page; BL-01 per-member `<details>` mini-record on each council card). Uses a new `src/data/votes.ts` keyed by `Official.slug` (refactor: added `slug` field to every Official). 3 fully-sourced bills shipped: Secure DC Omnibus (B25-0345, 2024-03-05), Peace DC Omnibus (B26-0187, 2025-07-01), RENTAL Act (B26-0164, 2025-09-17). Sets correct `not-in-office` markers for Crawford (Jan 2026 appointment), Felder (post-May 2024 special), and Trayon White (Feb–Aug 2025 expulsion gap).
 
-**New data shape** (add to `officials.ts` or new `votes.ts`):
-```ts
-export type BillVote = {
-  billId: string;           // e.g., "B25-0485"
-  billName: string;         // e.g., "Secure DC Omnibus Amendment Act of 2024"
-  voteDate: string;         // ISO date
-  result: "passed" | "failed" | "vetoed" | "overridden";
-  councilVotes: {
-    member: string;         // matches Official.name
-    vote: "yes" | "no" | "abstain" | "absent" | "excused";
-    note?: string;
-  }[];
-  source: { label: string; url: string };
-};
-```
+**Backlogged v2 additions:**
+- **FY2026 Budget (B26-0265)** — final reading 2025-07-28 passed 10-2, but the 2 named no-voters were not surfaced in basic web search. Requires deeper LIMS-page or roll-call sheet fetch by the data-refresh skill.
+- **Sanctuary Values Repeal pause** — committee-only action on 2025-06-24. Not a Council-wide vote. UX needs to handle committee-only votes (most members would be `not-in-office`-equivalent — needs a distinct `not-on-committee` value or rendering treatment) before this can be added cleanly.
+- **Sticky first column + mobile-transpose layout** for the matrix at narrow viewports. v1 ships with horizontal-scroll on mobile; sticky bill column would let voters keep the bill name visible as they scroll across members. Mobile-transpose (members as rows) is the spec's preferred fallback.
+- **Per-member dedicated `/officials/[slug]/` pages** (alternative to the inline `<details>` mini-record). Would enable shareable per-member URLs and richer per-member context — useful for BL-32's per-seat race pages to cross-link to.
 
-**Bills to cover (v1 set):** Secure DC Omnibus (B25-0485) · Peace DC Community Safety Amendment Act · RENTAL Act (rent freeze debate) · FY2026 Budget · Sanctuary Values Repeal pause vote.
+**Data shape (v1 implementation):** see `src/data/votes.ts`. The original spec proposed `member: string` (name) join keys; v1 uses `memberSlug: string` FK to `Official.slug` instead — safer against name drift.
 
-**Render — BL-12 (matrix):** A `<table>` or CSS grid on `/officials/` or a new `/council/votes/` route. Rows = bills, columns = council members. Each cell: colored pill (green = yes, red = no, gray = absent/abstain). Mobile: transpose so members are rows.
-
-**Render — BL-01 (per-member):** On each official's card (or a linked `/officials/[slug]/` page), a mini-table of just their votes across all tracked bills.
-
-**Sources:** dccouncil.gov (official vote records under each legislation's page) · DC Council LIMS · WaPo/DCist for context on disputed votes.
+**Sources:** dccouncil.gov press releases (vote tally announcements) · code.dccouncil.gov (final law text for cross-check) · DC Council LIMS at `lims.dccouncil.gov` (JS-rendered, sometimes returns empty shell to WebFetch) · candidate-member campaign sites (often surface tally on first reading) · 51st / GGW / WaPo / WAMU for named no-voters.
 
 ---
 
@@ -151,19 +111,39 @@ export type BillVote = {
 
 **Model:** Philadelphia Committee of Seventy candidate grid · NYC CFB voter guide · Chicago Sun-Times voter guide structured-data table.
 
-**Page:** `/elections/compare/` or inline section on `/elections/`.
+**v1 shipped (2026-05-10)** — inline on `/elections/` (decision: keep on the elections hub rather than carve `/elections/compare/`). Three race blocks (`mayor`, `council-at-large-bonds`, `council-ward-1`), 6 issue accordions per race matching the site's substantive issue pages. Click-to-expand `<details>` reveals candidate position cards. Sparse fill — positions populated by the data-refresh skill as candidates publish platforms.
+
+**Backlogged render alternatives** (post-primary A/B candidates):
+- Per-candidate cards (Pattern C) at desktop instead of issue-accordions
+- Pick-2-and-compare (Pattern E) with checkboxes — needs a client component
+- Stance pills (support/oppose/mixed) alongside text — needs editorial guidance once forums and debates land
+
+**Page:** Inline on `/elections/` (v1). Spec originally offered `/elections/compare/` as an alternative; kept inline so voters reading the race cards can compare positions in the same surface.
 
 **Races to cover in v1:** Mayor · At-Large (Bonds open seat) · Ward 1 (open seat).
 
-**Issue columns (5 max for readability):**
-1. Housing / Rent (position on rent freeze ballot initiative, TOPA reform, new construction targets)
-2. Public safety (Secure DC support or opposition; civilian review board stance)
-3. Federal workforce / DOGE (position on DC fiscal exposure; plans if federal funding cut)
-4. Schools (DCPS vs. charter balance; OSSE accountability stance)
-5. Budget gap (how to close FY27 projected $700M+ shortfall — cuts vs. new revenue)
+**Issue columns (6, mirroring the site's issue pages — excludes `ranked-choice` which is procedural):**
+1. Statehood & Federal Pressure (DC autonomy, Home Rule, response to federal overrides)
+2. Public Safety (Secure DC, civilian review, federalized MPD response)
+3. Housing & Evictions (rent freeze ballot, TOPA reform, construction targets)
+4. Budget (FY27 shortfall, federal workforce loss, tax decisions)
+5. Transportation (camera enforcement, WMATA funding, traffic deaths)
+6. Schools (DCPS vs. charters, OSSE oversight, federal K-12 funding)
 
-**Data shape:**
+**Data shape (v1 implementation — `Candidate.positions` extension, not a separate type):**
 ```ts
+// In src/data/elections.ts:
+export type ComparableIssueSlug = "statehood" | "public-safety" | "housing" | "budget" | "transportation" | "schools";
+export type Position = { stance: string; sourceLabel: string; sourceUrl: string };
+
+// Extended Candidate (from BL-03):
+positions?: Partial<Record<ComparableIssueSlug, Position>>;
+```
+Missing position keys render as "No position stated" in the UI. The original spec's `CandidatePosition` table type was rejected in favor of this in-place extension — keeps positions on the same record per-candidate (BL-32 per-seat pages will use the same record), avoids name-based joins.
+
+(Reference: the spec's original draft type included `candidate`/`race` join keys and required all 5 issue fields. v1 dropped that in favor of an optional partial map. Original sketch:)
+```ts
+// Original draft (NOT implemented):
 export type CandidatePosition = {
   candidate: string;        // matches Candidate.name
   race: string;
@@ -184,9 +164,18 @@ export type CandidatePosition = {
 
 #### BL-32 · Per-Seat Race Pages + Candidate Profile Cards
 
-**Why:** Voters need a single place to evaluate every candidate for a specific seat — their positions, their record at public forums, recent news, and links to the tools that compare them. No static non-partisan DC source does this at the seat level today. This is the biggest feature gap between DC Elections Tracker and a full voter guide.
+**v1 shipped (2026-05-10)** — nested under `/elections/` (rather than top-level `/[race-slug]/` per the original spec) for namespace consistency. Routes: `/elections/[race]/page.tsx` + `/elections/[race]/[candidate]/page.tsx`, both with `generateStaticParams` + `dynamicParams = false`. 4 races profiled (the open seats with the most declared candidates and press coverage): `mayor`, `council-at-large-bonds`, `council-ward-1`, `us-house-delegate` — 24 candidate profiles total. Race pages render the existing candidate roster from BL-03, a positions matrix using BL-19 data, and an external-voter-guides section (DCBOE/OCF/Ballotpedia/Wikipedia). Candidate profiles render identity block + links row + optional bio + per-issue position list + breadcrumb back. `/elections/` candidate `<details>` lists now link candidate names to their profile when the race is profiled.
 
-**Route structure:**
+**Backlogged v2 additions** (deferred to data-refresh skill + later editorial passes):
+- **Forums & events attended** — needs a new `CandidateForum` type + per-candidate `forumsAttended[]` list. Source: DC LWV, DC Democratic State Committee, ward Dem clubs, WAMU/DCist.
+- **News & media** per candidate — curated list of recent coverage (factual citations only, no editorial summaries). Cross-reference with BL-33 (media source database) once that ships.
+- **Social/government links** beyond `websiteUrl` — LinkedIn, Twitter/X, Instagram, Facebook, government site for incumbents. Schema is forward-compatible; just need to populate.
+- **Candidate-provided photos** — optional `photoUrl?`. No scraped headshots per editorial rule.
+- **Expanding profiled-race scope** — adding the remaining 8 races (Council Chair, AG, Wards 3/5/6, At-Large special, Shadow Senator/Rep) just requires populating `bio`/`positions` and adding their slugs to `PROFILED_RACE_SLUGS`. The route generation is already generic.
+
+**Why (original):** Voters need a single place to evaluate every candidate for a specific seat — their positions, their record at public forums, recent news, and links to the tools that compare them. No static non-partisan DC source does this at the seat level today. This is the biggest feature gap between DC Elections Tracker and a full voter guide.
+
+**Original route shape (kept for reference; not implemented as written):**
 ```
 /[race-slug]/                  # per-seat race page
 /[race-slug]/[candidate-slug]/ # per-candidate profile page
@@ -287,6 +276,23 @@ export type CandidateForum = {
 
 #### BL-02 · Address-Based Ward + ANC Lookup
 
+**v1 shipped (2026-05-10)** — `AddressLookup.tsx` inline on `/elections/` near the top, below the countdowns. Submit-on-button (no debounced typeahead) — one outbound fetch per submit, zero on page load. Output block shows: ward (with current councilmember link), ANC + SMD (with oanc.dc.gov link), "Races you'll vote on in 2026" derived from `ballotForWard(ward)`, the council member's voting record on the 3 BL-12 tracked bills, and a DCBOE polling-place link. Error states: "Address not found" (404-style card with DCBOE fallback link) and "Lookup service didn't respond" (network/CORS error card with same fallback). Both spell out "DC Board of Elections (DCBOE)" on first reference per the editorial style rule.
+
+**Known limitation — CORS proxy dependency:**
+- `citizenatlas.dc.gov` MAR API does NOT return CORS headers, so browsers block direct cross-origin fetches.
+- v1 routes the request through **corsproxy.io** (a free public CORS proxy, no API key, no advertised rate limit). The request path is: user-browser → corsproxy.io → DC government → user-browser. Neither the proxy nor this site stores or logs addresses.
+- The privacy note in the UI is honest about this routing.
+- If corsproxy.io becomes unreliable or imposes a paywall, v2 upgrade path is a self-hosted Cloudflare Worker proxy (free tier covers our volume by orders of magnitude; ~30-minute build).
+- This is the only feature on the site that does runtime client-side fetching; the editorial rule in CLAUDE.md was amended to explicitly allow user-triggered fetches (not load-time fetches).
+
+**Backlogged v2 ideas:**
+- Self-hosted Cloudflare Worker proxy (replace corsproxy.io dependency)
+- Save the looked-up address to `localStorage` so it persists across visits — adds convenience but invites "what else are you storing" anxiety; needs editorial review first
+- Show census tract / lat-lng / nearest Metro station (low voter value, more for power users)
+- Print-friendly "my ballot plan" output
+- Show the user's ANC commissioner directly (requires ANC commissioner roster — pairs with BL-05)
+- BL-25 ("What's on my ballot" full personalization) — extends BL-02 with SMD-level race detail (needs candidate-per-SMD mapping)
+
 **Model:** NYC Board of Elections sample ballot lookup · VOTE411.org · DC OP Address GIS API (MAR).
 
 **Approach (static-friendly):** DC's Master Address Repository API at `https://citizenatlas.dc.gov/newwebservices/locationverifier.asmx` returns ward, ANC, and SMD for any DC address, no API key required. Call from the client on user submit.
@@ -309,6 +315,7 @@ Sorted within tier by impact ÷ effort.
 
 | ID | Feature | Complexity | Effort | Impact | Rationale |
 |---|---|---|---|---|---|
+| BL-17 | SBOE candidate guide — all candidates for the 4 ward seats on the Nov 3, 2026 general ballot (Wards 1, 3, 5, 6) | M | M | ★★ | WaPo and DCist barely cover SBOE; nonpartisan races appear only on the November ballot (not the June primary) so the page can't ship usefully until SBOE filings close (~August 2026). See spec below; moved from P1 to P2 after the 2026-05-10 scoping pass corrected the ward list and ballot context. |
 | BL-08 | Federal RIF tracker — running counter of DC-resident federal employees affected by 2025–2026 RIFs, by agency | M | M | ★★ | Top voter issue; 72K DC-region federal job losses (BLS); differentiated from national trackers by DC-resident focus |
 | BL-14 | Polling-place lookup by address (link to BL-02 once it ships; standalone fallback before then) | M | M | ★★ | DCBOE has a locator but it's opaque on mobile; surfacing it in DC Elections Tracker flow improves access |
 | BL-18 | Campaign finance summary cards — per candidate: total raised, top 5 donors, industry breakdown | L | L | ★★ | NYC CFB and Philadelphia ArcGIS dashboards prove voters want this; OCF exports are public |
@@ -319,6 +326,47 @@ Sorted within tier by impact ÷ effort.
 ---
 
 ### Specs — P2 items
+
+#### BL-17 · SBOE Candidate Guide
+
+**Why:** Four of nine SBOE seats are on the **November 3, 2026 general ballot** (Wards 1, 3, 5, 6). Their current holders' terms run Jan 2023 – Jan 2027. SBOE is the least-covered set of races in DC: Ballotpedia stubs, no WaPo profiles, no DCist beat. The DC SBOE sets academic standards, approves the DC Healthy Youth Act curriculum, oversees OSSE accountability, and has authority over public charter school authorization.
+
+**Important correction (2026-05-10):** Original BL-17 description listed Wards 2/4/7/8 + At-Large on the June primary ballot. That was wrong on both counts:
+- Those 5 seats were filled in November 2024 and run through 2029 — not on a 2026 ballot.
+- SBOE is nonpartisan. Candidates appear only on the **November general election**, never the party primary.
+
+The data-refresh skill should track the SBOE candidate filing window (typically closes August for the November ballot) and flag when challengers declare.
+
+**Current incumbents (terms end Jan 2027 — i.e., on the 2026 ballot):**
+- Ward 1 — Ben Williams (elected 2022)
+- Ward 3 — Eric Goulet (elected 2022)
+- Ward 5 — Robert Henderson (elected 2022)
+- Ward 6 — Brandon Best (elected 2022)
+
+**Data shape (reuses extended `Candidate` from BL-03):**
+The `Candidate` type added in `src/data/elections.ts` already supports the fields BL-17 needs — add the following optional extensions when this item ships:
+```ts
+// Already present from BL-03: name, raceSlug, party, filingStatus, source, ocfUrl?, dcboeUrl?, websiteUrl?, notes?, incumbent?
+// To add (optional, only populated for SBOE candidates in v1):
+bio?: string;                   // ≤ 2 sentences
+incumbentSince?: string;        // ISO year, e.g. "2023"
+keyPositions?: {
+  schoolFunding?: string;       // ≤ 1 sentence each
+  charterExpansion?: string;
+  schoolSafety?: string;
+  teacherPay?: string;
+};
+questionnaire?: { q1: string; q2: string; q3: string; q4: string; q5: string };
+```
+The 5 sboe race slugs to add to `races2026[]`: `sboe-ward-1`, `sboe-ward-3`, `sboe-ward-5`, `sboe-ward-6` (4 wards; no at-large in 2026). Add a `category` field to `Race` (`"general" | "sboe"`) so the `/elections/` page can render the SBOE block separately from the citywide/council races.
+
+**Page:** New `/sboe/` route (standalone, not nested under `/elections/`). Editorial note at top: "The DC State Board of Education sets academic standards and holds OSSE accountable. It does not run schools directly. SBOE races are nonpartisan and appear only on the November 3 general election ballot."
+
+**UI:** Same IssueCard-style bordered grid (no rounded corners). One card per candidate with name, ward, bio line, and a 4-row mini-table for key positions. Where a candidate hasn't filed yet or hasn't responded to a questionnaire, render `Awaiting candidate response` in muted text — never infer positions.
+
+**Sources:** sboe.dc.gov board biographies · DCBOE general election candidate filings (when published) · Ballotpedia (for prior election results) · DC Policy Center education research.
+
+---
 
 #### BL-08 · Federal RIF Tracker
 

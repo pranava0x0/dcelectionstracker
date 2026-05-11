@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MemberVotingMiniRecord, VotingRecordMatrix } from "@/components/VotingRecordMatrix";
 import { officials } from "@/data/officials";
 import { partyTone } from "@/lib/party";
 
@@ -102,6 +103,7 @@ export default function OfficialsPage(): JSX.Element {
                     >
                       {m.source.label} ↗
                     </a>
+                    <MemberVotingMiniRecord memberSlug={m.slug} />
                   </div>
                 </li>
               );
@@ -109,6 +111,15 @@ export default function OfficialsPage(): JSX.Element {
           </ul>
         </section>
       ))}
+
+      <section className="mt-10 sm:mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Records</span>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
+          Council voting record on tracked bills
+        </h2>
+        <VotingRecordMatrix />
+      </section>
 
       <aside className="card card-stripe-red mt-10 p-4 sm:mt-14 sm:p-5">
         <span className="kicker">Footnote</span>

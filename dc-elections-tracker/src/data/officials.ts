@@ -1,6 +1,7 @@
 export type Party = "D" | "R" | "I" | "Statehood Green" | "Nonpartisan";
 
 export type Official = {
+  slug: string; // stable FK target (e.g., for votes.ts memberSlug); kebab-case
   name: string;
   role: string;
   ward?: string;
@@ -23,6 +24,7 @@ export const officials: OfficialGroup[] = [
     blurb: "Mayor and Attorney General are elected citywide. Both terms end Jan 2, 2027.",
     members: [
       {
+        slug: "bowser",
         name: "Muriel Bowser",
         role: "Mayor",
         party: "D",
@@ -31,6 +33,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "mayor.dc.gov", url: "https://mayor.dc.gov/" },
       },
       {
+        slug: "schwalb",
         name: "Brian Schwalb",
         role: "Attorney General",
         party: "D",
@@ -46,6 +49,7 @@ export const officials: OfficialGroup[] = [
       "Chair plus four at-large seats. Per the DC Charter, no more than two at-large members may be from the majority party (typically Democrats), so two seats are usually held by Independents.",
     members: [
       {
+        slug: "mendelson",
         name: "Phil Mendelson",
         role: "Council Chair",
         party: "D",
@@ -53,6 +57,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/council/phil-mendelson/" },
       },
       {
+        slug: "bonds",
         name: "Anita Bonds",
         role: "At-Large",
         party: "D",
@@ -61,6 +66,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "robert-white",
         name: "Robert White",
         role: "At-Large",
         party: "D",
@@ -69,6 +75,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "christina-henderson",
         name: "Christina Henderson",
         role: "At-Large",
         party: "I",
@@ -76,6 +83,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "crawford",
         name: "Doni Crawford",
         role: "At-Large (interim)",
         party: "I",
@@ -90,6 +98,7 @@ export const officials: OfficialGroup[] = [
     blurb: "Eight ward members, one per ward. In 2026, Wards 1, 3, 5, and 6 are on the ballot.",
     members: [
       {
+        slug: "nadeau",
         name: "Brianne Nadeau",
         role: "Ward 1",
         ward: "1",
@@ -99,6 +108,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "pinto",
         name: "Brooke Pinto",
         role: "Ward 2",
         ward: "2",
@@ -107,6 +117,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "frumin",
         name: "Matthew Frumin",
         role: "Ward 3",
         ward: "3",
@@ -116,6 +127,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "lewis-george",
         name: "Janeese Lewis George",
         role: "Ward 4",
         ward: "4",
@@ -125,6 +137,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "parker",
         name: "Zachary Parker",
         role: "Ward 5",
         ward: "5",
@@ -134,6 +147,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "allen",
         name: "Charles Allen",
         role: "Ward 6",
         ward: "6",
@@ -143,6 +157,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "felder",
         name: "Wendell Felder",
         role: "Ward 7",
         ward: "7",
@@ -152,6 +167,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
       {
+        slug: "trayon-white",
         name: "Trayon White Sr.",
         role: "Ward 8",
         ward: "8",
@@ -168,6 +184,7 @@ export const officials: OfficialGroup[] = [
       'DC has one non-voting Delegate in the U.S. House and three "shadow" representatives — two shadow Senators and one shadow Representative — created by 1990 ballot initiative to lobby for statehood. Shadow officials have no seat, vote, office, or salary in Congress.',
     members: [
       {
+        slug: "norton",
         name: "Eleanor Holmes Norton",
         role: "Delegate to the U.S. House",
         party: "D",
@@ -176,6 +193,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "norton.house.gov", url: "https://norton.house.gov/" },
       },
       {
+        slug: "strauss",
         name: "Paul Strauss",
         role: "Shadow Senator",
         party: "D",
@@ -184,6 +202,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "DC Statehood Commission", url: "https://statehood.dc.gov/page/new-columbia-statehood-commission" },
       },
       {
+        slug: "ankit-jain",
         name: "Ankit Jain",
         role: "Shadow Senator",
         party: "D",
@@ -192,6 +211,7 @@ export const officials: OfficialGroup[] = [
         source: { label: "senatorjaindc.com", url: "https://senatorjaindc.com/about/" },
       },
       {
+        slug: "owolewa",
         name: "Oye Owolewa",
         role: "Shadow Representative",
         party: "D",
@@ -206,15 +226,34 @@ export const officials: OfficialGroup[] = [
     blurb:
       "Nine members elected nonpartisan to four-year staggered terms. The Board sets state-level academic standards. It does not run schools — that is OSSE (state agency) and DCPS / charter authorizers (operators).",
     members: [
-      { name: "Ben Williams", role: "Ward 1", ward: "1", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "Allister Chang", role: "Ward 2", ward: "2", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "Eric Goulet", role: "Ward 3", ward: "3", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "T. Michelle Colson", role: "Ward 4", ward: "4", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "Robert Henderson", role: "Ward 5", ward: "5", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "Brandon Best", role: "Ward 6", ward: "6", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "Eboni-Rose Thompson", role: "Ward 7", ward: "7", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "LaJoy Johnson-Law", role: "Ward 8", ward: "8", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { name: "Jacque Patterson", role: "At-Large (President)", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "ben-williams", name: "Ben Williams", role: "Ward 1", ward: "1", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "allister-chang", name: "Allister Chang", role: "Ward 2", ward: "2", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "eric-goulet", name: "Eric Goulet", role: "Ward 3", ward: "3", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "michelle-colson", name: "T. Michelle Colson", role: "Ward 4", ward: "4", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "robert-henderson", name: "Robert Henderson", role: "Ward 5", ward: "5", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "brandon-best", name: "Brandon Best", role: "Ward 6", ward: "6", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "eboni-rose-thompson", name: "Eboni-Rose Thompson", role: "Ward 7", ward: "7", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "lajoy-johnson-law", name: "LaJoy Johnson-Law", role: "Ward 8", ward: "8", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "jacque-patterson", name: "Jacque Patterson", role: "At-Large (President)", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
     ],
   },
 ];
+
+const officialBySlug: Map<string, Official> = new Map(
+  officials.flatMap((g) => g.members.map((m) => [m.slug, m] as const)),
+);
+
+export function getOfficialBySlug(slug: string): Official | undefined {
+  return officialBySlug.get(slug);
+}
+
+const councilGroupNames = new Set([
+  "DC Council — Chair and At-Large",
+  "DC Council — Ward Members",
+]);
+
+export function councilMembers(): Official[] {
+  return officials
+    .filter((g) => councilGroupNames.has(g.group))
+    .flatMap((g) => g.members);
+}
