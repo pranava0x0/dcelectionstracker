@@ -17,6 +17,17 @@ function voteCellClass(vote: VoteValue): string {
   return "bg-paper text-subtle";
 }
 
+// Strips trailing generation suffixes ("Sr.", "Jr.", "III") so the mobile
+// chip caption reads "White" rather than "Sr." for Trayon White Sr.
+function shortName(name: string): string {
+  const parts = name.split(" ").filter(Boolean);
+  const suffix = /^(Sr\.?|Jr\.?|II|III|IV)$/i;
+  while (parts.length > 1 && suffix.test(parts[parts.length - 1]!)) {
+    parts.pop();
+  }
+  return parts[parts.length - 1] ?? name;
+}
+
 export function VotingRecordMatrix(): JSX.Element {
   const council = councilMembers();
 
@@ -37,7 +48,63 @@ export function VotingRecordMatrix(): JSX.Element {
         in this current-roster matrix.
       </p>
 
-      <div className="mt-5 overflow-x-auto border border-rule">
+      {/* Mobile (< sm): one card per bill with a wrap-grid of vote chips.
+          Replaces the 14-column horizontal-scroll table; same data, no scroll,
+          chips meet the 44px tap-target minimum. */}
+      <ul className="mt-5 space-y-4 sm:hidden">
+        {billVotes.map((bill) => (
+          <li key={bill.billId} className="border border-rule bg-paper p-4">
+            <div className="flex items-baseline justify-between gap-3">
+              <div>
+                <div className="display text-base text-ink">{bill.billName}</div>
+                <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted">
+                  {bill.billId} · {bill.voteStage} · {bill.result}
+                </div>
+              </div>
+              <time
+                className="shrink-0 font-mono text-[11px] font-semibold uppercase tracking-wider text-primary"
+                dateTime={bill.voteDate}
+              >
+                {bill.voteDate}
+              </time>
+            </div>
+            <a
+              href={bill.source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block py-1 font-mono text-[12px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+            >
+              {bill.source.label} ↗
+            </a>
+            <ul className="mt-3 grid grid-cols-4 gap-2">
+              {council.map((m) => {
+                const v = bill.memberVotes.find((mv) => mv.memberSlug === m.slug);
+                const value: VoteValue = v?.vote ?? "absent";
+                return (
+                  <li key={`${bill.billId}-${m.slug}`} className="flex flex-col items-center gap-1">
+                    <span
+                      title={`${m.name}: ${VOTE_DESCRIPTION[value]}${v?.note ? " — " + v.note : ""}`}
+                      aria-label={`${m.name}: ${VOTE_DESCRIPTION[value]}`}
+                      className={
+                        "flex h-11 w-full items-center justify-center rounded-sm font-mono text-sm font-bold " +
+                        voteCellClass(value)
+                      }
+                    >
+                      {VOTE_LABEL[value]}
+                    </span>
+                    <span className="text-center font-mono text-[10px] uppercase leading-tight tracking-wider text-muted">
+                      {shortName(m.name)}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </li>
+        ))}
+      </ul>
+
+      {/* Tablet & desktop (>= sm): original 14-column table. */}
+      <div className="mt-5 hidden overflow-x-auto border border-rule sm:block">
         <table className="w-full border-collapse text-sm">
           <thead className="bg-bg">
             <tr>

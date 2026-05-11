@@ -148,7 +148,63 @@ function ResultsBlock({
         {rounds.length === 1 ? "round" : "rounds"} of counting.
       </h3>
 
-      <div className="mt-5 overflow-x-auto border border-rule">
+      {/* Mobile (< sm): per-candidate row strip with round counts inline.
+          Replaces the horizontal-scroll round table; same numbers, no scroll. */}
+      <ul className="mt-5 space-y-2 sm:hidden">
+        {CANDIDATES.map((c) => {
+          const isWinner = rounds[rounds.length - 1]?.winner === c;
+          const eliminatedRound = rounds.find((r) => r.eliminated === c)?.number;
+          return (
+            <li
+              key={c}
+              className={
+                "border bg-paper p-3 " + (isWinner ? "border-primary" : "border-rule")
+              }
+            >
+              <div className="flex items-baseline justify-between gap-2">
+                <span className={"display text-sm " + (isWinner ? "text-primary" : "text-ink")}>
+                  {CANDIDATE_LABEL[c]}
+                </span>
+                {isWinner ? (
+                  <span className="rounded-sm bg-primary px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-primary-fg">
+                    Winner
+                  </span>
+                ) : eliminatedRound ? (
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                    Eliminated R{eliminatedRound}
+                  </span>
+                ) : null}
+              </div>
+              <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs tabular-nums">
+                {rounds.map((r) => {
+                  const wasActive = r.active.includes(c);
+                  return (
+                    <span key={r.number} className={wasActive ? "text-fg" : "text-subtle"}>
+                      <span className="text-subtle">R{r.number}:</span>{" "}
+                      {wasActive ? r.counts[c] : "—"}
+                    </span>
+                  );
+                })}
+              </div>
+            </li>
+          );
+        })}
+        <li className="border border-rule bg-bg p-3">
+          <div className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
+            Exhausted ballots
+          </div>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs tabular-nums text-muted">
+            {rounds.map((r) => (
+              <span key={r.number}>
+                <span className="text-subtle">R{r.number}:</span> {r.exhausted}
+              </span>
+            ))}
+          </div>
+        </li>
+      </ul>
+
+      {/* Tablet & desktop (>= sm): original round-by-round table. */}
+      <div className="mt-5 hidden overflow-x-auto border border-rule sm:block">
         <table className="w-full border-collapse text-sm">
           <thead className="bg-bg">
             <tr>
