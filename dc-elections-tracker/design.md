@@ -108,7 +108,7 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 - **Officials cards** wrap 1 → `sm:` 2 → `lg:` 3.
 - **Stat tiles** in `IssueDetail` wrap 1 → `sm:` 2 → `lg:` 4.
 - **What's at stake** wraps 1 → `sm:` 2 → `lg:` 3.
-- **NavBar**: full inline nav at `lg`; below `lg`, a `<details>`-driven hamburger drawer with 40px tap target (Apple HIG minimum). On mobile (`< sm`) the CTA pill collapses from "Are you registered?" to "Register" and the wordmark drops from `text-base` to `text-sm` so it fits at 320px.
+- **NavBar**: full inline nav at `lg`; below `lg`, a `<details>`-driven hamburger drawer with a 40px tap target. Note: this is below the Apple HIG (44pt) and Material (48dp) minimums — BL-UAT-10 tracks bumping to `h-11 w-11` (44px) at the next polish pass. The mobile-only `Register` pill next to it already meets 44px via padding. On mobile (`< sm`) the CTA pill collapses from "Are you registered?" to "Register" and the wordmark drops from `text-base` to `text-sm` so it fits at 320px.
 - **Countdown**: day count `text-5xl` on mobile → `text-6xl` at `sm`.
 - **Footer**: build line wraps to its own row below `sm` (`basis-full`); shares the row with nav links at `sm` and up.
 

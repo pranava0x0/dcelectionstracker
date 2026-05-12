@@ -226,6 +226,11 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-05-06",
+        headline: "Council passes permanent youth curfew 8–5 with extended curfew zones, sunset 2028",
+        source: { label: "DC Council", url: "https://dccouncil.gov/council-provides-final-approval-to-modified-curfew-including-permanent-option-of-temporary-expanded-curfew-zones/" },
+      },
+      {
         date: "2026-01-06",
         headline: "Mayor Bowser names Jeffery Carroll, 24-year MPD veteran, interim chief",
         source: { label: "Mayor's office", url: "https://mayor.dc.gov/release/mayor-bowser-announces-jeffery-carroll-interim-chief-police" },

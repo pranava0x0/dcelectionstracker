@@ -2,6 +2,7 @@ export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
   { date: "2026-05-11", headline: "Mail ballots begin going out today for the June 16 primary", href: "https://www.dcboe.org/" },
+  { date: "2026-05-06", headline: "DC Council gives final 8–5 approval to permanent youth curfew + extended curfew zones", href: "https://dccouncil.gov/council-provides-final-approval-to-modified-curfew-including-permanent-option-of-temporary-expanded-curfew-zones/" },
   { date: "2026-03-19", headline: "House committee advances Stop DC CAMERA Act 21–19 to ban DC traffic cameras", href: "https://www.congress.gov/bill/119th-congress/house-bill/5525/text" },
   { date: "2026-02-18", headline: "Trump signs PL 119-78 — first DC tax law overridden by Congress", href: "https://www.congress.gov/bill/119th-congress/house-joint-resolution/142/text" },
   { date: "2026-02-12", headline: "Senate votes 49–47 to overturn DC tax decoupling (~$650M / 5 yrs)", href: "https://dccouncil.gov/" },

@@ -56,9 +56,9 @@ const whatChanged: Stake[] = [
       "The Council voted 8–4 in July 2025 to fund the ranked-choice tabulation system in the FY26 budget. The open-primary half of Initiative 83 — which would have let independents vote in party primaries — was not funded, and remains in legal limbo.",
   },
   {
-    headline: "DCBOE rules and ballot are still being finalized",
+    headline: "DCBOE has published the RCV sample-ballot walkthrough",
     detail:
-      "DCBOE's RCV regulations were not fully finalized as of late 2025. The agency is publishing voter-education materials on a rolling basis. Sample ballots will appear at dcboe.org closer to the primary; this page will be updated once they're released.",
+      "DCBOE has released a sample-ballot training PDF showing how to mark up to five rankings — one oval per column, one column per candidate. Live mail ballots began going out May 11, 2026.",
   },
 ];
 
@@ -73,6 +73,16 @@ const whoDecides: Decider[] = [
 type Move = { date: string; headline: string; source: { label: string; url: string } };
 
 const recentMoves: Move[] = [
+  {
+    date: "2026-05-11",
+    headline: "Mail ballots begin going out — first DC primary using ranked-choice voting",
+    source: { label: "DCBOE — 2026 Primary Calendar", url: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
+  },
+  {
+    date: "2026-05-01",
+    headline: "DCBOE publishes RCV sample-ballot training showing the up-to-5-rankings layout",
+    source: { label: "DCBOE — RCV Training Ballot (PDF)", url: "https://www.dcboe.org/getmedia/83194dbd-8b45-423c-b342-dd76609f67c1/2026-Primary-RCV-Training-26-1-9-14-5-30.pdf" },
+  },
   {
     date: "2025-07-15",
     headline: "Council votes 8–4 to fund ranked-choice tabulation in FY26 budget",
@@ -121,6 +131,7 @@ type Source = { label: string; url: string };
 
 const liveSources: Source[] = [
   { label: "DCBOE — Ranked-Choice Voting overview", url: "https://www.dcboe.org/elections/ranked-choice-voting" },
+  { label: "DCBOE — RCV sample-ballot training (PDF)", url: "https://www.dcboe.org/getmedia/83194dbd-8b45-423c-b342-dd76609f67c1/2026-Primary-RCV-Training-26-1-9-14-5-30.pdf" },
   { label: "DC Law 25-295 — Initiative 83 codified", url: "https://code.dccouncil.gov/us/dc/council/laws/25-295" },
   { label: "Make All Votes Count DC — campaign site & full Initiative 83 text", url: "https://makeallvotescountdc.org/" },
   { label: "FairVote — RCV Resource Center", url: "https://fairvote.org/our-reforms/ranked-choice-voting/" },
@@ -246,8 +257,16 @@ export default function RankedChoicePage(): JSX.Element {
         for 1st choice, 2nd choice, up to 5th. Fill in one bubble per column, one column per
         candidate — never the same candidate in two columns, never two candidates in the same
         column. You can rank fewer than five if you only have strong feelings about your top one
-        or two. DCBOE&apos;s sample ballot will be published at dcboe.org closer to the primary;
-        this page will link directly to it once it&apos;s live.
+        or two. DCBOE has published a{" "}
+        <a
+          href="https://www.dcboe.org/getmedia/83194dbd-8b45-423c-b342-dd76609f67c1/2026-Primary-RCV-Training-26-1-9-14-5-30.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-primary"
+        >
+          sample-ballot training PDF
+        </a>{" "}
+        showing the exact layout you&apos;ll see on mail and in-person ballots.
       </p>
 
       <SectionHead kicker="Try it" title="Interactive simulator" />

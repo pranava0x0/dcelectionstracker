@@ -4,12 +4,14 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-10 (run 2 — applied run-1 changes to data files; added registration-stats source and candidate aggregators)_
+_Last updated: 2026-05-12 (run 3 — DCBOE RCV sample ballot, youth curfew final passage, mayoral debate coverage)_
 
 ---
 
 ## Government & Official
 
+- [2026-05-06] DC Council — Final approval of permanent curfew + extended curfew zones (8–5) — https://dccouncil.gov/council-provides-final-approval-to-modified-curfew-including-permanent-option-of-temporary-expanded-curfew-zones/
+- [2026-05-01] DCBOE — 2026 Primary RCV sample-ballot training (PDF) — https://www.dcboe.org/getmedia/83194dbd-8b45-423c-b342-dd76609f67c1/2026-Primary-RCV-Training-26-1-9-14-5-30.pdf
 - [2026-03-19] Congress.gov — H.R. 5525, Stop DC CAMERA Act (passed House Oversight Committee 21-19) — https://www.congress.gov/bill/119th-congress/house-bill/5525/text
 - [2026-01-27] Congress.gov — H.R. 5183, DC Home Rule Improvement Act of 2025 (reported from committee) — https://www.congress.gov/bill/119th-congress/house-bill/5183
 - [2026-01-06] Mayor's office — Jeffrey Carroll sworn in as MPD Interim Chief — https://mayor.dc.gov/release/mayor-bowser-announces-jeffery-carroll-interim-chief-police
@@ -34,6 +36,11 @@ _Last updated: 2026-05-10 (run 2 — applied run-1 changes to data files; added 
 ## Candidate & Campaign
 
 ### Mayor 2026
+- [2026-05-18] Georgetown / FOX 5 — Upcoming televised mayoral debate (May 18, 2026) — https://www.georgetown.edu/news/georgetown-fox-5-dc-2026-debate-democratic-mayoral-primary/
+- [2026-05-07] HillRag — Mayoral Candidates Clash Over Utility Costs & Public Safety — https://www.hillrag.com/2026/05/07/mayoral-candidates-clash-over-utility-costs-public-safety-solutions/
+- [2026-05-05] GW Hatchet — Democratic mayoral / delegate candidates debate DC issues — https://gwhatchet.com/2026/05/05/democratic-mayoral-delegate-candidates-debate-dc-issues-in-double-header-event/
+- [2026-05-04] Georgetowner — 2026 Mayoral Forums & Debates guide — https://georgetowner.com/articles/2026/05/04/d-c-election-2026-the-georgetowners-guide-to-mayoral-forums-debates/
+- [2026-05-01] GGWash — Endorsement: Janeese Lewis George for DC Mayor — https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor
 - [2026-05-08] The DC Line — Jonetta Rose Barras: Who among DC's mayoral candidates can help the city? — https://thedcline.org/2026/05/08/jonetta-rose-barras-who-among-dcs-mayoral-candidates-can-help-the-city-fulfill-its-potential-part-2/
 - [2026-05-01] Axios DC — Endorsements for Janeese Lewis George and Kenyan McDuffie — https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie
 - [2026-04-ongoing] WTOP — Mayoral debate coverage — https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/

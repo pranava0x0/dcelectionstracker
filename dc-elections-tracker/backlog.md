@@ -862,6 +862,24 @@ Researched but not promoted to a recent-moves block in v1. Pull from research tr
 
 ---
 
+## Data-refresh run 3 — 2026-05-12
+
+Findings applied this run:
+- New alert: 2026-05-06 — DC Council 8–5 final approval of permanent youth curfew + extended curfew zones
+- New `recentMoves` on `public-safety`: same curfew vote (final reading)
+- RCV page (`/issues/ranked-choice/`): two new `recentMoves` (DCBOE sample-ballot training PDF; 2026-05-11 mail-ballots-going-out), "Your ballot" prose updated to link the sample-ballot PDF, `liveSources[]` gains DCBOE training PDF, `whatChanged[]` "still being finalized" tile rewritten now that the training PDF is public
+- `sources-log.md` gained six entries across Government and Mayor 2026 (Council curfew final-approval release; DCBOE RCV training PDF; GGW JLG endorsement; HillRag, Georgetowner, GW Hatchet debate coverage; Georgetown/FOX 5 May 18 debate page)
+
+New ideas surfaced (feed into existing items rather than new IDs):
+- BL-44 (endorsements section) — concrete data ready: GGW endorses Janeese Lewis George (mayor); Working Families Party + cross-endorsements documented; council-member endorsements of JLG (R. White, Nadeau, Allen). Ready to seed `Candidate.endorsements?[]` per BL-44 spec.
+- BL-45 (forums + voter guide links per race) — concrete data ready: May 2 (GW + Wash Informer), May 5 (Hill Center), May 7 (HillRag), May 18 (Georgetown/FOX 5). Each has a canonical recap URL; seed `Race.forums?[]` per BL-45 spec.
+
+Pending / next-run candidates:
+- DCBOE Monthly Voter Registration Statistics PDF for April 2026 not yet surfaced — Independent Voter Project shows 476,212 for April; confirm against DCBOE PDF before updating `electionStats`.
+- Council vote tally for permanent curfew final reading (named no-voters in 8–5 vote) — surface and add as `BillVote` in `votes.ts`.
+
+---
+
 ## UAT-sourced improvements (added 2026-05-10)
 
 Found during first UAT session. Cross-referenced with existing backlog to avoid duplication.
@@ -877,6 +895,7 @@ Found during first UAT session. Cross-referenced with existing backlog to avoid 
 | BL-UAT-06 | Remove dead https guard in `path()` | P3 | S | Dead code in `src/lib/links.ts` — second `if` block is unreachable. Delete it. See UAT-005 |
 | BL-UAT-07 | Format slug in IssueCard/IssueDetail kicker | P3 | S | Replace `issue.slug` in kicker with formatted label (replace hyphens, title-case). See UAT-006 |
 | BL-UAT-08 | Document dev-mode workaround in CLAUDE.md | P1 | S | Add note: "Issue pages only work with `next build && npx serve out/` — `next dev` crashes on dynamic routes due to Next.js 14.2.x bug." |
+| BL-UAT-10 | Hamburger toggle is 40×40 (`h-10 w-10`); universal CLAUDE.md requires 44×44 minimum touch target | P3 | S | `src/components/NavBar.tsx:59` — `<summary>` for the mobile nav disclosure renders at 40×40 on iOS Safari. Bump to `h-11 w-11` (44px) to match Apple HIG / Android Material minimum. No functional bug; passive accessibility tightening. Found UAT run 4 (2026-05-12). |
 
 ---
 
