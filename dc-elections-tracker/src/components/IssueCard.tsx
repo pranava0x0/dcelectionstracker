@@ -13,7 +13,7 @@ export function IssueCard({ issue }: Props): JSX.Element {
       href={`/issues/${issue.slug}/`}
       className="card-link block"
     >
-      <article className={`card ${stripe} flex h-full flex-col p-5`}>
+      <article className={`card ${stripe} flex h-full flex-col p-4 sm:p-5`}>
         <div className="flex items-baseline justify-between gap-3">
           <span className="kicker !text-fg">Issue</span>
           {top ? (

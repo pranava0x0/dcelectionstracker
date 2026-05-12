@@ -28,6 +28,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Smooth anchor scrolling for the mobile JumpStrip and any future #-links.
+   Disabled under prefers-reduced-motion below. */
+html {
+  scroll-behavior: smooth;
+}
+
 *,
 *::before,
 *::after {
@@ -137,6 +143,9 @@ summary:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .animate-marquee,
   .animate-pulseDot {
     animation: none !important;

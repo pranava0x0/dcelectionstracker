@@ -45,6 +45,11 @@ function externalLinksFor(candidate: ReturnType<typeof getCandidateBySlug>): Lin
   if (!candidate) return [];
   const links: LinkEntry[] = [];
   if (candidate.websiteUrl) links.push({ label: "Campaign site", url: candidate.websiteUrl });
+  if (candidate.governmentSiteUrl) links.push({ label: "Government site", url: candidate.governmentSiteUrl });
+  if (candidate.twitterUrl) links.push({ label: "X / Twitter", url: candidate.twitterUrl });
+  if (candidate.linkedinUrl) links.push({ label: "LinkedIn", url: candidate.linkedinUrl });
+  if (candidate.instagramUrl) links.push({ label: "Instagram", url: candidate.instagramUrl });
+  if (candidate.facebookUrl) links.push({ label: "Facebook", url: candidate.facebookUrl });
   if (candidate.ocfUrl) links.push({ label: "DC OCF — campaign finance", url: candidate.ocfUrl });
   if (candidate.dcboeUrl) links.push({ label: "DCBOE filing", url: candidate.dcboeUrl });
   // Always include the announcement source as the last link.
@@ -118,7 +123,7 @@ export default function CandidateProfilePage({ params }: { params: Params }): JS
       </section>
 
       {candidate.bio ? (
-        <section className="mt-10 sm:mt-14">
+        <section className="mt-8 sm:mt-12 lg:mt-14">
           <hr className="rule-thick" />
           <span className="kicker mt-3 inline-block">Bio</span>
           <h2 className="display mt-1 text-xl text-ink sm:text-2xl">Background</h2>
@@ -128,7 +133,7 @@ export default function CandidateProfilePage({ params }: { params: Params }): JS
         </section>
       ) : null}
 
-      <section className="mt-10 sm:mt-14">
+      <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Positions</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
@@ -179,7 +184,46 @@ export default function CandidateProfilePage({ params }: { params: Params }): JS
         </ul>
       </section>
 
-      <section className="mt-10 sm:mt-14">
+      {candidate.news && candidate.news.length > 0 ? (
+        <section className="mt-8 sm:mt-12 lg:mt-14">
+          <hr className="rule-thick" />
+          <span className="kicker mt-3 inline-block">Coverage</span>
+          <h2 className="display mt-1 text-xl text-ink sm:text-2xl">Recent coverage</h2>
+          <p className="mt-2 max-w-3xl text-sm text-fg">
+            Dated, sourced citations only — no commentary. Populated by the data-refresh skill.
+          </p>
+          <ol className="mt-5 border-y border-rule bg-paper">
+            {[...candidate.news]
+              .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+              .map((n) => (
+                <li
+                  key={`${n.date}-${n.url}`}
+                  className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-4"
+                >
+                  <time
+                    className="font-mono text-[11px] font-semibold uppercase tracking-wider text-primary sm:w-24"
+                    dateTime={n.date}
+                  >
+                    {n.date}
+                  </time>
+                  <a
+                    href={n.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[15px] leading-snug text-fg hover:text-primary sm:flex-1"
+                  >
+                    {n.headline}
+                  </a>
+                  <span className="inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted">
+                    {n.outlet} ↗
+                  </span>
+                </li>
+              ))}
+          </ol>
+        </section>
+      ) : null}
+
+      <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Race</span>
         <h2 className="display mt-1 text-xl text-ink sm:text-2xl">

@@ -158,7 +158,7 @@ function StatTile({ stat }: { stat: Stat }): JSX.Element {
 
 function SectionHead({ kicker, title }: { kicker: string; title: string }): JSX.Element {
   return (
-    <header className="mt-10 sm:mt-14">
+    <header className="mt-8 sm:mt-12 lg:mt-14">
       <hr className="rule-thick" />
       <div className="mt-3 flex items-baseline justify-between gap-4">
         <span className="kicker">{kicker}</span>

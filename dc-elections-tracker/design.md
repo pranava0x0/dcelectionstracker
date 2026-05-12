@@ -66,7 +66,8 @@ Cards use **gap-based grids** (`gap-4` to `gap-5`), not flush hairline grids. Th
 - **LatestCard** — short floating card surfacing a single recent move. Date in orange mono, slab-serif headline, "Read source ↗" footer in mono. Used in the home-page "Latest from DC" row.
 - **IssueDetail** — kicker, slab-serif headline, orange one-liner, hero graf. Then a flush hairline-bordered 4-up stat grid (data-table feel), followed by sectioned blocks divided by 3px black rules: What's at stake → Who decides → Recent moves → Questions to candidates → Live sources. **Source attribution links** inside stat tiles (e.g. "WTOP / OPM ↗") must be legible and tappable: minimum `text-xs` (12px), not `text-[10px]`. Minimum 44px tap target height on mobile (pad the link, not just the text).
 - **Officials baseball cards** — small floating cards in a 3-up grid. 4px party-color stripe at top (blue for D, black for I, orange for R). Big slab-serif name, mono role, mono term-end, optional notes line, source link.
-- **Race cards (`/elections/`)** — floating cards in a 2- or 3-up grid with a stripe by status (orange for OPEN, blue for SPECIAL, black for INCUMBENT) and a matching uppercase mono pill in the corner. Body line includes inline declared-candidate names sourced from the DCBOE filing list.
+- **Race cards (`/elections/`)** — floating cards in a 2- or 3-up grid with a stripe by status (orange for OPEN, blue for SPECIAL, black for INCUMBENT) and a matching uppercase mono pill in the corner. Body line includes inline declared-candidate names sourced from the DCBOE filing list. **Profiled races** (the four with full per-seat pages — mayor, council-at-large-bonds, council-ward-1, us-house-delegate) wrap the header area in a `<Link>` to `/elections/<slug>/` with a `SEE RACE PAGE →` mono CTA below the tagline; hover applies a subtle `bg-bg` tint. Non-profiled races keep the static header and rely on the `<details>` disclosure for interactivity. The disclosure is always a **sibling** of the header — never nested inside the `<Link>` — to keep tap targets distinct.
+- **Candidate profile pages (`/elections/[race]/[candidate]/`)** — identity block (h1, party pill + filingStatus, optional notes), then sections: **Links & filings** (lists each populated URL in order — campaign site → government site → X/Twitter → LinkedIn → Instagram → Facebook → DC OCF → DCBOE → announcement source; absent fields drop without leaving a gap), **Background** bio paragraph if present, **Stated positions** on the six issue pages, optional **Recent coverage** (newest-first list of `NewsItem` citations — date, headline link, outlet — omitted when `news[]` is empty), and **Other candidates** sibling chips. No icon library: every link is a labeled mono entry with an `↗` glyph.
 - **DCBOE administration tiles (`/elections/`)** — 3-up `card` grid: large `display-tight` value (registered-voter count or date label), short body, mono uppercase source link with ↗ glyph. Same component vocabulary as the issue stat grid — no new primitives.
 - **Countdown** — floating card with orange top stripe, mono kicker, giant orange day count, small mono `Hh Mm` remainder.
 
@@ -100,7 +101,10 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 | tablet   | `640 – 1023px`   | `sm:`, `md:`    |
 | desktop  | `>= 1024px`      | `lg:`           |
 
-- **Hero h1** scales `text-3xl` (issue) / `text-4xl` (page) → `sm:text-4xl/5xl` → `md:text-6xl` (home only) → `lg:text-5xl/6xl/7xl`.
+- **Hero h1** scales `text-3xl` (issue) / `text-3xl` (page-level on mobile) / `text-4xl` (home) → `sm:text-4xl/5xl` → `md:text-6xl` (home only) → `lg:text-5xl/6xl/7xl`. The page-level hero on `/officials/` and `/elections/` drops from `text-4xl` to `text-3xl` at mobile to keep more of the page above the fold; the home hero stays `text-4xl` for impact.
+- **Section spacing**: editorial sections separate with `mt-8 sm:mt-12 lg:mt-14`. The mobile gap is intentionally tighter (32px vs 56px at desktop) to cut vertical air on phones without losing the 3px black-rule rhythm.
+- **Card padding**: `p-4 sm:p-5` for hero cards (IssueCard, Countdown, AddressLookup result/error). `p-3` is the floor at mobile; `p-5` is the desktop maximum.
+- **Source attribution links** at the bottom of stat tiles, election-admin tiles, key-date rows, recent-moves rows, and officials cards use `text-xs` (12px) with `py-1` for tap-target padding — never `text-[10px]` or `text-[11px]`. Inline `[src]` superscripts inside body prose stay at `text-[10px]` (small by design — they're footnotes, not buttons).
 - **Issue cards** wrap 1 → `sm:` 2 → `lg:` 3.
 - **Officials cards** wrap 1 → `sm:` 2 → `lg:` 3.
 - **Stat tiles** in `IssueDetail` wrap 1 → `sm:` 2 → `lg:` 4.
@@ -112,9 +116,31 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 
 Autodetection is pure CSS. A desktop browser dragged narrow, or a device rotated, reflows on the same media queries with no JavaScript involved.
 
+### Mobile jump-to chip strip
+
+Long mobile pages (`/elections/`, every `/issues/[slug]/`) carry a `JumpStrip` rendered immediately under the hero. It is a horizontal-scroll `<nav>` of `h-10` (40px) anchor chips, hidden at `sm+` where the page is short enough to scan. Each chip links to a section `id` further down the page; `html { scroll-behavior: smooth }` in `globals.css` makes the jump animate (disabled under `prefers-reduced-motion: reduce`). Anchored sections carry `scroll-mt-16` so the sticky `NavBar` doesn't hide their headers after a jump.
+
+The strip only links to **always-inline** sections — never to a `CollapsibleSection`, since tapping a chip to land on a closed `<details>` summary is a worse experience than the user expects. New always-inline sections that show up below the fold should be added to the chip set; collapsibles should not.
+
+## Mobile patterns for dense data
+
+Three components carry tabular data that doesn't fit a 375px viewport without horizontal scroll — the Council voting-record matrix, the per-race candidate position table, and the RCV round-by-round results. Each ships a parallel mobile-only stacked render alongside the original table. Both renders read from the same source data — no duplicated content, no JS branching, just Tailwind responsive utilities.
+
+- **Sibling-pair pattern.** A `<ul className="…:hidden">` (mobile cards) sits beside a `<div className="hidden …:block">` (the original table). The pair shares the surrounding section heading and intro copy; only the data presentation differs.
+- **Choosing the threshold.** Measure the table's natural width. If it stays under ~640px the threshold is `sm:` (mobile-only stack, tablet + desktop get the table). If it exceeds the tablet content-area width (~734px at 768 viewport), bump the threshold to `lg:` so phones **and tablets** get the comfortable stack and only `≥1024px` users see the table — anything else forces horizontal scroll on tablet (UAT-011 / UAT-012). Current assignments:
+  - `lg:` — VotingRecordMatrix (15 cols, ~915px), per-race comparison (7 cols of full-sentence stances, ~793px)
+  - `sm:` — RcvSimulator results table (5–6 narrow numeric columns, fits ≥640px comfortably)
+- **Wrap-grid for fixed-width chips.** When a row has many short values (e.g. each Council member's vote on a bill), mobile renders them as a 4-column wrap-grid of `h-11` (44px) chips with a small mono caption beneath. The chip color encodes the value; the caption identifies the row. `title` and `aria-label` carry the full description for hover and screen readers. Used by `VotingRecordMatrix` (under `lg:`).
+- **`<details>` per row.** When each row has many descriptive cells (e.g. a candidate's stated positions across six issues), mobile renders each row as a `<details>` whose summary shows a quick metric (e.g. "3/6 stated") so the user can skip empty rows; expanding the summary reveals the cells as a stacked list. Used by `/elections/[race]/` issue-by-issue comparison (under `lg:`).
+- **Row strip with inline pills.** When the row count is bounded and each row has a short result-tag plus a sequence of numbers (RCV rounds), mobile renders each row as a strip with the tag in the header and the numbers wrapping on a single mono row beneath. Used by `RcvSimulator` results (under `sm:`).
+- **Collapsed-at-mobile section.** When a page section is tertiary on a phone (long-form context, deep-reference content) but expected to be inline on a tablet/desktop reading surface, wrap the section body in `CollapsibleSection`. The component renders the same children twice — a `<details>` at `<sm` with the kicker + title in the summary, and an always-visible block at `sm+` — and shares the section's `hr` thick rule and editorial header rhythm. Used by `IssueDetail` ("Who decides", "Questions to candidates", "Live sources") and `/elections/` ("DCBOE administration", "Key dates"). For card-internal tertiary content (e.g. an official's notes + source link), inline the same `<details className="sm:hidden">` + `<div className="hidden sm:block">` pair without the helper.
+
+Tap targets in these mobile renders meet the 44px minimum. The desktop layout is the canonical one — design changes to either render should keep the two in sync. Always-inline-on-mobile content includes stats hero tiles, "What's at stake" cards, and "Recent moves" timelines — the decision content. Collapsed-at-mobile content is the why-this-matters context behind the decision.
+
 ## What we don't do
 
 - No icon library. Arrows are unicode `→` and `↗`. The pulsing dot is a `<span>`, not an SVG.
 - No web fonts. The slab-serif feel comes from a system fallback chain.
 - No animation beyond the marquee, the masthead dot, and the card hover lift.
 - No skeleton loaders, spinners, or progressive enhancement — static export means content renders with the document.
+- No `min-w-[…px]` forcing horizontal scroll on data tables that have a mobile viewport user. If a table can't fit a phone, it gets a mobile-stacked render per the patterns above — not a sideways-scrolling overflow.
