@@ -184,6 +184,38 @@ describe("per-seat race pages + candidate profiles (BL-32)", () => {
       }
     }
   });
+
+  it("every populated profile URL is a valid http(s) URL", () => {
+    const urlFields = [
+      "websiteUrl",
+      "governmentSiteUrl",
+      "twitterUrl",
+      "linkedinUrl",
+      "instagramUrl",
+      "facebookUrl",
+      "ocfUrl",
+      "dcboeUrl",
+    ] as const;
+    for (const c of candidates2026) {
+      for (const f of urlFields) {
+        const v = c[f];
+        if (v == null) continue;
+        expect(v, `${c.name}: ${f} not http(s)`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+
+  it("every news item has an ISO date, non-empty outlet + headline, and an http(s) URL (BL-42)", () => {
+    for (const c of candidates2026) {
+      if (!c.news) continue;
+      for (const n of c.news) {
+        expect(n.date, `${c.name}: news date not ISO`).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+        expect(n.outlet.length, `${c.name}: news outlet empty`).toBeGreaterThan(0);
+        expect(n.headline.length, `${c.name}: news headline empty`).toBeGreaterThan(0);
+        expect(n.url, `${c.name}: news url not http(s)`).toMatch(/^https?:\/\//);
+      }
+    }
+  });
 });
 
 describe("ballotForWard helper (BL-02)", () => {

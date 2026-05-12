@@ -45,6 +45,17 @@ export const ISSUE_COLUMN_TAGLINES: Record<ComparableIssueSlug, string> = {
   schools: "DCPS vs. charters, OSSE oversight, federal K-12 funding",
 };
 
+// Recent coverage item shown in the "Recent coverage" block on each candidate
+// profile page. Editorial rule: factual citation only — outlet + headline + ISO
+// date + canonical URL. No commentary, no paraphrasing of the headline.
+// Populated by the dc-data-refresh skill (see backlog BL-42).
+export type NewsItem = {
+  date: string;   // ISO YYYY-MM-DD
+  outlet: string; // e.g. "Washington Post", "DCist", "WAMU"
+  headline: string;
+  url: string;
+};
+
 export type Candidate = {
   slug: string; // kebab-case, globally unique within candidates2026. Used by /elections/[race]/[candidate]/ routes (BL-32).
   name: string;
@@ -56,6 +67,14 @@ export type Candidate = {
   ocfUrl?: string;
   dcboeUrl?: string;
   websiteUrl?: string;
+  // Social + government profile URLs. All optional; only populate from the
+  // candidate's own confirmed accounts. The candidate profile page renders one
+  // labeled link per populated field — no icon library (CLAUDE.md tech rule).
+  governmentSiteUrl?: string; // official DC.gov / dccouncil.gov page for incumbents
+  twitterUrl?: string;        // X/Twitter
+  linkedinUrl?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
   notes?: string;
   bio?: string; // ≤ 2 sentences, factual only — never editorial. Shown on the per-candidate profile page (BL-32).
   // Comparison-matrix positions (BL-19). Sparse — only populate cells you can cite directly
@@ -63,6 +82,9 @@ export type Candidate = {
   // and endorsement-org summaries are NOT valid sources. Missing keys render as
   // "No position stated" in the UI — do not infer.
   positions?: Partial<Record<ComparableIssueSlug, Position>>;
+  // Recent coverage (BL-42). Sparse — populated by the data-refresh skill from
+  // the media-source database (BL-33). Render newest-first on profile page.
+  news?: NewsItem[];
 };
 
 export const PRIMARY_DATE = "2026-06-16T07:00:00-04:00";
@@ -172,6 +194,7 @@ export const candidates2026: Candidate[] = [
     filingStatus: "declared",
     source: { label: "Wikipedia — 2026 DC mayoral", url: "https://en.wikipedia.org/wiki/2026_Washington,_D.C.,_mayoral_election" },
     websiteUrl: "https://janeesefordc.com/",
+    governmentSiteUrl: "https://dccouncil.gov/council/janeese-lewis-george/",
     positions: {
       housing: {
         stance: "Strengthen rent stabilization, build publicly owned mixed-income housing (Dignified Homes DC), restore TOPA tenant-purchase rights, reform zoning to add supply.",
@@ -236,16 +259,16 @@ export const candidates2026: Candidate[] = [
   { slug: "kathy-henderson", name: "Kathy Henderson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
 
   // Council Chair (Democratic primary)
-  { slug: "phil-mendelson", name: "Phil Mendelson", raceSlug: "council-chair", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
+  { slug: "phil-mendelson", name: "Phil Mendelson", raceSlug: "council-chair", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" }, governmentSiteUrl: "https://dccouncil.gov/council/phil-mendelson/" },
   { slug: "calvin-gurley", name: "Calvin Gurley", raceSlug: "council-chair", party: "D", filingStatus: "declared", source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
 
   // Attorney General (Democratic primary)
-  { slug: "brian-schwalb", name: "Brian Schwalb", raceSlug: "attorney-general", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" } },
+  { slug: "brian-schwalb", name: "Brian Schwalb", raceSlug: "attorney-general", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, governmentSiteUrl: "https://oag.dc.gov/" },
   { slug: "jp-szymkowicz", name: "J.P. Szymkowicz", raceSlug: "attorney-general", party: "D", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, websiteUrl: "https://jp4dc.com/" },
 
   // US House Delegate (Democratic primary)
-  { slug: "brooke-pinto", name: "Brooke Pinto", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Ward 2 Councilmember." },
-  { slug: "robert-white", name: "Robert White", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "At-Large Councilmember." },
+  { slug: "brooke-pinto", name: "Brooke Pinto", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Ward 2 Councilmember.", governmentSiteUrl: "https://dccouncil.gov/council/brooke-pinto/" },
+  { slug: "robert-white", name: "Robert White", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "At-Large Councilmember.", governmentSiteUrl: "https://dccouncil.gov/council/robert-c-white-jr/" },
   { slug: "kinney-zalesne", name: "Kinney Zalesne", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "NOTUS", url: "https://www.notus.org/money/dc-delegate-candidates-election-2026-brooke-pinto-robert-white-kinney-zalesne" } },
   { slug: "trent-holbrook", name: "Trent Holbrook", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Former senior legislative counsel to Del. Norton." },
   { slug: "gregory-jaczko", name: "Gregory Jaczko", raceSlug: "us-house-delegate", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" }, notes: "Former NRC chair." },

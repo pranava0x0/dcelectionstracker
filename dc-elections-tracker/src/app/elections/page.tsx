@@ -156,101 +156,108 @@ export default function ElectionsPage(): JSX.Element {
                   : "card-stripe-black";
             const candidates = candidatesForRace(r.slug);
             const count = candidates.length;
+            const isProfiled = profiledRaces.has(r.slug);
+            const header = (
+              <>
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="display text-base text-ink">{r.office}</h3>
+                  <span
+                    className={
+                      "rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
+                      statusTag(r.status)
+                    }
+                  >
+                    {r.status}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm leading-snug text-fg">{r.oneLine}</p>
+              </>
+            );
             return (
               <li key={r.slug} className={`card ${stripe} self-start`}>
-                <div className="p-4">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="display text-base text-ink">{r.office}</h3>
-                    <span
-                      className={
-                        "rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
-                        statusTag(r.status)
-                      }
-                    >
-                      {r.status}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm leading-snug text-fg">{r.oneLine}</p>
-
-                  {count > 0 ? (
-                    <details className="group mt-3 border-t border-rule pt-3">
-                      <summary className="flex cursor-pointer items-center justify-between gap-2 font-mono text-[11px] font-bold uppercase tracking-wider text-primary hover:opacity-80">
-                        <span>
-                          {count} declared candidate{count === 1 ? "" : "s"}
-                        </span>
-                        <span aria-hidden className="transition-transform group-open:rotate-180">
-                          ↓
-                        </span>
-                      </summary>
-                      <ul className="mt-3 space-y-2">
-                        {candidates.map((c) => {
-                          const tone = partyTone(c.party);
-                          const hasProfile = profiledRaces.has(r.slug);
-                          const nameNode = hasProfile ? (
-                            <Link
-                              href={`/elections/${r.slug}/${c.slug}/`}
-                              className="text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-primary"
-                            >
-                              {c.name}
-                            </Link>
-                          ) : (
-                            <span className="text-ink">{c.name}</span>
-                          );
-                          return (
-                            <li
-                              key={`${r.slug}-${c.slug}`}
-                              className="flex items-baseline gap-2 text-sm"
-                            >
-                              <span
-                                className={
-                                  "inline-block rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
-                                  tone.pill
-                                }
-                                title={c.party === "TBD" ? "Party not yet declared" : c.party}
-                              >
-                                {tone.label}
-                              </span>
-                              {nameNode}
-                              {c.incumbent ? (
-                                <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-muted">
-                                  incumbent
-                                </span>
-                              ) : null}
-                              <a
-                                href={c.source.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="ml-auto font-mono text-[10px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
-                                aria-label={`${c.name} source: ${c.source.label}`}
-                              >
-                                {c.source.label} ↗
-                              </a>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                      {profiledRaces.has(r.slug) ? (
-                        <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-subtle">
-                          <Link
-                            href={`/elections/${r.slug}/`}
-                            className="hover:text-primary"
-                          >
-                            See the full {r.office.toLowerCase()} race page →
-                          </Link>
-                        </p>
-                      ) : (
-                        <p className="mt-3 font-mono text-[10px] uppercase tracking-wider text-subtle">
-                          Source: declared per linked outlets. Confirm filing status at
-                          dcboe.org/candidates.
-                        </p>
-                      )}
-                    </details>
-                  ) : (
-                    <p className="mt-3 border-t border-rule pt-3 font-mono text-[11px] uppercase tracking-wider text-subtle">
-                      No declared candidates listed yet
+                {isProfiled ? (
+                  <Link
+                    href={`/elections/${r.slug}/`}
+                    className="block p-4 transition-colors hover:bg-bg"
+                    aria-label={`See ${r.office} race page`}
+                  >
+                    {header}
+                    <p className="mt-3 font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
+                      See race page <span aria-hidden>→</span>
                     </p>
-                  )}
-                </div>
+                  </Link>
+                ) : (
+                  <div className="p-4">{header}</div>
+                )}
+
+                {count > 0 ? (
+                  <details className="group border-t border-rule">
+                    <summary className="flex cursor-pointer items-center justify-between gap-2 px-4 py-3 font-mono text-[11px] font-bold uppercase tracking-wider text-primary hover:opacity-80">
+                      <span>
+                        {count} declared candidate{count === 1 ? "" : "s"}
+                      </span>
+                      <span aria-hidden className="transition-transform group-open:rotate-180">
+                        ↓
+                      </span>
+                    </summary>
+                    <ul className="space-y-2 px-4 pb-4">
+                      {candidates.map((c) => {
+                        const tone = partyTone(c.party);
+                        const nameNode = isProfiled ? (
+                          <Link
+                            href={`/elections/${r.slug}/${c.slug}/`}
+                            className="text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-primary"
+                          >
+                            {c.name}
+                          </Link>
+                        ) : (
+                          <span className="text-ink">{c.name}</span>
+                        );
+                        return (
+                          <li
+                            key={`${r.slug}-${c.slug}`}
+                            className="flex items-baseline gap-2 text-sm"
+                          >
+                            <span
+                              className={
+                                "inline-block rounded-sm px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
+                                tone.pill
+                              }
+                              title={c.party === "TBD" ? "Party not yet declared" : c.party}
+                            >
+                              {tone.label}
+                            </span>
+                            {nameNode}
+                            {c.incumbent ? (
+                              <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-muted">
+                                incumbent
+                              </span>
+                            ) : null}
+                            <a
+                              href={c.source.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ml-auto font-mono text-[10px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                              aria-label={`${c.name} source: ${c.source.label}`}
+                            >
+                              {c.source.label} ↗
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    {!isProfiled ? (
+                      <p className="px-4 pb-4 font-mono text-[10px] uppercase tracking-wider text-subtle">
+                        Source: declared per linked outlets. Confirm filing status at
+                        dcboe.org/candidates.
+                      </p>
+                    ) : null}
+                  </details>
+                ) : (
+                  <p className="border-t border-rule px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-subtle">
+                    No declared candidates listed yet
+                  </p>
+                )}
               </li>
             );
           })}
