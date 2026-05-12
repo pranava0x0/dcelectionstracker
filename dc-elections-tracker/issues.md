@@ -15,6 +15,8 @@ Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
 | UAT-008 | closed | Clicking nav tabs on the deployed site double-prefixes basePath in the URL | high |
 | UAT-009 | closed | "Public Safety" wraps to a second line in the desktop nav | low |
 | UAT-010 | closed | Issue page h1 is oversized at desktop widths | low |
+| UAT-011 | closed | Voting record matrix table overflows the container at tablet (768px) | low |
+| UAT-012 | closed | Issue-by-issue comparison table overflows the container at tablet (768px) | low |
 
 ---
 
@@ -25,6 +27,24 @@ _(none)_
 ---
 
 ## Resolved Issues
+
+### [UAT-011] Voting record matrix table overflows the container at tablet (768px)
+- **Severity**: low
+- **Page/Section**: `/officials/` — VotingRecordMatrix (BL-12)
+- **Discovered**: 2026-05-11
+- **Closed**: 2026-05-11
+- **Status**: closed
+- **Repro (was)**: At 768px the 15-column table renders at ~915px scroll width inside a ~734px content container, forcing horizontal scroll. The `overflow-x-auto` wrapper allowed the scroll but the cramped experience defeats Phase A's intent.
+- **Fix**: Bumped the sibling-pair threshold from `sm:` to `lg:` in `VotingRecordMatrix.tsx` — mobile chip-grid renders at `<lg` (covers phone + tablet), original 15-column table renders at `lg+` (≥1024px) where it has room. Verified at 375 / 768 / 1280: mobile-cards display at the first two, table at the third, no page-level horizontal overflow at any size.
+
+### [UAT-012] Issue-by-issue comparison table overflows the container at tablet (768px)
+- **Severity**: low
+- **Page/Section**: `/elections/[race]/` — Issue-by-issue comparison (BL-32 / BL-19)
+- **Discovered**: 2026-05-11
+- **Closed**: 2026-05-11
+- **Status**: closed
+- **Repro (was)**: At 768px the 7-column table renders at ~793px scroll width inside a ~734px container. The 6 issue cells need column width to read full-sentence stances.
+- **Fix**: Same threshold bump (`sm:` → `lg:`) in `src/app/elections/[race]/page.tsx`. Tablet users now get the per-candidate `<details>` stack that mobile users already had. Verified at all three viewports.
 
 ### [UAT-001] All 6 issue pages crash in `next dev` with `output: export` config
 - **Severity**: high

@@ -48,10 +48,12 @@ export function VotingRecordMatrix(): JSX.Element {
         in this current-roster matrix.
       </p>
 
-      {/* Mobile (< sm): one card per bill with a wrap-grid of vote chips.
+      {/* Mobile + tablet (< lg): one card per bill with a wrap-grid of vote chips.
           Replaces the 14-column horizontal-scroll table; same data, no scroll,
-          chips meet the 44px tap-target minimum. */}
-      <ul className="mt-5 space-y-4 sm:hidden">
+          chips meet the 44px tap-target minimum. Threshold is `lg:` because the
+          table needs ≥1024px to display comfortably — at 768px it overflows the
+          content container (UAT-011). */}
+      <ul className="mt-5 space-y-4 lg:hidden">
         {billVotes.map((bill) => (
           <li key={bill.billId} className="border border-rule bg-paper p-4">
             <div className="flex items-baseline justify-between gap-3">
@@ -103,8 +105,8 @@ export function VotingRecordMatrix(): JSX.Element {
         ))}
       </ul>
 
-      {/* Tablet & desktop (>= sm): original 14-column table. */}
-      <div className="mt-5 hidden overflow-x-auto border border-rule sm:block">
+      {/* Desktop (>= lg): original 14-column table. */}
+      <div className="mt-5 hidden overflow-x-auto border border-rule lg:block">
         <table className="w-full border-collapse text-sm">
           <thead className="bg-bg">
             <tr>

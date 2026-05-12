@@ -19,9 +19,9 @@ _Last run: 2026-05-11 (mobile-overhaul verification, 5 min, two-viewport pass)_
   - `/elections/[race]/[candidate]/` — 24 candidate profile pages (BL-32) with Links & filings, Stated positions, optional Recent coverage (BL-42 schema)
   - `/sources/` — All 74 cited sources, grouped by issue topic
 
-## Critical Flows (run every time, both viewports)
+## Critical Flows (run every time, three viewports)
 
-Run each at desktop (1280) **and** mobile (375). The full skill spec is at `~/.claude/skills/dc-uat.md` (BF-NN ids).
+Run each at desktop (1280) **and** tablet (768) **and** mobile (375). The full skill spec is at `~/.claude/skills/dc-uat.md` (BF-NN ids). Tablet is the most fragile of the three — it sits between the sibling-pair `lg:` and `sm:` thresholds and any wide-table regression shows up here first (UAT-011, UAT-012 history).
 
 1. **Homepage loads**: hero, alert ticker animating, 2 countdowns, 3 latest cards, 6 issue cards, footer
 2. **Officials page**: 5 groups · 28 cards · party badges · Council voting record matrix
@@ -111,3 +111,4 @@ Run each at desktop (1280) **and** mobile (375). The full skill spec is at `~/.c
 ### Run history
 - **2026-05-10** (first run) — found 10 issues across nav, dev mode, headline, etc. All closed by ship of /dc-data-refresh run 2 + Mobile UX Phase A.
 - **2026-05-11** (mobile-overhaul verification, 5 min, two-viewport pass) — zero new issues. All 14 baseline flows pass at both 375 and 1280. Confirmed Phase A/B/C/D + candidate-enrichment + clickable race cards work end-to-end.
+- **2026-05-11** (tablet pass, 768×1024) — found UAT-011 and UAT-012, both wide-table overflows at 768. Root cause: sibling-pair threshold `sm:` was too low for tables wider than ~640px. Fixed by bumping VotingRecordMatrix and `/elections/[race]/` comparison to `lg:` threshold. Verified at 375/768/1280: mobile cards on phone + tablet, full table on desktop, no page-level horizontal overflow at any viewport.

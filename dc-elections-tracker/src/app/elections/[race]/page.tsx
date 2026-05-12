@@ -130,9 +130,11 @@ export default function RacePage({ params }: { params: Params }): JSX.Element {
           Cells without a stated position read &ldquo;No position stated&rdquo; — we
           don&apos;t infer.
         </p>
-        {/* Mobile (< sm): one <details> per candidate listing every issue
-            position inside. Replaces the min-w-[800px] horizontal-scroll table. */}
-        <ul className="mt-5 space-y-3 sm:hidden">
+        {/* Mobile + tablet (< lg): one <details> per candidate listing every
+            issue position inside. The 7-column comparison table needs ≥1024px
+            to display without horizontal scroll (UAT-012); at 768px it
+            overflows the content container. */}
+        <ul className="mt-5 space-y-3 lg:hidden">
           {candidates.map((c) => {
             const tone = partyTone(c.party);
             const statedCount = COMPARABLE_ISSUES.filter((slug) => c.positions?.[slug]).length;
@@ -191,8 +193,8 @@ export default function RacePage({ params }: { params: Params }): JSX.Element {
           })}
         </ul>
 
-        {/* Tablet & desktop (>= sm): original side-by-side comparison table. */}
-        <div className="mt-5 hidden overflow-x-auto border border-rule sm:block">
+        {/* Desktop (>= lg): original side-by-side comparison table. */}
+        <div className="mt-5 hidden overflow-x-auto border border-rule lg:block">
           <table className="w-full border-collapse text-sm">
             <thead className="bg-bg">
               <tr>
