@@ -32,10 +32,13 @@ Sorted within tier by impact ÷ effort (best bang first).
 | BL-04 | Candidate questionnaire snapshot — one row per declared candidate × 5 yes/no policy questions | M | M | ★ | Ballotpedia has thin DC coverage; standardized Q&A differentiates from WaPo narrative coverage |
 | BL-02 | Address-based ward + ANC lookup — paste address → ward, ANC, SMD, polling place | L | L | ★★ | Highest-traffic feature on comparable civic sites (Chicago Votes, VOTE411, NYC Board of Elections) |
 | BL-36 | Collapse 6 individual issue links in primary nav → single "Issues" item | M | M | ★★ | Subsumed by BL-47 (full nav restructure); ship BL-47 instead. |
-| BL-44 | Endorsements section on candidate profile pages | S | S | ★★ | Major DC endorsers (WaPo, DC for Democracy, WTU, ward Dem clubs, SEIU 32BJ) roll in 4–6 weeks before the primary — peak relevance is now. Add `endorsements?` array to `Candidate` and render a grouped badge list on each profile page. Can ship independently of BL-20 (site-wide endorsement index). |
+| BL-44 | Endorsements section on candidate profile pages | S | S | ★★ | Major DC endorsers (WaPo, DC for Democracy, WTU, ward Dem clubs, SEIU 32BJ) roll in 4–6 weeks before the primary — peak relevance is now. With DC's first RCV election, cross-endorsement rankings (Candidate X recommending Candidate Y as their #2) are the primary signal voters use for ranks 2–5; GGWash already publishes these for the mayor race. Add `endorsements?` array to `Candidate` and render a grouped badge list on each profile page. Can ship independently of BL-20 (site-wide endorsement index). |
 | BL-45 | Candidate forums + voter guide links on race/seat pages — plus data-refresh skill update | M | M | ★★ | Forums and published voter guides (LWV, DC for Democracy, ward clubs, WAMU/DCist) are how voters compare candidates head-to-head. Data refresh skill must actively check for new forums and guides in the 6 weeks before June 16. See spec below. |
 | BL-46 | Rethink race status labels — remove "incumbent" tag, replace with neutral seat-status language | S | S | ★ | Labeling a race "incumbent" implicitly signals an entrenched winner and may cause voters to skip evaluating challengers. Remove from the race-level `status` field; surface the current officeholder as a factual note on the race page instead. See spec below. |
-| BL-47 | IMPORTANT — Restructure primary nav into two tabs: Issues + Elections | L | L | ★★★ | Current nav has 9 flat items — 6 issue pages sit alongside Officials, Elections, and Sources at equal weight. Collapse to Issues → `/issues/` index and Elections → `/elections/` hub (which absorbs Officials as a prominent section). Nav becomes 2 items; Sources moves to footer. Supersedes BL-36. See spec below. |
+| BL-47 | IMPORTANT — Restructure primary nav into two tabs: Issues + Elections | L | L | ★★★ | Current nav has 9 flat items — 6 issue pages sit alongside Officials, Elections, and Sources at equal weight. Collapse to Issues → `/issues/` index and Elections → `/elections/` hub (which absorbs Officials as a prominent section). Nav becomes 2 items; Sources moves to footer. DesignRush 2024 election tracker audit weights navigation at 25% of total UX quality score — the single highest-leverage structural change on the site. Supersedes BL-36. See spec below. |
+| BL-37 | Remove AlertTicker marquee — promote LatestCard to homepage primary | S | S | ★★ | Promoted from P2. The marquee and the "Three things that just changed" LatestCard both render from the same `alerts.ts` data — double-rendering the same content with different UI patterns. Research (ProPublica Represent redesign, WAMU) shows activity feeds outperform marquees for civic engagement. Marquee is a dated UX pattern; the card is more readable and actionable. Remove `AlertTicker` from the homepage layout; LatestCard stays. If BL-31 (vertical ticker) is scoped here, fold it in; otherwise delete the marquee outright. |
+| BL-52 | RCV simulator: add truncation-nudge prompt | S | S | ★★ | New America research on first-RCV elections: ranking truncation (using only rank #1 when up to 5 are allowed) is the main behavior gap — more widespread than ballot errors. NYC 2021 post-election data confirms. In `RcvSimulator.tsx`, add an inline callout when user hits "Tabulate" with only 1 candidate ranked: "You ranked 1 candidate — you can rank up to 5. Your vote transfers to your next choice if your first pick is eliminated." Do not block tabulation. One dismissable sentence only. |
+| BL-53 | Homepage hero: elevate address-lookup CTA above fold | M | M | ★★★ | Every major voter guide (VOTE411, BallotReady, Ballotpedia, Ward3Vote.com) leads with address entry — table stakes for voter-decision tools. Currently `AddressLookup` is buried in `/elections/` behind 3 scroll depths. With 5 weeks to the June primary, the homepage hero should answer "what's on my ballot?" not "how many days until the election." See spec below. |
 
 ---
 
@@ -389,6 +392,19 @@ These sections should be absent (not rendered as empty) until at least one forum
 
 When a guide drops, log the URL and date immediately — voter guides sometimes go offline after the election.
 
+**Civic org tracker (Ward3Vote pattern):** Ward3Vote.com (ward3vote.com) — the closest local analog — lists 11 civic organizations alongside their forum histories and a civic-org-to-race mapping. Consider adding a `CivicOrg` type below the `VoterGuide` type:
+```ts
+export type CivicOrg = {
+  id: string;
+  name: string;
+  url: string;
+  coverageNote: string;            // ≤ 1 sentence: "Hosts mayoral + ward forums"
+  raceSlugs: string[];             // races they typically cover
+  forumIds: string[];              // FK to CandidateForum.id — forums they've hosted
+};
+```
+Render on each race page as a "Who covers this race" row below the voter guides section. This surfaces orgs like DC LWV, GGWash, DC for Democracy, ward Dem clubs, and WAMU — giving voters a starting point even when guides haven't yet been published.
+
 ---
 
 #### BL-46 · Rethink Race Status Labels — Replace "Incumbent" with Neutral Seat-Status Language
@@ -451,6 +467,41 @@ Sources moves to footer-only (already there). Officials stays at `/officials/` (
 
 ---
 
+#### BL-53 · Homepage Hero: Elevate Address-Lookup CTA Above Fold
+
+**Why:** Research across VOTE411, BallotReady, Ballotpedia, and the Ward3Vote.com DC-specific guide shows every high-performing voter tool leads with address entry — it is the #1 voter need ("what's on my ballot?"). The current homepage hero leads with a countdown timer and a registration CTA. The `AddressLookup` component is buried in `/elections/` behind 3 scroll depths. With 5 weeks to the June primary, the homepage should be a decision tool, not a news digest.
+
+**Scope:** `src/app/page.tsx` only. No changes to `AddressLookup.tsx`, `elections.ts`, or the MAR API call.
+
+**Proposed hero rearrangement:**
+
+```
+BEFORE (current):
+  Countdown ("5 weeks until primary") + countdown clock
+  "Are you registered?" CTA
+  "Three things that changed" LatestCard
+  Issue card grid (7 cards)
+
+AFTER:
+  Headline: "June 16 primary is 5 weeks away. Find what's on your ballot."
+  AddressLookup component (the existing component, copy-imported from /elections/)
+  Small secondary: "Or browse by race →" (links to /elections/)
+  ——
+  "Three things that changed" LatestCard (unchanged)
+  Issue card grid (7 cards, unchanged)
+  Countdown moved below fold or to LatestCard area as a subtle stat
+```
+
+**Design constraints:**
+- The `AddressLookup` component is already a `"use client"` component — it can be used on the homepage without new infrastructure.
+- The MAR API call is user-triggered (form submit), not load-time. No new fetching behavior.
+- The countdown (`Countdown.tsx`) can be demoted to a stat inside the hero text or moved below the LatestCard — the "X days until primary" information remains but stops being the visual anchor.
+- Keep the "Are you registered?" CTA — embed it as a secondary link below the address form ("Not registered yet? Register by May 26 →").
+
+**v1 scope (P1):** Reorder homepage content + move `AddressLookup` to hero. The countdown moves below the fold. A full homepage redesign (new layout, new hierarchy, dark/light split) is deferred to post-primary.
+
+---
+
 ## P2 — Ship before November 3, 2026 general
 
 Sorted within tier by impact ÷ effort.
@@ -464,7 +515,7 @@ Sorted within tier by impact ÷ effort.
 | BL-13 | Translate landing page + key dates to Spanish | M | M | ★ | Growing Spanish-speaking population; Ward 1/4/14th St. NW communities; immigration enforcement is a live issue |
 | BL-20 | Endorsement tracker — newspapers, unions, civic orgs, elected officials by race | S | M | ★ | NYC and Chicago voter guides show endorsements are top sorting signal for low-info voters |
 | BL-05 | ANC commissioner directory — all 46 ANCs, ~345 SMDs, sourced from oanc.dc.gov | M | L | ★ | Civic infrastructure that builds long-term authority; deferred because primary is ward-level |
-| BL-37 | Remove AlertTicker marquee — alert content is already shown as cards on the homepage | S | S | ★ | The marquee ribbon and the "Three things that just changed" cards both render from the same `alerts.ts` data. Users see the same headlines twice. Removing the marquee reduces visual noise; the cards are more readable and actionable anyway. If the marquee is kept for ambient signal value, remove the cards instead — but not both. Adjacent to BL-31 (replace marquee with vertical ticker): if BL-31 ships first, BL-37 is resolved. |
+| BL-37 | ~~Remove AlertTicker marquee~~ — promoted to P1 | — | — | — | Moved to P1 table. |
 | BL-39 | Move candidate comparison matrix off the main `/elections/` scroll — link to it from race cards instead | S | S | ★ | The elections page has 7 sequential sections; the comparison matrix is near the bottom and rarely reached. Options: extract to `/elections/compare/` (a route the BL-19 spec explicitly considered but deferred), or collapse the matrix behind a `<details>` toggle. No data changes; pure render relocation. |
 | BL-42 | Per-candidate news/coverage links — multiple sourced items per candidate | M | M | ★ | Each candidate profile should list recent coverage (DCist, WaPo, WAMU, City Paper) as a dated, sourced list. Add `news?: { date: string; outlet: string; headline: string; url: string }[]` to `Candidate`. Render on profile pages under a "Coverage" section. Editorial rule: factual citations only, no commentary. Deferred in BL-32 v1; this formalizes the data shape and render. Data refresh skill populates. |
 | BL-43 | Fundraising numbers on candidate profiles — total raised, top donors, cash on hand | L | L | ★★ | DC OCF publishes committee-level contribution data. Pre-primary 10-day disclosure (June 6, 2026) is the high-value vintage. Add a `finance?` block to `Candidate`, populated by a Node script from OCF CSV exports. Renders as stat tiles on the profile page and a summary badge on the race page. Extends BL-18 (site-wide finance cards); both share the same OCF data pipeline. See BL-18 spec for the pipeline approach. |
@@ -472,10 +523,43 @@ Sorted within tier by impact ÷ effort.
 | BL-49 | Mobile UX phase C — density + typography pass (mobile-only) | S | S | ★ | Follow-on to BL-48. Tighten card padding (`p-4 sm:p-5` → `p-3 sm:p-4 lg:p-5`), section gaps (`mt-10 sm:mt-14` → `mt-7 sm:mt-12 lg:mt-14`), and hero compression on mobile (`text-3xl` → `text-[28px]` on issue/race/officials/elections H1s; home stays `text-4xl`). Bump `text-[10px]/[11px]` source labels site-wide to `text-[12px]` with 44px tap-target padding. Subsumes BL-29 (stat tile source labels too small). |
 | BL-50 | Mobile UX phase D — mobile-only "jump-to" chip strip on long pages | S | S | ★ | Horizontal-scroll anchor chips just under the hero on `/elections/` and `/issues/[slug]/`, hidden at `sm+`. Anchor links + `scroll-behavior: smooth`. No JS. Skip on home, officials, and candidate profile (shorter pages). Pairs with BL-48 collapsibles so voters can both jump and expand. |
 | BL-51 | Mobile UX phase E — UAT + design.md update | S | S | · | Run `/dc-uat` at 375 / 640 / 1024 across `/`, `/elections/`, `/elections/mayor/`, a candidate profile, `/officials/`, `/issues/housing/`, `/issues/ranked-choice/`. Verify `prefers-reduced-motion` still pauses marquee + card-hover lift. Update `design.md` to document the new mobile patterns (table-to-stack, `<details>` open-at-`sm`, mobile chip strip) so the data-refresh skill respects them. |
+| BL-54 | "Build your ballot" — RCV ranking tool for real DC candidates | L | L | ★★ | Voters need to think through ranks 2–5, not just their #1 choice. No DC guide currently addresses this. Add a per-race ranking interface using real candidate names from `elections.ts` (reuses the `runIRV` algorithm already in `src/lib/rcv.ts`). Outputs a shareable text summary — no backend needed. Mobile UX must follow Nearform RCV mobile research: always-visible rank controls on each candidate (not a drag zone), animation showing list reorder on rank change, candidate display order never shifts as a side-effect of another action. See spec below. |
+| BL-55 | Issue page "quick take" — bite-snack-meal summary at top | S | S | ★ | Center for Civic Design and the EAC Voter Education Toolkit both recommend a 3-bullet "bite" summary at the top of long-form content. Currently issue pages open directly into paragraph text — 80% of visitors likely don't reach the stat grid. Add a `quickTake?: string[]` field (3 bullets max) to issues.ts and render it as an open `<details>` box at the top of each `IssueDetail` page. Desktop: open by default. Mobile: open by default but collapsible. `IssueDetail.tsx` + `issues.ts` only. |
+| BL-56 | Candidate questionnaire links — stopgap for sparse profiles | S | S | ★ | Candidate profile data is sparse (bios and positions for ~30% of candidates). Opportunity DC (opportunity-dc.org/2026-voter-guide) uses Google Drive PDF links as a zero-cost stopgap — candidates submit responses in their own format. Add `questionnaireUrl?: string` to `Candidate`. Render "Read full questionnaire →" below bio on profile pages. Verbatim candidate responses (the VOTE411 model) are more trustworthy than editorial summaries; this preserves that property with no editorial overhead. |
+| BL-57 | OpenElections historical DC data — turnout context on race pages | L | L | ★ | OpenElections (github.com/openelections/openelections-data-dc) has standardized DC election result CSVs from 2000 onward, used by NYT and WSJ. Ward-level historical turnout and vote-share adds competitive context to race pages ("Ward 1 turnout was 45% in 2022; margin of victory was 12 points"). Pipeline: download OpenElections CSV → Node transform in `scripts/` → `public/data/historical-results.json` → render as a "Historical context" callout on `/elections/[race]/` pages. Free, no API key. |
 
 ---
 
 ### Specs — P2 items
+
+#### BL-54 · "Build Your Ballot" — RCV Ranking Tool for Real DC Candidates
+
+**Why:** The existing `RcvSimulator` teaches the IRV mechanism using fictional candidates. What voters need before the June 16 primary is help deciding their *actual* rankings for real races — especially ranks 2–5. No DC guide currently addresses the "who should be my #2?" question. The mayor race has 8 candidates; voters ranking only their top choice will have exhausted ballots if that candidate is eliminated early. GGWash addresses this partially via cross-endorsement publishing; this tool makes it interactive.
+
+**Algorithm:** Reuses `runIRV()` from `src/lib/rcv.ts` — already tested and correct. This is a UI + data problem, not an algorithm problem.
+
+**Page:** New section on `/elections/[race]/` for profiled races (mayor, council-at-large-bonds, council-ward-1) — below the candidate grid, above the comparison matrix. Labeled "Rank your choices." Not a separate route.
+
+**Interaction model (based on Nearform mobile RCV UX research):**
+- Each candidate card has always-visible "▲ Rank higher" / "▼ Rank lower" controls (not a separate drag zone — avoids up/down arrow confusion)
+- Candidate display order (alphabetical) **never shifts** as a side-effect of ranking — the ranking number updates, but the list position stays fixed. This satisfies the ballot-UX constraint that candidate order cannot change as a side-effect of another action.
+- A separate "Your ranking" section below the candidate list shows the chosen order as a numbered list that updates in real time.
+- "See what happens if you vote this way" button runs `runIRV()` with the user's ballot against the full candidate list, showing a round-by-round result table (who's eliminated each round, where votes go).
+- "Clear rankings" resets all ranks.
+
+**Mobile constraints (from Nearform research):**
+- Rank controls must be always visible — not hidden behind a menu
+- Show explicit "Rank 1 / Rank 2 / Rank 3..." labels, not just numbers
+- Use animation when the "Your ranking" list reorders — fade + slide so the voter sees the change, not just a number swap
+- Tap target: 44px minimum for rank controls
+
+**Data:** Uses existing `candidatesForRace()` from `elections.ts`. No new data type needed. The tool is purely client-side (`"use client"` component).
+
+**New component:** `RcvBallotBuilder.tsx` — peer to `RcvSimulator.tsx` but uses real candidates. Optionally shareable as a text output: "My Ward 1 ballot: 1. Aparna Raj 2. Jackie Reyes Yanes 3. Rashida Brown" (navigator.clipboard, no server).
+
+**Out of scope:** Saving rankings across sessions (would require localStorage — editorial review needed before touching persistence). Predicting who wins based on user's vote (the `RcvSimulator` already does a simplified version; for real candidates we'd need polling data we don't have).
+
+---
 
 #### BL-48 · Mobile UX phase B — collapse-by-default secondary content on mobile
 
@@ -703,8 +787,10 @@ export type RaceResult = {
 
 Surveyed: top 10 US cities (NYC, LA, Chicago, Houston, Phoenix, Philadelphia, San Antonio, San Diego, Dallas, San Jose); 2026 swing states (PA, WI, MI, AZ, GA); RCV jurisdictions (NYC 2021+, Alaska 2022+, Maine 2020+); campaign finance trackers (NYC CFB, SF Ethics, LA Ethics, Philadelphia Board of Ethics).
 
+**Web research conducted 2026-05-11.** Additional sources and DC-specific landscape added in this pass.
+
 **Highest-impact features across all surveyed trackers, ranked by voter reach:**
-1. Address → personalized ballot lookup (VOTE411, NYC BOE, Chicago Votes) — maps to BL-02 / BL-25
+1. Address → personalized ballot lookup (VOTE411, NYC BOE, Chicago Votes) — maps to BL-02 / BL-25 / BL-53
 2. Candidate comparison grid with standardized issue positions (Philadelphia Committee of Seventy, Chicago Sun-Times) — maps to BL-19
 3. Campaign finance transparency at candidate level (NYC CFB "Follow the Money", SF Ethics dashboards) — maps to BL-18
 4. RCV education + ballot simulator for first-RCV jurisdictions (NYC 2021 taught: 15% confusion rate without education) — maps to BL-16
@@ -713,6 +799,54 @@ Surveyed: top 10 US cities (NYC, LA, Chicago, Houston, Phoenix, Philadelphia, Sa
 **2026 national elections context:** 36 governor races, 34 Senate seats, all 435 House seats on Nov 3 ballot. Top swing-state issues (PA, MI, WI, AZ, GA): housing affordability, Medicaid / federal funding cuts, gubernatorial open races (Whitmer term-limited, PA/GA competitive). DC parallels: housing/rent, federal workforce cuts, SBOE accountability — validates keeping these as top issue priorities.
 
 **RCV maturity benchmark:** NYC first RCV (June 2021): 88% of voters ranked multiple candidates; 15% post-election confusion. Alaska (Nov 2022): 99.9% ballot validity. Key lesson: animated explainer + sample ballot in every polling place = significantly lower confusion. DC should have both before June 16.
+
+**New findings from 2026-05-11 web research pass:**
+
+*DC-specific landscape (active guides for the June 2026 primary):*
+- **Ward3Vote.com** — the most structurally complete local guide: expandable race cards, "Jump to a Race" dropdown, civic org tracker (11 orgs), forum calendar with recording links, RCV video embed. Ward 3 only; DC Elections Tracker covers all wards.
+- **Opportunity DC** (opportunity-dc.org/2026-voter-guide) — 5 races, endorsement labels, Google Drive PDF questionnaire links. The questionnaire-link stopgap pattern (BL-56).
+- **BallotReady** (ballotready.org/elections/dc-primary-election) — address-personalized, email-gated. Lists 16 Delegate candidates. Requires email capture — the site avoids this friction.
+- **GGWash** (ggwash.org/elections/2026) — endorses Lewis George (Mayor), Raj (Ward 1), Raymond (At-Large). Issues questionnaires on housing/transit/road pricing. Publishes full PDF responses. Endorses with explicit RCV cross-ranking suggestions.
+- **Blue Voter Guide, Metro DC DSA, ACLU DC** — progressive-aligned endorsement aggregators.
+
+*UX scoring criteria (DesignRush 2024 Election Tracker Ranking):*
+- Data clarity and presentation: 30%
+- User-friendly navigation: **25%** — validates BL-47 as highest-leverage structural change
+- Mobile compatibility: 20%
+- Visual/color accessibility: 15%
+- W3C compliance: 10%
+- Winner: Bloomberg (4.75/5) + Economist (4.75/5) for clean layout, dark mode, no paywall
+- NYT weakness: paywall on state-level results — open access is a differentiator for this site
+
+*RCV-specific research (New America + Nearform + Center for Civic Design):*
+- Ranking truncation (using only rank #1) is the dominant behavior gap — not ballot errors
+- Age is the #1 predictor of RCV confusion: 1% of 18–29 vs. ~5% of 65+ confused in NYC 2021
+- Racial/socioeconomic comprehension gaps disappear after one election cycle
+- Mobile RCV UI: always-visible rank controls (not drag-only), animation showing list reorder, no reorder as side-effect of another action (BL-54 spec)
+- NYC spent $15M on voter education before 2021 RCV; DC's equivalent outreach is minimal
+
+*Bite-snack-meal framework (EAC + Center for Civic Design):*
+- "Bite": 1-sentence action or takeaway
+- "Snack": 3-bullet summary + 2 stats — serves the 80% of visitors who don't read full pages
+- "Meal": full issue briefing (what the site currently delivers for all visitors)
+- BL-55 adds the "snack" layer to issue pages
+
+*Open-source tools and data:*
+- **OpenElections DC** (github.com/openelections/openelections-data-dc): standardized DC election result CSVs from 2000+, free, used by NYT/WSJ — maps to BL-57
+- **RCVis** (rcvis.com): free, open-source round-by-round bar charts + Sankey diagrams. For November election-night, the round-by-round display pattern to follow
+- **CivicPatterns** (civicpatterns.github.io): 5 patterns most relevant: Personalize It, As Simple As Possible, Harness Self Interest, Meet People Where They Are, Push Don't Pull
+
+*WaPo 2024 technical decisions (for post-primary results pages):*
+- "Hurdle metric": what % of remaining votes does the trailing candidate need to catch up — clearer than "% reporting"
+- "Post Pulse" model: contextualizes early partial counts against expected final counts — prevents red/blue mirage
+- Robotext: auto-generated narrative alongside tables for voters who can't read data visualizations without prose
+- 30-second AP result update cadence via Dagster + Hasura + S3 JSON
+
+*Trust signals that matter (Berkeley visualization bias study):*
+- No annotations that push conclusions — data speaks, context is provided without framing
+- Show uncertainty explicitly (error bands on polling averages, "X% reporting" context)
+- Color reserved strictly for party affiliation — using orange for both "alarm stats" and "CTAs" creates confusion (see current design.md: `--primary` orange is dual-use; candidate for cleanup)
+- Verbatim candidate quotes over editorial paraphrase — VOTE411 and GGWash both use this
 
 ---
 

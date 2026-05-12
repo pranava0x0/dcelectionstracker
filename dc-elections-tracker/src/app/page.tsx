@@ -6,13 +6,12 @@ import { issues } from "@/data/issues";
 import { alerts } from "@/data/alerts";
 import { PRIMARY_DATE, GENERAL_DATE, importantDates } from "@/data/elections";
 import { timeUntilPrimaryHeadline } from "@/lib/headline";
+import { BUILD_DATE } from "@/lib/build-date";
 
 export default function HomePage(): JSX.Element {
   const upcomingDates = importantDates
     .filter((d) => new Date(d.iso).getTime() >= Date.now() - 24 * 3600 * 1000)
     .slice(0, 4);
-
-  const today = new Date().toISOString().slice(0, 10);
   const latest = alerts.slice(0, 3);
   const primaryHeadline = timeUntilPrimaryHeadline(PRIMARY_DATE);
 
@@ -23,7 +22,7 @@ export default function HomePage(): JSX.Element {
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-fg">
             <span className="kicker">Washington, DC · 2026</span>
             <span className="font-mono text-[11px] uppercase tracking-wider text-subtle">
-              Updated {today}
+              Updated {BUILD_DATE}
             </span>
           </div>
           <h1 className="display-tight mt-4 max-w-5xl text-4xl text-ink sm:text-5xl md:text-6xl lg:text-7xl">

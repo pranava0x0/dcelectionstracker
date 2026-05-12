@@ -2,9 +2,13 @@
 
 Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
 `/dc-data-refresh` run 2 (2026-05-10) shipped BL-28, BL-26, BL-23, BL-UAT-08 — no new issues filed.
+UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-11. UAT-014 fix also covered the same bug in `Footer.tsx`; both consolidated into `src/lib/build-date.ts`.
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
+| UAT-013 | closed | Candidate profile party badge renders "D · D" for Democrat candidates | high |
+| UAT-014 | closed | Homepage hero and footer date show tomorrow's date in US timezones (UTC vs local) | low |
+| UAT-015 | closed | Alert ticker duplicate links have no `aria-hidden` — screen readers hear every headline twice | low |
 | UAT-001 | closed | All 6 issue pages crash in `next dev` with `output: export` | high |
 | UAT-002 | closed | No mobile navigation — nav hidden at <1024px with no hamburger fallback | high |
 | UAT-003 | closed | "Nonpartisan" overflows the party badge chip on Officials page | low |
@@ -22,11 +26,52 @@ Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
 
 ## Open Issues
 
-_(none)_
+_No open issues._
 
 ---
 
-## Resolved Issues
+## Resolved Issues (UAT run 3, 2026-05-11)
+
+### [UAT-013] Candidate profile party badge renders "D · D" for Democrat candidates
+- **Severity**: high
+- **Page/Section**: `/elections/[race]/[candidate]/` — identity block
+- **Discovered**: 2026-05-11
+- **Closed**: 2026-05-11
+- **Status**: closed
+- **Description**: The party badge on every Democrat candidate profile shows "D · D" — two instances of the party abbreviation separated by a middle dot. For example, Janeese Lewis George's profile badge reads "D · D  DECLARED CANDIDATE FOR MAYOR". Same issue affects any candidate whose raw `candidate.party` string equals the abbreviation returned by `partyTone().label` (all D, R, I candidates).
+- **Steps to Reproduce**: Navigate to any Democrat candidate profile, e.g. `/elections/mayor/janeese-lewis-george/`. Observe the badge below the h1.
+- **Root cause**: `src/app/elections/[race]/[candidate]/page.tsx:93` renders `{tone.label} · {candidate.party}`. For Democrats, `tone.label` = `"D"` and `candidate.party` = `"D"`, so both sides of the dot are identical. For "Statehood Green" candidates it renders "SG · Statehood Green" (different values — arguably intentional but visually inconsistent).
+- **Fix**: Dropped `· {candidate.party}` from the badge span in `src/app/elections/[race]/[candidate]/page.tsx:93`. `tone.label` already conveys the party abbreviation. Verified: JLG badge renders "D" with no dot or duplicate.
+
+---
+
+### [UAT-014] Homepage hero and footer date show tomorrow's date in US timezones
+- **Severity**: low
+- **Page/Section**: `/` — hero dateline; all pages — `Footer` component
+- **Discovered**: 2026-05-11
+- **Closed**: 2026-05-11
+- **Status**: closed
+- **Description**: The "Updated 2026-05-12" dateline on the homepage hero and the "Last updated 2026-05-12" in the footer both showed one day in the future when built or served in a US timezone (UTC−4 to UTC−8). `new Date().toISOString()` returns UTC time; at e.g. 10 PM EDT (UTC−4), UTC is already the next calendar day.
+- **Steps to Reproduce**: View the homepage or any page footer at any time in the evening US Eastern time. Observe the date is tomorrow.
+- **Root cause**: `src/app/page.tsx:15` — `const today = new Date().toISOString().slice(0, 10)`. `src/components/Footer.tsx:4` — `const buildDate = new Date().toISOString().slice(0, 10)`. Both used `toISOString()` which always returns UTC.
+- **Fix**: Replaced both with `new Date().toLocaleDateString('sv')` (Swedish locale → `YYYY-MM-DD` in local time). Then extracted to a single `BUILD_DATE` constant in `src/lib/build-date.ts` imported by both, so the date can't drift between them. Verified: hero shows "UPDATED 2026-05-11" and footer shows "Last updated 2026-05-11" in EDT.
+
+---
+
+### [UAT-015] Alert ticker duplicate links missing `aria-hidden` — screen readers hear every headline twice
+- **Severity**: low
+- **Page/Section**: All pages — `AlertTicker` component
+- **Discovered**: 2026-05-11
+- **Closed**: 2026-05-11
+- **Status**: closed
+- **Description**: `AlertTicker.tsx` creates a seamless marquee loop by rendering `[...items, ...items]` — 8 alert items duplicated to 16. All 16 `<a>` links are exposed to the accessibility tree with no `aria-hidden` on the second set. Screen readers will announce every alert headline twice in sequence, which is confusing and creates unnecessary noise.
+- **Steps to Reproduce**: Use a screen reader (VoiceOver on macOS: Cmd+F5) and navigate to any page. Tab through the alert ticker region — each headline is announced twice.
+- **Root cause**: `src/components/AlertTicker.tsx:5` — `const loop = [...items, ...items]`. The map on line 22 renders all 16 as full `<a>` elements with no aria distinction between original and duplicate set.
+- **Fix**: Added `aria-hidden={i >= items.length ? true : undefined}` to the `<a>` in `src/components/AlertTicker.tsx`. Verified: DOM query confirms 8 visible links + 8 `aria-hidden="true"` duplicates at index 8–15.
+
+---
+
+## Resolved Issues (UAT run 1–2, 2026-05-10)
 
 ### [UAT-011] Voting record matrix table overflows the container at tablet (768px)
 - **Severity**: low

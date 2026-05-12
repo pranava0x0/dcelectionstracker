@@ -90,7 +90,7 @@ export default function CandidateProfilePage({ params }: { params: Params }): JS
             tone.pill
           }
         >
-          {tone.label} · {candidate.party}
+          {tone.label}
         </span>
         <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
           {candidate.incumbent ? "Incumbent · " : ""}

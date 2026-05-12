@@ -25,6 +25,7 @@ export function AlertTicker(): JSX.Element {
                 href={a.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-hidden={i >= items.length ? true : undefined}
                 className="text-fg transition-colors hover:text-primary"
               >
                 <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-subtle">

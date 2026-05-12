@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { BUILD_DATE } from "@/lib/build-date";
 
 export function Footer(): JSX.Element {
-  const buildDate = new Date().toISOString().slice(0, 10);
   return (
     <footer className="mt-16 bg-ink text-white sm:mt-24">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:py-12">
@@ -33,7 +33,7 @@ export function Footer(): JSX.Element {
             Source on GitHub
           </a>
           <span className="basis-full text-white/50 sm:ml-auto sm:basis-auto">
-            Last updated {buildDate}
+            Last updated {BUILD_DATE}
           </span>
         </div>
       </div>
