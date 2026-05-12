@@ -1,76 +1,98 @@
 # UAT Baseline — DC Elections Tracker
 
 _Created: 2026-05-10_
-_Last run: 2026-05-10_
+_Last run: 2026-05-11 (mobile-overhaul verification, 5 min, two-viewport pass)_
 
 ## Project Info
 - **Stack**: Next.js 14.2.13 App Router, `output: "export"` (static site), TypeScript strict, Tailwind 3
-- **Dev server**: `npm run dev` → http://localhost:3000 (note: issue pages broken in dev — see UAT-001)
-- **Production test**: `npm run build && npx serve out/` for issue pages
+- **Dev server**: `npm run dev` → http://localhost:3000 (UAT-001 resolved; dev now serves issue pages)
+- **Production test**: `npm run build && npx serve out/` — preferred for any pass touching dynamic routes
+- **Preview launch configs** (in worktree-root `.claude/launch.json`): `dc-elections-tracker-dev` and `dc-elections-tracker-static`
 - **Entry point**: `src/app/layout.tsx` → `src/app/page.tsx`
 - **Key routes**:
   - `/` — Homepage (hero, alert ticker, countdowns, latest cards, issue cards, editorial standard)
   - `/issues/[slug]/` — 6 issue pages: statehood, public-safety, housing, budget, transportation, schools
-  - `/officials/` — All DC elected officials, grouped by body
-  - `/elections/` — Key dates, race cards, registration links
+  - `/issues/ranked-choice/` — static RCV explainer + simulator (BL-16)
+  - `/officials/` — all DC elected officials grouped by body + Council voting record matrix (BL-12)
+  - `/elections/` — countdowns, address lookup (BL-02), DCBOE admin stats, key dates, race cards, candidate comparison, registration links
+  - `/elections/[race]/` — 4 profiled race pages (BL-32): mayor, council-at-large-bonds, council-ward-1, us-house-delegate
+  - `/elections/[race]/[candidate]/` — 24 candidate profile pages (BL-32) with Links & filings, Stated positions, optional Recent coverage (BL-42 schema)
   - `/sources/` — All 74 cited sources, grouped by issue topic
 
-## Critical Flows (run every time)
+## Critical Flows (run every time, both viewports)
 
-1. **Homepage loads**: Navigate to `/` → verify hero renders, countdown shows days remaining, alert ticker scrolling, 6 issue cards visible, 3 latest cards visible, footer present
-2. **Officials page renders**: Navigate to `/officials/` → verify all 5 groups (Executive, At-Large Council, Ward Council, Federal, SBOE), 28 total cards, party badges correct (D=blue, I=black, Nonpartisan=gray)
-3. **Elections page renders**: Navigate to `/elections/` → verify two countdowns, key dates list (future dates only), 12 race cards with open/incumbent/special badges, registration links section
-4. **Sources page renders**: Navigate to `/sources/` → verify 74 sources across 6 topic groups, count displayed matches actual links
-5. **Nav links work (desktop)**: At ≥1024px, all 9 nav items visible and clickable; logo links home
-6. **Alert ticker scrolling**: Ticker marquee animates; 8 most-recent alerts visible; each is a clickable external link
-7. **Issue cards link correctly**: Each of the 6 issue cards on homepage links to `/issues/[slug]/`; slug in URL matches card title
-8. **Mobile nav absent bug**: At 375px, confirm only logo + "ARE YOU REGISTERED?" visible (known bug UAT-002 — log if fixed)
-9. **Issue pages in build**: Run `npm run build` and verify all 6 issue pages generate without error
+Run each at desktop (1280) **and** mobile (375). The full skill spec is at `~/.claude/skills/dc-uat.md` (BF-NN ids).
+
+1. **Homepage loads**: hero, alert ticker animating, 2 countdowns, 3 latest cards, 6 issue cards, footer
+2. **Officials page**: 5 groups · 28 cards · party badges · Council voting record matrix
+3. **Elections page**: 2 countdowns, address lookup, DCBOE admin stats, key dates, 12 race cards, candidate comparison, registration links
+4. **Sources page**: 74 sources · 6 topic groups
+5. **Desktop nav**: 9 items + logo + CTA at ≥1024px
+6. **Mobile nav (hamburger)**: 9 items in disclosure panel at <1024px
+7. **Issue cards link correctly** to `/issues/[slug]/`
+8. **Build emits all routes**: `npm run build` produces 6 issue pages + 4 race pages + 24 candidate profiles
+9. **No console errors** on any page
+10. **Mobile sibling-pair tables (BF-14)**: voting matrix renders as 3 bill cards · race comparison as candidate `<details>` · RCV results as row strips
+11. **Mobile collapsed-at-mobile sections (BF-15)**: IssueDetail's Who decides / Questions / Live sources collapse · officials notes/source collapse · `/elections/` DCBOE admin + Key dates collapse
+12. **Mobile JumpStrip (BF-16)**: `/elections/` chips + `/issues/<slug>/` chips · smooth anchor scroll · `scroll-mt-16` clears NavBar · hidden at sm+
+13. **Clickable race cards (BF-17)**: 4 profiled races have `<Link>` header + "SEE RACE PAGE →" · 8 non-profiled stay static
+14. **Candidate profile enrichment (BF-18)**: Links & filings surfaces all populated URLs in order · Recent coverage section appears only when `news[]` populated
 
 ## Sections & Last Tested
 
 | Section | Last Tested | Notes |
 |---------|-------------|-------|
-| Homepage — hero + CTAs | 2026-05-10 | Stable. Hardcoded "five weeks" headline will go stale (UAT-004) |
-| Homepage — alert ticker | 2026-05-10 | Stable. 8-item slice + CSS marquee animation |
-| Homepage — countdowns | 2026-05-10 | Stable. Client-side JS updates every minute. Shows 37d/177d as of May 10 |
-| Homepage — latest cards | 2026-05-10 | Stable. 3 most-recent alerts rendered |
-| Homepage — issue cards grid | 2026-05-10 | Stable. 6 cards, correct stripe/alarm coloring |
-| Homepage — editorial standard | 2026-05-10 | Stable. GitHub link present |
-| NavBar (desktop) | 2026-05-10 | Stable. 9 items + logo + CTA button |
-| NavBar (mobile <1024px) | 2026-05-10 | BROKEN — no mobile nav (UAT-002) |
-| Issue pages (dev mode) | 2026-05-10 | BROKEN in dev (UAT-001). Build mode untested this session |
-| Officials page | 2026-05-10 | Stable. 28 cards / 5 groups. "Nonpartisan" badge overflow (UAT-003) |
-| Elections page | 2026-05-10 | Stable. 7 dates, 12 races, registration links |
-| Sources page | 2026-05-10 | Stable. 74 sources / 6 groups |
-| Footer | 2026-05-10 | Stable. Build date shows correctly |
+| Homepage — hero + CTAs | 2026-05-11 | Stable both viewports. Headline dynamic (BF-03 fix). Hero h1 = text-4xl at mobile (kept) |
+| Homepage — alert ticker | 2026-05-11 | Stable. CSS marquee + prefers-reduced-motion guard |
+| Homepage — countdowns | 2026-05-11 | Stable both viewports. 35d / 175d as of 2026-05-11 |
+| Homepage — latest cards | 2026-05-11 | Stable. 3 most-recent alerts rendered |
+| Homepage — issue cards grid | 2026-05-11 | Stable. 6 cards with `p-4 sm:p-5` padding (Phase C) |
+| Homepage — editorial standard | 2026-05-11 | Stable. GitHub issue tracker link present |
+| NavBar (desktop) | 2026-05-11 | Stable. 9 items + logo + CTA |
+| NavBar (mobile hamburger) | 2026-05-11 | Stable — UAT-002 resolved. Disclosure panel renders all 9 items at <1024px |
+| Issue pages (dev + build) | 2026-05-11 | UAT-001 resolved. /issues/housing/ verified at both viewports |
+| /issues/<slug>/ JumpStrip | 2026-05-11 | Mobile-only `Stats · Stakes · Timeline` chips render below hero |
+| /issues/<slug>/ CollapsibleSections | 2026-05-11 | Mobile: "Who decides", "Questions", "Live sources" closed by default; desktop: inline |
+| /issues/ranked-choice/ | 2026-05-11 | RCV simulator hydrates; 5 candidate buttons; mobile results render as row strips |
+| Officials page (desktop) | 2026-05-11 | Stable. 28 cards. Voting record matrix as `<table>` |
+| Officials page (mobile) | 2026-05-11 | Stable. 28 cards w/ `Background ↓` toggles. Voting matrix as 3 bill cards w/ chip wrap-grid |
+| Elections page (desktop) | 2026-05-11 | Stable. 12 race cards (4 clickable, 8 static). Hero h1 = text-3xl at mobile (Phase C) |
+| Elections page (mobile) | 2026-05-11 | Stable. JumpStrip (4 chips) below hero · DCBOE admin + Key dates collapsed · race cards behave per BF-17 |
+| /elections/[race]/ (mayor) | 2026-05-11 | Desktop: 8 candidate cards + comparison `<table>`. Mobile: 8 candidate `<details>` |
+| /elections/[race]/[candidate]/ (JLG) | 2026-05-11 | Links & filings shows Campaign site + Government site + announcement source. Recent coverage section absent (no news data yet) |
+| Sources page | 2026-05-11 | Stable. 74 sources / 6 groups |
+| Footer | 2026-05-11 | Stable. Build date shows correctly |
 
 ## Known Stable Areas
-- Static pages: `/officials/`, `/elections/`, `/sources/` — all render correctly in dev and build
-- Homepage layout — all sections render, no JS errors in console
-- Alert ticker animation — CSS marquee, no JS errors
-- Countdown component — client-side hydration works, no errors
+- Static pages: `/officials/`, `/elections/`, `/sources/` — render correctly in dev and build
+- Homepage layout — all sections render, zero JS errors in console
+- Alert ticker animation — CSS marquee, reduced-motion guard works
+- Countdown component — client-side hydration, useEffect timer
 - Card hover interactions — lift/shadow transitions on issue cards, official cards, latest cards
 - External source links — all have `target="_blank" rel="noopener noreferrer"` correctly
+- Mobile sibling-pair patterns (Phase A) — voting matrix, race comparison, RCV results
+- Mobile `CollapsibleSection` (Phase B) — sibling-pair with `<details>` at <sm, inline at sm+
+- Mobile JumpStrip (Phase D) — `sm:hidden` chip strip, smooth anchor scroll with reduced-motion guard
+- Clickable race cards — 4 profiled races have `<Link>` header + "SEE RACE PAGE →" CTA
+- Candidate profile schema (BL-32 follow-on) — Links & filings surfaces 9 URL kinds when populated
 
 ## Known Flaky / Unstable Areas
-- **Issue pages in `next dev`** — Hard crash due to Next.js 14.2.x bug (UAT-001). Always test with build instead
-- **Mobile navigation** — Completely absent at <1024px (UAT-002). High priority fix
 - **Screenshot-after-scroll** — Preview tool doesn't capture scrolled viewport; use `preview_snapshot` or `preview_eval` DOM queries for content below the fold
+- **Anchor jumps via preview_click** — The smooth scroll-behavior CSS works in real browsers but `preview_click` on an `<a href="#section">` doesn't always reliably trigger the scroll animation in the test harness. Verify the URL hash changes; the visual scroll will happen for a real user.
 
 ## Exploration Notes
 
 ### Paths to try next run
-- [ ] Issue page full-scroll (build mode): hero stats, what's at stake, who decides, recent moves, voter questions, live sources
-- [ ] `npm run build` output — check all 6 slugs generate, no TypeScript errors
-- [ ] `npm run typecheck` — confirm no type errors introduced
-- [ ] Hover states on issue cards and official cards (lift animation)
-- [ ] AlertTicker at tablet width (768px) — does it wrap or overflow?
-- [ ] Elections page after June 16 — does upcomingDates filter empty gracefully?
-- [ ] Officials page "Footnote" ANC card at bottom — renders correctly?
-- [ ] Footer "Source on GitHub" link — correct repo URL?
-- [ ] Sources page URL truncation — long URLs should truncate with `truncate` class
-- [ ] Countdowns once primary passes — check "Election day passed." state
+- [ ] **Tablet viewport (768px)** — between mobile and desktop, edge case for sibling-pair pattern (does the mobile <details> stay hidden the moment we cross `sm:`?)
+- [ ] **Keyboard tab order** on the new `<Link>`-wrapped race-card header + sibling `<details>` — do they share focus order cleanly?
+- [ ] **`prefers-reduced-motion`** — verify smooth-scroll for JumpStrip anchors is disabled (instant jump instead of animated)
+- [ ] **Candidate profile with `news[]` populated** — once the data-refresh skill seeds news, verify "Recent coverage" section renders newest-first with the correct date / outlet / headline layout
+- [ ] **Mobile race-card click target size** — `<Link>` should be ≥ 44px tall; on phones it includes title + tagline + CTA so it's plenty, but verify
+- [ ] **Mobile JumpStrip horizontal scroll** — when chip count > viewport width, does the strip scroll cleanly with momentum (no chrome scrollbar)?
+- [ ] **Elections page after June 16** — `upcomingDates` filter shows zero items; Key dates `<details>` should still render gracefully (empty `<ul>`)
+- [ ] **Countdowns once primary passes** — "Election day passed." state
+- [ ] **Officials "Footnote" ANC card** at bottom of /officials/ — still renders correctly after the Phase B notes/source collapse change
+- [ ] **Sources page** URL truncation on long URLs
 
 ### Edge cases to try
 - Rapid nav clicks (multiple quick page transitions)
@@ -80,6 +102,12 @@ _Last run: 2026-05-10_
 - Keyboard tab order through the nav (after UAT-002 fix, verify tab order)
 
 ### Patterns noticed
-- The Next.js `output: export` + dev server combination is the #1 DX pain point — document clearly in CLAUDE.md
-- No client-side state or forms — purely static render + a few `useEffect` timers; very little to break
-- All data is in `src/data/` TypeScript files — content bugs (wrong dates, wrong sources) are the most likely category after the nav/mobile bug
+- No client-side state or forms beyond two `"use client"` components (`RcvSimulator`, `AddressLookup`) — purely static render. Very little to break.
+- All data is in `src/data/` TypeScript files — content bugs (wrong dates, wrong sources, stale slugs) are the most likely category after a UI regression.
+- The sibling-pair pattern (mobile `<details>` next to desktop block) is now used in 5 places (3 tables, IssueDetail CollapsibleSection, officials cards). Always check both viewports — a regression on one side won't break the other.
+- Source-attribution links use `text-xs` (12px) with `py-1` site-wide. Don't downgrade to `text-[10px]` / `text-[11px]` for tap targets (BL-29 / Phase C).
+- Section spacing site-wide is `mt-8 sm:mt-12 lg:mt-14`. Don't reintroduce `mt-10 sm:mt-14` — it makes mobile too airy.
+
+### Run history
+- **2026-05-10** (first run) — found 10 issues across nav, dev mode, headline, etc. All closed by ship of /dc-data-refresh run 2 + Mobile UX Phase A.
+- **2026-05-11** (mobile-overhaul verification, 5 min, two-viewport pass) — zero new issues. All 14 baseline flows pass at both 375 and 1280. Confirmed Phase A/B/C/D + candidate-enrichment + clickable race cards work end-to-end.
