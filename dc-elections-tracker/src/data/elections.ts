@@ -6,11 +6,27 @@ export type ImportantDate = {
   source?: Source;
 };
 
+// Race seat-status. Three values, neutral wording:
+//   - "open"               → no incumbent is running
+//   - "includes-incumbent" → the current officeholder is running, alongside challengers
+//   - "special"            → mid-term vacancy under special-election rules
+// "incumbent" was renamed to "includes-incumbent" in BL-46 to avoid implying the race
+// belongs to its current holder.
+export type RaceStatus = "open" | "includes-incumbent" | "special";
+
 export type Race = {
   slug: string;
   office: string;
-  status: "open" | "incumbent" | "special";
+  status: RaceStatus;
   oneLine: string;
+};
+
+// User-facing labels for race-status pills. Kept here so the UI never renders the raw
+// machine-string ("includes-incumbent") to a voter.
+export const RACE_STATUS_LABEL: Record<RaceStatus, string> = {
+  open: "Open seat",
+  "includes-incumbent": "Incumbent running",
+  special: "Special election",
 };
 
 export type CandidateParty = "D" | "I" | "R" | "Statehood Green" | "Nonpartisan" | "TBD";
@@ -130,16 +146,16 @@ export const importantDates: ImportantDate[] = [
 
 export const races2026: Race[] = [
   { slug: "mayor", office: "Mayor", status: "open", oneLine: "Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014. 10 declared Democrats; profile page lists the full roster." },
-  { slug: "council-chair", office: "Council Chair", status: "incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
-  { slug: "attorney-general", office: "Attorney General", status: "incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
+  { slug: "council-chair", office: "Council Chair", status: "includes-incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
+  { slug: "attorney-general", office: "Attorney General", status: "includes-incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
   { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years. 5 declared Democrats." },
   { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 5 declared Democrats including Owolewa and Chavous." },
   { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Nonpartisan special election to fill the Independent seat vacated by Kenyan McDuffie. Filed: Crawford, Silverman, Patterson, Lee, Sloan." },
   { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Nadeau not seeking re-election. 6 declared Democrats." },
-  { slug: "council-ward-3", office: "Council Ward 3", status: "incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
-  { slug: "council-ward-5", office: "Council Ward 5", status: "incumbent", oneLine: "Zachary Parker (D) seeks re-election; challenged by Bernita Carmichael." },
-  { slug: "council-ward-6", office: "Council Ward 6", status: "incumbent", oneLine: "Charles Allen (D) seeks re-election; challenged by Gloria Nauden." },
-  { slug: "shadow-senator", office: "Shadow Senator", status: "incumbent", oneLine: "Paul Strauss (D) seeks re-election. Statehood-advocacy seat with no congressional vote, salary, or office." },
+  { slug: "council-ward-3", office: "Council Ward 3", status: "includes-incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
+  { slug: "council-ward-5", office: "Council Ward 5", status: "includes-incumbent", oneLine: "Zachary Parker (D) seeks re-election; challenged by Bernita Carmichael." },
+  { slug: "council-ward-6", office: "Council Ward 6", status: "includes-incumbent", oneLine: "Charles Allen (D) seeks re-election; challenged by Gloria Nauden." },
+  { slug: "shadow-senator", office: "Shadow Senator", status: "includes-incumbent", oneLine: "Paul Strauss (D) seeks re-election. Statehood-advocacy seat with no congressional vote, salary, or office." },
   { slug: "shadow-representative", office: "Shadow Representative", status: "open", oneLine: "Open seat — Owolewa not seeking re-election (running for At-Large Council)." },
 ];
 

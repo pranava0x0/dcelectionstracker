@@ -9,11 +9,13 @@ import {
   PRIMARY_DATE,
   GENERAL_DATE,
   PROFILED_RACE_SLUGS,
+  RACE_STATUS_LABEL,
   candidatesForRace,
   importantDates,
   races2026,
   registrationLinks,
   electionStats,
+  type RaceStatus,
 } from "@/data/elections";
 import { partyTone } from "@/lib/party";
 
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
     "DC primary June 16, 2026. General November 3, 2026. Mayor, Council Chair, AG, four Council seats, two at-large seats, U.S. House Delegate, plus all ANCs.",
 };
 
-function statusTag(status: "open" | "incumbent" | "special"): string {
+function statusTag(status: RaceStatus): string {
   if (status === "open") return "bg-primary text-primary-fg";
   if (status === "special") return "bg-ink text-white";
   return "bg-bg text-fg border border-rule";
@@ -167,7 +169,7 @@ export default function ElectionsPage(): JSX.Element {
                       statusTag(r.status)
                     }
                   >
-                    {r.status}
+                    {RACE_STATUS_LABEL[r.status]}
                   </span>
                 </div>
                 <p className="mt-2 text-sm leading-snug text-fg">{r.oneLine}</p>
