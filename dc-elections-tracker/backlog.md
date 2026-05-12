@@ -706,7 +706,7 @@ Sorted within tier by impact ÷ effort.
 | BL-09 | Shadow Senator / Shadow Rep explainer mini-page | S | S | · | Good civic education; low voter impact vs. other P3 items |
 | BL-38 | Remove "Sources" from primary nav — it is already in the footer | S | S | · | Sources is a reference/audit page, not a primary voter destination. Moving it to footer-only frees a slot in the header and reduces nav cognitive load. No route changes; delete the nav entry in `NavBar.tsx` only. |
 | BL-40 | Make voter FAQ section collapsible on issue pages (collapsed by default) | S | S | ★ | Each issue page has 7 sections; the FAQ is a deep-dive secondary resource. Wrapping it in a `<details>` element lets voters see the primary content (stats, what's at stake, who decides) without scrolling past a long Q&A list. Use `<details open>` at desktop if desired. `IssueDetail.tsx` only. |
-| BL-41 | Move "Where this site stands" editorial section off the homepage | S | S | · | The editorial standard section sits below the issue cards and takes up prime scroll real estate. It is important for trust but not a primary voter goal. Move to a `/about/` page (new route) or fold into the footer. Homepage still mentions sourcing inline via the hero paragraph. |
+| ✅ BL-41 | Move "Where this site stands" off homepage — shipped v1 2026-05-12. Section deleted from `src/app/page.tsx`; new `/about/` page absorbs the editorial standard, adds a "How we source" three-row block, and links out to `/sources/` and the public issue tracker. Footer gains an "About" link as the first item. Homepage still mentions sourcing inline via the hero paragraph. | S | S | · | Reclaimed prime homepage scroll real estate while preserving the trust signal on a dedicated route. |
 
 ---
 

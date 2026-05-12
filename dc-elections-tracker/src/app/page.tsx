@@ -129,32 +129,6 @@ export default function HomePage(): JSX.Element {
         </div>
       </section>
 
-      <section>
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
-          <hr className="rule-thick" />
-          <span className="kicker mt-3 inline-block">Editorial standard</span>
-          <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
-            Where this site stands
-          </h2>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-fg sm:text-[17px]">
-            Independent. Non-partisan, but not neutral about transparency,
-            accountability, and who pays. Every numeric claim links to a primary or
-            authoritative source — DC Council, OCFO, MPD, OSSE, DCBOE, congress.gov,
-            courts.gov, WMATA, BLS, Census. Officials are listed by ward and party
-            label. Voting records, when added, are factual records, not endorsements.
-            Bugs and missing facts go in{" "}
-            <a
-              href="https://github.com/pranava0x0/dcelectionstracker/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border-b border-primary text-primary hover:opacity-80"
-            >
-              the public issue tracker
-            </a>
-            .
-          </p>
-        </div>
-      </section>
     </>
   );
 }

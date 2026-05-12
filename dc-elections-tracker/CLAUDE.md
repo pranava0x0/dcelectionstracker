@@ -58,6 +58,7 @@ src/
                                         # candidatesForRace(race).map((c) => ({race, candidate: c.slug})).
                                         # dynamicParams=false. (BL-32)
     sources/page.tsx
+    about/page.tsx                 # /about/ — editorial standard + sourcing rules (BL-41)
     globals.css
   components/
     NavBar.tsx                     # desktop inline nav at lg, <details> hamburger below
