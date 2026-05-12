@@ -22,9 +22,14 @@ import {
 export function RcvSimulator(): JSX.Element {
   const [rankings, setRankings] = useState<Rankings>({});
   const [committedBallot, setCommittedBallot] = useState<Ballot | null>(null);
+  // BL-52: truncation nudge — appears once when the user tabulates a ballot with only
+  // 1 candidate ranked. Dismissable; resets on Reset. Does not block tabulation.
+  const [nudgeDismissed, setNudgeDismissed] = useState(false);
 
   const orderedBallot = useMemo(() => userBallotFromRankings(rankings), [rankings]);
   const hasAnyRank = orderedBallot.length > 0;
+  const showTruncationNudge =
+    committedBallot !== null && committedBallot.length === 1 && !nudgeDismissed;
 
   const tabulation = useMemo(() => {
     if (!committedBallot) return null;
@@ -50,6 +55,7 @@ export function RcvSimulator(): JSX.Element {
   function handleReset(): void {
     setRankings({});
     setCommittedBallot(null);
+    setNudgeDismissed(false);
   }
 
   return (
@@ -119,6 +125,26 @@ export function RcvSimulator(): JSX.Element {
             : "No candidates ranked yet"}
         </p>
       </div>
+
+      {showTruncationNudge ? (
+        <div
+          role="status"
+          className="mt-5 flex items-start gap-3 border-l-2 border-primary bg-paper p-4"
+        >
+          <p className="flex-1 text-sm leading-relaxed text-fg sm:text-[15px]">
+            You ranked 1 candidate — you can rank up to 5. Your vote transfers to your next
+            choice if your first pick is eliminated.
+          </p>
+          <button
+            type="button"
+            onClick={() => setNudgeDismissed(true)}
+            aria-label="Dismiss this tip"
+            className="shrink-0 font-mono text-[11px] font-bold uppercase tracking-wider text-muted hover:text-primary"
+          >
+            Dismiss
+          </button>
+        </div>
+      ) : null}
 
       {tabulation ? (
         <ResultsBlock rounds={tabulation.rounds} journey={tabulation.journey} ballot={committedBallot!} />

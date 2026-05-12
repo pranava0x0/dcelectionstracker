@@ -60,13 +60,12 @@ Cards use **gap-based grids** (`gap-4` to `gap-5`), not flush hairline grids. Th
 ## Components
 
 - **NavBar** — black band, pulsing orange dot + wordmark, mono nav links in white/70, orange CTA pill.
-- **AlertTicker** — white strip below masthead. Orange "LIVE" pill + boxed "Recent moves" + horizontal marquee.
 - **Footer** — black band with white wordmark, links in mono uppercase, GitHub link.
 - **IssueCard** — floating card with red or black top stripe, kicker, big stat number (orange if alarm), display title, body line, "Read the brief" mono CTA. Hover lifts the card.
 - **LatestCard** — short floating card surfacing a single recent move. Date in orange mono, slab-serif headline, "Read source ↗" footer in mono. Used in the home-page "Latest from DC" row.
-- **IssueDetail** — kicker, slab-serif headline, orange one-liner, hero graf. Then a flush hairline-bordered 4-up stat grid (data-table feel), followed by sectioned blocks divided by 3px black rules: What's at stake → Who decides → Recent moves → Questions to candidates → Live sources. **Source attribution links** inside stat tiles (e.g. "WTOP / OPM ↗") must be legible and tappable: minimum `text-xs` (12px), not `text-[10px]`. Minimum 44px tap target height on mobile (pad the link, not just the text).
+- **IssueDetail** — kicker, slab-serif headline, orange one-liner, JumpStrip, then a "Quick take" `<details open>` (BL-55) carrying 3 factual bullets drawn from this issue's existing hero/stats — collapsible at mobile, open by default at every breakpoint. Then the hero graf, a flush hairline-bordered 4-up stat grid (data-table feel), followed by sectioned blocks divided by 3px black rules: What's at stake → Who decides → Recent moves → Questions to candidates → Live sources. **Source attribution links** inside stat tiles (e.g. "WTOP / OPM ↗") must be legible and tappable: minimum `text-xs` (12px), not `text-[10px]`. Minimum 44px tap target height on mobile (pad the link, not just the text).
 - **Officials baseball cards** — small floating cards in a 3-up grid. 4px party-color stripe at top (blue for D, black for I, orange for R). Big slab-serif name, mono role, mono term-end, optional notes line, source link.
-- **Race cards (`/elections/`)** — floating cards in a 2- or 3-up grid with a stripe by status (orange for OPEN, blue for SPECIAL, black for INCUMBENT) and a matching uppercase mono pill in the corner. Body line includes inline declared-candidate names sourced from the DCBOE filing list. **Profiled races** (the four with full per-seat pages — mayor, council-at-large-bonds, council-ward-1, us-house-delegate) wrap the header area in a `<Link>` to `/elections/<slug>/` with a `SEE RACE PAGE →` mono CTA below the tagline; hover applies a subtle `bg-bg` tint. Non-profiled races keep the static header and rely on the `<details>` disclosure for interactivity. The disclosure is always a **sibling** of the header — never nested inside the `<Link>` — to keep tap targets distinct.
+- **Race cards (`/elections/`)** — floating cards in a 2- or 3-up grid with a stripe by status (orange for OPEN SEAT, blue for SPECIAL ELECTION, black for INCUMBENT RUNNING) and a matching uppercase mono pill in the corner. The pill renders the `RACE_STATUS_LABEL[status]` value from `elections.ts` (BL-46) — never the raw `status` machine string. When a race carries `status: "includes-incumbent"` the race page (`/elections/[race]/`) prints a one-line "Current officeholder: [Name] ([Party]) — also declared in this race" note below the H1, surfacing incumbency as a factual property of the candidate rather than as an attribute of the race itself. Body line includes inline declared-candidate names sourced from the DCBOE filing list. **Profiled races** (the four with full per-seat pages — mayor, council-at-large-bonds, council-ward-1, us-house-delegate) wrap the header area in a `<Link>` to `/elections/<slug>/` with a `SEE RACE PAGE →` mono CTA below the tagline; hover applies a subtle `bg-bg` tint. Non-profiled races keep the static header and rely on the `<details>` disclosure for interactivity. The disclosure is always a **sibling** of the header — never nested inside the `<Link>` — to keep tap targets distinct.
 - **Candidate profile pages (`/elections/[race]/[candidate]/`)** — identity block (h1, party pill + filingStatus, optional notes), then sections: **Links & filings** (lists each populated URL in order — campaign site → government site → X/Twitter → LinkedIn → Instagram → Facebook → DC OCF → DCBOE → announcement source; absent fields drop without leaving a gap), **Background** bio paragraph if present, **Stated positions** on the six issue pages, optional **Recent coverage** (newest-first list of `NewsItem` citations — date, headline link, outlet — omitted when `news[]` is empty), and **Other candidates** sibling chips. No icon library: every link is a labeled mono entry with an `↗` glyph.
 - **DCBOE administration tiles (`/elections/`)** — 3-up `card` grid: large `display-tight` value (registered-voter count or date label), short body, mono uppercase source link with ↗ glyph. Same component vocabulary as the issue stat grid — no new primitives.
 - **Countdown** — floating card with orange top stripe, mono kicker, giant orange day count, small mono `Hh Mm` remainder.
@@ -87,7 +86,7 @@ Section body (cards or list)
 - Body text on near-white passes AAA. Orange-red on white passes AA at all body sizes and AAA at large display sizes.
 - White on black passes AAA. The orange CTA pill (white on orange) passes AA.
 - All interactive elements reachable by keyboard. `:focus-visible` outline in orange-red.
-- Reduced-motion: the marquee, the wordmark dot pulse, and card-hover lift all pause.
+- Reduced-motion: the wordmark dot pulse and card-hover lift pause.
 - External links carry `rel="noopener noreferrer"`. Every external link is a citation.
 - Semantic landmarks: `<header>`, `<nav>`, `<main>`, `<footer>`, one `<h1>` per page.
 
@@ -110,7 +109,6 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 - **Stat tiles** in `IssueDetail` wrap 1 → `sm:` 2 → `lg:` 4.
 - **What's at stake** wraps 1 → `sm:` 2 → `lg:` 3.
 - **NavBar**: full inline nav at `lg`; below `lg`, a `<details>`-driven hamburger drawer with 40px tap target (Apple HIG minimum). On mobile (`< sm`) the CTA pill collapses from "Are you registered?" to "Register" and the wordmark drops from `text-base` to `text-sm` so it fits at 320px.
-- **AlertTicker**: the "Recent moves" label hides below `sm`; the "LIVE" pill always shows.
 - **Countdown**: day count `text-5xl` on mobile → `text-6xl` at `sm`.
 - **Footer**: build line wraps to its own row below `sm` (`basis-full`); shares the row with nav links at `sm` and up.
 
@@ -141,6 +139,6 @@ Tap targets in these mobile renders meet the 44px minimum. The desktop layout is
 
 - No icon library. Arrows are unicode `→` and `↗`. The pulsing dot is a `<span>`, not an SVG.
 - No web fonts. The slab-serif feel comes from a system fallback chain.
-- No animation beyond the marquee, the masthead dot, and the card hover lift.
+- No animation beyond the masthead dot and the card hover lift.
 - No skeleton loaders, spinners, or progressive enhancement — static export means content renders with the document.
 - No `min-w-[…px]` forcing horizontal scroll on data tables that have a mobile viewport user. If a table can't fit a phone, it gets a mobile-stacked render per the patterns above — not a sideways-scrolling overflow.

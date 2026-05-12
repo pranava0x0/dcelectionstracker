@@ -5,6 +5,7 @@ import {
   COMPARABLE_ISSUES,
   ISSUE_COLUMN_TAGLINES,
   PROFILED_RACE_SLUGS,
+  RACE_STATUS_LABEL,
   candidatesForRace,
   externalToolsForRace,
   getRaceBySlug,
@@ -61,6 +62,9 @@ export default function RacePage({ params }: { params: Params }): JSX.Element {
   if (!race) notFound();
   const candidates = candidatesForRace(race.slug);
   const tools = externalToolsForRace(race.slug);
+  // BL-46: surface the current officeholder as a factual note when they're in the race,
+  // instead of relying on the race-level status pill to imply incumbency.
+  const incumbent = candidates.find((c) => c.incumbent);
 
   return (
     <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
@@ -68,9 +72,21 @@ export default function RacePage({ params }: { params: Params }): JSX.Element {
         <Link href="/elections/" className="hover:text-primary">
           2026 races
         </Link>{" "}
-        <span aria-hidden>·</span> {race.status}
+        <span aria-hidden>·</span> {RACE_STATUS_LABEL[race.status]}
       </p>
       <h1 className="display-tight mt-3 text-3xl text-ink sm:text-4xl lg:text-5xl">{race.office}</h1>
+      {race.status === "includes-incumbent" && incumbent ? (
+        <p className="mt-3 max-w-3xl text-sm text-fg sm:text-[15px]">
+          Current officeholder:{" "}
+          <Link
+            href={`/elections/${race.slug}/${incumbent.slug}/`}
+            className="text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-primary"
+          >
+            {incumbent.name}
+          </Link>{" "}
+          ({incumbent.party}) — also declared in this race.
+        </p>
+      ) : null}
       <p className="mt-3 max-w-3xl text-lg font-medium leading-snug text-primary sm:mt-4 sm:text-xl">
         {race.oneLine}
       </p>

@@ -4,6 +4,7 @@ import {
   COMPARISON_RACE_SLUGS,
   ISSUE_COLUMN_TAGLINES,
   PROFILED_RACE_SLUGS,
+  RACE_STATUS_LABEL,
   ballotForWard,
   candidates2026,
   candidatesForRace,
@@ -92,6 +93,31 @@ describe("candidates2026 dataset integrity", () => {
   it("every Race slug is unique", () => {
     const slugs = races2026.map((r) => r.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
+  });
+});
+
+describe("race-status neutral labels (BL-46)", () => {
+  it("every race uses one of the three neutral status values", () => {
+    const valid = new Set(["open", "includes-incumbent", "special"]);
+    for (const r of races2026) {
+      expect(valid.has(r.status), `${r.slug} has invalid status ${r.status}`).toBe(true);
+    }
+  });
+
+  it("RACE_STATUS_LABEL covers every status with a non-empty user-facing label", () => {
+    for (const r of races2026) {
+      const label = RACE_STATUS_LABEL[r.status];
+      expect(label, `${r.slug}: no label for status ${r.status}`).toBeDefined();
+      expect(label.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("every includes-incumbent race has exactly one incumbent candidate", () => {
+    for (const r of races2026) {
+      if (r.status !== "includes-incumbent") continue;
+      const incumbents = candidatesForRace(r.slug).filter((c) => c.incumbent);
+      expect(incumbents.length, `${r.slug} has ${incumbents.length} incumbents, expected 1`).toBe(1);
+    }
   });
 });
 

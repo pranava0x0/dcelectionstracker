@@ -15,6 +15,9 @@ export function Footer(): JSX.Element {
         </p>
         <hr className="mt-8 border-white/20" />
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-wider text-white/70 sm:gap-x-6">
+          <Link href="/about/" className="hover:text-primary">
+            About
+          </Link>
           <Link href="/sources/" className="hover:text-primary">
             All sources
           </Link>

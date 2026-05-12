@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
-import { AlertTicker } from "@/components/AlertTicker";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -35,7 +34,6 @@ export default function RootLayout({
           Skip to content
         </a>
         <NavBar />
-        <AlertTicker />
         <main id="main-content">{children}</main>
         <Footer />
       </body>

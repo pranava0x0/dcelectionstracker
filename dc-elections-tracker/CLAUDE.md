@@ -25,7 +25,7 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - **Tailwind 3** with HSL CSS variables. Light editorial theme inspired by FiveThirtyEight.
 - **`trailingSlash: true`** in `next.config.js`. Internal navigation uses `next/link` with raw paths (e.g. `<Link href="/officials/">`); Next.js auto-prepends the basePath. Do NOT manually prefix `<Link>` hrefs — that double-prepends and produces URLs like `/dcelectionstracker/dcelectionstracker/officials/` (see git history under "Fix double-prefixed basePath").
 - **`basePath`** is set in `next.config.js` from `NEXT_PUBLIC_BASE_PATH`. Empty in dev; set in the GitHub Actions deploy workflow.
-- **No tracking pixels, no third-party SDKs, no automatic client-side data fetching.** Static export only. The only client-side JavaScript that runs *on page load* is the `Countdown` component's `useEffect` (updates every minute) and the `AlertTicker` marquee (CSS animation). User-triggered fetches are allowed for explicit voter tools — currently the `AddressLookup` component (BL-02) on `/elections/` makes one cross-origin GET to DC's MAR API on form submit, routed through corsproxy.io because citizenatlas.dc.gov has no CORS headers. No data is fetched until the user clicks "Look up." If corsproxy.io becomes unreliable, the v2 path is a self-hosted Cloudflare Worker.
+- **No tracking pixels, no third-party SDKs, no automatic client-side data fetching.** Static export only. The only client-side JavaScript that runs *on page load* is the `Countdown` component's `useEffect` (updates every minute). User-triggered fetches are allowed for explicit voter tools — currently the `AddressLookup` component (BL-02) on `/elections/` makes one cross-origin GET to DC's MAR API on form submit, routed through corsproxy.io because citizenatlas.dc.gov has no CORS headers. No data is fetched until the user clicks "Look up." If corsproxy.io becomes unreliable, the v2 path is a self-hosted Cloudflare Worker.
 - **Single source of truth** for issue content: `src/data/issues.ts`. All five (six, in v1) issue pages render from one shared `IssueDetail` component.
 
 ## Don't list
@@ -58,10 +58,10 @@ src/
                                         # candidatesForRace(race).map((c) => ({race, candidate: c.slug})).
                                         # dynamicParams=false. (BL-32)
     sources/page.tsx
+    about/page.tsx                 # /about/ — editorial standard + sourcing rules (BL-41)
     globals.css
   components/
     NavBar.tsx                     # desktop inline nav at lg, <details> hamburger below
-    AlertTicker.tsx
     Footer.tsx
     IssueCard.tsx
     IssueDetail.tsx
@@ -74,6 +74,8 @@ src/
                                    # User-triggered fetch through corsproxy.io. No load-time call.
   data/
     issues.ts                      # 6 issues + minimal ranked-choice entry for the homepage card
+                                   # Issue.quickTake?: string[] — 3-bullet "bite" summary at top of IssueDetail (BL-55)
+                                   # isSubstantiveIssue() flags entries that render via IssueDetail (not static pages)
     officials.ts                   # Officials w/ slug FK target. councilMembers() + getOfficialBySlug() helpers.
     elections.ts                   # races2026[] + candidates2026[] linked by raceSlug (BL-03)
                                    # Candidate.slug (kebab-case, globally unique) + Candidate.bio? (BL-32)
@@ -84,7 +86,7 @@ src/
                                    # electionStats — DCBOE registration counts (BL-23)
     votes.ts                       # billVotes[] — BillVote with memberSlug FK to Official (BL-12 + BL-01)
                                    # Helpers: votesForMember(slug). VOTE_LABEL / VOTE_DESCRIPTION maps.
-    alerts.ts                      # marquee items
+    alerts.ts                      # LatestCard feed items (formerly also the marquee, removed BL-37)
     elections.test.ts              # helpers + dataset-integrity + comparison tests, colocated
     votes.test.ts                  # vote data integrity, slug FK + tally invariants (BL-12)
   lib/
@@ -137,5 +139,7 @@ Unit tests live next to the modules they cover and run via [vitest](https://vite
 - `src/data/elections.test.ts` — `getRaceBySlug()` and `candidatesForRace()` (alphabetical sort, withdrawn filter, unknown-slug fallback) plus dataset-integrity invariants: every `Candidate.raceSlug` references a real Race; every candidate has a sourced label + url; at most one incumbent per race; all Race slugs are unique. Also (BL-19) every `ComparableIssueSlug` has a tag-line, every populated `Position` cites a sourceLabel + http(s) sourceUrl + non-empty stance, position keys reference known issue slugs, and stances stay ≤ 30 words. Also (BL-32) every `Candidate.slug` is unique kebab-case; `PROFILED_RACE_SLUGS` references real races and each profiled race has ≥1 candidate; `getCandidateBySlug()` works; `externalToolsForRace()` returns ≥2 common tools per race with valid URLs. Catches silent data drift the data-refresh skill could introduce.
 - `src/data/votes.test.ts` (BL-12 / BL-01) — every `Official.slug` is unique kebab-case; `getOfficialBySlug()` + `councilMembers()` return the expected shapes; every `BillVote.memberSlug` references a real Official; every bill records a vote for every current council member (no orphan rows in the matrix); no duplicate memberSlugs per bill; vote values are valid; vote dates are ISO; `votesForMember()` returns the right entries; the documented Secure DC and RENTAL Act tallies match the dataset (catches silent vote-data drift).
 - `src/data/elections.test.ts` (BL-02) — `ballotForWard()` includes the citywide primary races for every ward, adds the council-ward race only for wards 1/3/5/6, sets `sboeOnGeneralBallot` correctly, and normalizes a "Ward N" prefix input.
+- `src/data/elections.test.ts` (BL-46) — every `Race.status` is in the neutral 3-value union (`"open" | "includes-incumbent" | "special"`); `RACE_STATUS_LABEL` covers every value with a non-empty user-facing label; every `includes-incumbent` race has exactly one incumbent candidate.
+- `src/data/issues.test.ts` (BL-55) — every substantive issue (everything but ranked-choice, which is a static custom page) has a `quickTake` of exactly 3 bullets; every bullet stays under 25 words and ends in punctuation. Catches silent drift if the data-refresh skill adds an issue without the bite summary.
 
 Tests use a fixed `now` argument rather than `Date.now()` so they don't drift over time. Markup-level fixes (mobile nav, skip link, kicker text) are not unit-tested — those are verified by the build + manual UAT (`~/.claude/skills/dc-uat.md`). The RCV simulator's interactive behavior (click-to-rank, tabulate, reset) is not unit-tested in v1 — the IRV math and ranking helpers are covered above, and the UI wiring is verified by UAT BF-10. If we ever add React Testing Library, that's where component-render tests would go.
