@@ -60,7 +60,6 @@ Cards use **gap-based grids** (`gap-4` to `gap-5`), not flush hairline grids. Th
 ## Components
 
 - **NavBar** — black band, pulsing orange dot + wordmark, mono nav links in white/70, orange CTA pill.
-- **AlertTicker** — white strip below masthead. Orange "LIVE" pill + boxed "Recent moves" + horizontal marquee.
 - **Footer** — black band with white wordmark, links in mono uppercase, GitHub link.
 - **IssueCard** — floating card with red or black top stripe, kicker, big stat number (orange if alarm), display title, body line, "Read the brief" mono CTA. Hover lifts the card.
 - **LatestCard** — short floating card surfacing a single recent move. Date in orange mono, slab-serif headline, "Read source ↗" footer in mono. Used in the home-page "Latest from DC" row.
@@ -87,7 +86,7 @@ Section body (cards or list)
 - Body text on near-white passes AAA. Orange-red on white passes AA at all body sizes and AAA at large display sizes.
 - White on black passes AAA. The orange CTA pill (white on orange) passes AA.
 - All interactive elements reachable by keyboard. `:focus-visible` outline in orange-red.
-- Reduced-motion: the marquee, the wordmark dot pulse, and card-hover lift all pause.
+- Reduced-motion: the wordmark dot pulse and card-hover lift pause.
 - External links carry `rel="noopener noreferrer"`. Every external link is a citation.
 - Semantic landmarks: `<header>`, `<nav>`, `<main>`, `<footer>`, one `<h1>` per page.
 
@@ -110,7 +109,6 @@ Tailwind defaults. Three device classes, matched 1:1 with `src/lib/viewport.ts`:
 - **Stat tiles** in `IssueDetail` wrap 1 → `sm:` 2 → `lg:` 4.
 - **What's at stake** wraps 1 → `sm:` 2 → `lg:` 3.
 - **NavBar**: full inline nav at `lg`; below `lg`, a `<details>`-driven hamburger drawer with 40px tap target (Apple HIG minimum). On mobile (`< sm`) the CTA pill collapses from "Are you registered?" to "Register" and the wordmark drops from `text-base` to `text-sm` so it fits at 320px.
-- **AlertTicker**: the "Recent moves" label hides below `sm`; the "LIVE" pill always shows.
 - **Countdown**: day count `text-5xl` on mobile → `text-6xl` at `sm`.
 - **Footer**: build line wraps to its own row below `sm` (`basis-full`); shares the row with nav links at `sm` and up.
 
@@ -141,6 +139,6 @@ Tap targets in these mobile renders meet the 44px minimum. The desktop layout is
 
 - No icon library. Arrows are unicode `→` and `↗`. The pulsing dot is a `<span>`, not an SVG.
 - No web fonts. The slab-serif feel comes from a system fallback chain.
-- No animation beyond the marquee, the masthead dot, and the card hover lift.
+- No animation beyond the masthead dot and the card hover lift.
 - No skeleton loaders, spinners, or progressive enhancement — static export means content renders with the document.
 - No `min-w-[…px]` forcing horizontal scroll on data tables that have a mobile viewport user. If a table can't fit a phone, it gets a mobile-stacked render per the patterns above — not a sideways-scrolling overflow.

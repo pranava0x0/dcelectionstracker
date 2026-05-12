@@ -42,14 +42,9 @@ const config: Config = {
           "0%, 100%": { opacity: "1", transform: "scale(1)" },
           "50%": { opacity: "0.55", transform: "scale(1.18)" },
         },
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
       },
       animation: {
         pulseDot: "pulseDot 1.4s ease-in-out infinite",
-        marquee: "marquee 60s linear infinite",
       },
     },
   },

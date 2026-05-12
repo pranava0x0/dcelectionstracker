@@ -146,7 +146,6 @@ summary:focus-visible {
   html {
     scroll-behavior: auto;
   }
-  .animate-marquee,
   .animate-pulseDot {
     animation: none !important;
   }
