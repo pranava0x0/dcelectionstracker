@@ -9,6 +9,10 @@ export type Issue = {
   title: string;
   oneLiner: string;
   hero: string;
+  // BL-55: 3-bullet "bite" summary rendered as an open <details> at the top of the
+  // IssueDetail page. Each bullet must be a single factual claim, ≤ 25 words, drawn
+  // from this issue's existing hero/stats — no new editorial content.
+  quickTake?: string[];
   stats: Stat[];
   whatsAtStake: Stake[];
   whoDecides: Decider[];
@@ -50,6 +54,11 @@ export const issues: Issue[] = [
     title: "Statehood & Federal Pressure",
     oneLiner: "DC residents pay federal taxes and have no vote in Congress. In 2025–2026, that gap got wider.",
     hero: "Under the 1973 Home Rule Act, DC elects its own Mayor and Council, but Congress reviews every DC law and can nullify it with a joint disapproval resolution. In August 2025, President Trump invoked Section 740 of that Act for the first time in its history, federalizing the Metropolitan Police Department for 30 days and deploying the DC National Guard alongside out-of-state troops. In February 2026, Congress and the President overrode a DC tax law for the first time on record. Delegate Eleanor Holmes Norton, the District's non-voting representative since 1991, ended her reelection campaign in January 2026 — leaving the seat open for the first time in 35 years. DC still has zero voting members in the U.S. House or Senate.",
+    quickTake: [
+      "First-ever invocation of Home Rule Act §740: MPD was federalized for 30 days in August 2025.",
+      "Congress overrode a DC tax law (PL 119-78) on Feb 18, 2026 — the first such override in 50+ years of Home Rule.",
+      "The Delegate seat is open for the first time in 35 years after Norton ended her reelection bid.",
+    ],
     stats: [
       {
         value: "1st",
@@ -166,6 +175,11 @@ export const issues: Issue[] = [
     title: "Public Safety & Justice",
     oneLiner: "Crime is at multi-year lows. The political fight over it isn't.",
     hero: "DC homicides fell 52% in the first four months of 2026 versus the same window in 2025, and overall violent crime fell 29% in 2025 — the steepest single-year decline on record. Yet the Metropolitan Police Department's sworn strength stands at 3,033 officers (Jan 2026), the lowest count in 50 years. DC is the only U.S. jurisdiction whose local crimes are prosecuted by a federally-appointed U.S. Attorney rather than a locally-elected District Attorney; that office has been led by Trump appointee Jeanine Pirro since August 2025. The Council made the Secure DC Act of 2024's pretrial detention expansion permanent in mid-2025 (the 'Peace DC' bill). Juvenile crime, especially carjacking, remains the most politically charged subset of the data.",
+    quickTake: [
+      "Homicides fell 52% YTD 2026; violent crime fell 29% in 2025 — the steepest single-year decline on record.",
+      "MPD sworn strength is 3,033 officers (Jan 2026), the lowest count in 50 years.",
+      "DC has no locally-elected DA; Trump appointee Jeanine Pirro has run the U.S. Attorney's office since Aug 2025.",
+    ],
     stats: [
       {
         value: "−52%",
@@ -271,6 +285,11 @@ export const issues: Issue[] = [
     title: "Housing & Evictions",
     oneLiner: "Median rent is $2,500. FY25 evictions hit a 7-year high. The eviction-notice window just shrank from 30 days to 10.",
     hero: "DC's median rent in April 2026 was $2,500 — about 28% above the national average. FY25 saw 1,933 completed evictions, the highest since 2018. The RENTAL Act, signed by Mayor Bowser on Nov 13, 2025 and effective Jan 1, 2026, cut tenant eviction-notice from 30 to 10 days, exempted new multifamily buildings from TOPA for 15 years, and capped relocation assistance. Downtown office-to-residential conversions have produced 1,904 units since 2024 with 1,803 more under construction — but only roughly 10% of units in the launched projects are affordable. The Housing Choice Voucher waitlist remains closed; DCHA continues operating under a HUD-mandated three-year recovery plan.",
+    quickTake: [
+      "Median rent in April 2026 was $2,500 — about 28% above the national average.",
+      "The RENTAL Act cut tenant eviction-notice from 30 days to 10, effective Jan 1, 2026.",
+      "FY25 saw 1,933 completed evictions — a 7-year high.",
+    ],
     stats: [
       {
         value: "$2,500",
@@ -371,6 +390,11 @@ export const issues: Issue[] = [
     title: "Budget, Taxes & Federal Workforce",
     oneLiner: "DC lost ~22,000 federal jobs in 2025. Out-year revenue is now projected $342M/yr lower.",
     hero: "Federal civilians make up roughly a quarter of DC's nonfarm employment — more than ten times the national average. In 2025, DC lost about 22,000 federal jobs, and the broader DMV region lost roughly 54,000. The OCFO's February 2026 revenue estimate revised FY26 local revenue up $75M but cut the FY25–FY29 out-year forecast by an average of $342M per year. Downtown office vacancy stood at 19.7% at the end of 2025; commercial property values are projected to fall $10.2B (15.4%) since 2020, costing roughly $464M in property-tax revenue over three years. The FY26 DC budget totals $21.8B. Congress overrode DC's tax-conformity bill in February 2026 — the first such override in 50+ years of Home Rule.",
+    quickTake: [
+      "DC lost about 22,000 federal jobs in 2025.",
+      "OCFO cut its FY25–29 out-year revenue forecast by $342M/year on average (Feb 2026).",
+      "Congress overrode a DC tax law (PL 119-78) on Feb 18, 2026 — the first such override on record.",
+    ],
     stats: [
       {
         value: "−22,000",
@@ -466,6 +490,11 @@ export const issues: Issue[] = [
     title: "Transportation",
     oneLiner: "Traffic deaths fell more than half in 2025. Now USDOT wants to ban the cameras.",
     hero: "DC traffic fatalities dropped from 52 in 2024 (a 16-year high) to 25 in 2025 — the largest single-year decline on record, and a partial vindication of the long-missed Vision Zero goal. The District's automated traffic enforcement program collected $267.3M in FY25, up from $139.5M in FY23, with 547 cameras citywide. In January 2026, the U.S. Department of Transportation formally proposed banning DC's automated cameras in the upcoming surface transportation bill; Mayor Bowser called the loss a $1B hole over four years. WMATA balanced its FY26 budget without service cuts or fare hikes, but only by drawing down reserves. The structural funding gap is intact, with a regional dedicated-funding solution (DMVMoves) targeted for 2028 at the earliest.",
+    quickTake: [
+      "DC traffic fatalities dropped from 52 in 2024 to 25 in 2025 — the largest single-year decline on record.",
+      "USDOT formally proposed banning DC's automated traffic cameras in Jan 2026 — Bowser estimates $1B over 4 years at risk.",
+      "WMATA balanced its FY26 budget without service cuts, but only by drawing reserves; the structural gap is intact.",
+    ],
     stats: [
       {
         value: "25",
@@ -559,6 +588,11 @@ export const issues: Issue[] = [
     title: "Schools",
     oneLiner: "Test scores hit a record one-year gain. The Ward 3 to Ward 8 gap is still 55 points.",
     hero: "DC's 2025 statewide assessment posted the largest one-year gains on record: 57.9% of students at or approaching grade level in ELA and 47.5% in math. But the ward-level gap remains stark — in 2024, math proficiency was 60% in Ward 3 and 5% in Ward 8. Public school enrollment was essentially flat in SY2025-26, with the long-running roughly 52/48 split between DC Public Schools and the public charter sector. In July 2025 the Trump administration withheld about $6.8B in approved K-12 grants nationwide; DC joined a 24-state lawsuit. Chancellor Lewis Ferebee remains in role; State Superintendent Antoinette Mitchell was confirmed unanimously in May 2025.",
+    quickTake: [
+      "2025 DC CAPE posted the largest one-year gains on record: 57.9% ELA and 47.5% math at or approaching grade level.",
+      "Ward 3 vs. Ward 8 math proficiency gap remains stark — 60% vs. 5% in 2024.",
+      "DC joined a 24-state lawsuit after the Trump administration withheld ~$6.8B in K-12 grants in July 2025.",
+    ],
     stats: [
       {
         value: "57.9% / 47.5%",
@@ -646,4 +680,12 @@ export function getIssueBySlug(slug: string): Issue | undefined {
 
 export function allIssueSlugs(): string[] {
   return issues.map((i) => i.slug).filter((slug) => !STATIC_ROUTE_SLUGS.has(slug));
+}
+
+// BL-55: substantive issues (i.e. those that render through IssueDetail, not a static
+// page) must carry a 3-bullet quickTake summary. Surfaced as a colocated test in
+// issues.test.ts so the data-refresh skill can't quietly drop the bullets when adding
+// new issues.
+export function isSubstantiveIssue(issue: Issue): boolean {
+  return !STATIC_ROUTE_SLUGS.has(issue.slug);
 }

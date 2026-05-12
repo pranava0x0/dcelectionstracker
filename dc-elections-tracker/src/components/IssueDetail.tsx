@@ -72,6 +72,43 @@ export function IssueDetail({ issue }: { issue: Issue }): JSX.Element {
         ]}
       />
 
+      {/* BL-55: 3-bullet "bite" summary at the top of every issue page.
+          Open by default at every breakpoint, collapsible at mobile via <details>.
+          Bullets are factual claims drawn from this issue's hero/stats — never
+          editorial additions. Renders inside an editorial-section rhythm (3px
+          rule + kicker + heading) so it reads as the first section, not chrome. */}
+      {issue.quickTake && issue.quickTake.length > 0 ? (
+        <section className="mt-6 sm:mt-8">
+          <hr className="rule-thick" />
+          <details open className="mt-3">
+            <summary className="flex cursor-pointer items-baseline justify-between gap-3">
+              <div>
+                <span className="kicker">Quick take</span>
+                <h2 className="display mt-1 text-xl text-ink sm:text-2xl">
+                  What you need to know
+                </h2>
+              </div>
+              <span
+                aria-hidden
+                className="font-mono text-[11px] font-bold uppercase tracking-wider text-muted sm:hidden"
+              >
+                Toggle
+              </span>
+            </summary>
+            <ul className="mt-4 space-y-2 border-l-2 border-primary pl-4 sm:pl-5">
+              {issue.quickTake.map((b, i) => (
+                <li
+                  key={i}
+                  className="text-base leading-relaxed text-fg sm:text-[17px]"
+                >
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </details>
+        </section>
+      ) : null}
+
       <hr className="mt-6 rule-thick sm:mt-8" />
       <p className="mt-5 max-w-3xl text-base leading-relaxed text-fg sm:mt-6 sm:text-[17px]">
         {issue.hero}
