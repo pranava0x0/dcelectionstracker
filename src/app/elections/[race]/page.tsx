@@ -23,8 +23,9 @@ export async function generateStaticParams(): Promise<Params[]> {
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const race = getRaceBySlug(params.race);
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { race: raceSlug } = await params;
+  const race = getRaceBySlug(raceSlug);
   if (!race) return { title: "Race not found — DC Elections Tracker", description: "" };
   return {
     title: `${race.office} — 2026 DC primary — DC Elections Tracker`,
@@ -57,8 +58,9 @@ function PositionCell({ candidate, slug }: { candidate: Candidate; slug: Compara
   );
 }
 
-export default function RacePage({ params }: { params: Params }): JSX.Element {
-  const race = getRaceBySlug(params.race);
+export default async function RacePage({ params }: { params: Promise<Params> }): Promise<JSX.Element> {
+  const { race: raceSlug } = await params;
+  const race = getRaceBySlug(raceSlug);
   if (!race) notFound();
   const candidates = candidatesForRace(race.slug);
   const tools = externalToolsForRace(race.slug);

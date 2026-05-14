@@ -23,9 +23,10 @@ export async function generateStaticParams(): Promise<Params[]> {
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const c = getCandidateBySlug(params.candidate);
-  const race = getRaceBySlug(params.race);
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { race: raceSlug, candidate: candidateSlug } = await params;
+  const c = getCandidateBySlug(candidateSlug);
+  const race = getRaceBySlug(raceSlug);
   if (!c || !race || c.raceSlug !== race.slug) {
     return { title: "Candidate not found — DC Elections Tracker", description: "" };
   }
@@ -57,9 +58,10 @@ function externalLinksFor(candidate: ReturnType<typeof getCandidateBySlug>): Lin
   return links;
 }
 
-export default function CandidateProfilePage({ params }: { params: Params }): JSX.Element {
-  const candidate = getCandidateBySlug(params.candidate);
-  const race = getRaceBySlug(params.race);
+export default async function CandidateProfilePage({ params }: { params: Promise<Params> }): Promise<JSX.Element> {
+  const { race: raceSlug, candidate: candidateSlug } = await params;
+  const candidate = getCandidateBySlug(candidateSlug);
+  const race = getRaceBySlug(raceSlug);
   if (!candidate || !race || candidate.raceSlug !== race.slug) notFound();
 
   const tone = partyTone(candidate.party);

@@ -10,8 +10,9 @@ export async function generateStaticParams(): Promise<Params[]> {
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: Params }): { title: string; description: string } {
-  const issue = getIssueBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<{ title: string; description: string }> {
+  const { slug } = await params;
+  const issue = getIssueBySlug(slug);
   if (!issue) return { title: "Not found — DC Elections Tracker", description: "" };
   return {
     title: `${issue.title} — DC Elections Tracker`,
@@ -19,8 +20,9 @@ export function generateMetadata({ params }: { params: Params }): { title: strin
   };
 }
 
-export default function IssuePage({ params }: { params: Params }): JSX.Element {
-  const issue = getIssueBySlug(params.slug);
+export default async function IssuePage({ params }: { params: Promise<Params> }): Promise<JSX.Element> {
+  const { slug } = await params;
+  const issue = getIssueBySlug(slug);
   if (!issue) notFound();
   return <IssueDetail issue={issue} />;
 }

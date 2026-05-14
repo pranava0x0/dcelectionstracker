@@ -20,7 +20,7 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 
 ## Tech invariants
 
-- **Next.js 14 App Router** with `output: "export"` — static site, no server runtime.
+- **Next.js 16 App Router** with `output: "export"` — static site, no server runtime. React 19. Turbopack is the default dev + build bundler.
 - **TypeScript strict.** No `any`. No `// @ts-expect-error` without a comment.
 - **Tailwind 3** with HSL CSS variables. Light editorial theme inspired by FiveThirtyEight.
 - **`trailingSlash: true`** in `next.config.js`. Internal navigation uses `next/link` with raw paths (e.g. `<Link href="/officials/">`); Next.js auto-prepends the basePath. Do NOT manually prefix `<Link>` hrefs — that double-prepends and produces URLs like `/dcelectionstracker/dcelectionstracker/officials/` (see git history under "Fix double-prefixed basePath").
@@ -123,7 +123,7 @@ npm run typecheck  # tsc --noEmit
 npm test           # vitest run — pure-function unit tests in src/lib/
 ```
 
-`next.config.js` only sets `output: "export"` outside of development to dodge a Next.js 14.2.x dev-server false-positive on `generateStaticParams` for dynamic routes. Production builds (`next build`) still emit the static export to `out/` exactly as before.
+`next.config.js` sets `output: "export"` unconditionally. Dynamic-route `page.tsx` files take `params: Promise<{...}>` and `await` it before reading — this is required by Next 16's async Request APIs. The `src/types/jsx.d.ts` shim restores the global `JSX` namespace dropped by `@types/react@^19`; remove it if/when every file is migrated to `import type { JSX } from "react"`.
 
 GitHub Pages deploy is automatic on push to `main` via `.github/workflows/deploy.yml`. The workflow runs typecheck → test → build → upload, so a failing unit test blocks deploy. `NEXT_PUBLIC_BASE_PATH` is set in the workflow to match the GitHub Pages URL prefix.
 
