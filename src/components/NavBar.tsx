@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 const navItems = [
@@ -11,6 +13,13 @@ const navItems = [
   { href: "/elections/", label: "Elections" },
   { href: "/sources/", label: "Sources" },
 ];
+
+// BL-UAT-09: <details> is not navigation-aware. After a tap on a mobile nav
+// link, the drawer would otherwise stay open while the user lands on the
+// new page. Close it explicitly on click.
+function closeMobileNav(e: React.MouseEvent<HTMLAnchorElement>): void {
+  e.currentTarget.closest("details")?.removeAttribute("open");
+}
 
 export function NavBar(): JSX.Element {
   return (
@@ -92,6 +101,7 @@ export function NavBar(): JSX.Element {
                   <li key={item.href} className="bg-ink">
                     <Link
                       href={item.href}
+                      onClick={closeMobileNav}
                       className="block px-3 py-3.5 font-mono text-xs font-semibold uppercase tracking-wider text-white/80 hover:bg-white/5 hover:text-white"
                     >
                       {item.label}
