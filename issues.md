@@ -4,9 +4,11 @@ Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
 `/dc-data-refresh` run 2 (2026-05-10) shipped BL-28, BL-26, BL-23, BL-UAT-08 — no new issues filed.
 UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-11. UAT-014 fix also covered the same bug in `Footer.tsx`; both consolidated into `src/lib/build-date.ts`.
 `/dc-data-refresh` run 3 + UAT run 4 (2026-05-12, scheduled): no new bugs filed. Site clean on mobile (375), desktop (1280) across home / `/elections/` / `/officials/` / `/issues/ranked-choice/`. One passive accessibility tightening logged as BL-UAT-10 (hamburger 40×40 → 44×44).
+Bug fix bundled with the Next 16 upgrade (2026-05-14): UAT-016 closed — mobile nav drawer auto-closes on link tap, addressing the long-standing BL-UAT-09 backlog item.
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
+| UAT-016 | closed | Mobile nav drawer stays open after tapping a link — should collapse on navigation | low |
 | UAT-013 | closed | Candidate profile party badge renders "D · D" for Democrat candidates | high |
 | UAT-014 | closed | Homepage hero and footer date show tomorrow's date in US timezones (UTC vs local) | low |
 | UAT-015 | closed | Alert ticker duplicate links have no `aria-hidden` — screen readers hear every headline twice | low |
@@ -28,6 +30,21 @@ UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-1
 ## Open Issues
 
 _No open issues._
+
+---
+
+## Resolved Issues (bundled with Next 16 upgrade, 2026-05-14)
+
+### [UAT-016] Mobile nav drawer stays open after tapping a link
+- **Severity**: low
+- **Page/Section**: All pages — `NavBar` mobile hamburger drawer (`<lg`)
+- **Discovered**: 2026-05-12 (logged as BL-UAT-09 during UAT run 4)
+- **Closed**: 2026-05-14
+- **Status**: closed
+- **Description**: On mobile and tablet widths, the hamburger drawer (`<details>` element) opens when tapped and stays open after the user taps a nav link. Because Next.js performs client-side route transitions without a full page reload, the `<details>` `open` attribute is not reset — the user lands on the new page with the drawer still expanded, obscuring the page content until they tap the close icon.
+- **Steps to Reproduce**: At mobile width (≤1023px), tap the hamburger to open the drawer. Tap any nav link (e.g. "Officials"). Observe: navigates to `/officials/`, but the drawer is still open over the new page.
+- **Root cause**: `<details>` is a native HTML element with no awareness of in-app navigation. The mobile nav `<Link>`s were server-rendered with no client-side interaction.
+- **Fix**: `src/components/NavBar.tsx` is now a client component (`"use client"`). Each mobile-drawer `<Link>` gets an `onClick` handler that walks up to the nearest `<details>` ancestor and removes its `open` attribute — `e.currentTarget.closest("details")?.removeAttribute("open")`. The desktop inline nav is unaffected (no `<details>` ancestor → handler is a no-op there). Verified in dev preview at 375×812: drawer opens, link tap navigates to `/officials/` and the drawer is closed on arrival. Desktop (1280×800) inline nav still renders normally and the mobile `<details>` is `display: none`.
 
 ---
 

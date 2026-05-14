@@ -887,7 +887,7 @@ Found during first UAT session. Cross-referenced with existing backlog to avoid 
 | ID | Item | Priority | Complexity | Notes |
 |---|---|---|---|---|
 | BL-UAT-01 | Mobile hamburger / drawer nav | P1 | S | All 9 nav items hidden at <1024px; users can't reach 7 of 9 routes on phone. Minimum viable: `<details>` toggle, no JS needed. See UAT-002 |
-| BL-UAT-09 | Mobile nav drawer stays open after tapping a link — should collapse on navigation | P2 | S | `<details>` element doesn't auto-close when a child `<a>` is tapped; user lands on new page with nav still expanded. Fix: add a small click handler that removes the `open` attribute on any nav link click, or use `router` events if Next.js navigation doesn't trigger a full page reload |
+| ~~BL-UAT-09~~ | ~~Mobile nav drawer stays open after tapping a link~~ | — | — | **Closed** (2026-05-14, UAT-016) — `NavBar.tsx` is now a client component; each mobile-drawer `<Link>` has an `onClick` that walks to the nearest `<details>` ancestor and removes its `open` attribute. Desktop nav unaffected. |
 | ~~BL-UAT-02~~ | ~~Fix Next.js dev-mode issue page crash~~ | — | — | **Closed** — resolved by Next 16 upgrade; the 14.2.x dev-server quirk on `generateStaticParams` + `output: "export"` is gone. The conditional in `next.config.js` was also removed. |
 | BL-UAT-03 | Dynamic "X weeks until primary" headline | P1 | S | Replace hardcoded "Five weeks" in `src/app/page.tsx:29` with computed week diff from `PRIMARY_DATE`. Goes stale in days. See UAT-004 |
 | BL-UAT-04 | Abbreviate "Nonpartisan" party badge | P2 | S | Show "NP" instead of full word in the tiny pill chip. Add `partyTone` cases for `"Nonpartisan"` and `"Statehood Green"`. See UAT-003 |
