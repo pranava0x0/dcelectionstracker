@@ -25,7 +25,7 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - **Tailwind 3** with HSL CSS variables. Light editorial theme inspired by FiveThirtyEight.
 - **`trailingSlash: true`** in `next.config.js`. Internal navigation uses `next/link` with raw paths (e.g. `<Link href="/officials/">`); Next.js auto-prepends the basePath. Do NOT manually prefix `<Link>` hrefs — that double-prepends and produces URLs like `/dcelectionstracker/dcelectionstracker/officials/` (see git history under "Fix double-prefixed basePath").
 - **`basePath`** is set in `next.config.js` from `NEXT_PUBLIC_BASE_PATH`. Empty in dev; set in the GitHub Actions deploy workflow.
-- **No tracking pixels, no third-party SDKs, no automatic client-side data fetching.** Static export only. The only client-side JavaScript that runs *on page load* is the `Countdown` component's `useEffect` (updates every minute). User-triggered fetches are allowed for explicit voter tools — currently the `AddressLookup` component (BL-02) on `/elections/` makes one cross-origin GET to DC's MAR API on form submit, routed through corsproxy.io because citizenatlas.dc.gov has no CORS headers. No data is fetched until the user clicks "Look up." If corsproxy.io becomes unreliable, the v2 path is a self-hosted Cloudflare Worker.
+- **No tracking pixels, no third-party SDKs, no automatic client-side data fetching.** Static export only. The client-side JavaScript that hydrates on page load is limited to: the `Countdown` component's `useEffect` (updates every minute), and `NavBar`'s onClick handler that closes the mobile hamburger drawer when the user taps a link (UAT-016). Neither makes network requests. User-triggered fetches are allowed for explicit voter tools — currently the `AddressLookup` component (BL-02) on `/elections/` makes one cross-origin GET to DC's MAR API on form submit, routed through corsproxy.io because citizenatlas.dc.gov has no CORS headers. No data is fetched until the user clicks "Look up." If corsproxy.io becomes unreliable, the v2 path is a self-hosted Cloudflare Worker.
 - **Single source of truth** for issue content: `src/data/issues.ts`. All five (six, in v1) issue pages render from one shared `IssueDetail` component.
 
 ## Don't list
@@ -61,7 +61,9 @@ src/
     about/page.tsx                 # /about/ — editorial standard + sourcing rules (BL-41)
     globals.css
   components/
-    NavBar.tsx                     # desktop inline nav at lg, <details> hamburger below
+    NavBar.tsx                     # "use client" — desktop inline nav at lg,
+                                   # <details> hamburger below; onClick closes
+                                   # the drawer on link tap (UAT-016).
     Footer.tsx
     IssueCard.tsx
     IssueDetail.tsx
