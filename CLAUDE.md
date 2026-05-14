@@ -97,6 +97,11 @@ src/
     rcv.ts                         # IRV algorithm + BASE_ELECTORATE (BL-16)
     rcv-rankings.ts                # pure helpers for RcvSimulator's ranking state (BL-16)
     *.test.ts                      # vitest unit tests, colocated
+  types/
+    jsx.d.ts                       # ambient shim restoring the global JSX namespace
+                                   # that @types/react@^19 dropped — lets existing
+                                   # `JSX.Element` annotations type-check without
+                                   # touching every file.
 ```
 
 ## Responsive contract

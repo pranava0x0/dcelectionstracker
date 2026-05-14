@@ -2,7 +2,7 @@
 
 ## What this is
 
-Independent voter-accountability site for Washington, DC. Static export — Next.js 14 App Router, TypeScript strict, Tailwind 3, no server runtime, no tracking.
+Independent voter-accountability site for Washington, DC. Static export — Next.js 16 App Router (React 19), TypeScript strict, Tailwind 3, no server runtime, no tracking.
 
 ## Live at
 
@@ -32,8 +32,8 @@ See [design.md](./design.md).
 
 ## Tech invariants
 
-- Next.js 14, `output: "export"`, `trailingSlash: true`.
-- All internal links go through `path()` in [src/lib/links.ts](./src/lib/links.ts) so the basePath prefix is applied consistently.
+- Next.js 16, `output: "export"`, `trailingSlash: true`. Turbopack is the default dev + build bundler.
+- Internal navigation uses raw paths in `<Link>` (e.g. `<Link href="/officials/">`); Next.js auto-prepends the basePath. No manual prefixing — see CLAUDE.md "Don't list."
 - `basePath` is read from `NEXT_PUBLIC_BASE_PATH`. The deploy workflow sets it to `/dcelectionstracker`.
 - TypeScript strict. No `any`.
 - Single source of truth for issue content: [src/data/issues.ts](./src/data/issues.ts). All six issue pages render from one shared `IssueDetail` component.
@@ -47,13 +47,12 @@ Pushes to `main` build and publish via [.github/workflows/deploy.yml](../.github
 ## Local
 
 ```
-cd dc-elections-tracker
 npm install
-npm run build
-npx serve out -l 3000
+npm run dev      # http://localhost:3000 — serves every route including dynamic
+npm run build    # static export to ./out/
 ```
 
-`npm run dev` is supported on the home and static pages, but Next 14's dev server intermittently fails dynamic routes under `output: "export"` — for visual review, use `npm run build && npx serve out` to mirror prod.
+Next 16's dev server handles `output: "export"` + dynamic routes without the workaround that was needed under 14.2.x, so `npm run dev` is the canonical local-review path.
 
 ## Backlog
 

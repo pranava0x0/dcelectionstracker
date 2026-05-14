@@ -888,13 +888,13 @@ Found during first UAT session. Cross-referenced with existing backlog to avoid 
 |---|---|---|---|---|
 | BL-UAT-01 | Mobile hamburger / drawer nav | P1 | S | All 9 nav items hidden at <1024px; users can't reach 7 of 9 routes on phone. Minimum viable: `<details>` toggle, no JS needed. See UAT-002 |
 | BL-UAT-09 | Mobile nav drawer stays open after tapping a link — should collapse on navigation | P2 | S | `<details>` element doesn't auto-close when a child `<a>` is tapped; user lands on new page with nav still expanded. Fix: add a small click handler that removes the `open` attribute on any nav link click, or use `router` events if Next.js navigation doesn't trigger a full page reload |
-| BL-UAT-02 | Fix Next.js dev-mode issue page crash | P1 | S | Upgrade to Next.js ≥14.3 or env-var-gate `output: export` for local dev. Blocks all dev-time testing of issue pages. See UAT-001 |
+| ~~BL-UAT-02~~ | ~~Fix Next.js dev-mode issue page crash~~ | — | — | **Closed** — resolved by Next 16 upgrade; the 14.2.x dev-server quirk on `generateStaticParams` + `output: "export"` is gone. The conditional in `next.config.js` was also removed. |
 | BL-UAT-03 | Dynamic "X weeks until primary" headline | P1 | S | Replace hardcoded "Five weeks" in `src/app/page.tsx:29` with computed week diff from `PRIMARY_DATE`. Goes stale in days. See UAT-004 |
 | BL-UAT-04 | Abbreviate "Nonpartisan" party badge | P2 | S | Show "NP" instead of full word in the tiny pill chip. Add `partyTone` cases for `"Nonpartisan"` and `"Statehood Green"`. See UAT-003 |
 | BL-UAT-05 | Skip-to-content link | P2 | S | Add `<a href="#main-content">Skip to content</a>` as first body child; add `id="main-content"` to `<main>`. Keyboard + screen reader UX. See UAT-007 |
-| BL-UAT-06 | Remove dead https guard in `path()` | P3 | S | Dead code in `src/lib/links.ts` — second `if` block is unreachable. Delete it. See UAT-005 |
+| ~~BL-UAT-06~~ | ~~Remove dead https guard in `path()`~~ | — | — | **Closed** — superseded by UAT-008. `path()` helper and `src/lib/links.ts` were deleted entirely when manual basePath prefixing was removed from `<Link>` callsites. See issues.md UAT-008. |
 | BL-UAT-07 | Format slug in IssueCard/IssueDetail kicker | P3 | S | Replace `issue.slug` in kicker with formatted label (replace hyphens, title-case). See UAT-006 |
-| BL-UAT-08 | Document dev-mode workaround in CLAUDE.md | P1 | S | Add note: "Issue pages only work with `next build && npx serve out/` — `next dev` crashes on dynamic routes due to Next.js 14.2.x bug." |
+| ~~BL-UAT-08~~ | ~~Document dev-mode workaround in CLAUDE.md~~ | — | — | **Closed** — workaround no longer needed; Next 16 dev server serves dynamic routes correctly under `output: "export"`. Note in CLAUDE.md / NOTES.md updated accordingly. |
 | BL-UAT-10 | Hamburger toggle is 40×40 (`h-10 w-10`); universal CLAUDE.md requires 44×44 minimum touch target | P3 | S | `src/components/NavBar.tsx:59` — `<summary>` for the mobile nav disclosure renders at 40×40 on iOS Safari. Bump to `h-11 w-11` (44px) to match Apple HIG / Android Material minimum. No functional bug; passive accessibility tightening. Found UAT run 4 (2026-05-12). |
 
 ---

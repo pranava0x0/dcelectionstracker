@@ -4,10 +4,10 @@ _Created: 2026-05-10_
 _Last run: 2026-05-12 (UAT run 4 — scheduled `daily-dcelection-refresh`; 0 new bugs; BL-UAT-10 logged for touch-target tightening)_
 
 ## Project Info
-- **Stack**: Next.js 14.2.13 App Router, `output: "export"` (static site), TypeScript strict, Tailwind 3
-- **Dev server**: `npm run dev` → http://localhost:3000 (UAT-001 resolved; dev now serves issue pages)
-- **Production test**: `npm run build && npx serve out/` — preferred for any pass touching dynamic routes
-- **Preview launch configs** (in worktree-root `.claude/launch.json`): `dc-elections-tracker-dev` and `dc-elections-tracker-static`
+- **Stack**: Next.js 16 App Router (React 19, Turbopack), `output: "export"` (static site), TypeScript strict, Tailwind 3
+- **Dev server**: `npm run dev` → http://localhost:3000 — serves every route including dynamic
+- **Production test**: `NEXT_PUBLIC_BASE_PATH=/dcelectionstracker npm run build` then serve `out/` if you want to exercise the deployed URL prefix
+- **Preview launch configs** (in worktree-root `.claude/launch.json`): `dc-watch-dev`
 - **Entry point**: `src/app/layout.tsx` → `src/app/page.tsx`
 - **Key routes**:
   - `/` — Homepage (hero, alert ticker, countdowns, latest cards, issue cards, editorial standard)
