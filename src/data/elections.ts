@@ -61,15 +61,45 @@ export const ISSUE_COLUMN_TAGLINES: Record<ComparableIssueSlug, string> = {
   schools: "DCPS vs. charters, OSSE oversight, federal K-12 funding",
 };
 
-// Recent coverage item shown in the "Recent coverage" block on each candidate
-// profile page. Editorial rule: factual citation only — outlet + headline + ISO
-// date + canonical URL. No commentary, no paraphrasing of the headline.
-// Populated by the dc-data-refresh skill (see backlog BL-42).
+// Recent coverage item shown in the "Recent press & social" block on each
+// candidate profile page. Editorial rule: factual citation only — outlet +
+// headline + ISO date + canonical URL. No commentary, no paraphrasing of the
+// headline. Populated by the dc-data-refresh skill (Step 2.5 — per-candidate
+// news + social refresh, 60-day lookback. See BL-42).
+//
+// `kind` distinguishes press coverage (default) from a candidate's own social
+// post or campaign update. Social items render with a small "SOCIAL" pill in
+// the profile UI so voters can tell at a glance which were said BY the
+// candidate vs. ABOUT the candidate.
 export type NewsItem = {
   date: string;   // ISO YYYY-MM-DD
-  outlet: string; // e.g. "Washington Post", "DCist", "WAMU"
-  headline: string;
+  outlet: string; // e.g. "Washington Post", "DCist", "X (@handle)", "Bluesky"
+  headline: string; // for a social post, the post text trimmed to ≤ 200 chars
   url: string;
+  kind?: "press" | "social"; // default "press" if absent
+};
+
+// One editorial "theme" summarizing a cluster of news items in plain English.
+// Rendered at the top of the candidate profile page so voters see the current
+// story without having to scan every headline. Synthesized by the dc-data-refresh
+// skill (Step 2.5f) from items already in `Candidate.news[]`.
+//
+// Editorial rules:
+//   - `headline` is a short factual phrase — what the candidate is doing or what
+//     happened to them, not a value judgement ("Excluded from May 8 debate
+//     after meeting Fair Elections threshold" ✓; "Underdog snubbed" ✗)
+//   - `detail` is at most 2 sentences explaining the theme; same factual bar
+//   - Every URL in `supportingUrls` MUST also appear as a `NewsItem.url` in the
+//     candidate's `news[]` array — the test enforces this so themes can never
+//     point at links the receipt list doesn't carry
+//   - At least 2 supporting URLs per theme (a single article is not a theme).
+//     Exception: a candidate's own pinned campaign post can stand alone.
+//   - Cap at 2 themes per candidate. If you find more, pick the two with the
+//     most recent supporting items.
+export type NewsTheme = {
+  headline: string; // ≤ 18 words, factual
+  detail?: string;  // ≤ 2 sentences, factual
+  supportingUrls: string[]; // FK to NewsItem.url entries in this candidate's news[]
 };
 
 export type Candidate = {
@@ -101,6 +131,10 @@ export type Candidate = {
   // Recent coverage (BL-42). Sparse — populated by the data-refresh skill from
   // the media-source database (BL-33). Render newest-first on profile page.
   news?: NewsItem[];
+  // Editorial themes synthesized from `news[]` (BL-42 v2). At most 2 themes per
+  // candidate; each theme's supportingUrls must appear in news[]. Rendered as
+  // the "What's happening" block near the top of the profile page.
+  newsThemes?: NewsTheme[];
 };
 
 export const PRIMARY_DATE = "2026-06-16T07:00:00-04:00";
@@ -218,6 +252,27 @@ export const candidates2026: Candidate[] = [
         sourceUrl: "https://janeesefordc.com/platform/homes-for-all/",
       },
     },
+    news: [
+      { date: "2026-05-14", outlet: "Washington Post (Opinion)", headline: "Opinion | Janeese Lewis George plan would weaken mayoral control of D.C. schools", url: "https://www.washingtonpost.com/opinions/2026/05/14/janeese-lewis-george-plan-would-weaken-mayoral-control-dc-schools/" },
+      { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
+      { date: "2026-05-12", outlet: "The Georgetowner", headline: "Mayoral Candidate Janeese Lewis George", url: "https://georgetowner.com/articles/2026/05/12/mayoral-candidate-janeese-lewis-george/" },
+      { date: "2026-05-08", outlet: "Greater Greater Washington", headline: "GGWash endorses Janeese Lewis George for mayor of the District of Columbia", url: "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor" },
+      { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
+      { date: "2026-03-01", outlet: "Campaign site", headline: "Our movement is broad and inclusive, and that is how I will govern as mayor", url: "https://janeesefordc.com/2026/03/our-movement-is-broad/", kind: "social" },
+      { date: "2026-02-01", outlet: "Campaign site", headline: "Janeese Lewis George starts 2026 with thousands of DC donors and petition signatures", url: "https://janeesefordc.com/2026/02/janeese-lewis-george-starts-2026/", kind: "social" },
+    ],
+    newsThemes: [
+      {
+        headline: "Leading the progressive lane with labor, LGBTQ, and urbanist endorsements",
+        detail: "Greater Greater Washington, Capital Stonewall Democrats, and labor groups have endorsed Lewis George for the June 16 Democratic primary. Axios reports she has also led the field in DC-resident donors this period.",
+        supportingUrls: [
+          "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor",
+          "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
+          "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
+          "https://janeesefordc.com/2026/02/janeese-lewis-george-starts-2026/",
+        ],
+      },
+    ],
   },
   {
     slug: "kenyan-mcduffie",
@@ -240,6 +295,35 @@ export const candidates2026: Candidate[] = [
         sourceUrl: "https://kenyanmcduffie.com/platform",
       },
     },
+    news: [
+      { date: "2026-05-12", outlet: "The Georgetowner", headline: "Mayoral Candidate Kenyan McDuffie", url: "https://georgetowner.com/articles/2026/05/12/mayoral-candidate-kenyan-mcduffie/" },
+      { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
+      { date: "2026-04-15", outlet: "WTOP", headline: "Kenyan McDuffie and Janeese Lewis George go toe to toe in DC mayoral debate", url: "https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/" },
+      { date: "2026-03-12", outlet: "Axios DC", headline: "McDuffie targets housing, speed cameras and Trump in mayoral bid", url: "https://www.axios.com/local/washington-dc/2026/03/12/kenyan-mcduffie-dc-mayor-election-janeese-lewis-george" },
+      { date: "2026-03-08", outlet: "Washington Post", headline: "McDuffie, Lewis George reveal distinct styles in D.C. mayoral race", url: "https://www.washingtonpost.com/dc-md-va/2026/03/08/dc-mayors-race-mcduffie-lewis-george-styles/" },
+      { date: "2026-03-03", outlet: "Washington Post", headline: "In D.C. mayoral race, McDuffie aims to make city 'most affordable' in U.S.", url: "https://www.washingtonpost.com/dc-md-va/2026/03/03/dc-mayoral-election-mcduffie/" },
+      { date: "2026-01-14", outlet: "Washington Post", headline: "Kenyan McDuffie launches campaign for D.C. mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/01/14/kenyan-mcduffie-dc-mayor/" },
+    ],
+    newsThemes: [
+      {
+        headline: "Running as the centrist counterweight to Lewis George with a business-and-real-estate-backed coalition",
+        detail: "Axios reports McDuffie has consolidated real-estate and business endorsements; head-to-head debate coverage from WTOP and the Washington Post frames the race as McDuffie vs. Lewis George.",
+        supportingUrls: [
+          "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
+          "https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/",
+          "https://www.washingtonpost.com/dc-md-va/2026/03/08/dc-mayors-race-mcduffie-lewis-george-styles/",
+        ],
+      },
+      {
+        headline: "Anchoring the platform on a $4B RFK redevelopment, 1,000 new MPD officers, and a 'most affordable city' pitch",
+        detail: "WaPo and Axios describe his stated plan: invest near the former RFK Stadium site to create jobs, expand MPD by 1,000 officers, and lower the cost of housing, utilities, and child care.",
+        supportingUrls: [
+          "https://www.axios.com/local/washington-dc/2026/03/12/kenyan-mcduffie-dc-mayor-election-janeese-lewis-george",
+          "https://www.washingtonpost.com/dc-md-va/2026/03/03/dc-mayoral-election-mcduffie/",
+          "https://www.washingtonpost.com/dc-md-va/2026/01/14/kenyan-mcduffie-dc-mayor/",
+        ],
+      },
+    ],
   },
   {
     slug: "vincent-orange",
@@ -249,7 +333,9 @@ export const candidates2026: Candidate[] = [
     filingStatus: "declared",
     source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" },
     websiteUrl: "https://orangeformayor.com/",
-    notes: "Former DC Councilmember.",
+    facebookUrl: "https://www.facebook.com/VincentOrangeVO/",
+    instagramUrl: "https://www.instagram.com/vincentorangevo/",
+    notes: "Former DC Councilmember and former DC Chamber of Commerce president. Third mayoral run.",
     positions: {
       statehood: {
         stance: "Orange Plan names preservation of Home Rule and DC statehood as a core plank.",
@@ -267,10 +353,56 @@ export const candidates2026: Candidate[] = [
         sourceUrl: "https://orangeformayor.com/meet-vincent-orange/",
       },
     },
+    news: [
+      { date: "2026-04-25", outlet: "HillRag", headline: "Mayoral Candidates Debate Youth Curfew and Immigration Enforcement", url: "https://www.hillrag.com/2026/04/25/mayoral-candidates-clash-over-curfew-and-immigration-enforcement/" },
+      { date: "2026-04-23", outlet: "The Georgetowner", headline: "A Tense but Polite Mayoral Forum at MLK Library", url: "https://georgetowner.com/articles/2026/04/23/a-tense-but-polite-mayoral-forum-at-mlk-library/" },
+      { date: "2026-01-26", outlet: "The Georgetowner", headline: "Update on 2026 D.C. Campaigns for Mayor, Delegate, and Council — Holmes Norton ends campaign, Orange starts his", url: "https://georgetowner.com/articles/2026/01/26/holmes-norton-ends-campaign-orange-starts-his/" },
+      { date: "2026-01-23", outlet: "Washington Post", headline: "Former D.C. Council member Vincent Orange running for mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/01/23/dc-mayor-vincent-orange-running/" },
+      { date: "2026-01-23", outlet: "WJLA", headline: "Former DC Councilmember Vincent Orange will run for Mayor", url: "https://wjla.com/news/local/vincent-orange-running-for-mayor-dc-mayoral-run-dc-councilman-chamber-of-commerce-president-conflict-of-interest-scandal-resignation" },
+    ],
+    newsThemes: [
+      {
+        headline: "Third mayoral run, framed around 'The Orange Plan' of public safety, curfews, and pro-business growth",
+        detail: "WaPo and WJLA covered his January launch; recent forums at MLK Library and HillRag's debate report capture him pushing minor curfews and immigration enforcement on the campaign trail.",
+        supportingUrls: [
+          "https://www.washingtonpost.com/dc-md-va/2026/01/23/dc-mayor-vincent-orange-running/",
+          "https://wjla.com/news/local/vincent-orange-running-for-mayor-dc-mayoral-run-dc-councilman-chamber-of-commerce-president-conflict-of-interest-scandal-resignation",
+          "https://www.hillrag.com/2026/04/25/mayoral-candidates-clash-over-curfew-and-immigration-enforcement/",
+          "https://georgetowner.com/articles/2026/04/23/a-tense-but-polite-mayoral-forum-at-mlk-library/",
+        ],
+      },
+    ],
   },
   { slug: "gary-goodweather", name: "Gary Goodweather", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
   { slug: "hope-solomon", name: "Hope Solomon", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" } },
-  { slug: "rini-sampath", name: "Rini Sampath", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" } },
+  {
+    slug: "rini-sampath",
+    name: "Rini Sampath",
+    raceSlug: "mayor",
+    party: "D",
+    filingStatus: "declared",
+    source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" },
+    websiteUrl: "https://riniformayor.com/",
+    notes: "First-time DC candidate; government contractor.",
+    news: [
+      { date: "2026-05-05", outlet: "GW Hatchet", headline: "Democratic mayoral, delegate candidates debate DC issues in double-header event", url: "https://gwhatchet.com/2026/05/05/democratic-mayoral-delegate-candidates-debate-dc-issues-in-double-header-event/" },
+      { date: "2026-05-01", outlet: "X (@maustermuhle)", headline: "Next week's mayoral debate hosted by @fox5dc and @Georgetown is getting more criticism for excluding some candidates. In @RiniSampath's case, she says she hit one of the eligibility requirements (1,000 campaign donors) but still isn't being allowed in.", url: "https://x.com/maustermuhle/status/2054605130196983818", kind: "social" },
+      { date: "2026-04-23", outlet: "The Georgetowner", headline: "A Tense but Polite Mayoral Forum at MLK Library", url: "https://georgetowner.com/articles/2026/04/23/a-tense-but-polite-mayoral-forum-at-mlk-library/" },
+      { date: "2026-04-04", outlet: "National Today", headline: "Theni-born Rini Sampath runs for Washington DC mayor", url: "https://nationaltoday.com/us/dc/washington/news/2026/04/04/theni-born-rini-sampath-runs-for-washington-dc-mayor/" },
+      { date: "2026-03-20", outlet: "51st", headline: "Meet the first-timers running for D.C. mayor", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" },
+    ],
+    newsThemes: [
+      {
+        headline: "Excluded from the Fox 5 / Georgetown debate despite saying she hit the 1,000-donor Fair Elections threshold",
+        detail: "Sampath's campaign argues she met the Fox 5 / Georgetown debate's donor-count eligibility but was still kept off the stage; the controversy was amplified by reporter Martin Austermuhle and is part of her public framing that the DC political machine is treating the race as a two-horse contest.",
+        supportingUrls: [
+          "https://x.com/maustermuhle/status/2054605130196983818",
+          "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/",
+          "https://gwhatchet.com/2026/05/05/democratic-mayoral-delegate-candidates-debate-dc-issues-in-double-header-event/",
+        ],
+      },
+    ],
+  },
   { slug: "ernest-johnson", name: "Ernest Johnson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
   { slug: "kathy-henderson", name: "Kathy Henderson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" } },
 
@@ -293,7 +425,35 @@ export const candidates2026: Candidate[] = [
   { slug: "kevin-b-chavous", name: "Kevin B. Chavous", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former community and policy director for Bonds; endorsed by Bonds." },
   { slug: "candace-tiana-nelson", name: "Candace Tiana Nelson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former ANC 4A commissioner." },
   { slug: "leniqua-jenkins", name: "Leniqua'dominique Jenkins", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former Ward 7 ANC commissioner and Bonds staffer." },
-  { slug: "oye-owolewa", name: "Oye Owolewa", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Current US Shadow Representative." },
+  {
+    slug: "oye-owolewa",
+    name: "Oye Owolewa",
+    raceSlug: "council-at-large-bonds",
+    party: "D",
+    filingStatus: "declared",
+    source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" },
+    websiteUrl: "https://www.vote4oye.com/",
+    notes: "Current US Shadow Representative.",
+    news: [
+      { date: "2026-03-03", outlet: "Northeastern News", headline: "Northeastern Grad and DC Statehood Advocate Eyes Council Role", url: "https://news.northeastern.edu/2026/03/03/dc-council-oye-owolewa/" },
+      { date: "2026-02-20", outlet: "Washington Informer", headline: "In D.C. Council Run, Shadow Rep. Oye Owolewa Stands as Antithesis to Incumbent Bonds", url: "https://www.washingtoninformer.com/owolewa-bonds-council-run/" },
+      { date: "2026-02-15", outlet: "Working Families Party", headline: "WFP Endorses Oye Owolewa; Aparna Raj for DC Council", url: "https://workingfamilies.org/2026/02/wfp-endorses-oye-owolewa-aparna-raj-for-dc-council/" },
+      { date: "2026-02-01", outlet: "We Power DC", headline: "Rep. Oye Owolewa (At-Large Candidate) signs the Public Power Pledge", url: "https://www.wepowerdc.org/latest-news/rep-oye-owolewa-at-large-candidate-signs-the-public-power-pledge" },
+      { date: "2026-01-15", outlet: "Axios DC", headline: "Oye Owolewa, DC's 'shadow' rep, has new relevance in Trump era", url: "https://www.axios.com/local/washington-dc/2026/01/15/dc-council-trump-shadow-representative-senator-election" },
+    ],
+    newsThemes: [
+      {
+        headline: "Moving from shadow rep to challenger for Bonds's open seat with progressive endorsements and a public-power pledge",
+        detail: "WFP and the Public Power campaign have backed him; Washington Informer and Northeastern News profile him as the progressive alternative to the seat's outgoing incumbent. Axios highlights a heightened national profile under the Trump-era federal pressure on DC.",
+        supportingUrls: [
+          "https://workingfamilies.org/2026/02/wfp-endorses-oye-owolewa-aparna-raj-for-dc-council/",
+          "https://www.wepowerdc.org/latest-news/rep-oye-owolewa-at-large-candidate-signs-the-public-power-pledge",
+          "https://www.washingtoninformer.com/owolewa-bonds-council-run/",
+          "https://www.axios.com/local/washington-dc/2026/01/15/dc-council-trump-shadow-representative-senator-election",
+        ],
+      },
+    ],
+  },
   { slug: "nate-fleming", name: "Nate Fleming", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former shadow representative." },
 
   // Council At-Large (special — Independent seat vacated by McDuffie running for mayor)

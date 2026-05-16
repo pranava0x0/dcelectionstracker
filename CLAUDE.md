@@ -82,6 +82,10 @@ src/
     elections.ts                   # races2026[] + candidates2026[] linked by raceSlug (BL-03)
                                    # Candidate.slug (kebab-case, globally unique) + Candidate.bio? (BL-32)
                                    # Candidate.positions?: Partial<Record<ComparableIssueSlug, Position>>
+                                   # Candidate.news?: NewsItem[] — 60-day press + social log (BL-42).
+                                   # NewsItem.kind?: "press" | "social" — defaults to press.
+                                   # Refreshed by dc-data-refresh Step 2.5 (per-candidate
+                                   # iteration, dedupe by url, cap at 12 per candidate).
                                    # COMPARABLE_ISSUES, COMPARISON_RACE_SLUGS, ISSUE_COLUMN_TAGLINES (BL-19)
                                    # PROFILED_RACE_SLUGS, ExternalTool, externalToolsForRace() (BL-32)
                                    # ballotForWard(ward) → race slugs + SBOE flag (BL-02)

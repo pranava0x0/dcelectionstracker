@@ -105,6 +105,64 @@ export default async function CandidateProfilePage({ params }: { params: Promise
 
       <hr className="mt-6 rule-thick sm:mt-8" />
 
+      {candidate.newsThemes && candidate.newsThemes.length > 0 ? (
+        <section className="mt-8 sm:mt-10">
+          <span className="kicker">What&apos;s happening</span>
+          <h2 className="display mt-1 text-xl text-ink sm:text-2xl">
+            What we&apos;re tracking right now
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-fg">
+            Themes the data-refresh skill identified across the last 60 days of
+            local press and the candidate&apos;s own posts. Every theme links to
+            the receipts.
+          </p>
+          <ul className="mt-5 space-y-5">
+            {candidate.newsThemes.map((theme) => {
+              const supporting = theme.supportingUrls
+                .map((url) => candidate.news?.find((n) => n.url === url))
+                .filter((n): n is NonNullable<typeof n> => Boolean(n))
+                .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+              return (
+                <li
+                  key={theme.headline}
+                  className="border-l-2 border-primary pl-4 sm:pl-5"
+                >
+                  <h3 className="display text-base text-ink sm:text-lg">
+                    {theme.headline}
+                  </h3>
+                  {theme.detail ? (
+                    <p className="mt-2 text-[15px] leading-snug text-fg">
+                      {theme.detail}
+                    </p>
+                  ) : null}
+                  {supporting.length > 0 ? (
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {supporting.map((n) => (
+                        <li key={n.url}>
+                          <a
+                            href={n.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-baseline gap-1.5 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+                          >
+                            <span className="text-primary">{n.date}</span>
+                            <span>{n.outlet}</span>
+                            {n.kind === "social" ? (
+                              <span className="text-muted">· social</span>
+                            ) : null}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+          <hr className="mt-8 rule-thick sm:mt-10" />
+        </section>
+      ) : null}
+
       <section className="mt-8 sm:mt-10">
         <span className="kicker">Find them online</span>
         <h2 className="display mt-1 text-xl text-ink sm:text-2xl">Links &amp; filings</h2>
@@ -190,9 +248,13 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         <section className="mt-8 sm:mt-12 lg:mt-14">
           <hr className="rule-thick" />
           <span className="kicker mt-3 inline-block">Coverage</span>
-          <h2 className="display mt-1 text-xl text-ink sm:text-2xl">Recent coverage</h2>
+          <h2 className="display mt-1 text-xl text-ink sm:text-2xl">
+            Recent press &amp; social
+          </h2>
           <p className="mt-2 max-w-3xl text-sm text-fg">
-            Dated, sourced citations only — no commentary. Populated by the data-refresh skill.
+            Last 60 days of local DC press and the candidate&apos;s own social posts.
+            Dated, sourced citations only — no commentary. Populated by the dc-data-refresh
+            skill.
           </p>
           <ol className="mt-5 border-y border-rule bg-paper">
             {[...candidate.news]
@@ -202,12 +264,19 @@ export default async function CandidateProfilePage({ params }: { params: Promise
                   key={`${n.date}-${n.url}`}
                   className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-4"
                 >
-                  <time
-                    className="font-mono text-[11px] font-semibold uppercase tracking-wider text-primary sm:w-24"
-                    dateTime={n.date}
-                  >
-                    {n.date}
-                  </time>
+                  <div className="flex items-baseline gap-2 sm:w-28">
+                    <time
+                      className="font-mono text-[11px] font-semibold uppercase tracking-wider text-primary"
+                      dateTime={n.date}
+                    >
+                      {n.date}
+                    </time>
+                    {n.kind === "social" ? (
+                      <span className="rounded-sm bg-ink px-1 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white">
+                        Social
+                      </span>
+                    ) : null}
+                  </div>
                   <a
                     href={n.url}
                     target="_blank"

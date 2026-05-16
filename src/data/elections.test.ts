@@ -239,6 +239,25 @@ describe("per-seat race pages + candidate profiles (BL-32)", () => {
         expect(n.outlet.length, `${c.name}: news outlet empty`).toBeGreaterThan(0);
         expect(n.headline.length, `${c.name}: news headline empty`).toBeGreaterThan(0);
         expect(n.url, `${c.name}: news url not http(s)`).toMatch(/^https?:\/\//);
+        if (n.kind !== undefined) {
+          expect(["press", "social"], `${c.name}: news kind unknown`).toContain(n.kind);
+        }
+      }
+    }
+  });
+
+  it("every newsTheme has a non-empty headline and supportingUrls that all FK into the candidate's news[] (BL-42 v2)", () => {
+    for (const c of candidates2026) {
+      if (!c.newsThemes) continue;
+      expect(c.newsThemes.length, `${c.name}: more than 2 newsThemes`).toBeLessThanOrEqual(2);
+      const newsUrls = new Set((c.news ?? []).map((n) => n.url));
+      for (const t of c.newsThemes) {
+        expect(t.headline.length, `${c.name}: theme headline empty`).toBeGreaterThan(0);
+        expect(t.headline.split(/\s+/).length, `${c.name}: theme headline >18 words`).toBeLessThanOrEqual(18);
+        expect(t.supportingUrls.length, `${c.name}: theme has no supporting urls`).toBeGreaterThan(0);
+        for (const url of t.supportingUrls) {
+          expect(newsUrls.has(url), `${c.name}: theme supportingUrl ${url} missing from news[]`).toBe(true);
+        }
       }
     }
   });
