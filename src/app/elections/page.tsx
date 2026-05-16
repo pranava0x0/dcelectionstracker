@@ -56,6 +56,7 @@ export default function ElectionsPage(): JSX.Element {
       <JumpStrip
         chips={[
           { href: "#lookup", label: "Lookup" },
+          { href: "#officials", label: "Officials" },
           { href: "#races", label: "Races" },
           { href: "#compare", label: "Compare" },
           { href: "#action", label: "Take action" },
@@ -80,6 +81,37 @@ export default function ElectionsPage(): JSX.Element {
           on tracked bills.
         </p>
         <AddressLookup />
+      </section>
+
+      <section id="officials" className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Who&apos;s in office now</span>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
+          Officials currently representing DC
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm text-fg sm:text-[15px]">
+          Mayor, Council, Attorney General, U.S. House Delegate, and the State Board of
+          Education — every name with party, ward, term-end date, and a primary source.
+        </p>
+        <Link
+          href="/officials/"
+          className="card card-hover mt-5 block p-5 sm:p-6"
+        >
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="kicker !text-fg">Directory</span>
+            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
+              See full list <span aria-hidden>→</span>
+            </span>
+          </div>
+          <h3 className="display mt-3 text-xl text-ink sm:text-2xl">
+            Every elected official, every seat, every term-end date
+          </h3>
+          <p className="mt-2 text-sm leading-snug text-fg sm:text-[15px]">
+            Voting records on tracked Council bills are linked from each member&apos;s
+            card. Use this list to know who holds office before you decide who should
+            replace them.
+          </p>
+        </Link>
       </section>
 
       <CollapsibleSection kicker="By the numbers" title="DCBOE administration">
