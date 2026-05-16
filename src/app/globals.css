@@ -48,15 +48,6 @@ summary:focus-visible {
   border-radius: 1px;
 }
 
-/* Strip the native disclosure marker from custom <summary> triggers
-   (used as the mobile-nav hamburger). */
-.nav-summary {
-  list-style: none;
-}
-.nav-summary::-webkit-details-marker {
-  display: none;
-}
-
 ::selection {
   background: hsl(var(--primary) / 0.25);
   color: hsl(var(--fg));
