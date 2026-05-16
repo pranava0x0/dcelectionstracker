@@ -56,10 +56,14 @@ describe("candidatesForRace", () => {
   });
 
   it("filters out withdrawn candidates", () => {
-    // Synthesize a withdrawn entry inline rather than mutating shared data —
-    // the helper itself does the filtering via filingStatus.
-    const withdrawn = candidates2026.find((c) => c.filingStatus === "withdrawn");
-    expect(withdrawn).toBeUndefined(); // none yet, but the helper supports it
+    // Brian Footer (Ward 1) suspended his campaign on 2025-12-17 and is now
+    // filingStatus: "withdrawn". The helper should drop him from the public
+    // roster but keep him in the raw dataset (for historical accuracy).
+    const ward1Raw = candidates2026.filter((c) => c.raceSlug === "council-ward-1");
+    const ward1Active = candidatesForRace("council-ward-1");
+    expect(ward1Active.length).toBe(ward1Raw.length - 1);
+    expect(ward1Active.some((c) => c.slug === "brian-footer")).toBe(false);
+    // Sanity check on a race with no withdrawals — helper should be a pass-through.
     const allMayorals = candidates2026.filter((c) => c.raceSlug === "mayor");
     expect(candidatesForRace("mayor").length).toBe(allMayorals.length);
   });
