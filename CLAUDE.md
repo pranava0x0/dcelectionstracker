@@ -57,6 +57,13 @@ src/
     elections/[race]/[candidate]/page.tsx # per-candidate profile, generateStaticParams from
                                         # candidatesForRace(race).map((c) => ({race, candidate: c.slug})).
                                         # dynamicParams=false. (BL-32)
+                                        # Page IA (BL-58 slim layout):
+                                        #   1. hero (name + party + status + notes)
+                                        #   2. "What's happening" themes — always inline if set
+                                        #   3. DisclosureSection "Where they stand" — default open if ≥1 stated
+                                        #   4. DisclosureSection "Recent press & social" — default open if any
+                                        #   5. DisclosureSection "About this candidate" — default closed; bio + links
+                                        #   6. compact footer with same-race chips + back link
     sources/page.tsx
     about/page.tsx                 # /about/ — editorial standard + sourcing rules (BL-41)
     globals.css
@@ -74,6 +81,15 @@ src/
     VotingRecordMatrix.tsx         # Council voting record matrix + per-member mini-record (BL-12 + BL-01)
     AddressLookup.tsx              # "use client" — DC address → ward/ANC/SMD/ballot via MAR API (BL-02)
                                    # User-triggered fetch through corsproxy.io. No load-time call.
+    CollapsibleSection.tsx         # mobile-only collapse (<sm), inline at sm+. Used on /elections/ + /issues/[slug]/.
+    DisclosureSection.tsx          # always-collapsible (every viewport) with `defaultOpen` + `meta`
+                                   # props. Used on candidate profile pages (BL-58) to keep the page
+                                   # slim — Positions, Recent press & social, About each render in one.
+    SocialIconRow.tsx              # Circular icon row next to candidate name (BL-58). Pure inline
+                                   # SVG — no icon library. Renders only the populated fields:
+                                   # websiteUrl, governmentSiteUrl, twitterUrl, linkedinUrl,
+                                   # instagramUrl, facebookUrl. Filings (OCF/DCBOE/source) stay
+                                   # in the About disclosure, not duplicated here.
   data/
     issues.ts                      # 6 issues + minimal ranked-choice entry for the homepage card
                                    # Issue.quickTake?: string[] — 3-bullet "bite" summary at top of IssueDetail (BL-55)
