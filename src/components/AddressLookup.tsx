@@ -8,6 +8,7 @@ import {
   type BallotForWard,
 } from "@/data/elections";
 import { councilMembers, type Official } from "@/data/officials";
+import { totalVoteCenters, voteCentersForWard, type VoteCenter } from "@/data/vote-centers";
 import { votesForMember, VOTE_DESCRIPTION, VOTE_LABEL, type VoteValue } from "@/data/votes";
 
 // MAR (DC Master Address Repository) API — public, no key, no rate limit advertised.
@@ -319,23 +320,16 @@ function ResultCard({
         </div>
       ) : null}
 
-      <div className="mt-6 border-t border-rule pt-5">
-        <p className="kicker">Where to vote</p>
-        <h4 className="display mt-1 text-lg text-ink">
-          Your polling place
-        </h4>
-        <p className="mt-2 text-sm text-fg">
-          DCBOE&apos;s Vote Center Locator is a map app — you&apos;ll need to enter your
-          address there too. Copy it from above:{" "}
-          <span className="font-mono text-[13px] text-ink">{result.fullAddress}</span>.
-        </p>
+      <VoteCentersSection ward={ward} />
+
+      <div className="mt-4">
         <a
           href={DCBOE_POLLING_PLACE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="card-hover mt-3 inline-block rounded-sm border border-rule bg-paper px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-fg hover:text-primary"
+          className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
         >
-          Open DCBOE Vote Center Locator <span aria-hidden>↗</span>
+          Map view: DCBOE Vote Center Locator <span aria-hidden>↗</span>
         </a>
       </div>
 
@@ -347,6 +341,45 @@ function ResultCard({
         ← Look up a different address
       </button>
     </section>
+  );
+}
+
+function VoteCentersSection({ ward }: { ward: string }): JSX.Element | null {
+  const centers = voteCentersForWard(ward);
+  if (centers.length === 0) return null;
+  const total = totalVoteCenters();
+  return (
+    <div className="mt-6 border-t border-rule pt-5">
+      <p className="kicker">Where to vote</p>
+      <h4 className="display mt-1 text-lg text-ink">
+        Vote centers in Ward {ward}
+      </h4>
+      <p className="mt-2 text-sm text-fg">
+        DC&apos;s 2026 primary uses a vote-anywhere model — you may cast your ballot at{" "}
+        <strong className="font-semibold">any</strong> of the ~{total} vote centers
+        citywide on June 16, regardless of your address. The {centers.length} centers
+        in Ward {ward} are listed first.
+      </p>
+      <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+        {centers.map((c) => (
+          <VoteCenterRow key={c.name} center={c} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function VoteCenterRow({ center }: { center: VoteCenter }): JSX.Element {
+  return (
+    <li className="border border-rule bg-paper p-3">
+      <p className="text-[13px] font-semibold text-ink">{center.name}</p>
+      <p className="mt-0.5 font-mono text-[11px] text-fg">{center.address}</p>
+      {!center.accessible ? (
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted">
+          Limited accessibility
+        </p>
+      ) : null}
+    </li>
   );
 }
 
