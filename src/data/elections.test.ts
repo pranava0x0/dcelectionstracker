@@ -310,3 +310,20 @@ describe("ballotForWard helper (BL-02)", () => {
     expect(ballotForWard("Ward 5").sboeOnGeneralBallot).toBe(true);
   });
 });
+
+// BL-UAT-15 — voter UAT run 5 surfaced UAT-017 where the Mayor oneLine said
+// "10 declared Democrats" while the data file held 8. The fix was a single-line
+// data edit; the durable fix is this test, which forbids the counts from drifting
+// in the future. Any oneLine that names a candidate count must match the live
+// non-withdrawn candidate filter for that race.
+describe("Race.oneLine candidate counts match the live data (BL-UAT-15)", () => {
+  const COUNT_PATTERN = /(\d+)\s+(?:declared|active|filed)\s+(?:Democrats|Republicans|Independents|Nonpartisans|candidates)/i;
+
+  it.each(races2026)("$slug oneLine count matches non-withdrawn candidates", (race) => {
+    const match = race.oneLine.match(COUNT_PATTERN);
+    if (!match) return; // race oneLine doesn't claim a count; nothing to check.
+    const claimed = Number(match[1]);
+    const actual = candidatesForRace(race.slug).length; // already filters withdrawn.
+    expect(actual, `oneLine for ${race.slug} claims ${claimed} but candidatesForRace returned ${actual}`).toBe(claimed);
+  });
+});

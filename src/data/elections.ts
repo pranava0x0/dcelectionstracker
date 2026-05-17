@@ -183,7 +183,7 @@ export const races2026: Race[] = [
   { slug: "council-chair", office: "Council Chair", status: "includes-incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
   { slug: "attorney-general", office: "Attorney General", status: "includes-incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
   { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years. 5 declared Democrats." },
-  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 7 declared Democrats tracked here including Owolewa, Chavous, Raymond (GGWash pick), and Fleming." },
+  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 6 declared Democrats tracked here including Owolewa, Chavous, Raymond (GGWash pick), and Fleming." },
   { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Nonpartisan special election to fill the Independent seat vacated by Kenyan McDuffie. Filed: Crawford, Silverman, Patterson, Lee, Sloan." },
   { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Nadeau not seeking re-election. 5 active Democrats after Brian Footer suspended Dec 17, 2025." },
   { slug: "council-ward-3", office: "Council Ward 3", status: "includes-incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
