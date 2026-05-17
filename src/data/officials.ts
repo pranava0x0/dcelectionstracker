@@ -17,6 +17,7 @@ export type Official = {
 
 export type OfficialGroup = {
   group: string;
+  slug: string; // stable anchor ID for /officials/ TOC + per-group deep-links
   blurb: string;
   members: Official[];
 };
@@ -24,6 +25,7 @@ export type OfficialGroup = {
 export const officials: OfficialGroup[] = [
   {
     group: "Executive",
+    slug: "executive",
     blurb: "Mayor and Attorney General are elected citywide. Both terms end Jan 2, 2027.",
     members: [
       {
@@ -49,6 +51,7 @@ export const officials: OfficialGroup[] = [
   },
   {
     group: "DC Council — Chair and At-Large",
+    slug: "council-chair-at-large",
     blurb:
       "Chair plus four at-large seats. Per the DC Charter, no more than two at-large members may be from the majority party (typically Democrats), so two seats are usually held by Independents.",
     members: [
@@ -103,6 +106,7 @@ export const officials: OfficialGroup[] = [
   },
   {
     group: "DC Council — Ward Members",
+    slug: "council-wards",
     blurb: "Eight ward members, one per ward. In 2026, Wards 1, 3, 5, and 6 are on the ballot.",
     members: [
       {
@@ -194,6 +198,7 @@ export const officials: OfficialGroup[] = [
   },
   {
     group: "Federal Representation",
+    slug: "federal",
     blurb:
       'DC has one non-voting Delegate in the U.S. House and three "shadow" representatives — two shadow Senators and one shadow Representative — created by 1990 ballot initiative to lobby for statehood. Shadow officials have no seat, vote, office, or salary in Congress.',
     members: [
@@ -239,6 +244,7 @@ export const officials: OfficialGroup[] = [
   },
   {
     group: "DC State Board of Education",
+    slug: "sboe",
     blurb:
       "Nine members elected nonpartisan to four-year staggered terms. The Board sets state-level academic standards. It does not run schools — that is OSSE (state agency) and DCPS / charter authorizers (operators).",
     members: [

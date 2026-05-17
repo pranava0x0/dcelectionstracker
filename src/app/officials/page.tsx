@@ -10,6 +10,17 @@ export const metadata: Metadata = {
     "Every elected official in DC government — Mayor, AG, Council, Delegate, shadow representatives, State Board of Education — with party label and term-end date.",
 };
 
+// Short chip labels for the always-visible TOC under the page hero. The page is
+// long (~20k px) and screen readers need group <h2> anchors to be findable —
+// see UAT-018 / BL-UAT-11. The full group title still renders inside each section.
+const TOC_CHIPS: Record<string, string> = {
+  executive: "Executive",
+  "council-chair-at-large": "Chair + At-Large",
+  "council-wards": "Wards",
+  federal: "Federal",
+  sboe: "State Board",
+};
+
 export default function OfficialsPage(): JSX.Element {
   return (
     <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
@@ -59,10 +70,28 @@ export default function OfficialsPage(): JSX.Element {
         .
       </p>
 
+      <nav
+        aria-label="Jump to officials group"
+        className="-mx-4 mt-6 overflow-x-auto px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <ul className="flex w-max gap-2 pb-1">
+          {officials.map((group) => (
+            <li key={group.slug}>
+              <a
+                href={`#${group.slug}`}
+                className="inline-flex h-10 shrink-0 items-center rounded-sm border border-rule bg-paper px-3 font-mono text-[11px] font-bold uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+              >
+                {TOC_CHIPS[group.slug] ?? group.group}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       {officials.map((group) => (
-        <section key={group.group} className="mt-10 sm:mt-12">
+        <section key={group.group} className="mt-10 scroll-mt-16 sm:mt-12" id={group.slug}>
           <hr className="rule-thick" />
-          <span className="kicker mt-3 inline-block">{group.group}</span>
+          <h2 className="kicker mt-3 inline-block">{group.group}</h2>
           <p className="mt-1 max-w-3xl text-sm text-fg">{group.blurb}</p>
 
           <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -71,7 +100,8 @@ export default function OfficialsPage(): JSX.Element {
               return (
                 <li
                   key={`${group.group}-${m.name}`}
-                  className="card card-hover overflow-hidden"
+                  id={m.slug}
+                  className="card card-hover scroll-mt-16 overflow-hidden"
                 >
                   <div className={`h-1 ${tone.stripe}`} />
                   <div className="p-4">
