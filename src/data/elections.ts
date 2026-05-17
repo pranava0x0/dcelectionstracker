@@ -1012,9 +1012,9 @@ export type ExternalTool = { label: string; url: string; blurb: string };
 
 const COMMON_EXTERNAL_TOOLS: ExternalTool[] = [
   {
-    label: "DCBOE — Official primary candidate list",
-    url: "https://www.dcboe.org/candidates",
-    blurb: "Authoritative filing roster from the DC Board of Elections.",
+    label: "DCBOE — 2026 Primary Candidates list (PDF, Feb 2 filing)",
+    url: "https://www.dcboe.org/getmedia/7f585e7c-887c-42c5-988f-9a9c59ba9020/2026-PRIMARY-CANDIDATES-02022026.pdf",
+    blurb: "Authoritative filing roster from the DC Board of Elections — refreshed when DCBOE issues a new PDF version.",
   },
   {
     label: "DC OCF — Campaign finance filings",
