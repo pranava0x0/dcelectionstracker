@@ -9,8 +9,9 @@ UAT run 5 (2026-05-17) — voter-persona walkthrough across 4 personas × 14 que
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
-| UAT-018 | open | `/officials/` group sections render kicker spans, not semantic `<h2>` — 3 headings for 28 officials in 5 groups | low |
-| UAT-017 | open | Mayor race `oneLine` says "10 declared Democrats" but data file has 8 candidates | low |
+| UAT-019 | closed | All three `AddressLookup` references to `dcboe.org/voters/where-to-vote` return 404 — DCBOE retired the URL | high |
+| UAT-018 | closed | `/officials/` group sections render kicker spans, not semantic `<h2>` — 3 headings for 28 officials in 5 groups | low |
+| UAT-017 | closed | Mayor race `oneLine` says "10 declared Democrats" but data file has 8 candidates | low |
 | UAT-016 | closed | Mobile nav drawer stays open after tapping a link — should collapse on navigation | low |
 | UAT-013 | closed | Candidate profile party badge renders "D · D" for Democrat candidates | high |
 | UAT-014 | closed | Homepage hero and footer date show tomorrow's date in US timezones (UTC vs local) | low |
@@ -32,23 +33,41 @@ UAT run 5 (2026-05-17) — voter-persona walkthrough across 4 personas × 14 que
 
 ## Open Issues
 
+_No open issues._
+
+---
+
+## Resolved Issues (UAT run 5 follow-ons, 2026-05-17)
+
+### [UAT-019] `AddressLookup` polling-place URL returns 404
+- **Severity**: high
+- **Page/Section**: `/elections/`, `/` (after BL-UAT-12) — `src/components/AddressLookup.tsx`
+- **Discovered**: 2026-05-17 (while scoping BL-UAT-13)
+- **Closed**: 2026-05-17
+- **Status**: closed
+- **Description**: All three references to `https://www.dcboe.org/voters/where-to-vote` in `AddressLookup.tsx` (one in `ResultCard`'s CTA button, one in `NotFoundCard`'s instructional copy, one in `ErrorCard`'s instructional copy) returned `404 Not Found`. DCBOE retired the URL — their canonical polling-place tool is now the ArcGIS-hosted Vote Center Locator linked from `dcboe.org`. Voters following any of the three flows hit a dead page on the most important external action.
+- **Steps to Reproduce**: Open `/elections/`, submit any address through `AddressLookup`, click `Find your polling place at DCBOE ↗` — DCBOE returns 404.
+- **Fix**: Centralized the URL in a `DCBOE_POLLING_PLACE_URL` const at the top of `AddressLookup.tsx`, pointing to `https://dcgis.maps.arcgis.com/apps/instant/nearby/index.html?appid=763576faa0b1470ca0559c377cf3b497` (the live ArcGIS Vote Center Locator). All three CTAs now reference the const. Updated visible CTA text to "DCBOE's Vote Center Locator" in the instructional copy, "Open DCBOE Vote Center Locator ↗" on the button, with an explanatory line acknowledging the tool will ask for the address again (the ArcGIS app is a map widget, not a query-parameter-driven form — BL-UAT-13 inline resolution stays open).
+
 ### [UAT-018] `/officials/` group sections render as kicker spans, not semantic `<h2>`
 - **Severity**: low
 - **Page/Section**: `/officials/` — `src/app/officials/page.tsx`
 - **Discovered**: 2026-05-17 (voter-persona UAT, Persona 3 Q3.1 "Who is my Council member?")
-- **Status**: open
-- **Description**: The five group titles ("Executive", "DC Council — Chair and At-Large", "DC Council — Ward Members", "Federal Representation", "DC State Board of Education") render as styled kicker text, not as `<h2>` elements. `document.querySelectorAll('h1, h2, h3')` on `/officials/` returns only 3 elements (the page h1 + the voting-record matrix h2 + the ANC footnote h2) for a page that documents 28 officials in 5 groups. Screen readers cannot jump between groups by heading; the same is true for any future table-of-contents component. Compounds with UAT-NN (page is 20,218px tall).
-- **Steps to Reproduce**: Open `/officials/` in dev mode. Run `document.querySelectorAll('h1, h2, h3').length` in the console — returns 3. Expected ≥ 8 (h1 + 5 group h2 + 2 footer h2).
-- **Suspected fix**: In `src/app/officials/page.tsx`, change each group blurb header from its current styled `<p>` or `<div>` to an `<h2 id="<group-slug>">`. Add anchor IDs (`executive`, `council-chair-at-large`, `council-wards`, `federal`, `sboe`) so deep-linking from `/elections/` lookup + external sources works. Pairs naturally with BL-UAT-11 (jump nav) and BL-UAT-12 (anchor IDs).
+- **Closed**: 2026-05-17
+- **Status**: closed
+- **Description**: The five group titles ("Executive", "DC Council — Chair and At-Large", "DC Council — Ward Members", "Federal Representation", "DC State Board of Education") rendered as styled kicker text, not as `<h2>` elements. `document.querySelectorAll('h1, h2, h3')` on `/officials/` returned only 3 elements (the page h1 + the voting-record matrix h2 + the ANC footnote h2) for a page that documents 28 officials in 5 groups. Screen readers couldn't jump between groups by heading.
+- **Steps to Reproduce**: Open `/officials/` in dev mode. Run `document.querySelectorAll('h1, h2, h3').length` in the console — returned 3.
+- **Fix**: In `src/app/officials/page.tsx`, changed each group title from `<span className="kicker">` to `<h2 className="kicker">`, preserving the visual treatment. Added `id={group.slug}` on each `<section>` (slugs: `executive`, `council-chair-at-large`, `council-wards`, `federal`, `sboe`) and `id={m.slug}` on each `<li>` for per-member deep-linking. `OfficialGroup` type gained a required `slug` field. Verified: `/officials/` now exposes 8 headings (h1 + 5 group h2 + 2 trailing h2). Paired with BL-UAT-11 (TOC chip strip).
 
 ### [UAT-017] Mayor race `oneLine` says "10 declared Democrats" but data file has 8
 - **Severity**: low
 - **Page/Section**: `/elections/`, `/elections/mayor/` — `src/data/elections.ts` `races2026[]` entry for `mayor`
 - **Discovered**: 2026-05-17 (voter-persona UAT, Persona 2 Q2.1 "Who's running for Mayor?")
-- **Status**: open
-- **Description**: The `mayor` race `oneLine` currently reads `"Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014. 10 declared Democrats; profile page lists the full roster."` But `candidates2026.filter(c => c.raceSlug === "mayor" && c.filingStatus !== "withdrawn").length` returns 8 (Ernest Johnson, Gary Goodweather, Hope Solomon, Janeese Lewis George, Kathy Henderson, Kenyan McDuffie, Rini Sampath, Vincent Orange). The `/elections/mayor/` page renders `8 declared candidates` directly below the stale `oneLine` — visible contradiction.
-- **Steps to Reproduce**: Navigate to `/elections/mayor/`. Note the oneLine sub-headline says "10 declared Democrats" but the h2 immediately below reads "8 declared candidates".
-- **Suspected fix**: Either (a) update the oneLine to match the current count (preferred — single-line edit in `src/data/elections.ts`), or (b) auto-derive the count from `candidatesForRace("mayor").length` rather than hardcoding in the oneLine. Long-term (b) is more resilient to data-refresh drift; short-term (a) unblocks the visible contradiction. Same risk lives in the other 3 races where the oneLine cites a count: `council-chair`, `council-at-large-bonds`, `us-house-delegate`, `council-at-large-special`. Worth auditing all 5.
+- **Closed**: 2026-05-17
+- **Status**: closed
+- **Description**: The `mayor` race `oneLine` read `"... 10 declared Democrats; profile page lists the full roster."` but `candidates2026` had 8 active candidates. `/elections/mayor/` rendered the contradiction inline ("10 declared Democrats" sub-headline followed by "8 declared candidates" h2).
+- **Steps to Reproduce**: Navigate to `/elections/mayor/`. Noted the oneLine sub-headline said "10 declared Democrats" but the h2 immediately below read "8 declared candidates".
+- **Fix**: Updated the oneLine to say "8 declared Democrats". Longer-term resilience fix (auto-derive the count from `candidatesForRace(slug).length`, or add a unit test that asserts every oneLine numeric count matches the live filter) tracked as BL-UAT-15.
 
 ---
 

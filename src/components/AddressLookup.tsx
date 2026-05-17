@@ -21,6 +21,15 @@ const MAR_URL =
   "https://citizenatlas.dc.gov/newwebservices/locationverifier.asmx/findLocation2";
 const CORS_PROXY = "https://corsproxy.io/?url=";
 
+// DCBOE moved /voters/where-to-vote behind a 404 sometime before the 2026 primary
+// (UAT-019, 2026-05-17). Their canonical address-resolving polling-place tool is
+// the ArcGIS Vote Center Locator linked from dcboe.org's homepage. It's a map
+// app, not a form, so we can't pre-fill the user's address as a query param —
+// the user types it again. BL-UAT-13 (full inline polling-place resolution)
+// stays open; this constant unbreaks the 3 dead links in this component.
+const DCBOE_POLLING_PLACE_URL =
+  "https://dcgis.maps.arcgis.com/apps/instant/nearby/index.html?appid=763576faa0b1470ca0559c377cf3b497";
+
 type MarRecord = Record<string, unknown>;
 
 type LookupResult = {
@@ -167,11 +176,11 @@ function NotFoundCard({ onTryAgain }: { onTryAgain: () => void }): JSX.Element {
         lookup at{" "}
         <a
           className="border-b border-primary text-primary hover:opacity-80"
-          href="https://www.dcboe.org/voters/where-to-vote"
+          href={DCBOE_POLLING_PLACE_URL}
           target="_blank"
           rel="noopener noreferrer"
         >
-          dcboe.org/voters/where-to-vote
+          DCBOE&apos;s Vote Center Locator
         </a>
         . This tool only resolves addresses inside the District of Columbia.
       </p>
@@ -195,11 +204,11 @@ function ErrorCard({ onTryAgain }: { onTryAgain: () => void }): JSX.Element {
         DCBOE polling-place lookup at{" "}
         <a
           className="border-b border-primary text-primary hover:opacity-80"
-          href="https://www.dcboe.org/voters/where-to-vote"
+          href={DCBOE_POLLING_PLACE_URL}
           target="_blank"
           rel="noopener noreferrer"
         >
-          dcboe.org/voters/where-to-vote
+          DCBOE&apos;s Vote Center Locator
         </a>
         .
       </p>
@@ -311,13 +320,22 @@ function ResultCard({
       ) : null}
 
       <div className="mt-6 border-t border-rule pt-5">
+        <p className="kicker">Where to vote</p>
+        <h4 className="display mt-1 text-lg text-ink">
+          Your polling place
+        </h4>
+        <p className="mt-2 text-sm text-fg">
+          DCBOE&apos;s Vote Center Locator is a map app — you&apos;ll need to enter your
+          address there too. Copy it from above:{" "}
+          <span className="font-mono text-[13px] text-ink">{result.fullAddress}</span>.
+        </p>
         <a
-          href="https://www.dcboe.org/voters/where-to-vote"
+          href={DCBOE_POLLING_PLACE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="card-hover inline-block rounded-sm border border-rule bg-paper px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-fg hover:text-primary"
+          className="card-hover mt-3 inline-block rounded-sm border border-rule bg-paper px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-fg hover:text-primary"
         >
-          Find your polling place at DCBOE <span aria-hidden>↗</span>
+          Open DCBOE Vote Center Locator <span aria-hidden>↗</span>
         </a>
       </div>
 

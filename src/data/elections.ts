@@ -1115,9 +1115,9 @@ export const COMPARABLE_ISSUES: ComparableIssueSlug[] = [
 export const COMPARISON_RACE_SLUGS = ["mayor", "council-at-large-bonds", "council-ward-1"];
 
 export const registrationLinks = [
-  { label: "DC Board of Elections — Register or update your registration", url: "https://www.dcboe.org/voters/register-to-vote" },
-  { label: "Check your registration status", url: "https://www.dcboe.org/voters/register-to-vote/check-voter-registration-status" },
-  { label: "Find your polling place", url: "https://www.dcboe.org/voters/where-to-vote/voting-locations-on-election-day" },
-  { label: "Request a mail-in ballot", url: "https://www.dcboe.org/voters/in-person-mail-in-voting/by-mail" },
-  { label: "How ranked-choice voting works in DC (Initiative 83)", url: "https://www.dcboe.org/elections/ranked-choice-voting" },
+  { label: "DC Board of Elections — Register or update your registration", url: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
+  { label: "Check your registration status", url: "https://apps.dcboe.org/VRS" },
+  { label: "Find your polling place (DCBOE Vote Center Locator)", url: "https://dcgis.maps.arcgis.com/apps/instant/nearby/index.html?appid=763576faa0b1470ca0559c377cf3b497" },
+  { label: "Request a mail-in ballot", url: "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request" },
+  { label: "How ranked-choice voting works in DC (Initiative 83)", url: "https://www.dcboe.org/rcv" },
 ];

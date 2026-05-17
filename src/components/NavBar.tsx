@@ -135,7 +135,7 @@ export function NavBar(): JSX.Element {
           </div>
 
           <a
-            href="https://www.dcboe.org/voters/register-to-vote"
+            href="https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration"
             target="_blank"
             rel="noopener noreferrer"
             className="ml-auto whitespace-nowrap rounded-sm bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-fg transition-opacity hover:opacity-90 sm:ml-0"

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AddressLookup } from "@/components/AddressLookup";
 import { Countdown } from "@/components/Countdown";
 import { IssueCard } from "@/components/IssueCard";
 import { LatestCard } from "@/components/LatestCard";
@@ -41,12 +42,28 @@ export default function HomePage(): JSX.Element {
 
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
             <a
-              href="https://www.dcboe.org/voters/register-to-vote"
+              href="https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-sm bg-primary px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-primary-fg hover:opacity-90 sm:py-2"
             >
               Are you registered?
+            </a>
+            <a
+              href="https://dcgis.maps.arcgis.com/apps/instant/nearby/index.html?appid=763576faa0b1470ca0559c377cf3b497"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm border border-rule bg-paper px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg sm:py-2"
+            >
+              Where do I vote? ↗
+            </a>
+            <a
+              href="https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm border border-rule bg-paper px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg sm:py-2"
+            >
+              Request a mail ballot ↗
             </a>
             <Link
               href="/officials/"
@@ -75,6 +92,17 @@ export default function HomePage(): JSX.Element {
               </li>
             ))}
           </ul>
+
+          <hr className="mt-12 rule-thick" />
+          <span className="kicker mt-3 inline-block">Lookup</span>
+          <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
+            What&apos;s on your ballot?
+          </h2>
+          <p className="mt-2 max-w-3xl text-[15px] text-fg">
+            Enter your DC address to see your ward, the races on your June 16 primary
+            ballot, and how your current Council member has voted on tracked bills.
+          </p>
+          <AddressLookup />
         </div>
       </section>
 

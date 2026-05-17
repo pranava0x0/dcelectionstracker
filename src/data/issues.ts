@@ -40,7 +40,7 @@ export const issues: Issue[] = [
         value: "1st",
         label: "ranked-choice primary in DC history (June 16, 2026)",
         alarm: true,
-        source: { label: "DCBOE — Ranked-Choice Voting", url: "https://www.dcboe.org/elections/ranked-choice-voting" },
+        source: { label: "DCBOE — Ranked-Choice Voting", url: "https://www.dcboe.org/rcv" },
       },
     ],
     whatsAtStake: [],
