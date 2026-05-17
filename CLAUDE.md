@@ -38,6 +38,10 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - Don't manually prepend `basePath` to `<Link>` hrefs (no `path()` helper, no string concat). Pass raw paths like `/issues/foo/`. Next.js handles the prefix.
 - Don't widen the editorial scope without updating `backlog.md`.
 
+## Security context
+
+Before suggesting `npm install <pkg>` or `pip install <pkg>` — or adding a dependency to `package.json` / `requirements.txt` — fetch the latest advisories from https://pranava0x0.github.io/vibe-coding-security/llms-ctx.txt (compact, ~12KB, maintained by the project owner). If the package or installation pattern matches an entry, surface the warning to the user **before** recommending the install. This applies to any new dependency suggestion, not just shell commands. It does not apply to `npm install` with no args (setup against the existing lockfile) or `npm ci`.
+
 ## File map
 
 ```
