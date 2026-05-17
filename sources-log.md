@@ -4,12 +4,13 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-17 (run 4 — FY27 budget $1.1B deficit, Initiative 88 rent freeze, USAO 30-year-low report, McDuffie/JLG endorsements, Lisa Raymond at-large candidate, Ward 1 GGWash poll)_
+_Last updated: 2026-05-17 (run 5 — Officials refresh: SBOE term-end corrections vs. sboe.dc.gov, Mendelson re-election note, Pinto Delegate-run note, Trayon White Sept 14 trial date)_
 
 ---
 
 ## Government & Official
 
+- [2026-05-17] DC State Board of Education — Board Biographies (authoritative ward-by-ward term-end years; used to correct 6 of 9 SBOE entries in officials.ts) — https://sboe.dc.gov/page/board-biographies
 - [2026-05-10] DC Council Budget Office — FY27 first vote expected June 9, budget hearings through May 12 — https://51st.news/dc-budget-2026-first-vote/
 - [2026-04-10] Mayor's office — FY27 "Grow DC" budget proposal: $1.1B deficit, ~$500M cuts — https://mayor.dc.gov/release/mayor-bowser-presents_fy27_budget-builds-more-decade-growth_and-creates_new-opportunities
 - [2026-04-01] More Affordable DC / DCBOE — Initiative 88 rent freeze approved as proper subject matter — https://moreaffordabledc.org/2026/04/01/press-release-dcboe-makes-proper-subject-matter-determination/
@@ -94,6 +95,16 @@ _Last updated: 2026-05-17 (run 4 — FY27 budget $1.1B deficit, Initiative 88 re
 
 ### Attorney General 2026
 - [2026-ongoing] Wikipedia — 2026 DC Attorney General election (Schwalb vs. Szymkowicz) — https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election
+
+### Council Chair 2026
+- [ongoing] Mendelson for Chairman 2026 — campaign site (backs Mendelson "running for re-election" note in officials.ts) — https://mendelson2026.com
+- [2026-04-20] Georgetowner — Jack Evans withdraws from D.C. Council Chair race after DCBOE rejection — https://georgetowner.com/articles/2026/04/20/evans-withdraws-from-d-c-council-chair-race/
+- [2026-01-28] HillRag — Evans Announces Run for DC Council Chair — https://www.hillrag.com/2026/01/28/evans-announces-run-for-dc-council-chair/
+- [2026-01-27] Washington Post — Jack Evans, who resigned from D.C. Council, to run for chairman — https://www.washingtonpost.com/dc-md-va/2026/01/27/jack-evans-dc-council-chairman/
+
+### Ward 8 (Trayon White)
+- [2026-02-15] Washington Times — Trayon White bribery trial pushed back to Sept 14, 2026 (backs trial-date addition in officials.ts) — https://www.washingtontimes.com/news/2026/feb/15/dc-council-member-trayon-white-bribery-trial-pushed-back-september/
+- [2026-02-ongoing] WUSA9 — Bribery trial pushed back after White hires new legal team — https://www.wusa9.com/article/news/crime/councilmember-trayon-white-federal-bribery-trial-pushed-back-after-he-hires-new-legal-team/65-71db07f6-7214-4203-a7db-4018a28f3e75
 
 ### Council At-Large special (McDuffie seat)
 - [2026-04-30] HillRag — Who is running in the At-Large special election — https://www.hillrag.com/2026/04/30/who-is-running-in-the-at-large-special-election/
