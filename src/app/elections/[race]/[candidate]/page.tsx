@@ -90,7 +90,7 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         <h1 className="display-tight text-3xl text-ink sm:text-4xl lg:text-5xl">
           {candidate.name}
         </h1>
-        <SocialIconRow candidate={candidate} />
+        <SocialIconRow links={candidate} name={candidate.name} />
       </div>
       <div className="mt-3 flex flex-wrap items-baseline gap-3">
         <span
@@ -106,6 +106,72 @@ export default async function CandidateProfilePage({ params }: { params: Promise
           {candidate.filingStatus} candidate for {race.office}
         </span>
       </div>
+      {/* Compact labeled link strip — website and social as explicit text chips */}
+      {(candidate.websiteUrl || candidate.governmentSiteUrl || candidate.twitterUrl || candidate.instagramUrl || candidate.facebookUrl || candidate.linkedinUrl) ? (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {candidate.websiteUrl ? (
+            <a
+              href={candidate.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+            >
+              Website <span aria-hidden>↗</span>
+            </a>
+          ) : null}
+          {candidate.governmentSiteUrl ? (
+            <a
+              href={candidate.governmentSiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+            >
+              Official site <span aria-hidden>↗</span>
+            </a>
+          ) : null}
+          {candidate.twitterUrl ? (
+            <a
+              href={candidate.twitterUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+            >
+              X / Twitter <span aria-hidden>↗</span>
+            </a>
+          ) : null}
+          {candidate.instagramUrl ? (
+            <a
+              href={candidate.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+            >
+              Instagram <span aria-hidden>↗</span>
+            </a>
+          ) : null}
+          {candidate.facebookUrl ? (
+            <a
+              href={candidate.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+            >
+              Facebook <span aria-hidden>↗</span>
+            </a>
+          ) : null}
+          {candidate.linkedinUrl ? (
+            <a
+              href={candidate.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+            >
+              LinkedIn <span aria-hidden>↗</span>
+            </a>
+          ) : null}
+        </div>
+      ) : null}
+
       {candidate.notes ? (
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-fg sm:text-[17px]">{candidate.notes}</p>
       ) : null}

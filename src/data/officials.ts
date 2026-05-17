@@ -10,6 +10,9 @@ export type Official = {
   bio?: string;
   source: { label: string; url: string };
   notes?: string;
+  // FK to candidates2026 in elections.ts — set when this official is also on the 2026 ballot.
+  // Used by /officials/[slug]/ to render a dual-tab view (current role + campaign).
+  candidateSlug?: string;
 };
 
 export type OfficialGroup = {
@@ -40,6 +43,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "Running for re-election in 2026.",
         source: { label: "oag.dc.gov", url: "https://oag.dc.gov/" },
+        candidateSlug: "brian-schwalb",
       },
     ],
   },
@@ -55,6 +59,7 @@ export const officials: OfficialGroup[] = [
         party: "D",
         termEnds: "Jan 2027",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/council/phil-mendelson/" },
+        candidateSlug: "phil-mendelson",
       },
       {
         slug: "bonds",
@@ -73,6 +78,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "Running for U.S. House Delegate in 2026; not seeking re-election.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
+        candidateSlug: "robert-white",
       },
       {
         slug: "christina-henderson",
@@ -90,6 +96,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "Appointed January 2026 after Kenyan McDuffie vacated to run for mayor. Special election June 16, 2026.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
+        candidateSlug: "doni-crawford",
       },
     ],
   },
@@ -115,6 +122,7 @@ export const officials: OfficialGroup[] = [
         party: "D",
         termEnds: "Jan 2029",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
+        candidateSlug: "brooke-pinto",
       },
       {
         slug: "frumin",
@@ -125,6 +133,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "Running for re-election in 2026.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
+        candidateSlug: "matthew-frumin",
       },
       {
         slug: "lewis-george",
@@ -135,6 +144,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2029",
         notes: "Running for Mayor in 2026.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
+        candidateSlug: "janeese-lewis-george",
       },
       {
         slug: "parker",
@@ -145,6 +155,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "Running for re-election in 2026.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
+        candidateSlug: "zachary-parker",
       },
       {
         slug: "allen",
@@ -155,6 +166,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "Running for re-election in 2026.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
+        candidateSlug: "charles-allen",
       },
       {
         slug: "felder",
@@ -200,6 +212,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "In role since 1997; running for re-election in 2026.",
         source: { label: "DC Statehood Commission", url: "https://statehood.dc.gov/page/new-columbia-statehood-commission" },
+        candidateSlug: "paul-strauss",
       },
       {
         slug: "ankit-jain",
@@ -218,6 +231,7 @@ export const officials: OfficialGroup[] = [
         termEnds: "Jan 2027",
         notes: "Not seeking re-election; running for At-Large Council in 2026.",
         source: { label: "DC Statehood Commission", url: "https://statehood.dc.gov/page/new-columbia-statehood-commission" },
+        candidateSlug: "oye-owolewa",
       },
     ],
   },

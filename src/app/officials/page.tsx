@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { MemberVotingMiniRecord, VotingRecordMatrix } from "@/components/VotingRecordMatrix";
 import { officials } from "@/data/officials";
 import { partyTone } from "@/lib/party";
@@ -75,7 +76,12 @@ export default function OfficialsPage(): JSX.Element {
                   <div className={`h-1 ${tone.stripe}`} />
                   <div className="p-4">
                     <div className="flex items-baseline justify-between gap-2">
-                      <span className="display text-lg text-ink">{m.name}</span>
+                      <Link
+                        href={`/officials/${m.slug}/`}
+                        className="display text-lg text-ink hover:text-primary"
+                      >
+                        {m.name}
+                      </Link>
                       <span
                         className={
                           "inline-flex h-5 min-w-[20px] items-center justify-center rounded-sm px-1.5 font-mono text-[10px] font-bold uppercase tracking-wider " +
