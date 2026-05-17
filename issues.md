@@ -5,9 +5,12 @@ Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
 UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-11. UAT-014 fix also covered the same bug in `Footer.tsx`; both consolidated into `src/lib/build-date.ts`.
 `/dc-data-refresh` run 3 + UAT run 4 (2026-05-12, scheduled): no new bugs filed. Site clean on mobile (375), desktop (1280) across home / `/elections/` / `/officials/` / `/issues/ranked-choice/`. One passive accessibility tightening logged as BL-UAT-10 (hamburger 40×40 → 44×44).
 Bug fix bundled with the Next 16 upgrade (2026-05-14): UAT-016 closed — mobile nav drawer auto-closes on link tap, addressing the long-standing BL-UAT-09 backlog item.
+UAT run 5 (2026-05-17) — voter-persona walkthrough across 4 personas × 14 questions. 2 new issues filed (UAT-017, UAT-018). 5 improvement items added to backlog (BL-UAT-11 to BL-UAT-15).
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
+| UAT-018 | open | `/officials/` group sections render kicker spans, not semantic `<h2>` — 3 headings for 28 officials in 5 groups | low |
+| UAT-017 | open | Mayor race `oneLine` says "10 declared Democrats" but data file has 8 candidates | low |
 | UAT-016 | closed | Mobile nav drawer stays open after tapping a link — should collapse on navigation | low |
 | UAT-013 | closed | Candidate profile party badge renders "D · D" for Democrat candidates | high |
 | UAT-014 | closed | Homepage hero and footer date show tomorrow's date in US timezones (UTC vs local) | low |
@@ -29,7 +32,23 @@ Bug fix bundled with the Next 16 upgrade (2026-05-14): UAT-016 closed — mobile
 
 ## Open Issues
 
-_No open issues._
+### [UAT-018] `/officials/` group sections render as kicker spans, not semantic `<h2>`
+- **Severity**: low
+- **Page/Section**: `/officials/` — `src/app/officials/page.tsx`
+- **Discovered**: 2026-05-17 (voter-persona UAT, Persona 3 Q3.1 "Who is my Council member?")
+- **Status**: open
+- **Description**: The five group titles ("Executive", "DC Council — Chair and At-Large", "DC Council — Ward Members", "Federal Representation", "DC State Board of Education") render as styled kicker text, not as `<h2>` elements. `document.querySelectorAll('h1, h2, h3')` on `/officials/` returns only 3 elements (the page h1 + the voting-record matrix h2 + the ANC footnote h2) for a page that documents 28 officials in 5 groups. Screen readers cannot jump between groups by heading; the same is true for any future table-of-contents component. Compounds with UAT-NN (page is 20,218px tall).
+- **Steps to Reproduce**: Open `/officials/` in dev mode. Run `document.querySelectorAll('h1, h2, h3').length` in the console — returns 3. Expected ≥ 8 (h1 + 5 group h2 + 2 footer h2).
+- **Suspected fix**: In `src/app/officials/page.tsx`, change each group blurb header from its current styled `<p>` or `<div>` to an `<h2 id="<group-slug>">`. Add anchor IDs (`executive`, `council-chair-at-large`, `council-wards`, `federal`, `sboe`) so deep-linking from `/elections/` lookup + external sources works. Pairs naturally with BL-UAT-11 (jump nav) and BL-UAT-12 (anchor IDs).
+
+### [UAT-017] Mayor race `oneLine` says "10 declared Democrats" but data file has 8
+- **Severity**: low
+- **Page/Section**: `/elections/`, `/elections/mayor/` — `src/data/elections.ts` `races2026[]` entry for `mayor`
+- **Discovered**: 2026-05-17 (voter-persona UAT, Persona 2 Q2.1 "Who's running for Mayor?")
+- **Status**: open
+- **Description**: The `mayor` race `oneLine` currently reads `"Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014. 10 declared Democrats; profile page lists the full roster."` But `candidates2026.filter(c => c.raceSlug === "mayor" && c.filingStatus !== "withdrawn").length` returns 8 (Ernest Johnson, Gary Goodweather, Hope Solomon, Janeese Lewis George, Kathy Henderson, Kenyan McDuffie, Rini Sampath, Vincent Orange). The `/elections/mayor/` page renders `8 declared candidates` directly below the stale `oneLine` — visible contradiction.
+- **Steps to Reproduce**: Navigate to `/elections/mayor/`. Note the oneLine sub-headline says "10 declared Democrats" but the h2 immediately below reads "8 declared candidates".
+- **Suspected fix**: Either (a) update the oneLine to match the current count (preferred — single-line edit in `src/data/elections.ts`), or (b) auto-derive the count from `candidatesForRace("mayor").length` rather than hardcoding in the oneLine. Long-term (b) is more resilient to data-refresh drift; short-term (a) unblocks the visible contradiction. Same risk lives in the other 3 races where the oneLine cites a count: `council-chair`, `council-at-large-bonds`, `us-house-delegate`, `council-at-large-special`. Worth auditing all 5.
 
 ---
 
