@@ -5,9 +5,13 @@ Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
 UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-11. UAT-014 fix also covered the same bug in `Footer.tsx`; both consolidated into `src/lib/build-date.ts`.
 `/dc-data-refresh` run 3 + UAT run 4 (2026-05-12, scheduled): no new bugs filed. Site clean on mobile (375), desktop (1280) across home / `/elections/` / `/officials/` / `/issues/ranked-choice/`. One passive accessibility tightening logged as BL-UAT-10 (hamburger 40×40 → 44×44).
 Bug fix bundled with the Next 16 upgrade (2026-05-14): UAT-016 closed — mobile nav drawer auto-closes on link tap, addressing the long-standing BL-UAT-09 backlog item.
+UAT run 5 (2026-05-17) — voter-persona walkthrough across 4 personas × 14 questions. 2 new issues filed (UAT-017, UAT-018). 5 improvement items added to backlog (BL-UAT-11 to BL-UAT-15).
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
+| UAT-019 | closed | All three `AddressLookup` references to `dcboe.org/voters/where-to-vote` return 404 — DCBOE retired the URL | high |
+| UAT-018 | closed | `/officials/` group sections render kicker spans, not semantic `<h2>` — 3 headings for 28 officials in 5 groups | low |
+| UAT-017 | closed | Mayor race `oneLine` says "10 declared Democrats" but data file has 8 candidates | low |
 | UAT-016 | closed | Mobile nav drawer stays open after tapping a link — should collapse on navigation | low |
 | UAT-013 | closed | Candidate profile party badge renders "D · D" for Democrat candidates | high |
 | UAT-014 | closed | Homepage hero and footer date show tomorrow's date in US timezones (UTC vs local) | low |
@@ -30,6 +34,40 @@ Bug fix bundled with the Next 16 upgrade (2026-05-14): UAT-016 closed — mobile
 ## Open Issues
 
 _No open issues._
+
+---
+
+## Resolved Issues (UAT run 5 follow-ons, 2026-05-17)
+
+### [UAT-019] `AddressLookup` polling-place URL returns 404
+- **Severity**: high
+- **Page/Section**: `/elections/`, `/` (after BL-UAT-12) — `src/components/AddressLookup.tsx`
+- **Discovered**: 2026-05-17 (while scoping BL-UAT-13)
+- **Closed**: 2026-05-17
+- **Status**: closed
+- **Description**: All three references to `https://www.dcboe.org/voters/where-to-vote` in `AddressLookup.tsx` (one in `ResultCard`'s CTA button, one in `NotFoundCard`'s instructional copy, one in `ErrorCard`'s instructional copy) returned `404 Not Found`. DCBOE retired the URL — their canonical polling-place tool is now the ArcGIS-hosted Vote Center Locator linked from `dcboe.org`. Voters following any of the three flows hit a dead page on the most important external action.
+- **Steps to Reproduce**: Open `/elections/`, submit any address through `AddressLookup`, click `Find your polling place at DCBOE ↗` — DCBOE returns 404.
+- **Fix**: Centralized the URL in a `DCBOE_POLLING_PLACE_URL` const at the top of `AddressLookup.tsx`, pointing to `https://dcgis.maps.arcgis.com/apps/instant/nearby/index.html?appid=763576faa0b1470ca0559c377cf3b497` (the live ArcGIS Vote Center Locator). All three CTAs now reference the const. Updated visible CTA text to "DCBOE's Vote Center Locator" in the instructional copy, "Open DCBOE Vote Center Locator ↗" on the button, with an explanatory line acknowledging the tool will ask for the address again (the ArcGIS app is a map widget, not a query-parameter-driven form — BL-UAT-13 inline resolution stays open).
+
+### [UAT-018] `/officials/` group sections render as kicker spans, not semantic `<h2>`
+- **Severity**: low
+- **Page/Section**: `/officials/` — `src/app/officials/page.tsx`
+- **Discovered**: 2026-05-17 (voter-persona UAT, Persona 3 Q3.1 "Who is my Council member?")
+- **Closed**: 2026-05-17
+- **Status**: closed
+- **Description**: The five group titles ("Executive", "DC Council — Chair and At-Large", "DC Council — Ward Members", "Federal Representation", "DC State Board of Education") rendered as styled kicker text, not as `<h2>` elements. `document.querySelectorAll('h1, h2, h3')` on `/officials/` returned only 3 elements (the page h1 + the voting-record matrix h2 + the ANC footnote h2) for a page that documents 28 officials in 5 groups. Screen readers couldn't jump between groups by heading.
+- **Steps to Reproduce**: Open `/officials/` in dev mode. Run `document.querySelectorAll('h1, h2, h3').length` in the console — returned 3.
+- **Fix**: In `src/app/officials/page.tsx`, changed each group title from `<span className="kicker">` to `<h2 className="kicker">`, preserving the visual treatment. Added `id={group.slug}` on each `<section>` (slugs: `executive`, `council-chair-at-large`, `council-wards`, `federal`, `sboe`) and `id={m.slug}` on each `<li>` for per-member deep-linking. `OfficialGroup` type gained a required `slug` field. Verified: `/officials/` now exposes 8 headings (h1 + 5 group h2 + 2 trailing h2). Paired with BL-UAT-11 (TOC chip strip).
+
+### [UAT-017] Mayor race `oneLine` says "10 declared Democrats" but data file has 8
+- **Severity**: low
+- **Page/Section**: `/elections/`, `/elections/mayor/` — `src/data/elections.ts` `races2026[]` entry for `mayor`
+- **Discovered**: 2026-05-17 (voter-persona UAT, Persona 2 Q2.1 "Who's running for Mayor?")
+- **Closed**: 2026-05-17
+- **Status**: closed
+- **Description**: The `mayor` race `oneLine` read `"... 10 declared Democrats; profile page lists the full roster."` but `candidates2026` had 8 active candidates. `/elections/mayor/` rendered the contradiction inline ("10 declared Democrats" sub-headline followed by "8 declared candidates" h2).
+- **Steps to Reproduce**: Navigate to `/elections/mayor/`. Noted the oneLine sub-headline said "10 declared Democrats" but the h2 immediately below read "8 declared candidates".
+- **Fix**: Updated the oneLine to say "8 declared Democrats". Longer-term resilience fix (auto-derive the count from `candidatesForRace(slug).length`, or add a unit test that asserts every oneLine numeric count matches the live filter) tracked as BL-UAT-15.
 
 ---
 

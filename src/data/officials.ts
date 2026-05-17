@@ -17,6 +17,7 @@ export type Official = {
 
 export type OfficialGroup = {
   group: string;
+  slug: string; // stable anchor ID for /officials/ TOC + per-group deep-links
   blurb: string;
   members: Official[];
 };
@@ -24,6 +25,7 @@ export type OfficialGroup = {
 export const officials: OfficialGroup[] = [
   {
     group: "Executive",
+    slug: "executive",
     blurb: "Mayor and Attorney General are elected citywide. Both terms end Jan 2, 2027.",
     members: [
       {
@@ -49,6 +51,7 @@ export const officials: OfficialGroup[] = [
   },
   {
     group: "DC Council — Chair and At-Large",
+    slug: "council-chair-at-large",
     blurb:
       "Chair plus four at-large seats. Per the DC Charter, no more than two at-large members may be from the majority party (typically Democrats), so two seats are usually held by Independents.",
     members: [
@@ -58,6 +61,7 @@ export const officials: OfficialGroup[] = [
         role: "Council Chair",
         party: "D",
         termEnds: "Jan 2027",
+        notes: "Running for re-election in 2026.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/council/phil-mendelson/" },
         candidateSlug: "phil-mendelson",
       },
@@ -102,6 +106,7 @@ export const officials: OfficialGroup[] = [
   },
   {
     group: "DC Council — Ward Members",
+    slug: "council-wards",
     blurb: "Eight ward members, one per ward. In 2026, Wards 1, 3, 5, and 6 are on the ballot.",
     members: [
       {
@@ -121,6 +126,7 @@ export const officials: OfficialGroup[] = [
         ward: "2",
         party: "D",
         termEnds: "Jan 2029",
+        notes: "Running for U.S. House Delegate in 2026; Ward 2 seat not on the ballot until 2028.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
         candidateSlug: "brooke-pinto",
       },
@@ -185,13 +191,14 @@ export const officials: OfficialGroup[] = [
         ward: "8",
         party: "D",
         termEnds: "Jan 2029",
-        notes: "Expelled February 2025 over federal bribery charges; won back the seat in the July 15, 2025 special election; sworn in August 8, 2025.",
+        notes: "Expelled February 2025 over federal bribery charges; won back the seat in the July 15, 2025 special election; sworn in August 8, 2025. Federal trial set for September 14, 2026.",
         source: { label: "dccouncil.gov", url: "https://dccouncil.gov/councilmembers/" },
       },
     ],
   },
   {
     group: "Federal Representation",
+    slug: "federal",
     blurb:
       'DC has one non-voting Delegate in the U.S. House and three "shadow" representatives — two shadow Senators and one shadow Representative — created by 1990 ballot initiative to lobby for statehood. Shadow officials have no seat, vote, office, or salary in Congress.',
     members: [
@@ -237,17 +244,18 @@ export const officials: OfficialGroup[] = [
   },
   {
     group: "DC State Board of Education",
+    slug: "sboe",
     blurb:
       "Nine members elected nonpartisan to four-year staggered terms. The Board sets state-level academic standards. It does not run schools — that is OSSE (state agency) and DCPS / charter authorizers (operators).",
     members: [
-      { slug: "ben-williams", name: "Ben Williams", role: "Ward 1", ward: "1", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { slug: "allister-chang", name: "Allister Chang", role: "Ward 2", ward: "2", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { slug: "eric-goulet", name: "Eric Goulet", role: "Ward 3", ward: "3", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { slug: "michelle-colson", name: "T. Michelle Colson", role: "Ward 4", ward: "4", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { slug: "robert-henderson", name: "Robert Henderson", role: "Ward 5", ward: "5", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "ben-williams", name: "Ben Williams", role: "Ward 1", ward: "1", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "allister-chang", name: "Allister Chang", role: "Ward 2", ward: "2", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "eric-goulet", name: "Eric Goulet", role: "Ward 3", ward: "3", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "michelle-colson", name: "T. Michelle Colson", role: "Ward 4", ward: "4", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "robert-henderson", name: "Robert Henderson", role: "Ward 5", ward: "5", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
       { slug: "brandon-best", name: "Brandon Best", role: "Ward 6", ward: "6", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
       { slug: "eboni-rose-thompson", name: "Eboni-Rose Thompson", role: "Ward 7", ward: "7", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
-      { slug: "lajoy-johnson-law", name: "LaJoy Johnson-Law", role: "Ward 8", ward: "8", party: "Nonpartisan", termEnds: "Jan 2027", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
+      { slug: "lajoy-johnson-law", name: "LaJoy Johnson-Law", role: "Ward 8", ward: "8", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
       { slug: "jacque-patterson", name: "Jacque Patterson", role: "At-Large (President)", party: "Nonpartisan", termEnds: "Jan 2029", source: { label: "sboe.dc.gov", url: "https://sboe.dc.gov/page/board-biographies" } },
     ],
   },

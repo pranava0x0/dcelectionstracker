@@ -172,11 +172,11 @@ export default function ElectionsPage(): JSX.Element {
           primary filing list and verified secondary coverage. Full official list:{" "}
           <a
             className="border-b border-primary text-primary hover:opacity-80"
-            href="https://www.dcboe.org/candidates"
+            href="https://www.dcboe.org/getmedia/7f585e7c-887c-42c5-988f-9a9c59ba9020/2026-PRIMARY-CANDIDATES-02022026.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >
-            dcboe.org/candidates
+            DCBOE 2026 Primary Candidates (PDF)
           </a>
           .
         </p>
@@ -282,8 +282,8 @@ export default function ElectionsPage(): JSX.Element {
                     </ul>
                     {!isProfiled ? (
                       <p className="px-4 pb-4 font-mono text-[10px] uppercase tracking-wider text-subtle">
-                        Source: declared per linked outlets. Confirm filing status at
-                        dcboe.org/candidates.
+                        Source: declared per linked outlets. Confirm filing status on the
+                        DCBOE 2026 Primary Candidates PDF.
                       </p>
                     ) : null}
                   </details>

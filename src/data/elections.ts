@@ -179,11 +179,11 @@ export const importantDates: ImportantDate[] = [
 ];
 
 export const races2026: Race[] = [
-  { slug: "mayor", office: "Mayor", status: "open", oneLine: "Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014. 10 declared Democrats; profile page lists the full roster." },
+  { slug: "mayor", office: "Mayor", status: "open", oneLine: "Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014. 8 declared Democrats; profile page lists the full roster." },
   { slug: "council-chair", office: "Council Chair", status: "includes-incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
   { slug: "attorney-general", office: "Attorney General", status: "includes-incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
   { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years. 5 declared Democrats." },
-  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 7 declared Democrats tracked here including Owolewa, Chavous, Raymond (GGWash pick), and Fleming." },
+  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 6 declared Democrats tracked here including Owolewa, Chavous, Raymond (GGWash pick), and Fleming." },
   { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Nonpartisan special election to fill the Independent seat vacated by Kenyan McDuffie. Filed: Crawford, Silverman, Patterson, Lee, Sloan." },
   { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Nadeau not seeking re-election. 5 active Democrats after Brian Footer suspended Dec 17, 2025." },
   { slug: "council-ward-3", office: "Council Ward 3", status: "includes-incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
@@ -1012,9 +1012,9 @@ export type ExternalTool = { label: string; url: string; blurb: string };
 
 const COMMON_EXTERNAL_TOOLS: ExternalTool[] = [
   {
-    label: "DCBOE — Official primary candidate list",
-    url: "https://www.dcboe.org/candidates",
-    blurb: "Authoritative filing roster from the DC Board of Elections.",
+    label: "DCBOE — 2026 Primary Candidates list (PDF, Feb 2 filing)",
+    url: "https://www.dcboe.org/getmedia/7f585e7c-887c-42c5-988f-9a9c59ba9020/2026-PRIMARY-CANDIDATES-02022026.pdf",
+    blurb: "Authoritative filing roster from the DC Board of Elections — refreshed when DCBOE issues a new PDF version.",
   },
   {
     label: "DC OCF — Campaign finance filings",
@@ -1115,9 +1115,9 @@ export const COMPARABLE_ISSUES: ComparableIssueSlug[] = [
 export const COMPARISON_RACE_SLUGS = ["mayor", "council-at-large-bonds", "council-ward-1"];
 
 export const registrationLinks = [
-  { label: "DC Board of Elections — Register or update your registration", url: "https://www.dcboe.org/voters/register-to-vote" },
-  { label: "Check your registration status", url: "https://www.dcboe.org/voters/register-to-vote/check-voter-registration-status" },
-  { label: "Find your polling place", url: "https://www.dcboe.org/voters/where-to-vote/voting-locations-on-election-day" },
-  { label: "Request a mail-in ballot", url: "https://www.dcboe.org/voters/in-person-mail-in-voting/by-mail" },
-  { label: "How ranked-choice voting works in DC (Initiative 83)", url: "https://www.dcboe.org/elections/ranked-choice-voting" },
+  { label: "DC Board of Elections — Register or update your registration", url: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
+  { label: "Check your registration status", url: "https://apps.dcboe.org/VRS" },
+  { label: "Find your polling place (DCBOE Vote Center Locator)", url: "https://dcgis.maps.arcgis.com/apps/instant/nearby/index.html?appid=763576faa0b1470ca0559c377cf3b497" },
+  { label: "Request a mail-in ballot", url: "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request" },
+  { label: "How ranked-choice voting works in DC (Initiative 83)", url: "https://www.dcboe.org/rcv" },
 ];

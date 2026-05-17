@@ -14,7 +14,7 @@ const stats: Stat[] = [
     value: "1st",
     label: "ranked-choice primary in DC history (June 16, 2026)",
     alarm: true,
-    source: { label: "DCBOE — Ranked-Choice Voting", url: "https://www.dcboe.org/elections/ranked-choice-voting" },
+    source: { label: "DCBOE — Ranked-Choice Voting", url: "https://www.dcboe.org/rcv" },
   },
   {
     value: "74%",
@@ -130,7 +130,7 @@ const faqs: FAQ[] = [
 type Source = { label: string; url: string };
 
 const liveSources: Source[] = [
-  { label: "DCBOE — Ranked-Choice Voting overview", url: "https://www.dcboe.org/elections/ranked-choice-voting" },
+  { label: "DCBOE — Ranked-Choice Voting overview", url: "https://www.dcboe.org/rcv" },
   { label: "DCBOE — RCV sample-ballot training (PDF)", url: "https://www.dcboe.org/getmedia/83194dbd-8b45-423c-b342-dd76609f67c1/2026-Primary-RCV-Training-26-1-9-14-5-30.pdf" },
   { label: "DC Law 25-295 — Initiative 83 codified", url: "https://code.dccouncil.gov/us/dc/council/laws/25-295" },
   { label: "Make All Votes Count DC — campaign site & full Initiative 83 text", url: "https://makeallvotescountdc.org/" },

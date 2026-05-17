@@ -941,6 +941,24 @@ Found during first UAT session. Cross-referenced with existing backlog to avoid 
 | ~~BL-UAT-08~~ | ~~Document dev-mode workaround in CLAUDE.md~~ | — | — | **Closed** — workaround no longer needed; Next 16 dev server serves dynamic routes correctly under `output: "export"`. Note in CLAUDE.md / NOTES.md updated accordingly. |
 | BL-UAT-10 | Hamburger toggle is 40×40 (`h-10 w-10`); universal CLAUDE.md requires 44×44 minimum touch target | P3 | S | `src/components/NavBar.tsx:59` — `<summary>` for the mobile nav disclosure renders at 40×40 on iOS Safari. Bump to `h-11 w-11` (44px) to match Apple HIG / Android Material minimum. No functional bug; passive accessibility tightening. Found UAT run 4 (2026-05-12). |
 
+## UAT-sourced improvements (added 2026-05-17, run 5 — voter-persona walkthrough)
+
+Found during a 4-persona × 14-question walkthrough. Each row maps a concrete voter question to the friction blocking the answer. **Theme**: when the address lookup answers a question well, the rest of the site barely matters; when it doesn't (polling place) or isn't surfaced (homepage), the friction compounds.
+
+| ID | Item | Priority | Complexity | Persona / question | Notes |
+|---|---|---|---|---|---|
+| BL-UAT-11 | `/officials/` ward-jump nav + per-card anchors | P1 | M | P3 Q3.1 "Who is my Council member?" | Page is **20,218px tall** with no shortcut to a ward. Add a small TOC bar near the h1 (chips: Executive · Council · Wards · Federal · SBOE) and per-card `id="<slug>"` anchors. Pairs with UAT-018 fix (promote group titles to `<h2>`). Once anchors exist, deep-links from `/elections/` lookup result (`YOUR COUNCIL MEMBER`) can target the exact card. |
+| BL-UAT-12 | Surface address-lookup card on homepage hero | P1 | M | P1 Q1.4 / P2 Q2.4 "What's on my ballot?" | The lookup is currently **2 clicks away from home** (`Elections` → `What's on your ballot →`) and is the keystone "what's on my ballot" flow. Inline the same `AddressLookup` component below the countdowns on `/` (or open a `<details>` summary that expands to the form). The component is already a client component and self-contained — no new dependencies. Risk: pushes 6 issue cards further down. Mitigate with a chip strip jump-row or compact layout. |
+| ~~BL-UAT-13~~ | ~~Resolve polling place inside the lookup result~~ | — | — | — | **Closed** (2026-05-17, commit b71bfb0). Shipped via the simpler-than-expected vote-anywhere model: DCBOE's 2026 primary lets any voter cast a ballot at any of ~75 citywide centers. So instead of resolving one polling place per address, the lookup result now renders all centers in the voter's ward inline (`Vote centers in Ward N`, with name + address + accessibility caption per center), plus a small "Map view ↗" link to DCBOE's ArcGIS locator for users who want the map UI. New `src/data/vote-centers.ts` + colocated integrity test. |
+| BL-UAT-14 | "Where do I vote?" / "Request a mail ballot" CTA pair on homepage | P2 | S | P1 Q1.3 | Today the homepage has one external action CTA: `ARE YOU REGISTERED?`. The two next-most-common P1 questions (`Where do I vote?` and `Request a mail ballot`) require a click into `/elections/` plus a scroll to the bottom "Register · check · request · find" section. Promote both DCBOE links into the homepage hero — a secondary CTA row under the primary one. Each is a single `<a target="_blank">`; minimum new code. |
+| ~~BL-UAT-15~~ | ~~Auto-derive candidate counts in race `oneLine` (resilience fix)~~ | — | — | — | **Closed** (2026-05-17, commit fa2f999). Shipped path (b): new `it.each(races2026)` test in `src/data/elections.test.ts` parses any `(\d+) (declared\|active\|filed) (Democrats\|candidates\|...)` claim in each race's `oneLine` and asserts the captured count equals `candidatesForRace(slug).length`. Running the test caught a second drift instance immediately — `council-at-large-bonds` claimed 7 but had 6; fixed in the same commit. Path (a) (split `oneLine` into authored copy + derived count) deferred — the test now prevents drift cheaply. |
+
+**Rollup of "What works well — preserve" (don't regress these in any future change):**
+- Above-the-fold countdown + `ARE YOU REGISTERED?` CTA are clear (P1 Q1.1 / Q1.2 — 1 click or 0).
+- Address-lookup result is the single best flow on the site: ward → races → council member + voting record in one block (P2 Q2.4 / P3 Q3.1 + Q3.3).
+- Issue pages have strong semantic structure (h1 + h2 + JumpStrip + quick-take) (P4 all questions).
+- Source-link discipline is uniformly strong — every numeric claim cites a primary source (editorial promise).
+
 ---
 
 

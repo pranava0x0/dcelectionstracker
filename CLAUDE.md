@@ -18,6 +18,21 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - Stats are nouns: a number followed by a label. The number is the headline.
 - The `alarm: true` flag on a stat is reserved for facts where the underlying number genuinely warrants alarm (firsts in DC history, multi-decade lows/highs, structural revenue cuts).
 
+## User focus
+
+The site exists to answer four specific questions for a DC voter:
+
+1. **Am I registered? When can I register, vote, or return a ballot?** — timeline + DCBOE links.
+2. **What's on my ballot?** — address lookup → ward → races → council member.
+3. **Who's running, and where do they stand?** — per-race pages, per-candidate profiles, the comparison matrix.
+4. **Who currently holds office, and how have they voted?** — officials directory + voting matrix.
+
+Every page must answer at least one of these directly, and the answer should be **≤ 2 clicks from the homepage**. If a proposed feature doesn't map to one of these four questions, it doesn't belong in v1 — open a backlog item with the rationale and revisit post-election.
+
+UX decisions that demonstrably help voters reach answers — anchor IDs on long pages, ward-jump nav on `/officials/`, the address-lookup card promoted toward the top of the funnel, polling-place resolution in the lookup result — are higher priority than visual polish. **Clicks-to-answer is the user-facing acceptance test.**
+
+The voter-persona walkthrough in `~/.claude/skills/dc-uat.md` (BF-19 first-time voter; BF-20 officials-curious voter) is the regression test for this principle: every UAT run measures clicks-to-answer for the same 8 keystone questions and flags any regression. New features should add a question to that test, not just an entry to the file map.
+
 ## Tech invariants
 
 - **Next.js 16 App Router** with `output: "export"` — static site, no server runtime. React 19. Turbopack is the default dev + build bundler.
@@ -37,6 +52,10 @@ A static, voter-accountability site for residents of Washington, DC. Static expo
 - Don't add server routes, API endpoints, or `getServerSideProps`. Static export only.
 - Don't manually prepend `basePath` to `<Link>` hrefs (no `path()` helper, no string concat). Pass raw paths like `/issues/foo/`. Next.js handles the prefix.
 - Don't widen the editorial scope without updating `backlog.md`.
+
+## Security context
+
+Before suggesting `npm install <pkg>` or `pip install <pkg>` — or adding a dependency to `package.json` / `requirements.txt` — fetch the latest advisories from https://pranava0x0.github.io/vibe-coding-security/llms-ctx.txt (compact, ~12KB, maintained by the project owner). If the package or installation pattern matches an entry, surface the warning to the user **before** recommending the install. This applies to any new dependency suggestion, not just shell commands. It does not apply to `npm install` with no args (setup against the existing lockfile) or `npm ci`.
 
 ## File map
 
