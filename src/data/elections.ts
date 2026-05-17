@@ -183,7 +183,7 @@ export const races2026: Race[] = [
   { slug: "council-chair", office: "Council Chair", status: "includes-incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
   { slug: "attorney-general", office: "Attorney General", status: "includes-incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
   { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years. 5 declared Democrats." },
-  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. Local press reports up to 9 declared Democrats (Fox 5, May 2026); 5 verified here including Owolewa and Chavous." },
+  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 7 declared Democrats tracked here including Owolewa, Chavous, Raymond (GGWash pick), and Fleming." },
   { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Nonpartisan special election to fill the Independent seat vacated by Kenyan McDuffie. Filed: Crawford, Silverman, Patterson, Lee, Sloan." },
   { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Nadeau not seeking re-election. 5 active Democrats after Brian Footer suspended Dec 17, 2025." },
   { slug: "council-ward-3", office: "Council Ward 3", status: "includes-incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
@@ -256,23 +256,25 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-14", outlet: "Washington Blade (Opinion)", headline: "LGBTQ community must say NO to Janeese Lewis George", url: "https://www.washingtonblade.com/2026/05/14/opinion-no-to-janeese-lewis-george-dc-mayor/" },
       { date: "2026-05-14", outlet: "Washington Post (Opinion)", headline: "Opinion | Janeese Lewis George plan would weaken mayoral control of D.C. schools", url: "https://www.washingtonpost.com/opinions/2026/05/14/janeese-lewis-george-plan-would-weaken-mayoral-control-dc-schools/" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
+      { date: "2026-05-14", outlet: "51st", headline: "We fact checked the attacks in the DC mayoral race", url: "https://51st.news/dc-mayoral-race-fact-check/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-12", outlet: "The Georgetowner", headline: "Mayoral Candidate Janeese Lewis George", url: "https://georgetowner.com/articles/2026/05/12/mayoral-candidate-janeese-lewis-george/" },
       { date: "2026-05-08", outlet: "Greater Greater Washington", headline: "GGWash endorses Janeese Lewis George for mayor of the District of Columbia", url: "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
       { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
+      { date: "2026-04-27", outlet: "City Cast DC", headline: "Charles Allen endorses Janeese Lewis George in D.C. mayoral race", url: "https://dc.citycast.fm/dc-politics/charles-allen-endorses-janeese-lewis-george" },
       { date: "2026-03-01", outlet: "Campaign site", headline: "Our movement is broad and inclusive, and that is how I will govern as mayor", url: "https://janeesefordc.com/2026/03/our-movement-is-broad/", kind: "social" },
       { date: "2026-02-01", outlet: "Campaign site", headline: "Janeese Lewis George starts 2026 with thousands of DC donors and petition signatures", url: "https://janeesefordc.com/2026/02/janeese-lewis-george-starts-2026/", kind: "social" },
     ],
     newsThemes: [
       {
-        headline: "Leading the progressive lane with labor, LGBTQ, and urbanist endorsements",
-        detail: "Greater Greater Washington, Capital Stonewall Democrats, and labor groups have endorsed Lewis George for the June 16 Democratic primary. Axios reports she has also led the field in DC-resident donors this period.",
+        headline: "Leading the progressive lane with labor, LGBTQ, council-colleague, and urbanist endorsements",
+        detail: "Greater Greater Washington, Capital Stonewall Democrats, Ward 6 CM Charles Allen, and labor groups have endorsed Lewis George. Axios reports she also led the field in DC-resident donors.",
         supportingUrls: [
           "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor",
           "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
+          "https://dc.citycast.fm/dc-politics/charles-allen-endorses-janeese-lewis-george",
           "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
-          "https://janeesefordc.com/2026/02/janeese-lewis-george-starts-2026/",
         ],
       },
     ],
@@ -299,12 +301,14 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-05-14", outlet: "51st", headline: "We fact checked the attacks in the DC mayoral race", url: "https://51st.news/dc-mayoral-race-fact-check/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-12", outlet: "The Georgetowner", headline: "Mayoral Candidate Kenyan McDuffie", url: "https://georgetowner.com/articles/2026/05/12/mayoral-candidate-kenyan-mcduffie/" },
       { date: "2026-05-07", outlet: "Washington Post", headline: "Former D.C. mayor Anthony Williams endorses Kenyan McDuffie for mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/05/07/anthony-williams-endorses-kenyan-mcduffie-dc-mayor/" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
       { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
       { date: "2026-04-15", outlet: "WTOP", headline: "Kenyan McDuffie and Janeese Lewis George go toe to toe in DC mayoral debate", url: "https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/" },
+      { date: "2026-03-24", outlet: "WJLA", headline: "Md. Senator Angela Alsobrooks endorses Kenyan McDuffie for DC Mayor", url: "https://wjla.com/news/local/kenyan-mcduffie-angela-alsobrooks-endorsement-mayor-senator-maryland-prince-georges-washingtonian-election-campaign-race-home-rule-politics" },
       { date: "2026-03-12", outlet: "Axios DC", headline: "McDuffie targets housing, speed cameras and Trump in mayoral bid", url: "https://www.axios.com/local/washington-dc/2026/03/12/kenyan-mcduffie-dc-mayor-election-janeese-lewis-george" },
       { date: "2026-03-08", outlet: "Washington Post", headline: "McDuffie, Lewis George reveal distinct styles in D.C. mayoral race", url: "https://www.washingtonpost.com/dc-md-va/2026/03/08/dc-mayors-race-mcduffie-lewis-george-styles/" },
       { date: "2026-03-03", outlet: "Washington Post", headline: "In D.C. mayoral race, McDuffie aims to make city 'most affordable' in U.S.", url: "https://www.washingtonpost.com/dc-md-va/2026/03/03/dc-mayoral-election-mcduffie/" },
@@ -312,13 +316,13 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Picking up establishment muscle — Anthony Williams endorsement, business/real-estate coalition, head-to-head with Lewis George",
-        detail: "Former Mayor Anthony Williams endorsed McDuffie on May 7. Axios reports he has consolidated real-estate and business endorsements; WTOP and WaPo debate coverage frames the race as McDuffie vs. Lewis George.",
+        headline: "Picking up establishment muscle — Anthony Williams, Maryland Sen. Alsobrooks, business/real-estate coalition",
+        detail: "Former Mayor Anthony Williams endorsed McDuffie on May 7; Maryland Senator Angela Alsobrooks endorsed him on March 24. Axios reports consolidation of real-estate and business endorsements; WTOP and WaPo debate coverage frames the race as McDuffie vs. Lewis George.",
         supportingUrls: [
           "https://www.washingtonpost.com/dc-md-va/2026/05/07/anthony-williams-endorses-kenyan-mcduffie-dc-mayor/",
+          "https://wjla.com/news/local/kenyan-mcduffie-angela-alsobrooks-endorsement-mayor-senator-maryland-prince-georges-washingtonian-election-campaign-race-home-rule-politics",
           "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
           "https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/",
-          "https://www.washingtonpost.com/dc-md-va/2026/03/08/dc-mayors-race-mcduffie-lewis-george-styles/",
         ],
       },
       {
@@ -696,6 +700,31 @@ export const candidates2026: Candidate[] = [
     ],
   },
   { slug: "nate-fleming", name: "Nate Fleming", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former shadow representative." },
+  {
+    slug: "lisa-raymond",
+    name: "Lisa Raymond",
+    raceSlug: "council-at-large-bonds",
+    party: "D",
+    filingStatus: "declared",
+    source: { label: "51st", url: "https://51st.news/at-large-candidates-dc-council-anita-bonds/" },
+    websiteUrl: "https://lisaraymondfordc.com/",
+    notes: "Former president of the DC State Board of Education.",
+    news: [
+      { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
+      { date: "2026-05-08", outlet: "HillRag", headline: "At-Large Race Candidates Split on Safety, Housing and DC's Future", url: "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/" },
+      { date: "2026-05-01", outlet: "East of the River", headline: "Who is Running for the Democratic Nomination for At-Large Councilmember?", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" },
+    ],
+    newsThemes: [
+      {
+        headline: "Greater Greater Washington endorses Raymond as most reliable on housing and transit; GLAA rates her +7.5",
+        detail: "GGWash named Raymond their at-large pick for her transit-oriented development focus and DC government experience. GLAA gave her a +7.5 rating on May 12, the highest in the at-large field.",
+        supportingUrls: [
+          "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/",
+          "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/",
+        ],
+      },
+    ],
+  },
 
   // Council At-Large (special — Independent seat vacated by McDuffie running for mayor)
   {
@@ -770,10 +799,12 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
-    notes: "Advisory Neighborhood Commissioner.",
+    notes: "Advisory Neighborhood Commissioner; endorsed by outgoing CM Brianne Nadeau.",
     news: [
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
+      { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
+      { date: "2026-03-29", outlet: "Greater Greater Washington", headline: "We polled Ward 1 on the DC Council primary race", url: "https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race" },
     ],
   },
   {
@@ -810,16 +841,20 @@ export const candidates2026: Candidate[] = [
     news: [
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
+      { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
       { date: "2026-04-15", outlet: "The Wash", headline: "Nearly a Dozen Labor Unions In DC Endorse Aparna Raj for Council", url: "https://thewash.org/2026/04/15/nearly-a-dozen-labor-unions-in-dc-endorse-aparna-raj-for-council/" },
+      { date: "2026-04-01", outlet: "Greater Greater Washington", headline: "Our 2026 DC Council Democratic primary endorsements", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" },
+      { date: "2026-03-29", outlet: "Greater Greater Washington", headline: "We polled Ward 1 on the DC Council primary race", url: "https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race" },
       { date: "2026-02-15", outlet: "Working Families Party", headline: "WFP Endorses Oye Owolewa; Aparna Raj for DC Council", url: "https://workingfamilies.org/2026/02/wfp-endorses-oye-owolewa-aparna-raj-for-dc-council/" },
     ],
     newsThemes: [
       {
-        headline: "Consolidating progressive endorsements in the final weeks — WFP, ~11 labor unions, GLAA +10",
-        detail: "The Wash reports nearly a dozen labor unions endorsed Raj in mid-April. WFP backed her in February. GLAA gave her +10 on May 12.",
+        headline: "Leads March GGWash poll 42%–25%, and consolidating progressive endorsements — WFP, ~11 labor unions, GGWash, GLAA +10",
+        detail: "A March 27–29 GGWash poll of 232 likely Ward 1 Democratic primary voters put Raj at 42% among decided voters. GGWash, WFP, and nearly a dozen labor unions have endorsed her; GLAA gave her +10 on May 12.",
         supportingUrls: [
+          "https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race",
+          "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements",
           "https://thewash.org/2026/04/15/nearly-a-dozen-labor-unions-in-dc-endorse-aparna-raj-for-council/",
-          "https://workingfamilies.org/2026/02/wfp-endorses-oye-owolewa-aparna-raj-for-dc-council/",
           "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/",
         ],
       },
@@ -834,9 +869,22 @@ export const candidates2026: Candidate[] = [
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     news: [
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
+      { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
     ],
   },
-  { slug: "jackie-reyes-yanes", name: "Jackie Reyes Yanes", raceSlug: "council-ward-1", party: "D", filingStatus: "declared", source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" }, notes: "Former Bowser administration official." },
+  {
+    slug: "jackie-reyes-yanes",
+    name: "Jackie Reyes Yanes",
+    raceSlug: "council-ward-1",
+    party: "D",
+    filingStatus: "declared",
+    source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
+    notes: "Former Bowser administration official.",
+    news: [
+      { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
+      { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
+    ],
+  },
   { slug: "brian-footer", name: "Brian Footer", raceSlug: "council-ward-1", party: "D", filingStatus: "withdrawn", source: { label: "Washington Blade", url: "https://www.washingtonblade.com/2025/12/17/brian-footer-suspends-campaign-for-ward-1-d-c-council-seat/" }, notes: "Advisory Neighborhood Commissioner. Suspended campaign Dec 17, 2025." },
 
   // Council Ward 3 (Democratic primary)
@@ -851,6 +899,8 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://frumin2026.com/",
     news: [
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
+      { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
+      { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
     ],
   },
 

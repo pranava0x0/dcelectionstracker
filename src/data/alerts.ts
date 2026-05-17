@@ -2,7 +2,10 @@ export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
   { date: "2026-05-11", headline: "Mail ballots begin going out today for the June 16 primary", href: "https://www.dcboe.org/" },
+  { date: "2026-05-10", headline: "DC Council FY27 budget hearings wrap May 12; first vote expected June 9 on a $1.1B deficit", href: "https://51st.news/dc-budget-2026-first-vote/" },
   { date: "2026-05-06", headline: "DC Council gives final 8–5 approval to permanent youth curfew + extended curfew zones", href: "https://dccouncil.gov/council-provides-final-approval-to-modified-curfew-including-permanent-option-of-temporary-expanded-curfew-zones/" },
+  { date: "2026-04-10", headline: "Bowser proposes FY27 budget with $1.1B deficit — no major tax hikes, ~$500M in program cuts", href: "https://mayor.dc.gov/release/mayor-bowser-presents_fy27_budget-builds-more-decade-growth_and-creates_new-opportunities" },
+  { date: "2026-04-01", headline: "DCBOE confirms rent-freeze Initiative 88 as proper subject matter; petition drive starts June 3", href: "https://moreaffordabledc.org/2026/04/01/press-release-dcboe-makes-proper-subject-matter-determination/" },
   { date: "2026-03-19", headline: "House committee advances Stop DC CAMERA Act 21–19 to ban DC traffic cameras", href: "https://www.congress.gov/bill/119th-congress/house-bill/5525/text" },
   { date: "2026-02-18", headline: "Trump signs PL 119-78 — first DC tax law overridden by Congress", href: "https://www.congress.gov/bill/119th-congress/house-joint-resolution/142/text" },
   { date: "2026-02-12", headline: "Senate votes 49–47 to overturn DC tax decoupling (~$650M / 5 yrs)", href: "https://dccouncil.gov/" },

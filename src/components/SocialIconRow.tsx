@@ -1,11 +1,17 @@
-import type { Candidate } from "@/data/elections";
+// Compact icon row for candidate and official profile pages (BL-58).
+// Holds the most-clicked outbound destinations: campaign site, official gov
+// profile, and any populated social accounts. Inline SVG only — no icon-library
+// dependency (CLAUDE.md tech rule). Filing references (OCF, DCBOE, announcement
+// source) live in the "About" disclosure — separate concern.
 
-// Tiny icon row that sits next to the candidate name (BL-58). Holds the
-// most-clicked outbound destinations: the candidate's campaign site,
-// gov.uk-equivalent profile (for incumbents), and any populated social
-// accounts. Inline SVG only — no icon-library dependency (CLAUDE.md tech
-// rule). Filing references (OCF, DCBOE, announcement source) live in the
-// "About this candidate" disclosure further down — separate concern.
+export interface SocialLinks {
+  websiteUrl?: string;
+  governmentSiteUrl?: string;
+  twitterUrl?: string;
+  linkedinUrl?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+}
 
 type IconEntry = {
   label: string;
@@ -88,36 +94,36 @@ function FacebookIcon(): JSX.Element {
   );
 }
 
-function buildEntries(candidate: Candidate): IconEntry[] {
+function buildEntries(links: SocialLinks): IconEntry[] {
   const out: IconEntry[] = [];
-  if (candidate.websiteUrl) {
-    out.push({ label: "Campaign site", url: candidate.websiteUrl, svg: <GlobeIcon /> });
+  if (links.websiteUrl) {
+    out.push({ label: "Campaign site", url: links.websiteUrl, svg: <GlobeIcon /> });
   }
-  if (candidate.governmentSiteUrl) {
-    out.push({ label: "Government site", url: candidate.governmentSiteUrl, svg: <GovIcon /> });
+  if (links.governmentSiteUrl) {
+    out.push({ label: "Government site", url: links.governmentSiteUrl, svg: <GovIcon /> });
   }
-  if (candidate.twitterUrl) {
-    out.push({ label: "X / Twitter", url: candidate.twitterUrl, svg: <XIcon /> });
+  if (links.twitterUrl) {
+    out.push({ label: "X / Twitter", url: links.twitterUrl, svg: <XIcon /> });
   }
-  if (candidate.linkedinUrl) {
-    out.push({ label: "LinkedIn", url: candidate.linkedinUrl, svg: <LinkedInIcon /> });
+  if (links.linkedinUrl) {
+    out.push({ label: "LinkedIn", url: links.linkedinUrl, svg: <LinkedInIcon /> });
   }
-  if (candidate.instagramUrl) {
-    out.push({ label: "Instagram", url: candidate.instagramUrl, svg: <InstagramIcon /> });
+  if (links.instagramUrl) {
+    out.push({ label: "Instagram", url: links.instagramUrl, svg: <InstagramIcon /> });
   }
-  if (candidate.facebookUrl) {
-    out.push({ label: "Facebook", url: candidate.facebookUrl, svg: <FacebookIcon /> });
+  if (links.facebookUrl) {
+    out.push({ label: "Facebook", url: links.facebookUrl, svg: <FacebookIcon /> });
   }
   return out;
 }
 
-export function SocialIconRow({ candidate }: { candidate: Candidate }): JSX.Element | null {
-  const entries = buildEntries(candidate);
+export function SocialIconRow({ links, name }: { links: SocialLinks; name: string }): JSX.Element | null {
+  const entries = buildEntries(links);
   if (entries.length === 0) return null;
   return (
     <ul
       className="flex flex-wrap items-center gap-2"
-      aria-label={`${candidate.name} — find them online`}
+      aria-label={`${name} — find them online`}
     >
       {entries.map((entry) => (
         <li key={entry.url}>
