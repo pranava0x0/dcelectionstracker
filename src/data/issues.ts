@@ -231,14 +231,19 @@ export const issues: Issue[] = [
         source: { label: "DC Council", url: "https://dccouncil.gov/council-provides-final-approval-to-modified-curfew-including-permanent-option-of-temporary-expanded-curfew-zones/" },
       },
       {
-        date: "2026-01-06",
-        headline: "Mayor Bowser names Jeffery Carroll, 24-year MPD veteran, interim chief",
-        source: { label: "Mayor's office", url: "https://mayor.dc.gov/release/mayor-bowser-announces-jeffery-carroll-interim-chief-police" },
+        date: "2026-05-01",
+        headline: "U.S. Attorney Pirro reports violent crime in DC at a 30-year low, homicides down 35%",
+        source: { label: "USAO-DC", url: "https://www.justice.gov/usao-dc/pr/violent-crime-dc-hits-30-year-low" },
       },
       {
         date: "2026-04-18",
         headline: "DC homicides −52% YTD, carjackings −44% vs. same period in 2025",
         source: { label: "Townhall (citing MPD)", url: "https://townhall.com/tipsheet/scott-mcclallen/2026/04/18/dc-homicides-plunge-52-percent-as-national-guard-deployment-transforms-citys-crime-landscape-n2674698" },
+      },
+      {
+        date: "2026-01-06",
+        headline: "Mayor Bowser names Jeffery Carroll, 24-year MPD veteran, interim chief",
+        source: { label: "Mayor's office", url: "https://mayor.dc.gov/release/mayor-bowser-announces-jeffery-carroll-interim-chief-police" },
       },
       {
         date: "2026-01-15",
@@ -341,6 +346,11 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-04-01",
+        headline: "DCBOE rules rent-freeze Initiative 88 a proper subject matter; petition drive begins June 3",
+        source: { label: "More Affordable DC", url: "https://moreaffordabledc.org/2026/04/01/press-release-dcboe-makes-proper-subject-matter-determination/" },
+      },
+      {
         date: "2026-02-28",
         headline: "FY26 eviction filings tracking near 7-year high through February",
         source: { label: "New America", url: "https://www.newamerica.org/insights/an-update-on-dc-evictions-june-2025-through-february-2026/" },
@@ -397,7 +407,7 @@ export const issues: Issue[] = [
     hero: "Federal civilians make up roughly a quarter of DC's nonfarm employment — more than ten times the national average. In 2025, DC lost about 22,000 federal jobs, and the broader DMV region lost roughly 54,000. The OCFO's February 2026 revenue estimate revised FY26 local revenue up $75M but cut the FY25–FY29 out-year forecast by an average of $342M per year. Downtown office vacancy stood at 19.7% at the end of 2025; commercial property values are projected to fall $10.2B (15.4%) since 2020, costing roughly $464M in property-tax revenue over three years. The FY26 DC budget totals $21.8B. Congress overrode DC's tax-conformity bill in February 2026 — the first such override in 50+ years of Home Rule.",
     quickTake: [
       "DC lost about 22,000 federal jobs in 2025.",
-      "OCFO cut its FY25–29 out-year revenue forecast by $342M/year on average (Feb 2026).",
+      "Bowser's FY27 budget faces a $1.1B deficit; DC Council's first vote is expected June 9, 2026.",
       "Congress overrode a DC tax law (PL 119-78) on Feb 18, 2026 — the first such override on record.",
     ],
     stats: [
@@ -419,9 +429,10 @@ export const issues: Issue[] = [
         source: { label: "Commercial Search", url: "https://www.commercialsearch.com/news/washington-dc-office-market-update/" },
       },
       {
-        value: "$21.8B",
-        label: "FY26 DC budget (Bowser's 'Grow DC' plan, first reading June 2025)",
-        source: { label: "DC Council Budget Office", url: "https://www.dccouncilbudget.com/fy-2026-budget" },
+        value: "$1.1B",
+        label: "FY27 budget deficit facing DC Council (first vote expected June 9, 2026)",
+        source: { label: "51st", url: "https://51st.news/dc-budget-bowser-2027/" },
+        alarm: true,
       },
     ],
     whatsAtStake: [
@@ -445,6 +456,16 @@ export const issues: Issue[] = [
       { name: "Office of the President / OPM", role: "Drives federal RIFs, return-to-office rules, and contracting policy that determine roughly a quarter of DC's labor market." },
     ],
     recentMoves: [
+      {
+        date: "2026-05-10",
+        headline: "Council budget hearings wrap May 12; first vote on FY27 budget expected June 9",
+        source: { label: "51st", url: "https://51st.news/dc-budget-2026-first-vote/" },
+      },
+      {
+        date: "2026-04-10",
+        headline: "Bowser presents FY27 budget: $1.1B deficit, ~$500M cuts, no major tax hikes",
+        source: { label: "Mayor's office", url: "https://mayor.dc.gov/release/mayor-bowser-presents_fy27_budget-builds-more-decade-growth_and-creates_new-opportunities" },
+      },
       {
         date: "2026-02-27",
         headline: "OCFO February 2026 revenue estimate: FY26 +$75M, out-years −$342M/yr",

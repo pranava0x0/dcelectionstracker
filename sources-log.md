@@ -4,12 +4,16 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-12 (run 3 — DCBOE RCV sample ballot, youth curfew final passage, mayoral debate coverage)_
+_Last updated: 2026-05-17 (run 4 — FY27 budget $1.1B deficit, Initiative 88 rent freeze, USAO 30-year-low report, McDuffie/JLG endorsements, Lisa Raymond at-large candidate, Ward 1 GGWash poll)_
 
 ---
 
 ## Government & Official
 
+- [2026-05-10] DC Council Budget Office — FY27 first vote expected June 9, budget hearings through May 12 — https://51st.news/dc-budget-2026-first-vote/
+- [2026-04-10] Mayor's office — FY27 "Grow DC" budget proposal: $1.1B deficit, ~$500M cuts — https://mayor.dc.gov/release/mayor-bowser-presents_fy27_budget-builds-more-decade-growth_and-creates_new-opportunities
+- [2026-04-01] More Affordable DC / DCBOE — Initiative 88 rent freeze approved as proper subject matter — https://moreaffordabledc.org/2026/04/01/press-release-dcboe-makes-proper-subject-matter-determination/
+- [2026-05-01] USAO-DC — Violent crime in DC hits 30-year low announcement — https://www.justice.gov/usao-dc/pr/violent-crime-dc-hits-30-year-low
 - [2026-05-06] DC Council — Final approval of permanent curfew + extended curfew zones (8–5) — https://dccouncil.gov/council-provides-final-approval-to-modified-curfew-including-permanent-option-of-temporary-expanded-curfew-zones/
 - [2026-05-01] DCBOE — 2026 Primary RCV sample-ballot training (PDF) — https://www.dcboe.org/getmedia/83194dbd-8b45-423c-b342-dd76609f67c1/2026-Primary-RCV-Training-26-1-9-14-5-30.pdf
 - [2026-03-19] Congress.gov — H.R. 5525, Stop DC CAMERA Act (passed House Oversight Committee 21-19) — https://www.congress.gov/bill/119th-congress/house-bill/5525/text
@@ -36,6 +40,12 @@ _Last updated: 2026-05-12 (run 3 — DCBOE RCV sample ballot, youth curfew final
 ## Candidate & Campaign
 
 ### Mayor 2026
+- [2026-05-14] 51st — Mayoral race fact-check: JLG "defund" attack, McDuffie sports betting app claim — https://51st.news/dc-mayoral-race-fact-check/
+- [2026-05-12] The Georgetowner — Mayor Race 2026 Candidate Tracker — https://georgetowner.com/articles/2026/05/12/dc-mayor-race-2026-candidate-tracker/
+- [2026-05-10] 51st — The state of the 2026 D.C. election (so far) — https://51st.news/2026-dc-election-mayor-ward-1/
+- [2026-05-07] Washington Post — Anthony Williams endorses Kenyan McDuffie — https://www.washingtonpost.com/dc-md-va/2026/05/07/anthony-williams-endorses-kenyan-mcduffie-dc-mayor/
+- [2026-04-27] City Cast DC — Charles Allen endorses Janeese Lewis George — https://dc.citycast.fm/dc-politics/charles-allen-endorses-janeese-lewis-george
+- [2026-03-24] WJLA — Maryland Sen. Alsobrooks endorses Kenyan McDuffie — https://wjla.com/news/local/kenyan-mcduffie-angela-alsobrooks-endorsement-mayor-senator-maryland-prince-georges-washingtonian-election-campaign-race-home-rule-politics
 - [2026-05-18] Georgetown / FOX 5 — Upcoming televised mayoral debate (May 18, 2026) — https://www.georgetown.edu/news/georgetown-fox-5-dc-2026-debate-democratic-mayoral-primary/
 - [2026-05-07] HillRag — Mayoral Candidates Clash Over Utility Costs & Public Safety — https://www.hillrag.com/2026/05/07/mayoral-candidates-clash-over-utility-costs-public-safety-solutions/
 - [2026-05-05] GW Hatchet — Democratic mayoral / delegate candidates debate DC issues — https://gwhatchet.com/2026/05/05/democratic-mayoral-delegate-candidates-debate-dc-issues-in-double-header-event/
@@ -56,11 +66,17 @@ _Last updated: 2026-05-12 (run 3 — DCBOE RCV sample ballot, youth curfew final
 - [ongoing] Wikipedia — 2026 DC Delegate election — https://en.wikipedia.org/wiki/2026_United_States_House_of_Representatives_election_in_the_District_of_Columbia
 
 ### DC Council At-Large (Bonds seat) 2026
+- [2026-05-10] 51st — Meet the candidates for an At-Large seat on the DC Council — https://51st.news/at-large-candidates-dc-council-anita-bonds/
+- [2026-02-26] WAMU — Ranked choice voting could make at-large race DC's most unpredictable — https://wamu.org/story/26/02/26/ranked-choice-voting-could-make-race-for-anita-bonds-at-large-seat-d-c-s-most-unpredictable/
+- [ongoing] Lisa Raymond campaign — https://lisaraymondfordc.com/
 - [2026-05-01] East of the River — Who is running for At-Large Councilmember — https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/
 - [ongoing] vote4oye.com — Oye Owolewa campaign — https://www.vote4oye.com/
 - [ongoing] Sierra Club DC — endorsements — https://www.sierraclub.org/dc/sierra-club-endorses-oye-owolewa-and-elissa-silverman-dc-council-large-rashida-brown-and-aparna-raj
 
 ### DC Council Ward 1 2026
+- [2026-03-29] Greater Greater Washington — Ward 1 primary poll (Raj 42%, Brown 25%, Deramo 16%) — https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race
+- [2026-04-01] Greater Greater Washington — 2026 DC Council endorsements (Raj W1, Raymond At-Large, Parker W5, Allen W6) — https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements
+- [2026-05-10] 51st — State of the 2026 DC election: Ward 1 + mayor overview — https://51st.news/2026-dc-election-mayor-ward-1/
 - [2026-ongoing] 51st.news — Ward 1 candidate profiles — https://51st.news/ward-1-dc-council-primary-election-candidates-2026/
 - [2026-ongoing] Washington Blade — Brian Footer candidacy announcement — https://www.washingtonblade.com/2025/07/10/brian-footer-announces-candidacy-ward-1-dc-council/
 - [ongoing] Greater Greater Washington — Ward 1 poll — https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race

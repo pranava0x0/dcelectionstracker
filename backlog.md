@@ -862,6 +862,50 @@ Researched but not promoted to a recent-moves block in v1. Pull from research tr
 
 ---
 
+## Data-refresh run 4 — 2026-05-17
+
+Findings applied this run:
+
+**Alerts (3 new):**
+- 2026-05-11: Mail ballots begin going out today for the June 16 primary (DCBOE)
+- 2026-05-10: DC Council FY27 budget hearings wrap May 12; first vote expected June 9 on a $1.1B deficit (51st)
+- 2026-04-10: Bowser proposes FY27 budget with $1.1B deficit — no major tax hikes, ~$500M in program cuts (mayor.dc.gov)
+- 2026-04-01: DCBOE confirms rent-freeze Initiative 88 as proper subject matter; petition drive starts June 3 (More Affordable DC)
+
+**Issues — recentMoves added:**
+- `budget` (2): FY27 budget hearings wrap May 12 (51st); Bowser FY27 budget presented (mayor.dc.gov)
+- `housing` (1): DCBOE Initiative 88 proper-subject-matter ruling (More Affordable DC)
+- `public-safety` (1): USAO-DC reports violent crime at 30-year low, homicides down 35% (USAO-DC)
+
+**Issues — other changes:**
+- `budget` stat: replaced stale "$21.8B FY26 budget" with "$1.1B FY27 deficit" (alarm: true); quickTake[1] updated to reference the live FY27 deficit and June 9 vote
+
+**Candidates — new:**
+- `lisa-raymond` (council-at-large-bonds): Added. Former DC SBOE president. GGWash-endorsed, GLAA +7.5. 3 sourced news items, 1 newsTheme. Race `oneLine` updated to reflect 7 tracked candidates including Raymond.
+
+**Candidates — news items added:**
+- `kenyan-mcduffie` (mayor): 2 new (51st fact-check May 14, WJLA Alsobrooks endorsement Mar 24); newsTheme updated to include Alsobrooks
+- `janeese-lewis-george` (mayor): 2 new (51st fact-check May 14, City Cast DC Allen endorsement Apr 27); newsTheme updated to include Allen
+- `aparna-raj` (council-ward-1): 3 new (51st state-of-election May 10, GGWash endorsement Apr 1, GGWash poll Mar 29); newsTheme updated to lead with poll results (42%–25%)
+- `rashida-brown` (council-ward-1): 2 new (51st state-of-election May 10, GGWash poll Mar 29); notes updated to mention Nadeau endorsement
+- `terry-lynch` (council-ward-1): 1 new (51st state-of-election May 10)
+- `jackie-reyes-yanes` (council-ward-1): 2 new (51st state-of-election May 10, GLAA ratings May 12)
+- `matthew-frumin` (council-ward-3): 2 new (GLAA ratings May 12, 51st state-of-election May 10)
+
+**Test results:** 103/103 passed. TypeScript: clean.
+
+New ideas surfaced (feed into existing items):
+- BL-44 (endorsements): GGWash endorses Raymond (at-large), Raj (Ward 1), Parker (Ward 5), Allen (Ward 6). GLAA ratings published May 12 for 18 candidates across mayor, council, AG. Ready to seed when BL-44 ships.
+- BL-45 (forums/guides): Initiative 88 petition drive starting June 3 is a civic activation event worth tracking alongside forums.
+- Initiative 88 (rent freeze) merits tracking — DCBOE proper-subject-matter ruling April 1; petition window opens June 3. Not yet a stat on the housing issue page; worth a dedicated quickTake bullet when the petition drive launches.
+
+Pending / next-run candidates:
+- Tier B candidate deep-searches (Schwalb AG, Mendelson council-chair) were not fully executed this run — light coverage found via GLAA mention only. Flag for next run.
+- Matt de Ferrante (at-large) — mentioned in media but not yet in candidates2026; verify filing status before adding.
+- Endorsement data for mayor race is now rich enough to seed BL-44 `endorsements[]` array if that feature ships before June 16.
+
+---
+
 ## Data-refresh run 3 — 2026-05-12
 
 Findings applied this run:
