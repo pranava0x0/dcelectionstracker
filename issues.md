@@ -6,9 +6,11 @@ UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-1
 `/dc-data-refresh` run 3 + UAT run 4 (2026-05-12, scheduled): no new bugs filed. Site clean on mobile (375), desktop (1280) across home / `/elections/` / `/officials/` / `/issues/ranked-choice/`. One passive accessibility tightening logged as BL-UAT-10 (hamburger 40×40 → 44×44).
 Bug fix bundled with the Next 16 upgrade (2026-05-14): UAT-016 closed — mobile nav drawer auto-closes on link tap, addressing the long-standing BL-UAT-09 backlog item.
 UAT run 5 (2026-05-17) — voter-persona walkthrough across 4 personas × 14 questions. 2 new issues filed (UAT-017, UAT-018). 5 improvement items added to backlog (BL-UAT-11 to BL-UAT-15).
+UAT run 7 (2026-05-18, scheduled — evening pass) — desktop + mobile pass across home / `/elections/` / `/officials/` / `/issues/ranked-choice/`. 1 new issue filed (UAT-020); fixed in same run.
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
+| UAT-020 | closed | Voting record matrix desktop header for Trayon White Sr. rendered as "Sr." | low |
 | UAT-019 | closed | All three `AddressLookup` references to `dcboe.org/voters/where-to-vote` return 404 — DCBOE retired the URL | high |
 | UAT-018 | closed | `/officials/` group sections render kicker spans, not semantic `<h2>` — 3 headings for 28 officials in 5 groups | low |
 | UAT-017 | closed | Mayor race `oneLine` says "10 declared Democrats" but data file has 8 candidates | low |
@@ -34,6 +36,20 @@ UAT run 5 (2026-05-17) — voter-persona walkthrough across 4 personas × 14 que
 ## Open Issues
 
 _No open issues._
+
+---
+
+## Resolved Issues (UAT run 7, 2026-05-18 evening)
+
+### [UAT-020] Voting record matrix desktop header renders "Sr." for Trayon White Sr.
+- **Severity**: low
+- **Page/Section**: `/officials/` — `src/components/VotingRecordMatrix.tsx`
+- **Discovered**: 2026-05-18 (scheduled UAT run 7, desktop pass)
+- **Closed**: 2026-05-18
+- **Status**: closed
+- **Description**: The desktop ≥1024px voting-record matrix `<thead>` rendered `m.name.split(" ").pop()` for each council column. For "Trayon White Sr." this returned the suffix `"Sr."` instead of `"White"`, producing a nonsensical column header next to the (correct) "Felder" column. The mobile chip view already had a `shortName()` helper that strips `Sr.`/`Jr.`/`II`/`III`/`IV` suffixes (line 22) — the desktop table just wasn't calling it. Both Robert White (At-Large) and Trayon White Sr. (Ward 8) now collapse to "White" in the header, which is an ambiguity worth disambiguating with a first initial (see BL-UAT-16) but is no worse than the previous broken state, and `aria-label`/`title` on every cell already names the full member.
+- **Steps to Reproduce**: Open `/officials/` at ≥1024px width. Inspect the council voting-record matrix `<thead>`. Last column showed "Sr."
+- **Fix**: In `src/components/VotingRecordMatrix.tsx` line 131, swapped `{m.name.split(" ").pop()}` → `{shortName(m.name)}` to reuse the existing helper. Typecheck + 119 tests still pass.
 
 ---
 

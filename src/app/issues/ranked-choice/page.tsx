@@ -58,7 +58,7 @@ const whatChanged: Stake[] = [
   {
     headline: "DCBOE has published the RCV sample-ballot walkthrough",
     detail:
-      "DCBOE has released a sample-ballot training PDF showing how to mark up to five rankings — one oval per column, one column per candidate. Live mail ballots began going out May 11, 2026.",
+      "DCBOE has released a sample-ballot training PDF and per-ward sample ballots (Wards 1–8, Democratic / Republican / DC Statehood Green) showing how to mark up to five rankings — one oval per column, one column per candidate. Live mail ballots began going out May 11, 2026.",
   },
 ];
 
@@ -73,6 +73,11 @@ const whoDecides: Decider[] = [
 type Move = { date: string; headline: string; source: { label: string; url: string } };
 
 const recentMoves: Move[] = [
+  {
+    date: "2026-05-18",
+    headline: "DCBOE posts per-ward sample ballots (Wards 1–8, all three parties) showing the live RCV layout",
+    source: { label: "DCBOE — 2026 Elections page", url: "https://www.dcboe.org/elections/2026-elections" },
+  },
   {
     date: "2026-05-11",
     headline: "Mail ballots begin going out — first DC primary using ranked-choice voting",
@@ -131,6 +136,7 @@ type Source = { label: string; url: string };
 
 const liveSources: Source[] = [
   { label: "DCBOE — Ranked-Choice Voting overview", url: "https://www.dcboe.org/rcv" },
+  { label: "DCBOE — 2026 Elections (per-ward sample ballots)", url: "https://www.dcboe.org/elections/2026-elections" },
   { label: "DCBOE — RCV sample-ballot training (PDF)", url: "https://www.dcboe.org/getmedia/83194dbd-8b45-423c-b342-dd76609f67c1/2026-Primary-RCV-Training-26-1-9-14-5-30.pdf" },
   { label: "DC Law 25-295 — Initiative 83 codified", url: "https://code.dccouncil.gov/us/dc/council/laws/25-295" },
   { label: "Make All Votes Count DC — campaign site & full Initiative 83 text", url: "https://makeallvotescountdc.org/" },

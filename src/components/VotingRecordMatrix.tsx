@@ -128,7 +128,7 @@ export function VotingRecordMatrix(): JSX.Element {
                   scope="col"
                   className="border-b border-l border-rule px-2 py-2 text-center font-mono text-[10px] font-bold uppercase tracking-wider text-subtle"
                 >
-                  {m.name.split(" ").pop()}
+                  {shortName(m.name)}
                 </th>
               ))}
             </tr>

@@ -1,7 +1,7 @@
 # UAT Baseline — DC Elections Tracker
 
 _Created: 2026-05-10_
-_Last run: 2026-05-18 (UAT run 6 — scheduled `daily-dcelection-refresh`; 0 new bugs; BL-UAT-16 / BL-UAT-17 logged for alert-expiry + skill-doc sync)_
+_Last run: 2026-05-18 evening (UAT run 7 — scheduled `daily-dcelection-refresh` second pass; 1 bug filed + fixed (UAT-020: desktop voting-matrix header rendered "Sr." for Trayon White Sr. — swapped to existing `shortName()` helper); BL-UAT-18 logged to disambiguate the two White headers with first-initial prefixes)_
 
 ## Project Info
 - **Stack**: Next.js 16 App Router (React 19, Turbopack), `output: "export"` (static site), TypeScript strict, Tailwind 3

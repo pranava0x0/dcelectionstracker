@@ -4,12 +4,14 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-18 (run 6 — scheduled daily refresh: May 18 Fox 5/Georgetown debate alert, FY27 budget reserves story, sample-ballot training PDF cross-check)_
+_Last updated: 2026-05-18 (run 7 — scheduled evening pass: per-ward DCBOE sample ballots now live on DCBOE 2026 Elections page; one matrix-header bug fixed during UAT pass)_
 
 ---
 
 ## Government & Official
 
+- [2026-05-18] DCBOE — 2026 Elections page (per-ward sample ballots for Wards 1–8 × Democratic / Republican / DC Statehood Green now published) — https://www.dcboe.org/elections/2026-elections
+- [2026-05-18] DCBOE — April 2026 voter registration statistics PDF (more recent than the Feb 28 number currently in electionStats; binary couldn't be parsed in-session, flagged for next run) — https://www.dcboe.org/getmedia/3c291ec7-9318-4365-a423-81a08b408e3a/Data-Statistics-Report-4_2026.pdf
 - [2026-05-18] Georgetown University — Fox 5 / GU Politics May 18 mayoral primary debate announcement (Goodweather, Lewis George, McDuffie qualified) — https://www.georgetown.edu/news/georgetown-fox-5-dc-2026-debate-democratic-mayoral-primary/
 - [2026-05-15] GW Hatchet — Mendelson briefs ANC: ~$160M in CFO reserves blocked by tax-decoupling override, signals fight to spend — https://gwhatchet.com/2026/04/18/dc-council-chair-briefs-anc-on-proposed-fy2027-city-budget-detailing-widespread-cuts/
 - [2026-05-17] DC State Board of Education — Board Biographies (authoritative ward-by-ward term-end years; used to correct 6 of 9 SBOE entries in officials.ts) — https://sboe.dc.gov/page/board-biographies
