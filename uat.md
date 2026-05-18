@@ -1,7 +1,7 @@
 # UAT Baseline — DC Elections Tracker
 
 _Created: 2026-05-10_
-_Last run: 2026-05-12 (UAT run 4 — scheduled `daily-dcelection-refresh`; 0 new bugs; BL-UAT-10 logged for touch-target tightening)_
+_Last run: 2026-05-18 (UAT run 6 — scheduled `daily-dcelection-refresh`; 0 new bugs; BL-UAT-16 / BL-UAT-17 logged for alert-expiry + skill-doc sync)_
 
 ## Project Info
 - **Stack**: Next.js 16 App Router (React 19, Turbopack), `output: "export"` (static site), TypeScript strict, Tailwind 3
@@ -42,26 +42,26 @@ Run each at desktop (1280) **and** tablet (768) **and** mobile (375). The full s
 
 | Section | Last Tested | Notes |
 |---------|-------------|-------|
-| Homepage — hero + CTAs | 2026-05-12 | Stable both viewports. Headline dynamic (BF-03 fix). Hero h1 = text-4xl at mobile (kept) |
-| Homepage — alert ticker | 2026-05-12 | Stable. CSS marquee + prefers-reduced-motion guard. UAT-015 fixed: duplicate `<a>` links now `aria-hidden`. |
-| Homepage — countdowns | 2026-05-12 | Stable both viewports. 35d / 175d as of 2026-05-12 |
-| Homepage — latest cards | 2026-05-12 | Stable. 3 most-recent alerts rendered |
-| Homepage — issue cards grid | 2026-05-12 | Stable. 6 cards with `p-4 sm:p-5` padding (Phase C) |
-| Homepage — editorial standard | 2026-05-12 | Stable. GitHub issue tracker link present |
-| NavBar (desktop) | 2026-05-12 | Stable. 9 items + logo + CTA |
-| NavBar (mobile hamburger) | 2026-05-12 | Stable — UAT-002 resolved. Disclosure panel renders all 9 items at <1024px |
-| Issue pages (dev + build) | 2026-05-12 | UAT-001 resolved. /issues/housing/ verified at both viewports |
-| /issues/<slug>/ JumpStrip | 2026-05-12 | Mobile-only `Stats · Stakes · Timeline` chips render below hero |
-| /issues/<slug>/ CollapsibleSections | 2026-05-12 | Mobile: "Who decides", "Questions", "Live sources" closed by default; desktop: inline |
-| /issues/ranked-choice/ | 2026-05-12 | RCV simulator hydrates; 5 candidate buttons; mobile results render as row strips |
-| Officials page (desktop) | 2026-05-12 | Stable. 28 cards. Voting record matrix as `<table>` |
-| Officials page (mobile) | 2026-05-12 | Stable. 28 cards w/ `Background ↓` toggles. Voting matrix as 3 bill cards w/ chip wrap-grid |
-| Elections page (desktop) | 2026-05-12 | Stable. 12 race cards (4 clickable, 8 static). Hero h1 = text-3xl at mobile (Phase C) |
-| Elections page (mobile) | 2026-05-12 | Stable. JumpStrip (4 chips) below hero · DCBOE admin + Key dates collapsed · race cards behave per BF-17 |
-| /elections/[race]/ (mayor) | 2026-05-12 | Desktop: 8 candidate cards + comparison `<table>`. Mobile: 8 candidate `<details>` |
-| /elections/[race]/[candidate]/ (JLG) | 2026-05-12 | Badge renders "D" only (UAT-013 fixed). Links & filings shows Campaign site + Government site + announcement source. |
-| Sources page | 2026-05-12 | Stable. 74 sources / 6 groups |
-| Footer | 2026-05-12 | Stable. Build date shows correctly |
+| Homepage — hero + CTAs | 2026-05-18 | Stable both viewports. Headline dynamic (BF-03 fix). Hero h1 = text-4xl at mobile (kept) |
+| Homepage — alert ticker | 2026-05-18 | Stable. CSS marquee + prefers-reduced-motion guard. UAT-015 fixed: duplicate `<a>` links now `aria-hidden`. |
+| Homepage — countdowns | 2026-05-18 | Stable both viewports. 35d / 175d as of 2026-05-12 |
+| Homepage — latest cards | 2026-05-18 | Stable. 3 most-recent alerts rendered |
+| Homepage — issue cards grid | 2026-05-18 | Stable. 6 cards with `p-4 sm:p-5` padding (Phase C) |
+| Homepage — editorial standard | 2026-05-18 | Stable. GitHub issue tracker link present |
+| NavBar (desktop) | 2026-05-18 | Stable. 9 items + logo + CTA |
+| NavBar (mobile hamburger) | 2026-05-18 | Stable — UAT-002 resolved. Disclosure panel renders all 9 items at <1024px |
+| Issue pages (dev + build) | 2026-05-18 | UAT-001 resolved. /issues/housing/ verified at both viewports |
+| /issues/<slug>/ JumpStrip | 2026-05-18 | Mobile-only `Stats · Stakes · Timeline` chips render below hero |
+| /issues/<slug>/ CollapsibleSections | 2026-05-18 | Mobile: "Who decides", "Questions", "Live sources" closed by default; desktop: inline |
+| /issues/ranked-choice/ | 2026-05-18 | RCV simulator hydrates; 5 candidate buttons; mobile results render as row strips |
+| Officials page (desktop) | 2026-05-18 | Stable. 28 cards. Voting record matrix as `<table>` |
+| Officials page (mobile) | 2026-05-18 | Stable. 28 cards w/ `Background ↓` toggles. Voting matrix as 3 bill cards w/ chip wrap-grid |
+| Elections page (desktop) | 2026-05-18 | Stable. 12 race cards (4 clickable, 8 static). Hero h1 = text-3xl at mobile (Phase C) |
+| Elections page (mobile) | 2026-05-18 | Stable. JumpStrip (4 chips) below hero · DCBOE admin + Key dates collapsed · race cards behave per BF-17 |
+| /elections/[race]/ (mayor) | 2026-05-18 | Desktop: 8 candidate cards + comparison `<table>`. Mobile: 8 candidate `<details>` |
+| /elections/[race]/[candidate]/ (JLG) | 2026-05-18 | Badge renders "D" only (UAT-013 fixed). Links & filings shows Campaign site + Government site + announcement source. |
+| Sources page | 2026-05-18 | Stable. 74 sources / 6 groups |
+| Footer | 2026-05-18 | Stable. Build date shows 2026-05-18 |
 
 ## Known Stable Areas
 - Static pages: `/officials/`, `/elections/`, `/sources/` — render correctly in dev and build
@@ -113,3 +113,4 @@ Run each at desktop (1280) **and** tablet (768) **and** mobile (375). The full s
 - **2026-05-12** (mobile-overhaul verification, 5 min, two-viewport pass) — zero new issues. All 14 baseline flows pass at both 375 and 1280. Confirmed Phase A/B/C/D + candidate-enrichment + clickable race cards work end-to-end.
 - **2026-05-12** (tablet pass, 768×1024) — found UAT-011 and UAT-012, both wide-table overflows at 768. Root cause: sibling-pair threshold `sm:` was too low for tables wider than ~640px. Fixed by bumping VotingRecordMatrix and `/elections/[race]/` comparison to `lg:` threshold. Verified at 375/768/1280: mobile cards on phone + tablet, full table on desktop, no page-level horizontal overflow at any viewport.
 - **2026-05-12** (bug-fix pass) — found and fixed UAT-013 (badge "D · D" → "D" for all Democrat candidates; `page.tsx:93`), UAT-014 (hero dateline UTC off-by-one → `toLocaleDateString('sv')`; `page.tsx:15`), UAT-015 (alert ticker duplicate `<a>` links hidden from accessibility tree via `aria-hidden`; `AlertTicker.tsx`). All three verified in browser. Zero open issues.
+- **2026-05-18** (scheduled run 6, three-viewport pass) — paired with data-refresh run 6. Data refresh added the May 18 Fox 5/Georgetown debate alert, a Mendelson-on-CFO-reserves recentMove on `/issues/budget/`, and a more specific Bowser FY27 framing ($469M cuts + $100M tax increases). Verified on `/`, `/officials/`, `/elections/`, `/elections/mayor/`, `/issues/budget/` at desktop (1280) / tablet (768) / mobile (375). Build date shows `2026-05-18` in hero + footer; zero console errors; no horizontal overflow at any viewport. `/officials/` page is now 5,014px tall at desktop (down from 20,218px in run 5) — confirms UAT-018 + BL-UAT-11 fixes shipped together. Mayor race shows "8 declared candidates" with no oneLine mismatch (BL-UAT-15 guard holds). Found 2 passive items: BL-UAT-16 (auto-expire stale alerts past event date) and BL-UAT-17 (the dc-uat skill doc still references the pre-BL-47 9-item nav + hamburger; BF-05/BF-06 need updating).

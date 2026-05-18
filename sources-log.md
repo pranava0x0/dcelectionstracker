@@ -4,12 +4,14 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-17 (run 5 — Officials refresh: SBOE term-end corrections vs. sboe.dc.gov, Mendelson re-election note, Pinto Delegate-run note, Trayon White Sept 14 trial date)_
+_Last updated: 2026-05-18 (run 6 — scheduled daily refresh: May 18 Fox 5/Georgetown debate alert, FY27 budget reserves story, sample-ballot training PDF cross-check)_
 
 ---
 
 ## Government & Official
 
+- [2026-05-18] Georgetown University — Fox 5 / GU Politics May 18 mayoral primary debate announcement (Goodweather, Lewis George, McDuffie qualified) — https://www.georgetown.edu/news/georgetown-fox-5-dc-2026-debate-democratic-mayoral-primary/
+- [2026-05-15] GW Hatchet — Mendelson briefs ANC: ~$160M in CFO reserves blocked by tax-decoupling override, signals fight to spend — https://gwhatchet.com/2026/04/18/dc-council-chair-briefs-anc-on-proposed-fy2027-city-budget-detailing-widespread-cuts/
 - [2026-05-17] DC State Board of Education — Board Biographies (authoritative ward-by-ward term-end years; used to correct 6 of 9 SBOE entries in officials.ts) — https://sboe.dc.gov/page/board-biographies
 - [2026-05-10] DC Council Budget Office — FY27 first vote expected June 9, budget hearings through May 12 — https://51st.news/dc-budget-2026-first-vote/
 - [2026-04-10] Mayor's office — FY27 "Grow DC" budget proposal: $1.1B deficit, ~$500M cuts — https://mayor.dc.gov/release/mayor-bowser-presents_fy27_budget-builds-more-decade-growth_and-creates_new-opportunities

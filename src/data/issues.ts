@@ -457,13 +457,18 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-05-15",
+        headline: "Mendelson: CFO is holding ~$160M in reserves from blocked tax decoupling; signals fight to spend it",
+        source: { label: "GW Hatchet", url: "https://gwhatchet.com/2026/04/18/dc-council-chair-briefs-anc-on-proposed-fy2027-city-budget-detailing-widespread-cuts/" },
+      },
+      {
         date: "2026-05-10",
         headline: "Council budget hearings wrap May 12; first vote on FY27 budget expected June 9",
         source: { label: "51st", url: "https://51st.news/dc-budget-2026-first-vote/" },
       },
       {
         date: "2026-04-10",
-        headline: "Bowser presents FY27 budget: $1.1B deficit, ~$500M cuts, no major tax hikes",
+        headline: "Bowser presents FY27 budget: $469M cuts + ~$100M tax increases to close $1.1B deficit",
         source: { label: "Mayor's office", url: "https://mayor.dc.gov/release/mayor-bowser-presents_fy27_budget-builds-more-decade-growth_and-creates_new-opportunities" },
       },
       {

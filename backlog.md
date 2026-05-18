@@ -959,6 +959,15 @@ Found during a 4-persona × 14-question walkthrough. Each row maps a concrete vo
 - Issue pages have strong semantic structure (h1 + h2 + JumpStrip + quick-take) (P4 all questions).
 - Source-link discipline is uniformly strong — every numeric claim cites a primary source (editorial promise).
 
+## UAT-sourced improvements (added 2026-05-18, run 6 — scheduled daily refresh)
+
+Scheduled daily refresh + UAT pass: data refresh added the May 18 Fox 5/Georgetown debate alert, a Mendelson-on-CFO-reserves recent move on `/issues/budget/`, and an updated Bowser FY27 framing ($469M cuts + $100M tax increases). UAT pass across desktop (1280) + tablet (768) + mobile (375) on `/`, `/officials/`, `/elections/`, `/elections/mayor/`, `/issues/budget/`. Zero console errors; no horizontal overflow; all critical flows pass. Two passive items logged below.
+
+| ID | Item | Priority | Complexity | Notes |
+|---|---|---|---|---|
+| BL-UAT-16 | Auto-expire stale alerts past their event date | P3 | S | The `alerts.ts` array renders newest-first with no expiry. Today's "Fox 5 / Georgetown debate tonight" alert is high-signal for ~12 hours and tomorrow becomes a dated artifact. Options: (a) helper `freshAlerts()` filters items where `date < today - N days` and where headline contains a tense marker ("tonight", "today"); (b) extend `Alert` with an optional `expires?: ISODate` field. Low priority because the alert ticker has only ~14 entries and editorial review naturally rotates them. Found UAT run 6. |
+| BL-UAT-17 | Update `~/.claude/skills/dc-uat.md` to reflect BL-47 2-item primary nav | P3 | S | BF-05 (Desktop nav intact) still asserts "9 nav items"; BF-06 (Mobile hamburger nav works) is now moot because the 2-item nav fits at every viewport. The current skill text drove BF-06 verification today on mobile (375px) and the assertion now reads false-positive. Replace BF-05's "9 items" with "2 primary items (Issues, Elections) + 'ARE YOU REGISTERED?' CTA" and either delete BF-06 or rewrite it to verify the new hover-popouts. Found UAT run 6. |
+
 ---
 
 
