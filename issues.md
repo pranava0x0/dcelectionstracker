@@ -7,6 +7,7 @@ UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-1
 Bug fix bundled with the Next 16 upgrade (2026-05-14): UAT-016 closed — mobile nav drawer auto-closes on link tap, addressing the long-standing BL-UAT-09 backlog item.
 UAT run 5 (2026-05-17) — voter-persona walkthrough across 4 personas × 14 questions. 2 new issues filed (UAT-017, UAT-018). 5 improvement items added to backlog (BL-UAT-11 to BL-UAT-15).
 UAT run 7 (2026-05-18, scheduled — evening pass) — desktop + mobile pass across home / `/elections/` / `/officials/` / `/issues/ranked-choice/`. 1 new issue filed (UAT-020); fixed in same run.
+UAT run 8 (2026-05-19, scheduled morning pass) — paired with data-refresh run 8 (post-debate news for JLG/McDuffie/Goodweather; drop-box alert). Three-viewport sanity check at desktop / tablet / mobile across `/`, `/elections/`, `/elections/mayor/janeese-lewis-george/`, `/elections/mayor/kenyan-mcduffie/`, `/officials/`. Zero new bugs filed. Build date renders 2026-05-19 in hero + footer; hero h1 dynamic copy advanced to "Four weeks until the primary." (Math.round(28/7)=4). All 119 unit tests still pass.
 
 | ID | Status | Title | Severity |
 |---|---|---|---|

@@ -4,7 +4,7 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-18 (run 7 — scheduled evening pass: per-ward DCBOE sample ballots now live on DCBOE 2026 Elections page; one matrix-header bug fixed during UAT pass)_
+_Last updated: 2026-05-19 (run 8 — scheduled morning pass: post-debate recap sources from FOX 5 + The Hoya added to JLG / McDuffie / Goodweather news arrays; drop-box opening alert added)_
 
 ---
 
@@ -45,6 +45,8 @@ _Last updated: 2026-05-18 (run 7 — scheduled evening pass: per-ward DCBOE samp
 ## Candidate & Campaign
 
 ### Mayor 2026
+- [2026-05-18] FOX 5 DC — Who won the DC mayoral debate? Analysts weigh in (post-debate recap from May 18 Fox 5 / Georgetown debate) — https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh
+- [2026-05-18] The Hoya — DC Mayoral Candidates Debate Affordability, Federal Intervention (Georgetown campus paper recap of May 18 debate) — https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/
 - [2026-05-14] 51st — Mayoral race fact-check: JLG "defund" attack, McDuffie sports betting app claim — https://51st.news/dc-mayoral-race-fact-check/
 - [2026-05-12] The Georgetowner — Mayor Race 2026 Candidate Tracker — https://georgetowner.com/articles/2026/05/12/dc-mayor-race-2026-candidate-tracker/
 - [2026-05-10] 51st — The state of the 2026 D.C. election (so far) — https://51st.news/2026-dc-election-mayor-ward-1/
