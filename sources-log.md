@@ -4,7 +4,7 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-19 (run 8 — scheduled morning pass: post-debate recap sources from FOX 5 + The Hoya added to JLG / McDuffie / Goodweather news arrays; drop-box opening alert added)_
+_Last updated: 2026-05-20 (run 9 — scheduled morning pass: RAMW restaurant-association endorsement of McDuffie added to news + theme; thin news day otherwise (last refresh <36h prior), no withdrawals / court rulings / new congressional votes found)_
 
 ---
 
@@ -45,6 +45,8 @@ _Last updated: 2026-05-19 (run 8 — scheduled morning pass: post-debate recap s
 ## Candidate & Campaign
 
 ### Mayor 2026
+- [2026-05-18] Axios DC — DC restaurant association (RAMW) backs Kenyan McDuffie; slate also endorses Pinto (Delegate), Schwalb (AG), Mendelson (Chair) — https://www.axios.com/local/washington-dc/2026/05/18/dc-mayor-race-endorsements-restaurants-ramw
+- [2026-05-19] Washington Times — DC mayoral candidates take aim at each other in combative second debate (May 18 Georgetown debate recap) — https://www.washingtontimes.com/news/2026/may/19/dc-mayoral-candidates-take-aim-combative-second-debate/
 - [2026-05-18] FOX 5 DC — Who won the DC mayoral debate? Analysts weigh in (post-debate recap from May 18 Fox 5 / Georgetown debate) — https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh
 - [2026-05-18] The Hoya — DC Mayoral Candidates Debate Affordability, Federal Intervention (Georgetown campus paper recap of May 18 debate) — https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/
 - [2026-05-14] 51st — Mayoral race fact-check: JLG "defund" attack, McDuffie sports betting app claim — https://51st.news/dc-mayoral-race-fact-check/

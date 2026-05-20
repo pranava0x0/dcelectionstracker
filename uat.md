@@ -1,7 +1,7 @@
 # UAT Baseline — DC Elections Tracker
 
 _Created: 2026-05-10_
-_Last run: 2026-05-19 morning (UAT run 8 — scheduled `daily-dcelection-refresh` morning pass; paired with data-refresh run 8. Zero new bugs. Hero kicker reads "UPDATED 2026-05-19" and dynamic h1 advanced to "Four weeks until the primary." Verified JLG + McDuffie + Goodweather news arrays now lead with the May 18 Fox 5 + Hoya debate-recap items, sorted desc, cap=12.)_
+_Last run: 2026-05-20 morning (UAT run 9 — scheduled `daily-dcelection-refresh` morning pass; paired with data-refresh run 9. Zero new product bugs. Verified McDuffie's news[] now leads with the May 18 RAMW endorsement (cap held at 12) and his theme-1 detail names RAMW; the item renders on both the profile page and the `/elections/` comparison matrix. Logged documentation drift as BL-UAT-19 — see run-9 log entry below.)_
 
 ## Project Info
 - **Stack**: Next.js 16 App Router (React 19, Turbopack), `output: "export"` (static site), TypeScript strict, Tailwind 3
@@ -27,8 +27,8 @@ Run each at desktop (1280) **and** tablet (768) **and** mobile (375). The full s
 2. **Officials page**: 5 groups · 28 cards · party badges · Council voting record matrix
 3. **Elections page**: 2 countdowns, address lookup, DCBOE admin stats, key dates, 12 race cards, candidate comparison, registration links
 4. **Sources page**: 74 sources · 6 topic groups
-5. **Desktop nav**: 9 items + logo + CTA at ≥1024px
-6. **Mobile nav (hamburger)**: 9 items in disclosure panel at <1024px
+5. **Primary nav (all viewports)**: 2 trigger links (Issues, Elections) + logo + "ARE YOU REGISTERED?" CTA. NavBar is a server component (no `use client`, no hamburger) after BL-47. At sm+ each trigger reveals a CSS-only hover popout; at mobile the popouts stay hidden and the trigger Link navigates to the index page on tap. (BF-05/BF-06 in `~/.claude/skills/dc-uat.md` still describe the old 9-item hamburger nav — stale, tracked as BL-UAT-17 / BL-UAT-19.)
+6. **Nav popouts (sm+)**: hovering "Issues" lists the 6 brief links + "All briefs →"; hovering "Elections" lists Officials directory + 4 profiled races + "All 12 races →" + "What's on your ballot →"
 7. **Issue cards link correctly** to `/issues/[slug]/`
 8. **Build emits all routes**: `npm run build` produces 6 issue pages + 4 race pages + 24 candidate profiles
 9. **No console errors** on any page
@@ -42,24 +42,24 @@ Run each at desktop (1280) **and** tablet (768) **and** mobile (375). The full s
 
 | Section | Last Tested | Notes |
 |---------|-------------|-------|
-| Homepage — hero + CTAs | 2026-05-19 | Stable both viewports. Headline dynamic (BF-03 fix). Hero h1 = text-4xl at mobile (kept) |
+| Homepage — hero + CTAs | 2026-05-20 | Stable both viewports. Headline dynamic; h1 = "Four weeks until the primary." No console errors, no overflow at 375px. |
 | Homepage — alert ticker | 2026-05-19 | Stable. CSS marquee + prefers-reduced-motion guard. UAT-015 fixed: duplicate `<a>` links now `aria-hidden`. |
 | Homepage — countdowns | 2026-05-19 | Stable both viewports. 35d / 175d as of 2026-05-12 |
 | Homepage — latest cards | 2026-05-19 | Stable. 3 most-recent alerts rendered |
 | Homepage — issue cards grid | 2026-05-19 | Stable. 6 cards with `p-4 sm:p-5` padding (Phase C) |
 | Homepage — editorial standard | 2026-05-19 | Stable. GitHub issue tracker link present |
-| NavBar (desktop) | 2026-05-19 | Stable. 9 items + logo + CTA |
-| NavBar (mobile hamburger) | 2026-05-19 | Stable — UAT-002 resolved. Disclosure panel renders all 9 items at <1024px |
+| NavBar (all viewports) | 2026-05-20 | 2-item server-component nav (Issues, Elections) + logo + "ARE YOU REGISTERED?" CTA after BL-47. No hamburger. At 375px: nav is flex, no horizontal overflow, popout panels are `display:none`. |
+| NavBar popouts (sm+) | 2026-05-20 | CSS-only hover/focus popouts under Issues (6 briefs) + Elections (officials + 4 races + lookup). Hidden at mobile. |
 | Issue pages (dev + build) | 2026-05-19 | UAT-001 resolved. /issues/housing/ verified at both viewports |
 | /issues/<slug>/ JumpStrip | 2026-05-19 | Mobile-only `Stats · Stakes · Timeline` chips render below hero |
 | /issues/<slug>/ CollapsibleSections | 2026-05-19 | Mobile: "Who decides", "Questions", "Live sources" closed by default; desktop: inline |
 | /issues/ranked-choice/ | 2026-05-19 | RCV simulator hydrates; 5 candidate buttons; mobile results render as row strips |
 | Officials page (desktop) | 2026-05-19 | Stable. 28 cards. Voting record matrix as `<table>` |
 | Officials page (mobile) | 2026-05-19 | Stable. 28 cards w/ `Background ↓` toggles. Voting matrix as 3 bill cards w/ chip wrap-grid |
-| Elections page (desktop) | 2026-05-19 | Stable. 12 race cards (4 clickable, 8 static). Hero h1 = text-3xl at mobile (Phase C) |
-| Elections page (mobile) | 2026-05-19 | Stable. JumpStrip (4 chips) below hero · DCBOE admin + Key dates collapsed · race cards behave per BF-17 |
+| Elections page (desktop) | 2026-05-20 | Stable. No overflow, no duplicate IDs. McDuffie housing + statehood positions render in comparison matrix. |
+| Elections page (mobile) | 2026-05-20 | Stable. JumpStrip now 5 chips (Lookup · Officials · Races · Compare · Take action) · no overflow at 375px · no past-date leak in Key dates |
 | /elections/[race]/ (mayor) | 2026-05-19 | Desktop: 8 candidate cards + comparison `<table>`. Mobile: 8 candidate `<details>` |
-| /elections/[race]/[candidate]/ (JLG) | 2026-05-19 | Badge renders "D" only (UAT-013 fixed). Links & filings shows Campaign site + Government site + announcement source. |
+| /elections/[race]/[candidate]/ (McDuffie) | 2026-05-20 | RAMW news item + theme render; "2 OF 6 STATED" positions; all external links carry `rel=noopener`; zero console errors. |
 | Sources page | 2026-05-19 | Stable. 74 sources / 6 groups |
 | Footer | 2026-05-19 | Stable. Build date shows 2026-05-19 |
 
@@ -115,3 +115,4 @@ Run each at desktop (1280) **and** tablet (768) **and** mobile (375). The full s
 - **2026-05-12** (bug-fix pass) — found and fixed UAT-013 (badge "D · D" → "D" for all Democrat candidates; `page.tsx:93`), UAT-014 (hero dateline UTC off-by-one → `toLocaleDateString('sv')`; `page.tsx:15`), UAT-015 (alert ticker duplicate `<a>` links hidden from accessibility tree via `aria-hidden`; `AlertTicker.tsx`). All three verified in browser. Zero open issues.
 - **2026-05-18** (scheduled run 6, three-viewport pass) — paired with data-refresh run 6. Data refresh added the May 18 Fox 5/Georgetown debate alert, a Mendelson-on-CFO-reserves recentMove on `/issues/budget/`, and a more specific Bowser FY27 framing ($469M cuts + $100M tax increases). Verified on `/`, `/officials/`, `/elections/`, `/elections/mayor/`, `/issues/budget/` at desktop (1280) / tablet (768) / mobile (375). Build date shows `2026-05-18` in hero + footer; zero console errors; no horizontal overflow at any viewport. `/officials/` page is now 5,014px tall at desktop (down from 20,218px in run 5) — confirms UAT-018 + BL-UAT-11 fixes shipped together. Mayor race shows "8 declared candidates" with no oneLine mismatch (BL-UAT-15 guard holds). Found 2 passive items: BL-UAT-16 (auto-expire stale alerts past event date) and BL-UAT-17 (the dc-uat skill doc still references the pre-BL-47 9-item nav + hamburger; BF-05/BF-06 need updating).
 - **2026-05-19** (scheduled run 8, three-viewport sanity) — paired with data-refresh run 8 (May 18 Fox 5 + Hoya debate-recap items added to JLG/McDuffie/Goodweather news arrays; May 19 alert for the May 22 drop-box opening; alerts.ts also updated the May 18 entry from "tonight" to past tense with the analyst-called winner). Verified at desktop (1280) → tablet (768) → mobile (375) across `/`, `/elections/`, `/elections/mayor/janeese-lewis-george/`, `/elections/mayor/kenyan-mcduffie/`, `/officials/`. Zero new bugs. Hero kicker shows `UPDATED 2026-05-19` and dynamic h1 rolled forward to "Four weeks until the primary." (28 days). Candidate news arrays still at cap=12 sorted desc; JLG + McDuffie now lead with the two May 18 items. `/officials/` heading count = 8 at tablet; no horizontal overflow at any viewport; zero console errors. All 119 unit tests pass; typecheck clean.
+- **2026-05-20** (scheduled run 9, desktop + mobile pass) — paired with data-refresh run 9. Thin news day (last refresh <36h prior): only one substantive item found, the May 18 RAMW restaurant-association endorsement of McDuffie (Axios), added to his `news[]` (dropped the lower-value May 12 Georgetowner profile to hold cap=12) and woven into theme-1 (`detail` + swapped one `supportingUrl`). No withdrawals / court rulings / new congressional votes found. Verified at desktop (1280) + mobile (375) across `/`, `/elections/`, `/elections/mayor/kenyan-mcduffie/`, `/officials/`, `/issues/ranked-choice/`: RAMW renders on the profile (themes block + collapsed coverage) and in the `/elections/` comparison matrix; "2 OF 6 STATED" positions; no console errors; no horizontal overflow at 375px; no duplicate IDs. All 119 unit tests pass; typecheck + static build clean. **Process note:** confirmed the NavBar is now a 2-item server-component popout nav (no hamburger) — corrected the stale Critical Flows 5/6 and NavBar rows in this file, and filed BL-UAT-19 for the remaining drift in CLAUDE.md + both `~/.claude/skills/` files (subdir paths, Next 14.2.13, `dc-watch-dev` launch config). **No tablet pass this run** (time budget) — carry forward.

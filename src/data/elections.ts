@@ -301,11 +301,11 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-05-18", outlet: "Axios DC", headline: "DC restaurant association backs Kenyan McDuffie in mayor's race", url: "https://www.axios.com/local/washington-dc/2026/05/18/dc-mayor-race-endorsements-restaurants-ramw" },
       { date: "2026-05-18", outlet: "FOX 5 DC", headline: "Who won the DC mayoral debate? Analysts weigh in", url: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
       { date: "2026-05-18", outlet: "The Hoya", headline: "DC Mayoral Candidates Debate Affordability, Federal Intervention", url: "https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/" },
       { date: "2026-05-14", outlet: "51st", headline: "We fact checked the attacks in the DC mayoral race", url: "https://51st.news/dc-mayoral-race-fact-check/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
-      { date: "2026-05-12", outlet: "The Georgetowner", headline: "Mayoral Candidate Kenyan McDuffie", url: "https://georgetowner.com/articles/2026/05/12/mayoral-candidate-kenyan-mcduffie/" },
       { date: "2026-05-07", outlet: "Washington Post", headline: "Former D.C. mayor Anthony Williams endorses Kenyan McDuffie for mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/05/07/anthony-williams-endorses-kenyan-mcduffie-dc-mayor/" },
       { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
       { date: "2026-04-15", outlet: "WTOP", headline: "Kenyan McDuffie and Janeese Lewis George go toe to toe in DC mayoral debate", url: "https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/" },
@@ -317,12 +317,12 @@ export const candidates2026: Candidate[] = [
     newsThemes: [
       {
         headline: "Picking up establishment muscle — Anthony Williams, Maryland Sen. Alsobrooks, business/real-estate coalition",
-        detail: "Former Mayor Anthony Williams endorsed McDuffie on May 7; Maryland Senator Angela Alsobrooks endorsed him on March 24. Axios reports consolidation of real-estate and business endorsements; WTOP and WaPo debate coverage frames the race as McDuffie vs. Lewis George.",
+        detail: "Former Mayor Anthony Williams endorsed McDuffie on May 7 and the DC restaurant association (RAMW) added its backing on May 18; Maryland Senator Angela Alsobrooks endorsed him on March 24. Axios reports consolidation of real-estate and business endorsements.",
         supportingUrls: [
           "https://www.washingtonpost.com/dc-md-va/2026/05/07/anthony-williams-endorses-kenyan-mcduffie-dc-mayor/",
+          "https://www.axios.com/local/washington-dc/2026/05/18/dc-mayor-race-endorsements-restaurants-ramw",
           "https://wjla.com/news/local/kenyan-mcduffie-angela-alsobrooks-endorsement-mayor-senator-maryland-prince-georges-washingtonian-election-campaign-race-home-rule-politics",
           "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
-          "https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/",
         ],
       },
       {

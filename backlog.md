@@ -975,6 +975,16 @@ Light evening pass after the morning run 6. RCV page updated: per-ward DCBOE sam
 
 ---
 
+## UAT-sourced improvements (added 2026-05-20, run 9 — scheduled morning pass)
+
+Paired with data-refresh run 9 (RAMW endorsement of McDuffie). Three-viewport spot-check (desktop / mobile) across `/`, `/elections/`, `/elections/mayor/kenyan-mcduffie/`, `/officials/`, `/issues/ranked-choice/`. Zero new product bugs: no console errors, no horizontal overflow at 375px, no duplicate IDs, McDuffie's RAMW news item + updated theme render on both the profile and the comparison matrix. Build + typecheck + 119 tests pass.
+
+| ID | Title | Priority | Effort | Rationale |
+|----|-------|----------|--------|-----------|
+| BL-UAT-19 | Reconcile stale references in CLAUDE.md + both skill files with the current code | P3 | S | Documentation drift confirmed this run. (1) `CLAUDE.md` file-map still describes `NavBar.tsx` as `"use client"` with a `<details>` hamburger drawer (UAT-016) — but BL-47 redesigned it to a 2-item server-component nav (Issues/Elections) with CSS hover popouts and no hamburger; the Tech-invariants "client-side JS that hydrates" list still names NavBar's onClick handler, which no longer exists. (2) Both `~/.claude/skills/dc-data-refresh.md` and `dc-uat.md` reference the pre-`dfebf0a` `dc-elections-tracker/` subdirectory paths (real paths are repo-root `src/data/…`), Next.js 14.2.13 (now Next 16 / React 19 per `ae88214`), and launch configs `dc-elections-tracker-dev` / `-static` (actual config in `.claude/launch.json` is `dc-watch-dev`). A future automated run that follows the skills literally could fail to locate files or start the server. Cross-refs BL-UAT-17 (nav-specific BF-05/BF-06 rewrite). Skills live outside the repo, so the human owner must apply those edits; CLAUDE.md is in-repo and safe to fix directly. |
+
+---
+
 
 ## Editorial backlog (non-feature)
 
