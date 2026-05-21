@@ -74,6 +74,11 @@ type Move = { date: string; headline: string; source: { label: string; url: stri
 
 const recentMoves: Move[] = [
   {
+    date: "2026-05-20",
+    headline: "First poll of DC's RCV primary shows second-choice transfers could decide the mayor's race",
+    source: { label: "City Cast DC — TrueDot poll", url: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
+  },
+  {
     date: "2026-05-18",
     headline: "DCBOE posts per-ward sample ballots (Wards 1–8, all three parties) showing the live RCV layout",
     source: { label: "DCBOE — 2026 Elections page", url: "https://www.dcboe.org/elections/2026-elections" },

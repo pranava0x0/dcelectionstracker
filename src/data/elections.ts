@@ -253,6 +253,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-05-20", outlet: "City Cast DC", headline: "City Cast DC Poll: Lewis George leads for mayor; ranked choice could boost McDuffie", url: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
       { date: "2026-05-18", outlet: "FOX 5 DC", headline: "Who won the DC mayoral debate? Analysts weigh in", url: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
       { date: "2026-05-18", outlet: "The Hoya", headline: "DC Mayoral Candidates Debate Affordability, Federal Intervention", url: "https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/" },
       { date: "2026-05-14", outlet: "Washington Blade (Opinion)", headline: "LGBTQ community must say NO to Janeese Lewis George", url: "https://www.washingtonblade.com/2026/05/14/opinion-no-to-janeese-lewis-george-dc-mayor/" },
@@ -264,7 +265,6 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
       { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
       { date: "2026-04-27", outlet: "City Cast DC", headline: "Charles Allen endorses Janeese Lewis George in D.C. mayoral race", url: "https://dc.citycast.fm/dc-politics/charles-allen-endorses-janeese-lewis-george" },
-      { date: "2026-02-01", outlet: "Campaign site", headline: "Janeese Lewis George starts 2026 with thousands of DC donors and petition signatures", url: "https://janeesefordc.com/2026/02/janeese-lewis-george-starts-2026/", kind: "social" },
     ],
     newsThemes: [
       {
@@ -301,6 +301,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-05-20", outlet: "City Cast DC", headline: "City Cast DC Poll: Lewis George leads for mayor; ranked choice could boost McDuffie", url: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
       { date: "2026-05-18", outlet: "Axios DC", headline: "DC restaurant association backs Kenyan McDuffie in mayor's race", url: "https://www.axios.com/local/washington-dc/2026/05/18/dc-mayor-race-endorsements-restaurants-ramw" },
       { date: "2026-05-18", outlet: "FOX 5 DC", headline: "Who won the DC mayoral debate? Analysts weigh in", url: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
       { date: "2026-05-18", outlet: "The Hoya", headline: "DC Mayoral Candidates Debate Affordability, Federal Intervention", url: "https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/" },
@@ -308,7 +309,6 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-07", outlet: "Washington Post", headline: "Former D.C. mayor Anthony Williams endorses Kenyan McDuffie for mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/05/07/anthony-williams-endorses-kenyan-mcduffie-dc-mayor/" },
       { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
-      { date: "2026-04-15", outlet: "WTOP", headline: "Kenyan McDuffie and Janeese Lewis George go toe to toe in DC mayoral debate", url: "https://wtop.com/dc/2026/04/kenyan-mcduffie-and-janeese-lewis-george-go-toe-to-toe-in-dc-mayoral-debate/" },
       { date: "2026-03-24", outlet: "WJLA", headline: "Md. Senator Angela Alsobrooks endorses Kenyan McDuffie for DC Mayor", url: "https://wjla.com/news/local/kenyan-mcduffie-angela-alsobrooks-endorsement-mayor-senator-maryland-prince-georges-washingtonian-election-campaign-race-home-rule-politics" },
       { date: "2026-03-12", outlet: "Axios DC", headline: "McDuffie targets housing, speed cameras and Trump in mayoral bid", url: "https://www.axios.com/local/washington-dc/2026/03/12/kenyan-mcduffie-dc-mayor-election-janeese-lewis-george" },
       { date: "2026-03-03", outlet: "Washington Post", headline: "In D.C. mayoral race, McDuffie aims to make city 'most affordable' in U.S.", url: "https://www.washingtonpost.com/dc-md-va/2026/03/03/dc-mayoral-election-mcduffie/" },

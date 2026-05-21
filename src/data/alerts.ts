@@ -1,6 +1,7 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
+  { date: "2026-05-20", headline: "First DC ranked-choice primary poll: Lewis George leads first choices 39–34, McDuffie leads second choices 27–15", href: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
   { date: "2026-05-19", headline: "Ballot drop boxes open citywide Friday, May 22 — first chance for mail-ballot return", href: "https://www.dcboe.org/" },
   { date: "2026-05-18", headline: "Fox 5 / Georgetown mayoral debate aired with Goodweather, Lewis George, McDuffie — analysts called Lewis George the night's winner", href: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
   { date: "2026-05-11", headline: "Mail ballots begin going out today for the June 16 primary", href: "https://www.dcboe.org/" },
