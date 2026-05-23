@@ -520,6 +520,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://brookepintoforcongress.com/",
     twitterUrl: "https://x.com/brookepintodc",
     news: [
+      { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
       { date: "2026-05-11", outlet: "East of the River", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
@@ -549,6 +550,7 @@ export const candidates2026: Candidate[] = [
     governmentSiteUrl: "https://dccouncil.gov/council/robert-c-white-jr/",
     websiteUrl: "https://www.joinrobertwhite.com/",
     news: [
+      { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
       { date: "2026-05-11", outlet: "East of the River", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },

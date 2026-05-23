@@ -4,7 +4,7 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-21 (run 10 — scheduled morning pass: first public poll of the RCV-era primary (City Cast / TrueDot, fielded May 12–17) added to alerts, RCV recentMoves, and both mayoral candidates' news. Lewis George 39% / McDuffie 34% first-choice; McDuffie leads second-choice 27–15. No new candidate filings/withdrawals, court rulings, or congressional votes in the May 19–21 window.)_
+_Last updated: 2026-05-23 (run 11 — scheduled morning pass, thin ~2-day window: added the May 22 Axios delegate piece ("How DC's next delegate would handle Trump") to Robert White + Brooke Pinto news[], and a May 23 advance-registration-deadline alert (deadline May 26, same-day registration through Election Day). No candidate filings/withdrawals, court rulings, congressional votes, or new debates in the May 21–23 window. Discovered but not added: WaPo May 20 JLG/Trayon-White opinion column (see note in Mayor 2026). Standing follow-up from run 9/10: April 2026 DCBOE registration-statistics PDF still unparsed — electionStats holds the Feb 28 figure (476,066).)_
 
 ---
 
@@ -45,6 +45,7 @@ _Last updated: 2026-05-21 (run 10 — scheduled morning pass: first public poll 
 ## Candidate & Campaign
 
 ### Mayor 2026
+- [2026-05-20] Washington Post (Opinion) — In D.C. mayor's race, Janeese Lewis George calls Trayon White her 'mentor' (discovered, not added to data — opinion column on a sensitive subject, and JLG news[] already at cap with two opinion items; would have forced dropping a theme-supporting endorsement) — https://www.washingtonpost.com/opinions/2026/05/20/dc-mayor-race-janeese-lewis-george-calls-trayon-white-her-mentor/
 - [2026-05-20] City Cast DC — TrueDot poll (first public citywide poll; fielded May 12–17, 735 residents / 487 Dems): Lewis George 39% / McDuffie 34% first-choice, McDuffie leads second-choice 27–15 — https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026
 - [2026-05-20] WJLA — Poll: Lewis George leads DC mayoral race, but ranked-choice voting could help McDuffie — https://wjla.com/news/elections/dc-mayoral-lewis-george-mcduffie-mayor-ranked-choice-primary-washington-election-city-cast-candidates-norton-special-ballot-voters
 - [2026-05-20] Washington Examiner — Lewis George holds lead over McDuffie in DC mayor race: Poll — https://www.washingtonexaminer.com/news/campaigns/state/4576224/janeese-lewis-george-lead-kenyan-mcduffie-dc-mayor-race/
@@ -73,6 +74,7 @@ _Last updated: 2026-05-21 (run 10 — scheduled morning pass: first public poll 
 - [ongoing] Wikipedia — 2026 Washington DC mayoral election — https://en.wikipedia.org/wiki/2026_Washington,_D.C.,_mayoral_election
 
 ### U.S. House Delegate 2026
+- [2026-05-22] Axios DC — How DC's next delegate would handle Trump (Robert White vs. Brooke Pinto on federal pressure; added to both candidates' news[]) — https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto
 - [2026-ongoing] NOTUS — Delegate candidate fundraising race — https://www.notus.org/money/dc-delegate-candidates-election-2026-brooke-pinto-robert-white-kinney-zalesne
 - [2026-ongoing] NOTUS — Pinto-White doxxing controversy — https://www.notus.org/money/dc-delegate-brooke-pinto-robert-white-kinney-zalesne
 - [2026-04-30] HillRag — Who is running for Delegate — https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/
