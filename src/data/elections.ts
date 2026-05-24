@@ -253,6 +253,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-20", outlet: "City Cast DC", headline: "City Cast DC Poll: Lewis George leads for mayor; ranked choice could boost McDuffie", url: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
       { date: "2026-05-18", outlet: "FOX 5 DC", headline: "Who won the DC mayoral debate? Analysts weigh in", url: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
       { date: "2026-05-18", outlet: "The Hoya", headline: "DC Mayoral Candidates Debate Affordability, Federal Intervention", url: "https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/" },
@@ -262,7 +263,6 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-12", outlet: "The Georgetowner", headline: "Mayoral Candidate Janeese Lewis George", url: "https://georgetowner.com/articles/2026/05/12/mayoral-candidate-janeese-lewis-george/" },
       { date: "2026-05-08", outlet: "Greater Greater Washington", headline: "GGWash endorses Janeese Lewis George for mayor of the District of Columbia", url: "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor" },
-      { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
       { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
       { date: "2026-04-27", outlet: "City Cast DC", headline: "Charles Allen endorses Janeese Lewis George in D.C. mayoral race", url: "https://dc.citycast.fm/dc-politics/charles-allen-endorses-janeese-lewis-george" },
     ],
@@ -365,6 +365,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
       { date: "2026-04-25", outlet: "HillRag", headline: "Mayoral Candidates Debate Youth Curfew and Immigration Enforcement", url: "https://www.hillrag.com/2026/04/25/mayoral-candidates-clash-over-curfew-and-immigration-enforcement/" },
       { date: "2026-04-23", outlet: "The Georgetowner", headline: "A Tense but Polite Mayoral Forum at MLK Library", url: "https://georgetowner.com/articles/2026/04/23/a-tense-but-polite-mayoral-forum-at-mlk-library/" },
@@ -395,6 +396,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.goodweatherfordc.com/",
     notes: "First-time DC candidate; real-estate developer and Army veteran.",
     news: [
+      { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-18", outlet: "FOX 5 DC", headline: "Who won the DC mayoral debate? Analysts weigh in", url: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
       { date: "2026-05-18", outlet: "The Hoya", headline: "DC Mayoral Candidates Debate Affordability, Federal Intervention", url: "https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/" },
       { date: "2026-05-05", outlet: "GW Hatchet", headline: "Democratic mayoral, delegate candidates debate DC issues in double-header event", url: "https://gwhatchet.com/2026/05/05/democratic-mayoral-delegate-candidates-debate-dc-issues-in-double-header-event/" },
@@ -438,6 +440,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://riniformayor.com/",
     notes: "First-time DC candidate; government contractor.",
     news: [
+      { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-05", outlet: "GW Hatchet", headline: "Democratic mayoral, delegate candidates debate DC issues in double-header event", url: "https://gwhatchet.com/2026/05/05/democratic-mayoral-delegate-candidates-debate-dc-issues-in-double-header-event/" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
@@ -467,6 +470,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" },
     websiteUrl: "https://ernestformayor2026.com/",
     news: [
+      { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
   },

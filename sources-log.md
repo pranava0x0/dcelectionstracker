@@ -4,7 +4,7 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-23 (run 11 — scheduled morning pass, thin ~2-day window: added the May 22 Axios delegate piece ("How DC's next delegate would handle Trump") to Robert White + Brooke Pinto news[], and a May 23 advance-registration-deadline alert (deadline May 26, same-day registration through Election Day). No candidate filings/withdrawals, court rulings, congressional votes, or new debates in the May 21–23 window. Discovered but not added: WaPo May 20 JLG/Trayon-White opinion column (see note in Mayor 2026). Standing follow-up from run 9/10: April 2026 DCBOE registration-statistics PDF still unparsed — electionStats holds the Feb 28 figure (476,066).)_
+_Last updated: 2026-05-24 (run 12 — scheduled morning pass. **Source-integrity cleanup:** an abandoned partial run-12 left uncommitted, unverified news items in elections.ts with fabricated forum-recap URLs (gwu.edu/news/…, acludc.org/news/at-large-forum-2026, ward1democrats.org, adamsmorganonline.org, capitalstonewalldemocrats.com, a dead youtube link) — all six confirmed 404/refused and stashed/discarded; logged as ISSUE in issues.md. Re-did the work cleanly: the GWU mayoral forum is REAL but its canonical URL is gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates (2026-05-21, verified) — added to the 5 candidates who actually attended (Lewis George, Goodweather, Johnson, Orange, Sampath; NOT McDuffie, who the fabricated version wrongly tagged). Trimmed Lewis George's duplicated May 2 WTOP roundup to hold the 12-item cap. No other verifiable post-May-23 developments. Standing follow-up from run 9/10/11: April 2026 DCBOE registration-statistics PDF still unparsed — electionStats holds the Feb 28 figure (476,066).)_
 
 ---
 
@@ -137,6 +137,7 @@ _Last updated: 2026-05-23 (run 11 — scheduled morning pass, thin ~2-day window
 
 ## Local News
 
+- [2026-05-21] GW Today (George Washington University) — "GW Hosts Forum for 2026 D.C. Mayoral Candidates" (Lewis George, Goodweather, Johnson, Orange, Sampath at Jack Morton Auditorium; moderated by Steven Roberts) — https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates
 - [2026-03-19] Washingtonian — Stop DC CAMERA Act passes House committee 21-19 — https://washingtonian.com/2026/03/19/dc-traffic-camera-ban-passes-a-committee-vote-in-the-house/
 - [2026-03-19] DC News Now — House committee advances bill to ban DC traffic cameras — https://www.dcnewsnow.com/news/local-news/washington-dc/house-committee-advances-bill-to-ban-dc-traffic-cameras-restrictions-on-right-turns/
 - [2026-03-19] WTOP — House panel gives green light to bill to eliminate DC cameras — https://wtop.com/liveblog-today-on-the-hill/2026/03/house-panel-gives-green-light-to-bill-to-eliminate-dc-traffic-cameras/

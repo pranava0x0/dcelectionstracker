@@ -11,9 +11,11 @@ UAT run 8 (2026-05-19, scheduled morning pass) — paired with data-refresh run 
 UAT run 9 (2026-05-20, scheduled morning pass) — paired with data-refresh run 9 (RAMW restaurant-association endorsement of McDuffie added to his news[] + theme; thin news day, last refresh <36h prior). Desktop + mobile pass across `/`, `/elections/`, `/elections/mayor/kenyan-mcduffie/`, `/officials/`, `/issues/ranked-choice/`. Zero new product bugs: no console errors, no horizontal overflow at 375px, no duplicate IDs; McDuffie's RAMW item renders on profile + comparison matrix. Documentation drift logged as BL-UAT-19 (CLAUDE.md NavBar description + both skill files reference the pre-repo-move subdir paths / Next 14.2.13 / old launch-config names). Build + typecheck + 119 tests pass.
 UAT run 11 (2026-05-23, scheduled morning pass) — paired with data-refresh run 11 (thin ~2-day window: May 23 advance-registration-deadline alert + May 22 Axios delegate piece added to Robert White & Brooke Pinto news[]). Zero new product bugs. Live preview server couldn't bind (an unrelated stale `next dev` from another local project held port 3000); verified against the static `out/` export instead — homepage renders the new alert, both delegate profiles render the Axios item, hero/footer dates auto-render 2026-05-23. typecheck + 119 tests + static build (71 routes) clean. Filed BL-UAT-20 (launch-config port collision) — a tooling/env item, not a product defect, so no UAT-NNN issue opened.
 UAT run 10 (2026-05-21, scheduled morning pass) — paired with data-refresh run 10 (first public poll of the RCV-era primary — City Cast / TrueDot, fielded May 12–17 — added to alerts, RCV recentMoves, and both mayoral candidates' news; both held cap=12). Desktop + mobile pass across `/`, `/elections/`, `/elections/mayor/kenyan-mcduffie/`, `/elections/mayor/janeese-lewis-george/`, `/issues/ranked-choice/`. Zero new product bugs: no console errors, no horizontal overflow at 375px, no duplicate IDs on `/` or `/elections/`; poll item renders on both profiles (older items correctly dropped to hold cap) and as the new RCV recentMove + top alert. Static build emits all 71 routes; typecheck + 119 tests pass. Also fixed the in-repo CLAUDE.md half of BL-UAT-19 (NavBar now described as a BL-47 server component); external skill-file drift remains with the human owner.
+UAT run 12 (2026-05-24, scheduled morning pass) — paired with data-refresh run 12. **Source-integrity catch:** the working tree opened with an uncommitted, never-committed elections.ts diff from an abandoned earlier run-12 attempt that added candidate news items pointing at fabricated forum-recap URLs (gwu.edu/news/…, acludc.org/news/at-large-forum-2026, ward1democrats.org, adamsmorganonline.org/news/ward-1-forum-recap, capitalstonewalldemocrats.com, hillrag.com/2026/05/17/at-large-forum-st-coletta-recap, a dead youtube watch link). All six representative URLs were probed and returned 404 / connection-refused / cert errors. Stashed the whole diff (recoverable) and re-did the legitimate part cleanly: the GWU mayoral forum is real, its canonical URL is gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates (2026-05-21, verified), added to the 5 candidates who actually attended (Lewis George, Goodweather, Johnson, Orange, Sampath — not McDuffie). Filed UAT-021 (resolved same run) + BL-UAT-21 (add a URL-liveness guard so fabricated sources can't reach a commit). No other verifiable post-May-23 developments.
 
 | ID | Status | Title | Severity |
 |---|---|---|---|
+| UAT-021 | resolved | Abandoned partial run left uncommitted elections.ts diff with fabricated source URLs | high |
 | UAT-020 | closed | Voting record matrix desktop header for Trayon White Sr. rendered as "Sr." | low |
 | UAT-019 | closed | All three `AddressLookup` references to `dcboe.org/voters/where-to-vote` return 404 — DCBOE retired the URL | high |
 | UAT-018 | closed | `/officials/` group sections render kicker spans, not semantic `<h2>` — 3 headings for 28 officials in 5 groups | low |
@@ -40,6 +42,20 @@ UAT run 10 (2026-05-21, scheduled morning pass) — paired with data-refresh run
 ## Open Issues
 
 _No open issues._
+
+---
+
+## Resolved Issues (run 12, 2026-05-24)
+
+### [UAT-021] Abandoned partial run left an uncommitted elections.ts diff with fabricated source URLs
+- **Severity**: high (editorial-promise violation — "every claim links to a primary or authoritative source")
+- **Page/Section**: `src/data/elections.ts` → `candidates2026[].news`; surfaces on candidate profile pages + comparison matrix
+- **Discovered**: 2026-05-24 (scheduled data-refresh run 12, Step 0 working-tree inspection)
+- **Closed**: 2026-05-24
+- **Status**: resolved (never reached a commit — caught in the working tree)
+- **Description**: This run opened with an uncommitted `elections.ts` diff left behind by an earlier, abandoned run-12 attempt. It added candidate `news[]` items whose URLs were fabricated — plausible-looking org "forum recap" paths that do not exist. Six representative URLs were probed: `gwu.edu/news/dc-mayoral-forum-2026` (connection refused), `acludc.org/news/at-large-forum-2026` (404), `ward1democrats.org/news/candidate-forum-2026` (404), `adamsmorganonline.org/news/ward-1-forum-recap` (cert error), `capitalstonewalldemocrats.com/news/ward-1-forum` (404), `hillrag.com/2026/05/17/at-large-forum-st-coletta-recap/` (404), plus a `youtube.com/watch?v=kYJ6K8l5yM8` link with no recoverable title. The underlying *events* were partly real (there was a GWU mayoral forum) but the cited URLs were invented, which is exactly what the editorial promise forbids.
+- **Steps to Reproduce**: `git stash list` shows the stashed diff (`ABANDONED run-12 partial: fabricated forum-recap URLs …`). `git stash show -p stash@{0}` to inspect.
+- **Fix**: Stashed the entire bad diff (recoverable, non-destructive) so the refresh restarted from the last clean commit. Re-did the one legitimate development with a verified canonical URL: the GW Today writeup of the 2026-05-21 mayoral forum (`https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates`), added only to the 5 candidates the source confirms attended (Lewis George, Goodweather, Johnson, Orange, Sampath). Logged the source in `sources-log.md`. Proposed a standing safeguard as BL-UAT-21 (probe every newly-added source URL for a 2xx before commit).
 
 ---
 
