@@ -183,7 +183,7 @@ export const races2026: Race[] = [
   { slug: "council-chair", office: "Council Chair", status: "includes-incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
   { slug: "attorney-general", office: "Attorney General", status: "includes-incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
   { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years. 5 declared Democrats." },
-  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 6 declared Democrats tracked here including Owolewa, Chavous, Raymond (GGWash pick), and Fleming." },
+  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 10 declared Democrats tracked here including Owolewa, Chavous, Forester, Jackson, and Raymond (GGWash pick)." },
   { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Nonpartisan special election to fill the Independent seat vacated by Kenyan McDuffie. Filed: Crawford, Silverman, Patterson, Lee, Sloan." },
   { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Nadeau not seeking re-election. 5 active Democrats after Brian Footer suspended Dec 17, 2025." },
   { slug: "council-ward-3", office: "Council Ward 3", status: "includes-incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
@@ -203,11 +203,11 @@ export type ElectionStat = {
 // reflect the most recent report; update on each refresh run.
 export const electionStats: ElectionStat[] = [
   {
-    value: "476,066",
-    label: "Active registered voters in DC (Feb 28, 2026)",
+    value: "478,797",
+    label: "Active registered voters in DC (Apr 30, 2026); 75% Democratic",
     source: {
-      label: "DCBOE registration statistics",
-      url: "https://www.dcboe.org/data,-maps,-forms/voter-registration-statistics",
+      label: "DCBOE registration statistics (April 2026)",
+      url: "https://www.dcboe.org/getmedia/3c291ec7-9318-4365-a423-81a08b408e3a/Data-Statistics-Report-4_2026.pdf",
     },
   },
   {
@@ -733,6 +733,11 @@ export const candidates2026: Candidate[] = [
       },
     ],
   },
+
+  { slug: "dwight-davis", name: "Dwight Davis", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dwight4dccouncil.com/", notes: "Educator and DC Public Schools community leader." },
+  { slug: "dyana-forester", name: "Dyana N.M. Forester", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dyanafordc.com/", notes: "Past president of the Metropolitan Washington Council, AFL-CIO." },
+  { slug: "fred-hill", name: "Fred Hill", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.fredhill4dc.com/", notes: "Small-business owner and former chair of the DC Board of Zoning Adjustment." },
+  { slug: "greg-jackson", name: "Greg Jackson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.jacksonfordc.com/", notes: "Gun-violence-prevention advocate with DC and federal government experience." },
 
   // Council At-Large (special — Independent seat vacated by McDuffie running for mayor)
   {

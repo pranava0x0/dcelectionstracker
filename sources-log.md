@@ -4,14 +4,16 @@ All sources ever referenced or discovered during data refresh runs.
 Kept for auditing, future research, and editorial accountability.
 Newest entries at top within each section.
 
-_Last updated: 2026-05-24 (run 12 — scheduled morning pass. **Source-integrity cleanup:** an abandoned partial run-12 left uncommitted, unverified news items in elections.ts with fabricated forum-recap URLs (gwu.edu/news/…, acludc.org/news/at-large-forum-2026, ward1democrats.org, adamsmorganonline.org, capitalstonewalldemocrats.com, a dead youtube link) — all six confirmed 404/refused and stashed/discarded; logged as ISSUE in issues.md. Re-did the work cleanly: the GWU mayoral forum is REAL but its canonical URL is gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates (2026-05-21, verified) — added to the 5 candidates who actually attended (Lewis George, Goodweather, Johnson, Orange, Sampath; NOT McDuffie, who the fabricated version wrongly tagged). Trimmed Lewis George's duplicated May 2 WTOP roundup to hold the 12-item cap. No other verifiable post-May-23 developments. Standing follow-up from run 9/10/11: April 2026 DCBOE registration-statistics PDF still unparsed — electionStats holds the Feb 28 figure (476,066).)_
+_Last updated: 2026-05-24 (run 13 — scheduled evening pass, paired with the morning run 12. **Two verified updates this thin same-day window:** (1) cleared the long-standing follow-up by parsing the April 30, 2026 DCBOE registration PDF — 478,797 total registered (75.39% Democratic), now in electionStats, replacing the Feb 28 figure of 476,066; (2) caught a roster gap in the profiled council-at-large-bonds race — the East of the River 2026-05-01 roundup names 9 declared Democrats but only 6 were tracked, so added Dwight Davis, Dyana N.M. Forester, Fred Hill, and Greg Jackson (all four campaign sites HEAD-checked live; fredhill4dc.com returns 403/bot-block but resolves, treated as reachable per BL-UAT-21) and bumped the race oneLine count 6 → 10. No other verifiable post-May-23 developments; the May 21 WAMU/Daily Caller items are voter-guide/opinion and were skipped.)_
+
+_Prior — run 12 (2026-05-24 morning). **Source-integrity cleanup:** an abandoned partial run-12 left uncommitted, unverified news items in elections.ts with fabricated forum-recap URLs (gwu.edu/news/…, acludc.org/news/at-large-forum-2026, ward1democrats.org, adamsmorganonline.org, capitalstonewalldemocrats.com, a dead youtube link) — all six confirmed 404/refused and stashed/discarded; logged as ISSUE in issues.md. Re-did the work cleanly: the GWU mayoral forum is REAL but its canonical URL is gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates (2026-05-21, verified) — added to the 5 candidates who actually attended (Lewis George, Goodweather, Johnson, Orange, Sampath; NOT McDuffie, who the fabricated version wrongly tagged). Trimmed Lewis George's duplicated May 2 WTOP roundup to hold the 12-item cap. No other verifiable post-May-23 developments. Standing follow-up from run 9/10/11: April 2026 DCBOE registration-statistics PDF still unparsed — electionStats holds the Feb 28 figure (476,066).)_
 
 ---
 
 ## Government & Official
 
 - [2026-05-18] DCBOE — 2026 Elections page (per-ward sample ballots for Wards 1–8 × Democratic / Republican / DC Statehood Green now published) — https://www.dcboe.org/elections/2026-elections
-- [2026-05-18] DCBOE — April 2026 voter registration statistics PDF (more recent than the Feb 28 number currently in electionStats; binary couldn't be parsed in-session, flagged for next run) — https://www.dcboe.org/getmedia/3c291ec7-9318-4365-a423-81a08b408e3a/Data-Statistics-Report-4_2026.pdf
+- [2026-04-30] DCBOE — April 2026 voter registration statistics PDF (parsed run 13: 478,797 total registered citywide — DEM 360,953 / 75.39%, REP 24,533, STG 4,558, N-P 85,819, OTH 2,934; now feeds electionStats, replacing the Feb 28 figure of 476,066) — https://www.dcboe.org/getmedia/3c291ec7-9318-4365-a423-81a08b408e3a/Data-Statistics-Report-4_2026.pdf
 - [2026-05-18] Georgetown University — Fox 5 / GU Politics May 18 mayoral primary debate announcement (Goodweather, Lewis George, McDuffie qualified) — https://www.georgetown.edu/news/georgetown-fox-5-dc-2026-debate-democratic-mayoral-primary/
 - [2026-05-15] GW Hatchet — Mendelson briefs ANC: ~$160M in CFO reserves blocked by tax-decoupling override, signals fight to spend — https://gwhatchet.com/2026/04/18/dc-council-chair-briefs-anc-on-proposed-fy2027-city-budget-detailing-widespread-cuts/
 - [2026-05-17] DC State Board of Education — Board Biographies (authoritative ward-by-ward term-end years; used to correct 6 of 9 SBOE entries in officials.ts) — https://sboe.dc.gov/page/board-biographies
@@ -87,6 +89,10 @@ _Last updated: 2026-05-24 (run 12 — scheduled morning pass. **Source-integrity
 - [2026-05-01] East of the River — Who is running for At-Large Councilmember — https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/
 - [ongoing] vote4oye.com — Oye Owolewa campaign — https://www.vote4oye.com/
 - [ongoing] Sierra Club DC — endorsements — https://www.sierraclub.org/dc/sierra-club-endorses-oye-owolewa-and-elissa-silverman-dc-council-large-rashida-brown-and-aparna-raj
+- [ongoing] Dwight Davis campaign (added run 13; educator / DCPS community leader) — https://www.dwight4dccouncil.com/
+- [ongoing] Dyana N.M. Forester campaign (added run 13; past president, Metro Washington Council AFL-CIO) — https://www.dyanafordc.com/
+- [ongoing] Fred Hill campaign (added run 13; small-business owner, ex-chair DC Board of Zoning Adjustment) — https://www.fredhill4dc.com/
+- [ongoing] Greg Jackson campaign (added run 13; gun-violence-prevention advocate) — https://www.jacksonfordc.com/
 
 ### DC Council Ward 1 2026
 - [2026-03-29] Greater Greater Washington — Ward 1 primary poll (Raj 42%, Brown 25%, Deramo 16%) — https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race
