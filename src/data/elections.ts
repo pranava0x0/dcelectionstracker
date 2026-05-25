@@ -158,13 +158,13 @@ export const importantDates: ImportantDate[] = [
   },
   {
     iso: "2026-06-08",
-    label: "Early voting begins",
-    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
+    label: "Early voting begins — 8:30am to 7pm at Vote Centers; same-day registration available",
+    source: { label: "DCBOE 2026 Primary Calendar", url: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
   },
   {
     iso: "2026-06-14",
-    label: "Early voting ends",
-    source: { label: "DCBOE", url: "https://www.dcboe.org/" },
+    label: "Early voting ends — last day before Election Day",
+    source: { label: "DCBOE 2026 Primary Calendar", url: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
   },
   {
     iso: "2026-06-16",
