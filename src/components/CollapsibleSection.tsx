@@ -7,10 +7,20 @@ type Props = {
 };
 
 // Editorial section that collapses at < sm and renders inline at sm+.
-// Implementation: sibling-pair pattern (same as the Phase A tables) — a mobile
-// <details> and a tablet/desktop block. Children render twice in the JSX but
-// only one branch is ever in the layout because of the responsive classes.
-// This is JS-free and avoids fighting browser internals for [open] state.
+//
+// Implementation: dual-render sibling pair — a mobile <details> and a
+// tablet/desktop block. Children render twice in the JSX but only one
+// branch is ever in the layout because of the responsive classes
+// (`sm:hidden` / `hidden sm:block`).
+//
+// Why not single-render with a CSS override? A `<details>` element without
+// the `open` attribute uses browser-internal layout tricks (akin to
+// content-visibility) that CSS `display: block !important` on children
+// cannot reliably restore — the children render but the <details> reports
+// `height: 0`, breaking sibling stacking. The alternative (always-open
+// `<details>`) regresses mobile UX (sections no longer collapse by default).
+// The dual-render's cost is HTML weight only — screen readers respect the
+// CSS `display: none` on the inactive branch, so a11y is unaffected.
 export function CollapsibleSection({ kicker, title, children }: Props): JSX.Element {
   return (
     <section className="mt-8 sm:mt-12 lg:mt-14">

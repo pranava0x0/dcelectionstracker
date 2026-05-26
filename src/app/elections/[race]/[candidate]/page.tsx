@@ -236,72 +236,82 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         </section>
       ) : null}
 
-      {/* Positions — disclosure. Default open when ≥1 stance is on file (decision-relevant).
-          Header meta shows the stated count, and the body lists ONLY the stated stances
-          plus a single muted line naming the unstated issues. The 5-rows-of-"No position
-          stated" wall on sparse candidates was 650+px of noise — gone. */}
-      <DisclosureSection
-        kicker="Positions"
-        title="Where they stand"
-        meta={`${statedIssues.length} of ${COMPARABLE_ISSUES.length} stated`}
-        defaultOpen={statedIssues.length > 0}
-      >
-        {statedIssues.length === 0 ? (
-          <p className="max-w-3xl text-base italic leading-relaxed text-subtle sm:text-[17px]">
-            No positions stated yet on tracked issues. The data-refresh skill will populate
-            this section as the candidate publishes a platform or speaks at forums.
-          </p>
-        ) : (
-          <>
-            <ul className="space-y-4">
-              {statedIssues.map((slug) => {
-                const pos = candidate.positions?.[slug];
-                if (!pos) return null;
-                return (
-                  <li key={slug} className="border-l-2 border-primary pl-4 sm:pl-5">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                      <Link
-                        href={`/issues/${slug}/`}
-                        className="display text-base text-ink hover:text-primary sm:text-lg"
-                      >
+      {/* Positions — inlined (BL-58 follow-up). Where a candidate stands is the
+          most decision-relevant content on this page, so it renders always-open
+          rather than behind a disclosure click. The "Reference / About" block
+          below is still collapsible — that's bio + filings, lower priority. */}
+      <section className="mt-8 sm:mt-12 lg:mt-14">
+        <hr className="rule-thick" />
+        <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <div>
+            <span className="kicker">Positions</span>
+            <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
+              Where they stand
+            </h2>
+          </div>
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
+            {statedIssues.length} of {COMPARABLE_ISSUES.length} stated
+          </span>
+        </div>
+
+        <div className="mt-5">
+          {statedIssues.length === 0 ? (
+            <p className="max-w-3xl text-base italic leading-relaxed text-subtle sm:text-[17px]">
+              No positions stated yet on tracked issues. The data-refresh skill will populate
+              this section as the candidate publishes a platform or speaks at forums.
+            </p>
+          ) : (
+            <>
+              <ul className="space-y-4">
+                {statedIssues.map((slug) => {
+                  const pos = candidate.positions?.[slug];
+                  if (!pos) return null;
+                  return (
+                    <li key={slug} className="border-l-2 border-primary pl-4 sm:pl-5">
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                        <Link
+                          href={`/issues/${slug}/`}
+                          className="display text-base text-ink hover:text-primary sm:text-lg"
+                        >
+                          {issueTitle(slug)}
+                        </Link>
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-subtle">
+                          {ISSUE_COLUMN_TAGLINES[slug]}
+                        </span>
+                      </div>
+                      <p className="mt-2 text-base leading-relaxed text-fg sm:text-[17px]">
+                        {pos.stance}{" "}
+                        <a
+                          href={pos.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                        >
+                          [{pos.sourceLabel} ↗]
+                        </a>
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
+              {unstatedIssues.length > 0 ? (
+                <p className="mt-5 max-w-3xl text-sm italic leading-snug text-subtle">
+                  No stated position yet on:{" "}
+                  {unstatedIssues.map((slug, i) => (
+                    <span key={slug}>
+                      {i > 0 ? ", " : ""}
+                      <Link href={`/issues/${slug}/`} className="text-muted hover:text-primary">
                         {issueTitle(slug)}
                       </Link>
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-subtle">
-                        {ISSUE_COLUMN_TAGLINES[slug]}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-base leading-relaxed text-fg sm:text-[17px]">
-                      {pos.stance}{" "}
-                      <a
-                        href={pos.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
-                      >
-                        [{pos.sourceLabel} ↗]
-                      </a>
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
-            {unstatedIssues.length > 0 ? (
-              <p className="mt-5 max-w-3xl text-sm italic leading-snug text-subtle">
-                No stated position yet on:{" "}
-                {unstatedIssues.map((slug, i) => (
-                  <span key={slug}>
-                    {i > 0 ? ", " : ""}
-                    <Link href={`/issues/${slug}/`} className="text-muted hover:text-primary">
-                      {issueTitle(slug)}
-                    </Link>
-                  </span>
-                ))}
-                .
-              </p>
-            ) : null}
-          </>
-        )}
-      </DisclosureSection>
+                    </span>
+                  ))}
+                  .
+                </p>
+              ) : null}
+            </>
+          )}
+        </div>
+      </section>
 
       {/* Recent press & social — disclosure. Default open when there's anything to show. */}
       {candidate.news && candidate.news.length > 0 ? (

@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { NavBar } from "@/components/NavBar";
+import { CommandPalette } from "@/components/CommandPalette";
 import { Footer } from "@/components/Footer";
+import { NavBar } from "@/components/NavBar";
+import { buildSearchIndex } from "@/lib/search-index";
 
 export const metadata: Metadata = {
   title: "DC Elections Tracker — Voter accountability for the District",
@@ -36,6 +38,7 @@ export default function RootLayout({
         <NavBar />
         <main id="main-content">{children}</main>
         <Footer />
+        <CommandPalette items={buildSearchIndex()} />
       </body>
     </html>
   );

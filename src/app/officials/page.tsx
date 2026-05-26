@@ -16,10 +16,22 @@ export const metadata: Metadata = {
 const TOC_CHIPS: Record<string, string> = {
   executive: "Executive",
   "council-chair-at-large": "Chair + At-Large",
-  "council-wards": "Wards",
+  "council-wards": "Wards", // not directly rendered as one chip — exploded into W1..W8 below
   federal: "Federal",
   sboe: "State Board",
 };
+
+// Build per-ward chip list from the council-wards group. Each chip anchors to the
+// individual member's card (id={m.slug}), not the group h2, so a voter clicks
+// "W1" and lands directly on their council member's card — no second scroll.
+function buildWardChips(): { ward: string; slug: string }[] {
+  const wards = officials.find((g) => g.slug === "council-wards");
+  if (!wards) return [];
+  return wards.members
+    .filter((m) => m.ward)
+    .sort((a, b) => Number(a.ward) - Number(b.ward))
+    .map((m) => ({ ward: m.ward as string, slug: m.slug }));
+}
 
 export default function OfficialsPage(): JSX.Element {
   return (
@@ -71,20 +83,43 @@ export default function OfficialsPage(): JSX.Element {
       </p>
 
       <nav
-        aria-label="Jump to officials group"
+        aria-label="Jump to officials group or ward"
         className="-mx-4 mt-6 overflow-x-auto px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        <ul className="flex w-max gap-2 pb-1">
-          {officials.map((group) => (
-            <li key={group.slug}>
-              <a
-                href={`#${group.slug}`}
-                className="inline-flex h-10 shrink-0 items-center rounded-sm border border-rule bg-paper px-3 font-mono text-[11px] font-bold uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
-              >
-                {TOC_CHIPS[group.slug] ?? group.group}
-              </a>
-            </li>
-          ))}
+        <ul className="flex w-max items-center gap-2 pb-1">
+          {officials.map((group) => {
+            // For the wards group, explode into per-ward chips. Voter clicks W3 →
+            // lands directly on their council member's card, no second scroll.
+            if (group.slug === "council-wards") {
+              return (
+                <li key={group.slug} className="flex items-center gap-2">
+                  <span className="ml-1 mr-0.5 hidden font-mono text-[10px] font-bold uppercase tracking-wider text-muted sm:inline">
+                    Wards
+                  </span>
+                  {buildWardChips().map(({ ward, slug }) => (
+                    <a
+                      key={ward}
+                      href={`#${slug}`}
+                      className="inline-flex h-10 shrink-0 items-center rounded-sm border border-rule bg-paper px-3 font-mono text-[11px] font-bold uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+                      aria-label={`Jump to Ward ${ward} council member`}
+                    >
+                      W{ward}
+                    </a>
+                  ))}
+                </li>
+              );
+            }
+            return (
+              <li key={group.slug}>
+                <a
+                  href={`#${group.slug}`}
+                  className="inline-flex h-10 shrink-0 items-center rounded-sm border border-rule bg-paper px-3 font-mono text-[11px] font-bold uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
+                >
+                  {TOC_CHIPS[group.slug] ?? group.group}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
