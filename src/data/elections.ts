@@ -256,10 +256,10 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-20", outlet: "City Cast DC", headline: "City Cast DC Poll: Lewis George leads for mayor; ranked choice could boost McDuffie", url: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
       { date: "2026-05-18", outlet: "FOX 5 DC", headline: "Who won the DC mayoral debate? Analysts weigh in", url: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
-      { date: "2026-05-18", outlet: "The Hoya", headline: "DC Mayoral Candidates Debate Affordability, Federal Intervention", url: "https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/" },
       { date: "2026-05-14", outlet: "Washington Blade (Opinion)", headline: "LGBTQ community must say NO to Janeese Lewis George", url: "https://www.washingtonblade.com/2026/05/14/opinion-no-to-janeese-lewis-george-dc-mayor/" },
       { date: "2026-05-14", outlet: "Washington Post (Opinion)", headline: "Opinion | Janeese Lewis George plan would weaken mayoral control of D.C. schools", url: "https://www.washingtonpost.com/opinions/2026/05/14/janeese-lewis-george-plan-would-weaken-mayoral-control-dc-schools/" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
+      { date: "2026-05-13", outlet: "Free DC", headline: "Free DC endorses Janeese Lewis George for D.C. Mayor", url: "https://freedcproject.org/news/our-2026-endorsements-guide" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-12", outlet: "The Georgetowner", headline: "Mayoral Candidate Janeese Lewis George", url: "https://georgetowner.com/articles/2026/05/12/mayoral-candidate-janeese-lewis-george/" },
       { date: "2026-05-08", outlet: "Greater Greater Washington", headline: "GGWash endorses Janeese Lewis George for mayor of the District of Columbia", url: "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor" },
@@ -268,12 +268,13 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Leading the progressive lane with labor, LGBTQ, council-colleague, and urbanist endorsements",
-        detail: "Greater Greater Washington, Capital Stonewall Democrats, Ward 6 CM Charles Allen, and labor groups have endorsed Lewis George. Axios reports she also led the field in DC-resident donors.",
+        headline: "Leading the progressive lane with labor, LGBTQ, council-colleague, urbanist, and statehood-coalition endorsements",
+        detail: "Greater Greater Washington, Capital Stonewall Democrats, Ward 6 CM Charles Allen, labor groups, and the statehood-and-resistance coalition Free DC have endorsed Lewis George. Axios reports she also led the field in DC-resident donors.",
         supportingUrls: [
           "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor",
           "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
           "https://dc.citycast.fm/dc-politics/charles-allen-endorses-janeese-lewis-george",
+          "https://freedcproject.org/news/our-2026-endorsements-guide",
           "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
         ],
       },
@@ -555,6 +556,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.joinrobertwhite.com/",
     news: [
       { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
+      { date: "2026-05-13", outlet: "Free DC", headline: "Free DC endorses Robert White for Delegate to the U.S. House", url: "https://freedcproject.org/news/our-2026-endorsements-guide" },
       { date: "2026-05-11", outlet: "East of the River", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
@@ -562,12 +564,13 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Running on a CBC- and labor-backed 'resistance' lane after publicly demanding Pinto withdraw over opposition dossier",
-        detail: "Washingtonian reported White's April 14 call for Pinto to withdraw. The East of the River / HillRag joint profile frames him as the progressive choice against Pinto's insider lane.",
+        headline: "Running on a CBC-, labor-, and statehood-coalition 'resistance' lane after publicly demanding Pinto withdraw over opposition dossier",
+        detail: "Washingtonian reported White's April 14 call for Pinto to withdraw. The East of the River / HillRag joint profile frames him as the progressive choice against Pinto's insider lane; Free DC formally endorsed him on May 13 as their delegate pick.",
         supportingUrls: [
           "https://washingtonian.com/2026/04/14/robert-white-calls-for-brooke-pinto-to-withdraw-from-dc-delegate-race-after-she-posts-very-personal-opposition-research/",
           "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/",
           "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/",
+          "https://freedcproject.org/news/our-2026-endorsements-guide",
         ],
       },
     ],

@@ -1,6 +1,7 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
+  { date: "2026-05-26", headline: "Today is the advance voter-registration deadline; same-day registration is still available at every Vote Center through Election Day June 16", href: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
   { date: "2026-05-23", headline: "Advance voter-registration deadline is Tuesday, May 26; same-day registration runs through Election Day June 16", href: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
   { date: "2026-05-20", headline: "First DC ranked-choice primary poll: Lewis George leads first choices 39–34, McDuffie leads second choices 27–15", href: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
   { date: "2026-05-19", headline: "Ballot drop boxes open citywide Friday, May 22 — first chance for mail-ballot return", href: "https://www.dcboe.org/" },
