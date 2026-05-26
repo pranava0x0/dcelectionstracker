@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JumpStrip } from "@/components/JumpStrip";
 import { RcvSimulator } from "@/components/RcvSimulator";
 
 export const metadata: Metadata = {
@@ -178,9 +179,17 @@ function StatTile({ stat }: { stat: Stat }): JSX.Element {
   );
 }
 
-function SectionHead({ kicker, title }: { kicker: string; title: string }): JSX.Element {
+function SectionHead({
+  kicker,
+  title,
+  id,
+}: {
+  kicker: string;
+  title: string;
+  id?: string;
+}): JSX.Element {
   return (
-    <header className="mt-8 sm:mt-12 lg:mt-14">
+    <header id={id} className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14">
       <hr className="rule-thick" />
       <div className="mt-3 flex items-baseline justify-between gap-4">
         <span className="kicker">{kicker}</span>
@@ -201,6 +210,19 @@ export default function RankedChoicePage(): JSX.Element {
         DC&apos;s first-ever ranked-choice primary is June 16, 2026. Here&apos;s how the ballot
         works and why your second choice can matter.
       </p>
+
+      <JumpStrip
+        chips={[
+          { href: "#changed", label: "What changed" },
+          { href: "#tabulation", label: "How tabulation works" },
+          { href: "#ballot", label: "Your ballot" },
+          { href: "#simulator", label: "Simulator" },
+          { href: "#faq", label: "FAQ" },
+          { href: "#moves", label: "Recent moves" },
+          { href: "#sources", label: "Sources" },
+        ]}
+      />
+
       <hr className="mt-6 rule-thick sm:mt-8" />
       <p className="mt-5 max-w-3xl text-base leading-relaxed text-fg sm:mt-6 sm:text-[17px]">
         In 2024, DC voters approved Initiative 83 with 74% of the vote, making the District the
@@ -218,7 +240,7 @@ export default function RankedChoicePage(): JSX.Element {
         ))}
       </section>
 
-      <SectionHead kicker="The shift" title="What changed" />
+      <SectionHead id="changed" kicker="The shift" title="What changed" />
       <div className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2 lg:grid-cols-3">
         {whatChanged.map((s, i) => (
           <div key={i} className="bg-paper p-5">
@@ -228,7 +250,7 @@ export default function RankedChoicePage(): JSX.Element {
         ))}
       </div>
 
-      <SectionHead kicker="Mechanics" title="How tabulation works" />
+      <SectionHead id="tabulation" kicker="Mechanics" title="How tabulation works" />
       <ol className="mt-5 space-y-4">
         <li className="border-l-2 border-primary bg-paper p-5">
           <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
@@ -262,7 +284,7 @@ export default function RankedChoicePage(): JSX.Element {
         </li>
       </ol>
 
-      <SectionHead kicker="Ballot" title="Your ballot" />
+      <SectionHead id="ballot" kicker="Ballot" title="Your ballot" />
       <p className="mt-5 max-w-3xl text-base leading-relaxed text-fg sm:text-[17px]">
         For each race on the June 16, 2026 ballot, you&apos;ll see candidate names with columns
         for 1st choice, 2nd choice, up to 5th. Fill in one bubble per column, one column per
@@ -280,7 +302,7 @@ export default function RankedChoicePage(): JSX.Element {
         showing the exact layout you&apos;ll see on mail and in-person ballots.
       </p>
 
-      <SectionHead kicker="Try it" title="Interactive simulator" />
+      <SectionHead id="simulator" kicker="Try it" title="Interactive simulator" />
       <p className="mt-5 max-w-3xl text-base leading-relaxed text-fg sm:text-[17px]">
         Five fictional candidates. Twenty hypothetical voters have already cast ballots. Cast
         yours and watch what happens — you&apos;ll see eliminations, transfers, and which round
@@ -288,7 +310,7 @@ export default function RankedChoicePage(): JSX.Element {
       </p>
       <RcvSimulator />
 
-      <SectionHead kicker="FAQ" title="Common questions" />
+      <SectionHead id="faq" kicker="FAQ" title="Common questions" />
       <ul className="mt-5 space-y-5">
         {faqs.map((f, i) => (
           <li key={i}>
@@ -298,7 +320,7 @@ export default function RankedChoicePage(): JSX.Element {
         ))}
       </ul>
 
-      <SectionHead kicker="Power" title="Who decides" />
+      <SectionHead id="who-decides" kicker="Power" title="Who decides" />
       <ul className="mt-5 border-y border-rule bg-paper">
         {whoDecides.map((d, i) => (
           <li
@@ -311,7 +333,7 @@ export default function RankedChoicePage(): JSX.Element {
         ))}
       </ul>
 
-      <SectionHead kicker="Timeline" title="Recent moves" />
+      <SectionHead id="moves" kicker="Timeline" title="Recent moves" />
       <ol className="mt-5 border-y border-rule bg-paper">
         {recentMoves.map((m, i) => (
           <li
@@ -337,7 +359,7 @@ export default function RankedChoicePage(): JSX.Element {
         ))}
       </ol>
 
-      <SectionHead kicker="Reference" title="Live sources" />
+      <SectionHead id="sources" kicker="Reference" title="Live sources" />
       <ul className="mt-5 grid grid-cols-1 gap-px bg-rule sm:grid-cols-2">
         {liveSources.map((s, i) => (
           <li key={i} className="bg-paper">

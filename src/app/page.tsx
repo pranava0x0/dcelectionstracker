@@ -15,6 +15,9 @@ export default function HomePage(): JSX.Element {
     .slice(0, 4);
   const latest = alerts.slice(0, 3);
   const primaryHeadline = timeUntilPrimaryHeadline(PRIMARY_DATE);
+  // Surface today's milestone (registration deadline, early-voting open/close,
+  // Election Day) as a banner. Self-clearing: no match → null → nothing renders.
+  const todayMilestone = importantDates.find((d) => d.iso === BUILD_DATE) ?? null;
 
   return (
     <>
@@ -39,6 +42,36 @@ export default function HomePage(): JSX.Element {
             seats — and ranked-choice voting debuts in the primary. Every numeric claim
             below links to a primary source.
           </p>
+
+          {todayMilestone ? (
+            <aside
+              aria-label="Today's election milestone"
+              className="card card-stripe-red mt-6 flex flex-col gap-1 px-4 py-3 sm:mt-8 sm:flex-row sm:items-baseline sm:gap-4"
+            >
+              <span className="kicker shrink-0">
+                Today ·{" "}
+                <time className="text-fg" dateTime={todayMilestone.iso}>
+                  {todayMilestone.iso}
+                </time>
+              </span>
+              <p className="text-sm leading-snug text-fg">
+                {todayMilestone.label}
+                {todayMilestone.source ? (
+                  <>
+                    {" "}
+                    <a
+                      href={todayMilestone.source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="whitespace-nowrap font-mono text-xs font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                    >
+                      {todayMilestone.source.label} ↗
+                    </a>
+                  </>
+                ) : null}
+              </p>
+            </aside>
+          ) : null}
 
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
             <a
