@@ -11,27 +11,12 @@ import { PROFILED_RACE_SLUGS, getRaceBySlug } from "@/data/elections";
 // At mobile the popouts stay hidden (the stacked nav is too narrow), and
 // the trigger Link still navigates to the index page on tap — so touch
 // users get the BL-47 behavior unchanged.
-//
-// Sub-nav strip: a slim always-visible row below the dark header exposes the
-// 4 profiled-race shortcuts so a voter on any page is one click from the
-// race they care about — no scrolling through /elections/ first. Same
-// 4 races as the Elections popout; popout still lists them too for mouse
-// users who never look at the strip.
 
 const profiledRaces = PROFILED_RACE_SLUGS.map((slug) => {
   const race = getRaceBySlug(slug);
   if (!race) throw new Error(`PROFILED_RACE_SLUGS references unknown race: ${slug}`);
   return race;
 });
-
-// Short labels for the sub-nav strip. Full office names ("Council At-Large
-// (Bonds seat)", "U.S. House Delegate") are too long for a horizontal row.
-const RACE_STRIP_LABEL: Record<string, string> = {
-  mayor: "Mayor",
-  "us-house-delegate": "Delegate",
-  "council-at-large-bonds": "At-Large",
-  "council-ward-1": "Ward 1",
-};
 
 const triggerClass =
   "block whitespace-nowrap font-mono text-[11px] font-semibold uppercase tracking-wider text-white/70 transition-colors hover:text-white sm:py-3 sm:text-xs";
@@ -163,30 +148,6 @@ export function NavBar(): JSX.Element {
           </div>
         </nav>
       </div>
-      <div className="h-px w-full bg-primary" aria-hidden />
-      <nav
-        className="border-b border-rule bg-paper"
-        aria-label="Profiled 2026 races"
-      >
-        <div className="mx-auto flex max-w-6xl items-center gap-4 overflow-x-auto px-4 py-2 sm:gap-5">
-          <span className="kicker shrink-0">Races</span>
-          {profiledRaces.map((race) => (
-            <Link
-              key={race.slug}
-              href={`/elections/${race.slug}/`}
-              className="shrink-0 whitespace-nowrap font-mono text-[11px] font-semibold uppercase tracking-wider text-fg transition-colors hover:text-primary"
-            >
-              {RACE_STRIP_LABEL[race.slug] ?? race.office}
-            </Link>
-          ))}
-          <Link
-            href="/elections/#races"
-            className="shrink-0 whitespace-nowrap font-mono text-[11px] font-semibold uppercase tracking-wider text-primary hover:underline"
-          >
-            All 12 races →
-          </Link>
-        </div>
-      </nav>
     </header>
   );
 }

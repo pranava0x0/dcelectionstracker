@@ -131,7 +131,7 @@ export default function HomePage(): JSX.Element {
           <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
             What&apos;s on your ballot?
           </h2>
-          <p className="mt-2 max-w-3xl text-[15px] text-fg">
+          <p className="mt-3 max-w-3xl text-[15px] text-fg">
             Enter your DC address to see your ward, the races on your June 16 primary
             ballot, and how your current Council member has voted on tracked bills.
           </p>
@@ -177,7 +177,7 @@ export default function HomePage(): JSX.Element {
           <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
             Seven issues on the 2026 ballot
           </h2>
-          <p className="mt-2 max-w-3xl text-[15px] text-fg">
+          <p className="mt-3 max-w-3xl text-[15px] text-fg">
             Each issue page has four hero stats, what&apos;s at stake, who decides, the
             recent moves, and the questions to put to candidates.
           </p>

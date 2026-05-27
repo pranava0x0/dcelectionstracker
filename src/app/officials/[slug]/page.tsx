@@ -203,7 +203,7 @@ export default async function OfficialProfilePage({ params }: { params: Promise<
             <h2 className="display mt-1 text-xl text-ink sm:text-2xl">
               What we&apos;re tracking right now
             </h2>
-            <ul className="mt-5 space-y-5">
+            <ul className="mt-5 space-y-4">
               {candidate.newsThemes.map((theme) => {
                 const supporting = theme.supportingUrls
                   .map((url) => candidate.news?.find((n) => n.url === url))
@@ -405,7 +405,7 @@ export default async function OfficialProfilePage({ params }: { params: Promise<
       )}
 
       {/* Back link */}
-      <footer className="mt-12 border-t border-rule pt-6">
+      <footer className="mt-8 border-t border-rule pt-6 sm:mt-12 lg:mt-14">
         <Link
           href="/officials/"
           className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary hover:opacity-80"

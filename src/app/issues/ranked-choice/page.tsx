@@ -311,7 +311,7 @@ export default function RankedChoicePage(): JSX.Element {
       <RcvSimulator />
 
       <SectionHead id="faq" kicker="FAQ" title="Common questions" />
-      <ul className="mt-5 space-y-5">
+      <ul className="mt-5 space-y-4">
         {faqs.map((f, i) => (
           <li key={i}>
             <h3 className="display text-lg text-ink sm:text-xl">{f.q}</h3>

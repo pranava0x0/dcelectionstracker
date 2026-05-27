@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function IssuesIndexPage(): JSX.Element {
   return (
-    <article className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
+    <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
       <p className="kicker">The 2026 brief</p>
       <h1 className="display-tight mt-3 text-3xl text-ink sm:text-5xl lg:text-6xl">
         {issues.length} issues on the 2026 DC ballot

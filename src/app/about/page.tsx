@@ -22,7 +22,7 @@ export default function AboutPage(): JSX.Element {
         label. Voting records, when added, are factual records, not endorsements.
       </p>
 
-      <hr className="mt-10 rule-thick sm:mt-12" />
+      <hr className="mt-8 rule-thick sm:mt-12 lg:mt-14" />
       <span className="kicker mt-3 inline-block">How we source</span>
       <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
         Primary sources, plainly stated
@@ -60,10 +60,10 @@ export default function AboutPage(): JSX.Element {
         </li>
       </ul>
 
-      <hr className="mt-10 rule-thick sm:mt-12" />
+      <hr className="mt-8 rule-thick sm:mt-12 lg:mt-14" />
       <span className="kicker mt-3 inline-block">Reference</span>
       <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Read or contribute</h2>
-      <p className="mt-4 text-base leading-relaxed text-fg sm:text-[17px]">
+      <p className="mt-3 text-base leading-relaxed text-fg sm:text-[17px]">
         Every URL cited on this site is gathered on{" "}
         <Link
           href="/sources/"

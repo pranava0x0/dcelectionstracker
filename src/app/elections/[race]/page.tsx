@@ -99,7 +99,7 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
           {candidates.length} declared candidate{candidates.length === 1 ? "" : "s"}
         </h2>
-        <p className="mt-2 max-w-3xl text-sm text-fg">
+        <p className="mt-3 max-w-3xl text-sm text-fg">
           Listed alphabetically. Tap a candidate to see their full profile, links to OCF /
           DCBOE filings, and stated positions on the site&apos;s six issue pages.
         </p>
@@ -143,7 +143,7 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Positions</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Issue-by-issue comparison</h2>
-        <p className="mt-2 max-w-3xl text-sm text-fg">
+        <p className="mt-3 max-w-3xl text-sm text-fg">
           One candidate per row, six issue columns mirroring the site&apos;s issue pages.
           Cells without a stated position read &ldquo;No position stated&rdquo; — we
           don&apos;t infer.
