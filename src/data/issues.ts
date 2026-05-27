@@ -457,6 +457,11 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-05-25",
+        headline: "Mendelson identifies ~$420M in potential FY27 funding from reserves and tax-code changes",
+        source: { label: "WJLA", url: "https://wjla.com/news/local/washington-dc-budget-phil-mendelson-cuts-millions-potential-funding-crisis-spending-city-services-education-housing-economic-uncertainty-federal-workers-dmv-taxes-tax-code-changes" },
+      },
+      {
         date: "2026-05-15",
         headline: "Mendelson: CFO is holding ~$160M in reserves from blocked tax decoupling; signals fight to spend it",
         source: { label: "GW Hatchet", url: "https://gwhatchet.com/2026/04/18/dc-council-chair-briefs-anc-on-proposed-fy2027-city-budget-detailing-widespread-cuts/" },
