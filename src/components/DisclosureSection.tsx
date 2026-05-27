@@ -28,23 +28,29 @@ export function DisclosureSection({
     <section className="mt-8 sm:mt-12 lg:mt-14">
       <hr className="rule-thick" />
       <details className="group" {...(defaultOpen ? { open: true } : {})}>
-        <summary className="flex cursor-pointer items-baseline justify-between gap-4 pt-3 list-none [&::-webkit-details-marker]:hidden">
-          <div className="min-w-0 flex-1">
-            <span className="kicker">{kicker}</span>
-            <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">{title}</h2>
-          </div>
-          <div className="flex shrink-0 items-baseline gap-3 self-center">
-            {meta ? (
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
-                {meta}
+        {/* On mobile the title takes the full width and the meta+arrow drop to
+            their own row below (otherwise the meta's shrink-0 eats horizontal
+            room and forces big display titles to wrap to short stacks). On sm+
+            we restore the side-by-side row. */}
+        <summary className="cursor-pointer pt-3 list-none [&::-webkit-details-marker]:hidden">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+            <div className="min-w-0 flex-1">
+              <span className="kicker">{kicker}</span>
+              <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">{title}</h2>
+            </div>
+            <div className="flex items-baseline justify-end gap-3 sm:shrink-0 sm:self-center">
+              {meta ? (
+                <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
+                  {meta}
+                </span>
+              ) : null}
+              <span
+                aria-hidden
+                className="font-mono text-xl leading-none text-muted transition-transform group-open:rotate-180"
+              >
+                ↓
               </span>
-            ) : null}
-            <span
-              aria-hidden
-              className="font-mono text-xl leading-none text-muted transition-transform group-open:rotate-180"
-            >
-              ↓
-            </span>
+            </div>
           </div>
         </summary>
         <div className="mt-4">{children}</div>

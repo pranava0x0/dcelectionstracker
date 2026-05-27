@@ -71,7 +71,7 @@ export default function ElectionsPage(): JSX.Element {
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
           What&apos;s on your ballot
         </h2>
-        <p className="mt-2 max-w-3xl text-sm text-fg sm:text-[15px]">
+        <p className="mt-3 max-w-3xl text-sm text-fg sm:text-[15px]">
           Enter your DC address to see your ward, ANC, single-member district, the races
           on your June 16 primary ballot, and how your current Council member has voted
           on tracked bills.
@@ -115,7 +115,7 @@ export default function ElectionsPage(): JSX.Element {
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Ballot</span>
         <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Races</h2>
-        <p className="mt-2 max-w-3xl text-sm text-fg">
+        <p className="mt-3 max-w-3xl text-sm text-fg">
           Twelve citywide and ward-level races, plus all ANC seats. Tap a race to see
           declared candidates — sourced from the DC Board of Elections (DCBOE) Feb 2, 2026
           primary filing list and verified secondary coverage. Full official list:{" "}

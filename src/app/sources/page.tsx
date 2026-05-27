@@ -217,7 +217,7 @@ export default function SourcesPage(): JSX.Element {
         <section
           key={cat}
           id={CATEGORY_SLUG[cat]}
-          className="mt-10 scroll-mt-16 sm:mt-12"
+          className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14"
         >
           <hr className="rule-thick" />
           <span className="kicker mt-3 inline-block">{cat}</span>

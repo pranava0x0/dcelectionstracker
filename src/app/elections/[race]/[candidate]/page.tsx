@@ -44,17 +44,12 @@ function issueTitle(slug: ComparableIssueSlug): string {
 
 type LinkEntry = { label: string; url: string };
 
-// Filings-only links for the "About this candidate" disclosure. Campaign-site
-// + government-site + social URLs render as icon shortcuts next to the
-// candidate name (see SocialIconRow), so they're intentionally excluded here.
-function filingLinksFor(candidate: ReturnType<typeof getCandidateBySlug>): LinkEntry[] {
+// Reference links for the "About this candidate" disclosure. Campaign site,
+// government site, socials, OCF, and DCBOE all render in the top link row
+// (see SocialIconRow), so only the announcement-source citation is here.
+function referenceLinksFor(candidate: ReturnType<typeof getCandidateBySlug>): LinkEntry[] {
   if (!candidate) return [];
-  const links: LinkEntry[] = [];
-  if (candidate.ocfUrl) links.push({ label: "DC OCF — campaign finance", url: candidate.ocfUrl });
-  if (candidate.dcboeUrl) links.push({ label: "DCBOE filing", url: candidate.dcboeUrl });
-  // Always include the announcement source as the last link.
-  links.push({ label: candidate.source.label, url: candidate.source.url });
-  return links;
+  return [{ label: candidate.source.label, url: candidate.source.url }];
 }
 
 export default async function CandidateProfilePage({ params }: { params: Promise<Params> }): Promise<JSX.Element> {
@@ -65,12 +60,12 @@ export default async function CandidateProfilePage({ params }: { params: Promise
 
   const tone = partyTone(candidate.party);
   const sameRace = candidatesForRace(race.slug);
-  const filingLinks = filingLinksFor(candidate);
+  const referenceLinks = referenceLinksFor(candidate);
   const statedIssues = COMPARABLE_ISSUES.filter((slug) => candidate.positions?.[slug]);
   const unstatedIssues = COMPARABLE_ISSUES.filter((slug) => !candidate.positions?.[slug]);
   const aboutMetaParts: string[] = [];
   if (candidate.bio) aboutMetaParts.push("Bio");
-  aboutMetaParts.push(`${filingLinks.length} ${filingLinks.length === 1 ? "filing" : "filings"}`);
+  aboutMetaParts.push("Source");
   const aboutMeta = aboutMetaParts.join(" · ");
 
   return (
@@ -86,110 +81,41 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         <span aria-hidden>›</span> {candidate.name}
       </p>
 
-      <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
-        <h1 className="display-tight text-3xl text-ink sm:text-4xl lg:text-5xl">
-          {candidate.name}
-        </h1>
+      <h1 className="display-tight mt-3 text-3xl text-ink sm:text-4xl lg:text-5xl">
+        {candidate.name}
+      </h1>
+      {/* Metadata + links collapsed onto one row: party pill + concise filing
+          status + web, gov, socials, OCF, DCBOE. Wraps at narrow widths.
+          Office name is in the breadcrumb so we omit "for {office}" here. */}
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div className="flex items-baseline gap-x-2">
+          <span
+            className={
+              "inline-flex items-center rounded-sm px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider " +
+              tone.pill
+            }
+          >
+            {tone.label}
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
+            {candidate.incumbent ? "Incumbent · " : ""}
+            {candidate.filingStatus} candidate
+          </span>
+        </div>
         <SocialIconRow links={candidate} name={candidate.name} />
       </div>
-      <div className="mt-3 flex flex-wrap items-baseline gap-3">
-        <span
-          className={
-            "inline-flex items-center rounded-sm px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider " +
-            tone.pill
-          }
-        >
-          {tone.label}
-        </span>
-        <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
-          {candidate.incumbent ? "Incumbent · " : ""}
-          {candidate.filingStatus} candidate for {race.office}
-        </span>
-      </div>
-      {/* Compact labeled link strip — website and social as explicit text chips */}
-      {(candidate.websiteUrl || candidate.governmentSiteUrl || candidate.twitterUrl || candidate.instagramUrl || candidate.facebookUrl || candidate.linkedinUrl) ? (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {candidate.websiteUrl ? (
-            <a
-              href={candidate.websiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
-            >
-              Website <span aria-hidden>↗</span>
-            </a>
-          ) : null}
-          {candidate.governmentSiteUrl ? (
-            <a
-              href={candidate.governmentSiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
-            >
-              Official site <span aria-hidden>↗</span>
-            </a>
-          ) : null}
-          {candidate.twitterUrl ? (
-            <a
-              href={candidate.twitterUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
-            >
-              X / Twitter <span aria-hidden>↗</span>
-            </a>
-          ) : null}
-          {candidate.instagramUrl ? (
-            <a
-              href={candidate.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
-            >
-              Instagram <span aria-hidden>↗</span>
-            </a>
-          ) : null}
-          {candidate.facebookUrl ? (
-            <a
-              href={candidate.facebookUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
-            >
-              Facebook <span aria-hidden>↗</span>
-            </a>
-          ) : null}
-          {candidate.linkedinUrl ? (
-            <a
-              href={candidate.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-sm border border-rule bg-paper px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-fg hover:border-primary hover:text-primary"
-            >
-              LinkedIn <span aria-hidden>↗</span>
-            </a>
-          ) : null}
-        </div>
-      ) : null}
 
       {candidate.notes ? (
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-fg sm:text-[17px]">{candidate.notes}</p>
+        <p className="mt-2 max-w-3xl text-sm leading-snug text-fg">{candidate.notes}</p>
       ) : null}
 
-      <hr className="mt-6 rule-thick sm:mt-8" />
-
       {candidate.newsThemes && candidate.newsThemes.length > 0 ? (
-        <section className="mt-8 sm:mt-10">
-          <span className="kicker">What&apos;s happening</span>
-          <h2 className="display mt-1 text-xl text-ink sm:text-2xl">
-            What we&apos;re tracking right now
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm text-fg">
-            Themes the data-refresh skill identified across the last 60 days of
-            local press and the candidate&apos;s own posts. Every theme links to
-            the receipts.
-          </p>
-          <ul className="mt-5 space-y-5">
+        <DisclosureSection
+          kicker="What's happening"
+          title="Recent themes"
+          meta={`${candidate.newsThemes.length} ${candidate.newsThemes.length === 1 ? "theme" : "themes"} · last 60 days`}
+        >
+          <ul className="space-y-4">
             {candidate.newsThemes.map((theme) => {
               const supporting = theme.supportingUrls
                 .map((url) => candidate.news?.find((n) => n.url === url))
@@ -200,11 +126,11 @@ export default async function CandidateProfilePage({ params }: { params: Promise
                   key={theme.headline}
                   className="border-l-2 border-primary pl-4 sm:pl-5"
                 >
-                  <h3 className="display text-base text-ink sm:text-lg">
+                  <h3 className="display text-base text-ink">
                     {theme.headline}
                   </h3>
                   {theme.detail ? (
-                    <p className="mt-2 text-[15px] leading-snug text-fg">
+                    <p className="mt-2 text-sm leading-snug text-fg">
                       {theme.detail}
                     </p>
                   ) : null}
@@ -232,94 +158,80 @@ export default async function CandidateProfilePage({ params }: { params: Promise
               );
             })}
           </ul>
-          <hr className="mt-8 rule-thick sm:mt-10" />
-        </section>
+        </DisclosureSection>
       ) : null}
 
-      {/* Positions — inlined (BL-58 follow-up). Where a candidate stands is the
-          most decision-relevant content on this page, so it renders always-open
-          rather than behind a disclosure click. The "Reference / About" block
-          below is still collapsible — that's bio + filings, lower priority. */}
-      <section className="mt-8 sm:mt-12 lg:mt-14">
-        <hr className="rule-thick" />
-        <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <div>
-            <span className="kicker">Positions</span>
-            <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">
-              Where they stand
-            </h2>
-          </div>
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
-            {statedIssues.length} of {COMPARABLE_ISSUES.length} stated
-          </span>
-        </div>
-
-        <div className="mt-5">
-          {statedIssues.length === 0 ? (
-            <p className="max-w-3xl text-base italic leading-relaxed text-subtle sm:text-[17px]">
-              No positions stated yet on tracked issues. The data-refresh skill will populate
-              this section as the candidate publishes a platform or speaks at forums.
-            </p>
-          ) : (
-            <>
-              <ul className="space-y-4">
-                {statedIssues.map((slug) => {
-                  const pos = candidate.positions?.[slug];
-                  if (!pos) return null;
-                  return (
-                    <li key={slug} className="border-l-2 border-primary pl-4 sm:pl-5">
-                      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                        <Link
-                          href={`/issues/${slug}/`}
-                          className="display text-base text-ink hover:text-primary sm:text-lg"
-                        >
-                          {issueTitle(slug)}
-                        </Link>
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-subtle">
-                          {ISSUE_COLUMN_TAGLINES[slug]}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-base leading-relaxed text-fg sm:text-[17px]">
-                        {pos.stance}{" "}
-                        <a
-                          href={pos.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
-                        >
-                          [{pos.sourceLabel} ↗]
-                        </a>
-                      </p>
-                    </li>
-                  );
-                })}
-              </ul>
-              {unstatedIssues.length > 0 ? (
-                <p className="mt-5 max-w-3xl text-sm italic leading-snug text-subtle">
-                  No stated position yet on:{" "}
-                  {unstatedIssues.map((slug, i) => (
-                    <span key={slug}>
-                      {i > 0 ? ", " : ""}
-                      <Link href={`/issues/${slug}/`} className="text-muted hover:text-primary">
+      {/* Positions — default-collapsed DisclosureSection. Body text normalized to
+          one size (text-sm) with leading-snug so the per-issue stance cards aren't
+          competing with metadata at multiple sizes. */}
+      <DisclosureSection
+        kicker="Positions"
+        title="Where they stand"
+        meta={`${statedIssues.length} of ${COMPARABLE_ISSUES.length} stated`}
+      >
+        {statedIssues.length === 0 ? (
+          <p className="max-w-3xl text-sm italic leading-snug text-subtle">
+            No positions stated yet on tracked issues. The data-refresh skill will populate
+            this section as the candidate publishes a platform or speaks at forums.
+          </p>
+        ) : (
+          <>
+            <ul className="space-y-4">
+              {statedIssues.map((slug) => {
+                const pos = candidate.positions?.[slug];
+                if (!pos) return null;
+                return (
+                  <li key={slug} className="border-l-2 border-primary pl-4 sm:pl-5">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                      <Link
+                        href={`/issues/${slug}/`}
+                        className="display text-base text-ink hover:text-primary"
+                      >
                         {issueTitle(slug)}
                       </Link>
-                    </span>
-                  ))}
-                  .
-                </p>
-              ) : null}
-            </>
-          )}
-        </div>
-      </section>
+                      <span className="font-mono text-[11px] uppercase tracking-wider text-subtle">
+                        {ISSUE_COLUMN_TAGLINES[slug]}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm leading-snug text-fg">
+                      {pos.stance}{" "}
+                      <a
+                        href={pos.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+                      >
+                        [{pos.sourceLabel} ↗]
+                      </a>
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+            {unstatedIssues.length > 0 ? (
+              <p className="mt-5 max-w-3xl text-sm italic leading-snug text-subtle">
+                No stated position yet on:{" "}
+                {unstatedIssues.map((slug, i) => (
+                  <span key={slug}>
+                    {i > 0 ? ", " : ""}
+                    <Link href={`/issues/${slug}/`} className="text-muted hover:text-primary">
+                      {issueTitle(slug)}
+                    </Link>
+                  </span>
+                ))}
+                .
+              </p>
+            ) : null}
+          </>
+        )}
+      </DisclosureSection>
 
-      {/* Recent press & social — disclosure. Default open when there's anything to show. */}
+      {/* Recent press & social — disclosure, default closed (page-wide rule). */}
       {candidate.news && candidate.news.length > 0 ? (
         <DisclosureSection
           kicker="Coverage"
           title="Recent press & social"
           meta={`${candidate.news.length} ${candidate.news.length === 1 ? "item" : "items"} · last 60 days`}
-          defaultOpen
         >
           <ol className="border-y border-rule bg-paper">
             {[...candidate.news]
@@ -359,8 +271,8 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         </DisclosureSection>
       ) : null}
 
-      {/* About — disclosure. Combines Bio + Links & filings (both reference material,
-          low-priority next to themes/positions/press). Default closed at all viewports. */}
+      {/* About — disclosure. Bio + announcement-source citation. OCF/DCBOE filings,
+          campaign site, gov site, and socials all live in the top link row now. */}
       <DisclosureSection
         kicker="Reference"
         title="About this candidate"
@@ -371,12 +283,8 @@ export default async function CandidateProfilePage({ params }: { params: Promise
             {candidate.bio}
           </p>
         ) : null}
-        <ul
-          className={
-            "grid grid-cols-1 gap-2 sm:grid-cols-2" + (candidate.bio ? " mt-5" : "")
-          }
-        >
-          {filingLinks.map((l) => (
+        <ul className={"grid grid-cols-1 gap-2" + (candidate.bio ? " mt-5" : "")}>
+          {referenceLinks.map((l) => (
             <li key={l.url}>
               <a
                 href={l.url}
@@ -384,7 +292,8 @@ export default async function CandidateProfilePage({ params }: { params: Promise
                 rel="noopener noreferrer"
                 className="card card-hover block px-4 py-3 text-sm text-fg hover:text-primary"
               >
-                {l.label} <span aria-hidden className="text-subtle">↗</span>
+                Announcement source · {l.label}{" "}
+                <span aria-hidden className="text-subtle">↗</span>
               </a>
             </li>
           ))}
@@ -392,7 +301,7 @@ export default async function CandidateProfilePage({ params }: { params: Promise
       </DisclosureSection>
 
       {/* Footer strip — other candidates in this race + a back link. Compact, no h2. */}
-      <footer className="mt-10 border-t border-rule pt-6 sm:mt-14">
+      <footer className="mt-8 border-t border-rule pt-6 sm:mt-12 lg:mt-14">
         <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-muted">
           Other candidates for {race.office}
         </p>

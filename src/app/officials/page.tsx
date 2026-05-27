@@ -124,7 +124,7 @@ export default function OfficialsPage(): JSX.Element {
       </nav>
 
       {officials.map((group) => (
-        <section key={group.group} className="mt-10 scroll-mt-16 sm:mt-12" id={group.slug}>
+        <section key={group.group} className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14" id={group.slug}>
           <hr className="rule-thick" />
           <h2 className="kicker mt-3 inline-block">{group.group}</h2>
           <p className="mt-1 max-w-3xl text-sm text-fg">{group.blurb}</p>
@@ -216,7 +216,7 @@ export default function OfficialsPage(): JSX.Element {
         <VotingRecordMatrix />
       </section>
 
-      <aside className="card card-stripe-red mt-10 p-4 sm:mt-14 sm:p-5">
+      <aside className="card card-stripe-red mt-8 p-4 sm:mt-12 sm:p-5 lg:mt-14">
         <span className="kicker">Footnote</span>
         <h2 className="display mt-1 text-lg text-ink sm:text-xl">
           A note on Advisory Neighborhood Commissions

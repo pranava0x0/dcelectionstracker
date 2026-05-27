@@ -1,8 +1,10 @@
-// Compact icon row for candidate and official profile pages (BL-58).
+// Compact link row for candidate and official profile pages (BL-58).
 // Holds the most-clicked outbound destinations: campaign site, official gov
-// profile, and any populated social accounts. Inline SVG only — no icon-library
-// dependency (CLAUDE.md tech rule). Filing references (OCF, DCBOE, announcement
-// source) live in the "About" disclosure — separate concern.
+// profile, social accounts, and (for candidates) the two DC election filings —
+// OCF (campaign finance) and DCBOE (ballot access). Filings render as 3–5 char
+// text pills at the end of the row since they have no universal icons.
+// Inline SVG only — no icon-library dependency (CLAUDE.md tech rule). The
+// announcement source citation still lives in the "About" disclosure.
 
 export interface SocialLinks {
   websiteUrl?: string;
@@ -11,12 +13,20 @@ export interface SocialLinks {
   linkedinUrl?: string;
   instagramUrl?: string;
   facebookUrl?: string;
+  ocfUrl?: string;
+  dcboeUrl?: string;
 }
 
 type IconEntry = {
   label: string;
   url: string;
   svg: JSX.Element;
+};
+
+type TextEntry = {
+  label: string;
+  url: string;
+  short: string;
 };
 
 const svgProps = {
@@ -94,7 +104,7 @@ function FacebookIcon(): JSX.Element {
   );
 }
 
-function buildEntries(links: SocialLinks): IconEntry[] {
+function buildIconEntries(links: SocialLinks): IconEntry[] {
   const out: IconEntry[] = [];
   if (links.websiteUrl) {
     out.push({ label: "Campaign site", url: links.websiteUrl, svg: <GlobeIcon /> });
@@ -117,15 +127,27 @@ function buildEntries(links: SocialLinks): IconEntry[] {
   return out;
 }
 
+function buildTextEntries(links: SocialLinks): TextEntry[] {
+  const out: TextEntry[] = [];
+  if (links.ocfUrl) {
+    out.push({ label: "DC OCF — campaign finance filings", url: links.ocfUrl, short: "OCF" });
+  }
+  if (links.dcboeUrl) {
+    out.push({ label: "DCBOE — ballot access filings", url: links.dcboeUrl, short: "DCBOE" });
+  }
+  return out;
+}
+
 export function SocialIconRow({ links, name }: { links: SocialLinks; name: string }): JSX.Element | null {
-  const entries = buildEntries(links);
-  if (entries.length === 0) return null;
+  const icons = buildIconEntries(links);
+  const filings = buildTextEntries(links);
+  if (icons.length === 0 && filings.length === 0) return null;
   return (
     <ul
-      className="flex flex-wrap items-center gap-2"
-      aria-label={`${name} — find them online`}
+      className="flex flex-wrap items-center gap-1.5"
+      aria-label={`${name} — links and filings`}
     >
-      {entries.map((entry) => (
+      {icons.map((entry) => (
         <li key={entry.url}>
           <a
             href={entry.url}
@@ -136,6 +158,20 @@ export function SocialIconRow({ links, name }: { links: SocialLinks; name: strin
             className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-rule bg-paper text-ink transition-colors hover:border-primary hover:bg-primary hover:text-primary-fg"
           >
             {entry.svg}
+          </a>
+        </li>
+      ))}
+      {filings.map((entry) => (
+        <li key={entry.url}>
+          <a
+            href={entry.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={entry.label}
+            title={entry.label}
+            className="inline-flex h-9 items-center rounded-sm border border-rule bg-paper px-2.5 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:border-primary hover:bg-primary hover:text-primary-fg"
+          >
+            {entry.short}
           </a>
         </li>
       ))}
