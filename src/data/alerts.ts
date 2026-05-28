@@ -1,6 +1,7 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
+  { date: "2026-05-28", headline: "Early voting begins in 11 days — June 8 to 14 at every Vote Center, 8:30am–7pm, with same-day registration", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
   { date: "2026-05-25", headline: "DC Council Chair Mendelson identifies ~$420M in potential FY27 funding from reserves and tax-code changes", href: "https://wjla.com/news/local/washington-dc-budget-phil-mendelson-cuts-millions-potential-funding-crisis-spending-city-services-education-housing-economic-uncertainty-federal-workers-dmv-taxes-tax-code-changes" },
   { date: "2026-05-26", headline: "Advance voter-registration deadline passed May 26; same-day registration runs through Election Day June 16", href: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
   { date: "2026-05-23", headline: "Advance voter-registration deadline is Tuesday, May 26; same-day registration runs through Election Day June 16", href: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
