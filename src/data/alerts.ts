@@ -1,7 +1,9 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
-  { date: "2026-05-31", headline: "Early voting begins in 8 days — June 8 to 14 at every Vote Center, 8:30am–7pm, with same-day registration", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
+  { date: "2026-06-01", headline: "Early voting begins in 7 days — June 8 to 14 at every Vote Center, 8:30am–7pm, with same-day registration", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
+  { date: "2026-06-01", headline: "DC Chapter of NOW endorses Lewis George for mayor, Schwalb for AG, Mendelson for chair, Owolewa + Silverman for at-large, Raj/Frumin/Parker/Allen for ward council seats", href: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
+  { date: "2026-06-01", headline: "Out-of-DC mail-ballot request deadline is today — voters who won't be in the District during the June 16 primary must submit a request by end of business", href: "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request" },
   { date: "2026-05-29", headline: "DC Police Union calls Lewis George's pension-fund affordable-housing proposal an 'automatic disqualifier' after Fox 5 debate", href: "https://www.washingtonexaminer.com/news/campaigns/state/4574949/dc-police-union-janeese-lewis-george-leverage-pension-housing/" },
   { date: "2026-05-25", headline: "DC Council Chair Mendelson identifies ~$420M in potential FY27 funding from reserves and tax-code changes", href: "https://wjla.com/news/local/washington-dc-budget-phil-mendelson-cuts-millions-potential-funding-crisis-spending-city-services-education-housing-economic-uncertainty-federal-workers-dmv-taxes-tax-code-changes" },
   { date: "2026-05-26", headline: "Advance voter-registration deadline passed May 26; same-day registration runs through Election Day June 16", href: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
