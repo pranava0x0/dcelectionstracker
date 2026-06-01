@@ -253,6 +253,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW Endorses D.C. Council Candidates in 2026 Special and Primary Elections (Lewis George for mayor)", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-31", outlet: "Washington Post", headline: "The rise of Janeese Lewis George, who could be D.C.'s first democratic socialist mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/05/31/rise-janeese-lewis-george-who-could-be-dcs-first-democratic-socialist-mayor/" },
       { date: "2026-05-29", outlet: "Washington Examiner", headline: "DC Police Union hits Lewis George over pension-fund affordable-housing proposal", url: "https://www.washingtonexaminer.com/news/campaigns/state/4574949/dc-police-union-janeese-lewis-george-leverage-pension-housing/" },
       { date: "2026-05-28", outlet: "Washington Examiner", headline: "Exclusive: Janeese Lewis George backs safe injection sites in DC for drug use", url: "https://www.washingtonexaminer.com/news/campaigns/4584819/janeese-lewis-george-backs-safe-drug-injection-site-dc/" },
@@ -264,16 +265,16 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-13", outlet: "Free DC", headline: "Free DC endorses Janeese Lewis George for D.C. Mayor", url: "https://freedcproject.org/news/our-2026-endorsements-guide" },
       { date: "2026-05-08", outlet: "Greater Greater Washington", headline: "GGWash endorses Janeese Lewis George for mayor of the District of Columbia", url: "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor" },
       { date: "2026-05-01", outlet: "Axios DC", headline: "DC mayor's race: Endorsements for Janeese Lewis George, Kenyan McDuffie", url: "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie" },
-      { date: "2026-04-29", outlet: "Washington Post", headline: "Janeese Lewis George faces probe over D.C. mayoral campaign's ties to unions", url: "https://www.washingtonpost.com/dc-md-va/2026/04/29/janeese-lewis-george-unions-allegation/" },
     ],
     newsThemes: [
       {
-        headline: "Leading the progressive lane with labor, LGBTQ, urbanist, and statehood-coalition endorsements",
-        detail: "Greater Greater Washington, Capital Stonewall Democrats, labor groups, and the statehood-and-resistance coalition Free DC have endorsed Lewis George. Axios reports she also led the field in DC-resident donors.",
+        headline: "Leading the progressive lane with labor, LGBTQ, urbanist, statehood, and women's-rights endorsements",
+        detail: "Greater Greater Washington, Capital Stonewall Democrats, the DC chapter of the National Organization for Women, labor groups, and the statehood-and-resistance coalition Free DC have endorsed Lewis George. Axios reports she also led the field in DC-resident donors.",
         supportingUrls: [
           "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor",
           "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
           "https://freedcproject.org/news/our-2026-endorsements-guide",
+          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
           "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
         ],
       },
@@ -496,6 +497,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" },
     governmentSiteUrl: "https://dccouncil.gov/council/phil-mendelson/",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Phil Mendelson for D.C. Council Chair in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-04-02", outlet: "Washington City Paper", headline: "Council Chair Phil Mendelson Draws Ethics Complaint For Using Government Office For Campaign Activity", url: "https://washingtoncitypaper.com/article/782998/mendelson-ethics-complaint-government-resources-campaign-activity/" },
@@ -515,6 +517,7 @@ export const candidates2026: Candidate[] = [
     governmentSiteUrl: "https://oag.dc.gov/",
     websiteUrl: "https://brianfordc.com/",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Brian Schwalb for D.C. Attorney General in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
   },
@@ -696,6 +699,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.vote4oye.com/",
     notes: "Current US Shadow Representative.",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Oye Owolewa for D.C. Council At-Large in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "At-Large Race Candidates Split on Safety, Housing and DC's Future", url: "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/" },
@@ -708,10 +712,11 @@ export const candidates2026: Candidate[] = [
     newsThemes: [
       {
         headline: "Moving from shadow rep to challenger for Bonds's open seat with progressive endorsements and a public-power pledge",
-        detail: "WFP and the Public Power campaign have backed him; Washington Informer and Northeastern News profile him as the progressive alternative to the seat's outgoing incumbent. Axios highlights a heightened national profile under the Trump-era federal pressure on DC.",
+        detail: "WFP, the DC chapter of the National Organization for Women, and the Public Power campaign have backed him; Washington Informer and Northeastern News profile him as the progressive alternative to the seat's outgoing incumbent. Axios highlights a heightened national profile under the Trump-era federal pressure on DC.",
         supportingUrls: [
           "https://workingfamilies.org/2026/02/wfp-endorses-oye-owolewa-aparna-raj-for-dc-council/",
           "https://www.wepowerdc.org/latest-news/rep-oye-owolewa-at-large-candidate-signs-the-public-power-pledge",
+          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
           "https://www.washingtoninformer.com/owolewa-bonds-council-run/",
           "https://www.axios.com/local/washington-dc/2026/01/15/dc-council-trump-shadow-representative-senator-election",
         ],
@@ -761,6 +766,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     notes: "Appointed interim incumbent.",
     news: [
+      { date: "2026-05-28", outlet: "Washington Blade (Opinion)", headline: "Dual endorsement for Independent Council-at-large: Patterson or Crawford (rank one #1, the other #2)", url: "https://www.washingtonblade.com/2026/05/28/opinion-council-at-large-dc-patterson-crawford/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
     ],
@@ -785,6 +791,7 @@ export const candidates2026: Candidate[] = [
     filingStatus: "declared",
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     news: [
+      { date: "2026-05-28", outlet: "Washington Blade (Opinion)", headline: "Dual endorsement for Independent Council-at-large: Patterson or Crawford (rank Patterson #1, Crawford #2)", url: "https://www.washingtonblade.com/2026/05/28/opinion-council-at-large-dc-patterson-crawford/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
     ],
@@ -798,6 +805,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     notes: "Previously held an At-Large Independent seat.",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Elissa Silverman for the At-Large (non-majority) special election", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
     ],
@@ -863,6 +871,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     notes: "Communications manager and tenant organizer.",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Aparna Raj for D.C. Council Ward 1 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
@@ -873,12 +882,13 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Leads March GGWash poll 42%–25%, and consolidating progressive endorsements — WFP, ~11 labor unions, GGWash, GLAA +10",
-        detail: "A March 27–29 GGWash poll of 232 likely Ward 1 Democratic primary voters put Raj at 42% among decided voters. GGWash, WFP, and nearly a dozen labor unions have endorsed her; GLAA gave her +10 on May 12.",
+        headline: "Leads March GGWash poll 42%–25% and consolidating progressive endorsements — WFP, ~11 labor unions, GGWash, GLAA +10, DCNOW",
+        detail: "A March 27–29 GGWash poll of 232 likely Ward 1 Democratic primary voters put Raj at 42% among decided voters. GGWash, WFP, the DC chapter of the National Organization for Women, and nearly a dozen labor unions have endorsed her; GLAA gave her +10 on May 12.",
         supportingUrls: [
           "https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race",
           "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements",
           "https://thewash.org/2026/04/15/nearly-a-dozen-labor-unions-in-dc-endorse-aparna-raj-for-council/",
+          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
           "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/",
         ],
       },
@@ -922,6 +932,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "Ballotpedia", url: "https://ballotpedia.org/Matthew_Frumin" },
     websiteUrl: "https://frumin2026.com/",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Matthew Frumin for D.C. Council Ward 3 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
@@ -939,15 +950,17 @@ export const candidates2026: Candidate[] = [
     source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" },
     governmentSiteUrl: "https://dccouncil.gov/council/zachary-parker/",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Zachary Parker for D.C. Council Ward 5 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
     newsThemes: [
       {
-        headline: "Backed by Capital Stonewall Democrats and rated +7 by GLAA as Ward 5 incumbent faces a primary challenger",
-        detail: "Stonewall Democrats endorsed Parker on May 14; GLAA's May 12 ratings gave him +7, the highest among ward incumbents. Bernita Carmichael did not return GLAA's questionnaire.",
+        headline: "Backed by Capital Stonewall Democrats, DCNOW, and a +7 GLAA rating as Ward 5 incumbent faces a challenger",
+        detail: "Stonewall Democrats endorsed Parker on May 14 and the DC chapter of the National Organization for Women added its backing on June 1; GLAA's May 12 ratings gave him +7, the highest among ward incumbents. Bernita Carmichael did not return GLAA's questionnaire.",
         supportingUrls: [
           "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
+          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
           "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/",
         ],
       },
@@ -967,6 +980,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.charlesallenward6.com/",
     governmentSiteUrl: "https://dccouncil.gov/council/charles-allen/",
     news: [
+      { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Charles Allen for D.C. Council Ward 6 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Ward 6 Council Race: A Study in Contrasts", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" },
@@ -974,10 +988,11 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Capital Stonewall Democrats and GLAA back the incumbent as HillRag frames Ward 6 as a study in contrasts",
-        detail: "Allen picked up the Capital Stonewall Democrats endorsement and a +6.5 GLAA rating in the final two weeks. HillRag's May 8 race profile contrasts his incumbent record against two challengers.",
+        headline: "Capital Stonewall Democrats, DCNOW, and GLAA back the incumbent; HillRag frames Ward 6 as a study in contrasts",
+        detail: "Allen picked up the Capital Stonewall Democrats endorsement, the DC chapter of the National Organization for Women's nod, and a +6.5 GLAA rating in the final two weeks. HillRag's May 8 race profile contrasts his incumbent record against two challengers.",
         supportingUrls: [
           "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
+          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
           "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/",
           "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/",
         ],
