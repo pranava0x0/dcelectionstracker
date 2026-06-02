@@ -1,7 +1,7 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
-  { date: "2026-06-01", headline: "Early voting begins in 7 days — June 8 to 14 at every Vote Center, 8:30am–7pm, with same-day registration", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
+  { date: "2026-06-02", headline: "Early voting begins in 6 days — June 8 to 14 at every Vote Center, 8:30am–7pm, with same-day registration", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
   { date: "2026-06-01", headline: "DC Chapter of NOW endorses Lewis George for mayor, Schwalb for AG, Mendelson for chair, Owolewa + Silverman for at-large, Raj/Frumin/Parker/Allen for ward council seats", href: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
   { date: "2026-06-01", headline: "Out-of-DC mail-ballot request deadline is today — voters who won't be in the District during the June 16 primary must submit a request by end of business", href: "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request" },
   { date: "2026-05-29", headline: "DC Police Union calls Lewis George's pension-fund affordable-housing proposal an 'automatic disqualifier' after Fox 5 debate", href: "https://www.washingtonexaminer.com/news/campaigns/state/4574949/dc-police-union-janeese-lewis-george-leverage-pension-housing/" },
@@ -9,6 +9,7 @@ export const alerts: Alert[] = [
   { date: "2026-05-26", headline: "Advance voter-registration deadline passed May 26; same-day registration runs through Election Day June 16", href: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
   { date: "2026-05-23", headline: "Advance voter-registration deadline is Tuesday, May 26; same-day registration runs through Election Day June 16", href: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
   { date: "2026-05-20", headline: "First DC ranked-choice primary poll: Lewis George leads first choices 39–34, McDuffie leads second choices 27–15", href: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
+  { date: "2026-05-20", headline: "House Oversight Committee advances H.R. 8801, the DC ROADS Act, to bar DC from imposing any congestion toll on drivers entering the city", href: "https://www.govinfo.gov/app/details/BILLS-119hr8801ih" },
   { date: "2026-05-19", headline: "Ballot drop boxes open citywide Friday, May 22 — first chance for mail-ballot return", href: "https://www.dcboe.org/" },
   { date: "2026-05-18", headline: "Fox 5 / Georgetown mayoral debate aired with Goodweather, Lewis George, McDuffie — analysts called Lewis George the night's winner", href: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
   { date: "2026-05-11", headline: "Mail ballots begin going out today for the June 16 primary", href: "https://www.dcboe.org/" },

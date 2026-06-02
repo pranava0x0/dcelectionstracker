@@ -106,6 +106,11 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-05-20",
+        headline: "House Oversight advances H.R. 8801, DC ROADS Act, to bar DC from any congestion toll on drivers",
+        source: { label: "Govinfo — H.R. 8801", url: "https://www.govinfo.gov/app/details/BILLS-119hr8801ih" },
+      },
+      {
         date: "2026-01-27",
         headline: "House committee reports H.R. 5183, DC Home Rule Improvement Act of 2025",
         source: { label: "Congress.gov", url: "https://www.congress.gov/bill/119th-congress/house-bill/5183" },
