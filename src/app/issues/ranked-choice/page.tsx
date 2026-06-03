@@ -75,6 +75,11 @@ type Move = { date: string; headline: string; source: { label: string; url: stri
 
 const recentMoves: Move[] = [
   {
+    date: "2026-05-29",
+    headline: "Washingtonian publishes a voter-facing guide to ranked-choice voting in the DC primary",
+    source: { label: "Washingtonian — Your Guide to Ranked Choice Voting in the DC Primaries", url: "https://washingtonian.com/2026/05/29/your-guide-to-ranked-choice-voting-in-the-dc-primaries/" },
+  },
+  {
     date: "2026-05-20",
     headline: "First poll of DC's RCV primary shows second-choice transfers could decide the mayor's race",
     source: { label: "City Cast DC — TrueDot poll", url: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },

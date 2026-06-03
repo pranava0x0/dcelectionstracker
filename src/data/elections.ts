@@ -253,6 +253,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-02", outlet: "Washington Blade", headline: "JR.'s hosts meet & greet for mayoral candidate Janeese Lewis George (Capital Stonewall Democrats + Queers for Janeese GOTV canvass)", url: "https://www.washingtonblade.com/2026/06/02/lgbtq-janeese-lewis-george-event-jrs/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW Endorses D.C. Council Candidates in 2026 Special and Primary Elections (Lewis George for mayor)", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-31", outlet: "Washington Post", headline: "The rise of Janeese Lewis George, who could be D.C.'s first democratic socialist mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/05/31/rise-janeese-lewis-george-who-could-be-dcs-first-democratic-socialist-mayor/" },
       { date: "2026-05-29", outlet: "Washington Examiner", headline: "DC Police Union hits Lewis George over pension-fund affordable-housing proposal", url: "https://www.washingtonexaminer.com/news/campaigns/state/4574949/dc-police-union-janeese-lewis-george-leverage-pension-housing/" },
@@ -260,7 +261,6 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-22", outlet: "Washington Post", headline: "In D.C. mayoral race, praise for indicted lawmaker prompts careful tiptoeing", url: "https://www.washingtonpost.com/dc-md-va/2026/05/22/dc-mayoral-race-praise-indicted-lawmaker-prompts-careful-tiptoeing/" },
       { date: "2026-05-20", outlet: "Washington Post (Opinion)", headline: "Opinion | In D.C. mayor's race, Janeese Lewis George calls Trayon White her 'mentor'", url: "https://www.washingtonpost.com/opinions/2026/05/20/dc-mayor-race-janeese-lewis-george-calls-trayon-white-her-mentor/" },
       { date: "2026-05-18", outlet: "Jewish Insider", headline: "D.C. mayoral contender Janeese Lewis George campaigns with embattled councilman with antisemitic history", url: "https://jewishinsider.com/2026/05/janeese-lewis-george-campaign-trayon-white-antisemitic-history/" },
-      { date: "2026-05-14", outlet: "Washington Post", headline: "Ads target D.C. mayoral hopefuls on crime, utilities ahead of June primary", url: "https://www.washingtonpost.com/dc-md-va/2026/05/14/ads-target-dc-mayoral-hopefuls-crime-utilities-ahead-june-primary/" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-13", outlet: "Free DC", headline: "Free DC endorses Janeese Lewis George for D.C. Mayor", url: "https://freedcproject.org/news/our-2026-endorsements-guide" },
       { date: "2026-05-08", outlet: "Greater Greater Washington", headline: "GGWash endorses Janeese Lewis George for mayor of the District of Columbia", url: "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor" },

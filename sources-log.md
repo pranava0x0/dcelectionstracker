@@ -180,6 +180,10 @@ _Prior — run 12 (2026-05-24 morning). **Source-integrity cleanup:** an abandon
 
 ## Local News
 
+- [2026-06-02] Washington Blade — "JR.'s hosts meet & greet for mayoral candidate Janeese Lewis George" (LGBTQ June 1 GOTV event organized by Capital Stonewall Democrats + Queers for Janeese; added to JLG news[] in run 21) — https://www.washingtonblade.com/2026/06/02/lgbtq-janeese-lewis-george-event-jrs/
+- [2026-05-29] Washingtonian — "Your Guide to Ranked Choice Voting in the DC Primaries" by Jenna Lee + Sydney Carroll (voter-facing how-to-rank guide; added to RCV page recentMoves in run 21) — https://washingtonian.com/2026/05/29/your-guide-to-ranked-choice-voting-in-the-dc-primaries/
+- [2026-05-29] TheDCLine — jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery (background only; not added to data) — https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/
+- [2026-04-23] FairVote — How ranked choice voting is impacting the Washington, DC primary (130 DCBOE education sessions; cross-endorsement noted in Ward 1; background only) — https://fairvote.org/how-ranked-choice-voting-is-impacting-the-washington-dc-primary/
 - [2026-05-21] GW Today (George Washington University) — "GW Hosts Forum for 2026 D.C. Mayoral Candidates" (Lewis George, Goodweather, Johnson, Orange, Sampath at Jack Morton Auditorium; moderated by Steven Roberts) — https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates
 - [2026-03-19] Washingtonian — Stop DC CAMERA Act passes House committee 21-19 — https://washingtonian.com/2026/03/19/dc-traffic-camera-ban-passes-a-committee-vote-in-the-house/
 - [2026-03-19] DC News Now — House committee advances bill to ban DC traffic cameras — https://www.dcnewsnow.com/news/local-news/washington-dc/house-committee-advances-bill-to-ban-dc-traffic-cameras-restrictions-on-right-turns/
