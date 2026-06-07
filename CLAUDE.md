@@ -57,6 +57,48 @@ The voter-persona walkthrough in `~/.claude/skills/dc-uat.md` (BF-19 first-time 
 
 Before suggesting `npm install <pkg>` or `pip install <pkg>` — or adding a dependency to `package.json` / `requirements.txt` — fetch the latest advisories from https://pranava0x0.github.io/vibe-coding-security/llms-ctx.txt (compact, ~12KB, maintained by the project owner). If the package or installation pattern matches an entry, surface the warning to the user **before** recommending the install. This applies to any new dependency suggestion, not just shell commands. It does not apply to `npm install` with no args (setup against the existing lockfile) or `npm ci`.
 
+## Data Refresh Rules (Prevention of Silent Data Loss)
+
+**Problem**: Runs 15-21 had a 12-item hard cap on candidate `news[]` arrays that silently dropped older items to maintain the threshold, violating editorial integrity. This was caught post-facto via git audit (RESTORATION_AUDIT.md, OPTIONS A/B AUDITS).
+
+**Solution**: Store all verified news items in data; UI limits display to top 6 items + "Show all" disclosure. No data-layer caps.
+
+### Core Rules
+
+1. **No hard caps on news arrays.** Ever. Store all verified items; UI shows recent-first.
+2. **News item addition is append-only.** Never delete old items to maintain a count. If 60-day lookback applies, enforce by date (content-based), not count.
+3. **Sort descending by date.** All `candidate.news[]` must be newest-first so UI top-6 is genuinely most recent.
+4. **Log threshold warnings, not enforcement.** If a candidate's array exceeds 20 items, console.warn for manual review—but keep all items.
+5. **Verify no silent drops.** Pre-commit: baseline regression tests validate no count drops vs prior commit.
+
+### Pre-Commit Validation (Required Every Refresh)
+
+- `npm test` passes (128 tests including 8 data-loss detection tests)
+- Baseline thresholds met: ≥150 total items, ≥56 profiled candidates
+- No duplicate URLs, all dates valid, descending sort order confirmed
+- No console warnings about data anomalies
+
+### Test Coverage
+
+The test suite (`src/data/elections.test.ts`) includes:
+- Duplicate URL detection
+- Date range validation (2026-01-01 to today)
+- NewsTheme substantiation (≥2 supporting URLs)
+- Sort order validation (descending)
+- Realistic count detection (catches reintroduced caps)
+- Outlet diversity checks (incomplete coverage warning)
+- Critical field presence (malformed output detection)
+- Baseline regression checks (total items, profiled items)
+
+If any test fails, stop the commit and investigate before proceeding.
+
+### Reference
+
+- **DATA_REFRESH_AUTOMATION.md** in the repo — detailed operational guidelines
+- **elections.test.ts** — 8 new validation tests (committed f8d894d)
+- **candidates2026 data structure** — `news: NewsItem[]` is now unbounded; UI layer limits display
+- **Historical audit** — 25 items restored from git history; 0% data loss achieved (commit e927ab7)
+
 ## File map
 
 ```
