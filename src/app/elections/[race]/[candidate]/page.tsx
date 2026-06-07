@@ -226,7 +226,8 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         )}
       </DisclosureSection>
 
-      {/* Recent press & social — disclosure, default closed (page-wide rule). */}
+      {/* Recent press & social — disclosure, default closed (page-wide rule).
+          Shows top 6 items; users can expand via disclosure to see all. */}
       {candidate.news && candidate.news.length > 0 ? (
         <DisclosureSection
           kicker="Coverage"
@@ -236,6 +237,7 @@ export default async function CandidateProfilePage({ params }: { params: Promise
           <ol className="border-y border-rule bg-paper">
             {[...candidate.news]
               .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+              .slice(0, 6)
               .map((n) => (
                 <li
                   key={`${n.date}-${n.url}`}
@@ -268,6 +270,49 @@ export default async function CandidateProfilePage({ params }: { params: Promise
                 </li>
               ))}
           </ol>
+          {candidate.news.length > 6 ? (
+            <details className="mt-4 border-t border-rule pt-4">
+              <summary className="cursor-pointer select-none font-mono text-[11px] font-semibold uppercase tracking-wider text-primary hover:opacity-80">
+                Show all {candidate.news.length} items ↓
+              </summary>
+              <ol className="border-y border-rule bg-paper mt-2">
+                {[...candidate.news]
+                  .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+                  .slice(6)
+                  .map((n) => (
+                    <li
+                      key={`${n.date}-${n.url}`}
+                      className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-4"
+                    >
+                      <div className="flex items-baseline gap-2 sm:w-28">
+                        <time
+                          className="font-mono text-[11px] font-semibold uppercase tracking-wider text-primary"
+                          dateTime={n.date}
+                        >
+                          {n.date}
+                        </time>
+                        {n.kind === "social" ? (
+                          <span className="rounded-sm bg-ink px-1 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white">
+                            Social
+                          </span>
+                        ) : null}
+                      </div>
+                      <a
+                        href={n.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[15px] leading-snug text-fg hover:text-primary sm:flex-1"
+                      >
+                        {n.headline}
+                      </a>
+                      <span className="inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted">
+                        {n.outlet} ↗
+                      </span>
+                    </li>
+                  ))}
+              </ol>
+            </details>
+          ) : null}
         </DisclosureSection>
       ) : null}
 
