@@ -926,8 +926,8 @@ export const candidates2026: Candidate[] = [
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     notes: "Former Bowser administration official.",
     news: [
-      { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
+      { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
     ],
   },
   { slug: "brian-footer", name: "Brian Footer", raceSlug: "council-ward-1", party: "D", filingStatus: "withdrawn", source: { label: "Washington Blade", url: "https://www.washingtonblade.com/2025/12/17/brian-footer-suspends-campaign-for-ward-1-d-c-council-seat/" }, notes: "Advisory Neighborhood Commissioner. Suspended campaign Dec 17, 2025." },

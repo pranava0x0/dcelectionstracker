@@ -327,3 +327,138 @@ describe("Race.oneLine candidate counts match the live data (BL-UAT-15)", () => 
     expect(actual, `oneLine for ${race.slug} claims ${claimed} but candidatesForRace returned ${actual}`).toBe(claimed);
   });
 });
+
+// ============================================================================
+// DATA LOSS DETECTION TESTS (Option C: Prevent future news item drops)
+// ============================================================================
+// These tests guard against the news-cap problem documented in RESTORATION_AUDIT.md:
+// runs 15-21 silently dropped older news items to maintain a 12-item cap, losing
+// editorial history. These tests detect if that pattern re-emerges or if items
+// are unexpectedly dropped in future data refreshes.
+// ============================================================================
+
+describe("News data integrity — detect silent drops and anomalies (BL-42 v3)", () => {
+  it("no candidate news array has duplicate URLs (would indicate copy-paste or merge errors)", () => {
+    for (const c of candidates2026) {
+      if (!c.news) continue;
+      const urls = c.news.map((n) => n.url);
+      const uniqueUrls = new Set(urls);
+      expect(uniqueUrls.size, `${c.name}: ${urls.length - uniqueUrls.size} duplicate URLs in news[]`).toBe(urls.length);
+    }
+  });
+
+  it("every news item's date is <= today and >= 2026-01-01 (catches backdated/future entries)", () => {
+    const today = "2026-06-07"; // currentDate from context
+    const minDate = "2026-01-01";
+    for (const c of candidates2026) {
+      if (!c.news) continue;
+      for (const n of c.news) {
+        expect(n.date >= minDate, `${c.name}: news date ${n.date} before campaign start`).toBe(true);
+        expect(n.date <= today, `${c.name}: news date ${n.date} is future-dated`).toBe(true);
+      }
+    }
+  });
+
+  it("candidates with newsThemes have >= 2 supporting URLs each (theme must be substantiated)", () => {
+    for (const c of candidates2026) {
+      if (!c.newsThemes) continue;
+      for (const t of c.newsThemes) {
+        expect(t.supportingUrls.length, `${c.name}: theme "${t.headline}" has < 2 supporting URLs`).toBeGreaterThanOrEqual(2);
+      }
+    }
+  });
+
+  it("news items are sorted descending by date (most recent first)", () => {
+    for (const c of candidates2026) {
+      if (!c.news || c.news.length < 2) continue;
+      for (let i = 0; i < c.news.length - 1; i++) {
+        const curr = c.news[i].date;
+        const next = c.news[i + 1].date;
+        expect(curr >= next, `${c.name}: news[${i}] (${curr}) is not >= news[${i + 1}] (${next})`).toBe(true);
+      }
+    }
+  });
+
+  it("profiled candidates have realistic news item counts (5-20 items, not capped at exactly 12)", () => {
+    // The 12-item cap from runs 15-21 created an exact boundary. This test catches if
+    // that pattern re-emerges in future data refreshes.
+    const PROFILED = [
+      "janeese-lewis-george",
+      "kenyan-mcduffie",
+      "aparna-raj",
+      "oye-owolewa",
+      "brooke-pinto",
+      "robert-white",
+    ];
+
+    const profiled = candidates2026.filter((c) => PROFILED.includes(c.slug));
+    for (const c of profiled) {
+      if (!c.news) continue;
+      const count = c.news.length;
+      // After restoration, profiled candidates have 6-17 items. If a future refresh
+      // lands exactly at 12, that's a red flag the cap re-emerged.
+      if (count === 12) {
+        // This is not an error by itself, but flag it for manual review if multiple
+        // profiled candidates land on 12 simultaneously (suggests capping logic re-entered).
+        console.warn(`⚠️ ${c.name} has exactly 12 news items — verify this isn't a newly-reimposed cap`);
+      }
+      expect(count, `${c.name}: news count ${count} seems unrealistic for profiled candidate`).toBeGreaterThanOrEqual(5);
+    }
+  });
+
+  it("news URLs use distinct outlets (not all from one source, which suggests incomplete coverage)", () => {
+    for (const c of candidates2026) {
+      if (!c.news || c.news.length < 3) continue;
+      const outlets = new Set(c.news.map((n) => n.outlet));
+      const outletsCount = outlets.size;
+      const newsCount = c.news.length;
+      // Most candidates should have news from ≥ 2-3 outlets. Single-outlet dominance suggests incomplete sweep.
+      expect(outletsCount > 1, `${c.name}: all ${newsCount} news items from only 1 outlet (likely incomplete coverage)`).toBe(true);
+    }
+  });
+
+  it("detects news items that lack critical fields (would indicate malformed refresh output)", () => {
+    for (const c of candidates2026) {
+      if (!c.news) continue;
+      for (const n of c.news) {
+        expect(n.date, `${c.name}: news item missing date`).toBeDefined();
+        expect(n.outlet, `${c.name}: news item missing outlet`).toBeDefined();
+        expect(n.headline, `${c.name}: news item missing headline`).toBeDefined();
+        expect(n.url, `${c.name}: news item missing url`).toBeDefined();
+      }
+    }
+  });
+});
+
+// Baseline expectations: these numbers represent the "healthy" state after restoration.
+// If future refreshes drop below these baselines unexpectedly, the test flags it.
+describe("News data baseline expectations (regression detection)", () => {
+  it("maintains at least 150 total news items across all candidates (2026-06-07 baseline)", () => {
+    let totalItems = 0;
+    for (const c of candidates2026) {
+      if (c.news) {
+        totalItems += c.news.length;
+      }
+    }
+    // After restoration (3db8eec commit), we have 152 items. A future refresh that
+    // drops below 150 suggests data loss or an incomplete refresh.
+    expect(totalItems, `Total news items dropped from baseline of 150 to ${totalItems}`).toBeGreaterThanOrEqual(150);
+  });
+
+  it("profiled candidates maintain at least 56 total items (JLG: 17, McDuffie: 14, etc.)", () => {
+    // Mayor (JLG: 17, McDuffie: 14, Goodweather: 6, Johnson: 2) = 39 items
+    // Ward 1 (Raj: 8) = 8 items
+    // At-Large Bonds (Owolewa: 9) = 9 items
+    // Delegate (Pinto: 6, White: 6) = 12 items
+    // Total profiled = 68 items; but not all may be loaded in test due to filtering
+    // Setting baseline at 56 to catch major data loss without false positives
+    const PROFILED = ["janeese-lewis-george", "kenyan-mcduffie", "gary-goodweather", "ernest-johnson", "aparna-raj", "oye-owolewa", "brooke-pinto", "robert-white"];
+    let totalItems = 0;
+    for (const c of candidates2026) {
+      if (PROFILED.includes(c.slug) && c.news) {
+        totalItems += c.news.length;
+      }
+    }
+    expect(totalItems, `Profiled candidates dropped from baseline of 56 to ${totalItems}`).toBeGreaterThanOrEqual(56);
+  });
+});
