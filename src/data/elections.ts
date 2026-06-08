@@ -257,11 +257,14 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Janeese Lewis George", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-janeese-lewis-george/" },
+      { date: "2026-06-05", outlet: "Washington Post", headline: "Lewis George leads in D.C. mayoral race, but many undecided, Post-Schar School polls finds", url: "https://www.washingtonpost.com/dc-md-va/2026/06/05/lewis-george-leads-dc-mayoral-race-many-undecided-post-schar-school-polls-finds/" },
       { date: "2026-06-02", outlet: "Washington Blade", headline: "JR.'s hosts meet & greet for mayoral candidate Janeese Lewis George (Capital Stonewall Democrats + Queers for Janeese GOTV canvass)", url: "https://www.washingtonblade.com/2026/06/02/lgbtq-janeese-lewis-george-event-jrs/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW Endorses D.C. Council Candidates in 2026 Special and Primary Elections (Lewis George for mayor)", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-31", outlet: "Washington Post", headline: "The rise of Janeese Lewis George, who could be D.C.'s first democratic socialist mayor", url: "https://www.washingtonpost.com/dc-md-va/2026/05/31/rise-janeese-lewis-george-who-could-be-dcs-first-democratic-socialist-mayor/" },
       { date: "2026-05-29", outlet: "Washington Examiner", headline: "DC Police Union hits Lewis George over pension-fund affordable-housing proposal", url: "https://www.washingtonexaminer.com/news/campaigns/state/4574949/dc-police-union-janeese-lewis-george-leverage-pension-housing/" },
       { date: "2026-05-28", outlet: "Washington Examiner", headline: "Exclusive: Janeese Lewis George backs safe injection sites in DC for drug use", url: "https://www.washingtonexaminer.com/news/campaigns/4584819/janeese-lewis-george-backs-safe-drug-injection-site-dc/" },
+      { date: "2026-05-26", outlet: "Washington Blade (Opinion)", headline: "Why this Black Pride, I ranked Janeese Lewis George #1 for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/26/opinion-ranked-janeese-lewis-george-number-one-mayor-dc/" },
       { date: "2026-05-22", outlet: "Washington Post", headline: "In D.C. mayoral race, praise for indicted lawmaker prompts careful tiptoeing", url: "https://www.washingtonpost.com/dc-md-va/2026/05/22/dc-mayoral-race-praise-indicted-lawmaker-prompts-careful-tiptoeing/" },
       { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-20", outlet: "Washington Post (Opinion)", headline: "Opinion | In D.C. mayor's race, Janeese Lewis George calls Trayon White her 'mentor'", url: "https://www.washingtonpost.com/opinions/2026/05/20/dc-mayor-race-janeese-lewis-george-calls-trayon-white-her-mentor/" },
@@ -278,8 +281,9 @@ export const candidates2026: Candidate[] = [
     newsThemes: [
       {
         headline: "Leading the progressive lane with labor, LGBTQ, urbanist, statehood, and women's-rights endorsements",
-        detail: "Greater Greater Washington, Capital Stonewall Democrats, the DC chapter of the National Organization for Women, labor groups, and the statehood-and-resistance coalition Free DC have endorsed Lewis George. Axios reports she also led the field in DC-resident donors.",
+        detail: "Greater Greater Washington, Capital Stonewall Democrats, the DC chapter of the National Organization for Women, labor groups, and the statehood-and-resistance coalition Free DC have endorsed Lewis George. A June 5 Washington Post–Schar School poll showed her leading the mayoral field, though many voters remained undecided; Axios reports she also led the field in DC-resident donors.",
         supportingUrls: [
+          "https://www.washingtonpost.com/dc-md-va/2026/06/05/lewis-george-leads-dc-mayoral-race-many-undecided-post-schar-school-polls-finds/",
           "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor",
           "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
           "https://freedcproject.org/news/our-2026-endorsements-guide",
@@ -320,6 +324,9 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Kenyan McDuffie", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-kenyan-mcduffie/" },
+      { date: "2026-06-05", outlet: "Washington Post", headline: "Lewis George leads in D.C. mayoral race, but many undecided, Post-Schar School polls finds", url: "https://www.washingtonpost.com/dc-md-va/2026/06/05/lewis-george-leads-dc-mayoral-race-many-undecided-post-schar-school-polls-finds/" },
+      { date: "2026-06-04", outlet: "Washington Examiner", headline: "Obama-era Attorney General Eric Holder endorses Kenyan McDuffie for DC mayor", url: "https://www.washingtonexaminer.com/news/campaigns/state/4594897/eric-holder-endorse-kenyan-mcduffie-dc-mayor/" },
       { date: "2026-05-31", outlet: "Washington Post", headline: "In D.C. mayor's race, Kenyan R. McDuffie wants to offer 'more opportunities' for residents", url: "https://www.washingtonpost.com/dc-md-va/2026/05/31/dc-mayoral-candidate-kenyan-mcduffie-wants-offer-more-opportunities-resident/" },
       { date: "2026-05-28", outlet: "Axios DC", headline: "D.C. mayoral candidates sharpen final messages", url: "https://www.axios.com/local/washington-dc/2026/05/28/dc-mayor-election-candidates-voting" },
       { date: "2026-05-20", outlet: "City Cast DC", headline: "City Cast DC Poll: Lewis George leads for mayor; ranked choice could boost McDuffie", url: "https://dc.citycast.fm/dc-politics/dc-election-mayor-poll-2026" },
@@ -337,9 +344,10 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Picking up establishment muscle — Anthony Williams, Maryland Sen. Alsobrooks, business/real-estate coalition",
-        detail: "Former Mayor Anthony Williams endorsed McDuffie on May 7 and the DC restaurant association (RAMW) added its backing on May 18; Maryland Senator Angela Alsobrooks endorsed him on March 24. Axios reports consolidation of real-estate and business endorsements.",
+        headline: "Picking up establishment muscle — Eric Holder, Anthony Williams, Maryland Sen. Alsobrooks, business/real-estate coalition",
+        detail: "Former Mayor Anthony Williams endorsed McDuffie on May 7 and the DC restaurant association (RAMW) added its backing on May 18; Maryland Senator Angela Alsobrooks endorsed him on March 24, and former U.S. Attorney General Eric Holder added his endorsement on June 4. Axios reports consolidation of real-estate and business endorsements.",
         supportingUrls: [
+          "https://www.washingtonexaminer.com/news/campaigns/state/4594897/eric-holder-endorse-kenyan-mcduffie-dc-mayor/",
           "https://www.washingtonpost.com/dc-md-va/2026/05/07/anthony-williams-endorses-kenyan-mcduffie-dc-mayor/",
           "https://www.axios.com/local/washington-dc/2026/05/18/dc-mayor-race-endorsements-restaurants-ramw",
           "https://wjla.com/news/local/kenyan-mcduffie-angela-alsobrooks-endorsement-mayor-senator-maryland-prince-georges-washingtonian-election-campaign-race-home-rule-politics",
@@ -386,6 +394,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Vincent Orange", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-vincent-orange/" },
       { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
       { date: "2026-04-25", outlet: "HillRag", headline: "Mayoral Candidates Debate Youth Curfew and Immigration Enforcement", url: "https://www.hillrag.com/2026/04/25/mayoral-candidates-clash-over-curfew-and-immigration-enforcement/" },
@@ -417,6 +426,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.goodweatherfordc.com/",
     notes: "First-time DC candidate; real-estate developer and Army veteran.",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Gary Goodweather", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-gary-goodweather/" },
       { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-18", outlet: "FOX 5 DC", headline: "Who won the DC mayoral debate? Analysts weigh in", url: "https://www.fox5dc.com/news/who-won-dc-mayoral-debate-analysts-weigh" },
       { date: "2026-05-18", outlet: "The Hoya", headline: "DC Mayoral Candidates Debate Affordability, Federal Intervention", url: "https://thehoya.com/news/dc-mayoral-candidates-debate-affordability-federal-intervention/" },
@@ -461,6 +471,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://riniformayor.com/",
     notes: "First-time DC candidate; government contractor.",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Rini Sampath", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-rini-sampath/" },
       { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-05", outlet: "GW Hatchet", headline: "Democratic mayoral, delegate candidates debate DC issues in double-header event", url: "https://gwhatchet.com/2026/05/05/democratic-mayoral-delegate-candidates-debate-dc-issues-in-double-header-event/" },
@@ -491,6 +502,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" },
     websiteUrl: "https://ernestformayor2026.com/",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Ernest Johnson", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-ernest-johnson/" },
       { date: "2026-05-21", outlet: "GW Today", headline: "GW Hosts Forum for 2026 D.C. Mayoral Candidates", url: "https://gwtoday.gwu.edu/gw-hosts-forum-2026-dc-mayoral-candidates" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
@@ -528,11 +540,16 @@ export const candidates2026: Candidate[] = [
     governmentSiteUrl: "https://oag.dc.gov/",
     websiteUrl: "https://brianfordc.com/",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC attorney general candidate Brian Schwalb", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-attorney-general-candidate-brian-schwalb/" },
+      { date: "2026-06-05", outlet: "HillRag", headline: "A Two-Way Primary Race for Attorney General", url: "https://www.hillrag.com/2026/06/05/a-two-way-primary-race-for-attorney-general/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Brian Schwalb for D.C. Attorney General in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
   },
-  { slug: "jp-szymkowicz", name: "J.P. Szymkowicz", raceSlug: "attorney-general", party: "D", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, websiteUrl: "https://jp4dc.com/" },
+  { slug: "jp-szymkowicz", name: "J.P. Szymkowicz", raceSlug: "attorney-general", party: "D", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, websiteUrl: "https://jp4dc.com/", news: [
+    { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC attorney general candidate JP Szymkowicz", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-attorney-general-candidate-jp-szymkowicz/" },
+    { date: "2026-06-05", outlet: "HillRag", headline: "A Two-Way Primary Race for Attorney General", url: "https://www.hillrag.com/2026/06/05/a-two-way-primary-race-for-attorney-general/" },
+  ] },
 
   // US House Delegate (Democratic primary)
   {
@@ -547,6 +564,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://brookepintoforcongress.com/",
     twitterUrl: "https://x.com/brookepintodc",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Brooke Pinto", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-brooke-pinto/" },
       { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
       { date: "2026-05-11", outlet: "East of the River", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
@@ -577,6 +595,7 @@ export const candidates2026: Candidate[] = [
     governmentSiteUrl: "https://dccouncil.gov/council/robert-c-white-jr/",
     websiteUrl: "https://www.joinrobertwhite.com/",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Robert White", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-robert-white/" },
       { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
       { date: "2026-05-13", outlet: "Free DC", headline: "Free DC endorses Robert White for Delegate to the U.S. House", url: "https://freedcproject.org/news/our-2026-endorsements-guide" },
       { date: "2026-05-11", outlet: "East of the River", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
@@ -606,6 +625,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "NOTUS", url: "https://www.notus.org/money/dc-delegate-candidates-election-2026-brooke-pinto-robert-white-kinney-zalesne" },
     websiteUrl: "https://www.kinneyfordc.com/",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Kinney Zalesne", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-kinney-zalesne/" },
       { date: "2026-05-11", outlet: "East of the River", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-02", outlet: "WTOP", headline: "Affordability, home rule and Trump dominate DC mayoral, delegate debates", url: "https://wtop.com/local/2026/05/affordability-home-rule-and-trump-dominate-dc-mayoral-delegate-debates/" },
@@ -621,6 +641,7 @@ export const candidates2026: Candidate[] = [
     notes: "Former senior legislative counsel to Del. Norton.",
     websiteUrl: "https://trentholbrook.com/Home",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Trent Holbrook", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-trent-holbrook/" },
       { date: "2026-05-11", outlet: "East of the River", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
       { date: "2026-05-10", outlet: "WJLA", headline: "Candidates for DC Delegate talk statehood, federal oversight at weekend forum", url: "https://wjla.com/news/elections/dc-delegate-candidates-statehood-congress-weekend-forum-st-coletta-democrats-primary-eleanor-holms-norton-washington-pinto-holbrook-zalesne-jaczko-representation-capitol-hill-staff-politics" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Delegate Race: Winning Influence, Leading the Resistance or Both?", url: "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/" },
@@ -667,6 +688,10 @@ export const candidates2026: Candidate[] = [
     notes: "Former community and policy director for Bonds; endorsed by Bonds.",
     websiteUrl: "https://www.chavousfordc.com/",
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+      { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+      { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+      { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "At-Large Race Candidates Split on Safety, Housing and DC's Future", url: "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/" },
       { date: "2026-05-01", outlet: "East of the River", headline: "Who is Running for the Democratic Nomination for At-Large Councilmember?", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" },
       { date: "2026-04-23", outlet: "Washington Blade (Opinion)", headline: "ROSENSTEIN: Chavous for Democratic D.C. Council-at-Large", url: "https://www.washingtonblade.com/2026/04/23/opinion-rosenstein-supports-kevin-chavous-dc-council/" },
@@ -682,6 +707,10 @@ export const candidates2026: Candidate[] = [
     notes: "Former ANC 4A commissioner.",
     websiteUrl: "https://www.candacefordc.com/",
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+      { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+      { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+      { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "At-Large Race Candidates Split on Safety, Housing and DC's Future", url: "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/" },
       { date: "2026-05-01", outlet: "East of the River", headline: "Who is Running for the Democratic Nomination for At-Large Councilmember?", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" },
     ],
@@ -696,6 +725,9 @@ export const candidates2026: Candidate[] = [
     notes: "Former Ward 7 ANC commissioner and Bonds staffer.",
     websiteUrl: "https://www.votejenkinsfordc.com/",
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+      { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+      { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "At-Large Race Candidates Split on Safety, Housing and DC's Future", url: "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/" },
       { date: "2026-05-01", outlet: "East of the River", headline: "Who is Running for the Democratic Nomination for At-Large Councilmember?", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" },
     ],
@@ -710,7 +742,12 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.vote4oye.com/",
     notes: "Current US Shadow Representative.",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC Council at-large candidate Oye Owolewa", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-council-at-large-candidate-oye-owolewa/" },
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+      { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Oye Owolewa for D.C. Council At-Large in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
+      { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+      { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "At-Large Race Candidates Split on Safety, Housing and DC's Future", url: "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/" },
@@ -745,6 +782,10 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://lisaraymondfordc.com/",
     notes: "Former president of the DC State Board of Education.",
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+      { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+      { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+      { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "At-Large Race Candidates Split on Safety, Housing and DC's Future", url: "https://www.hillrag.com/2026/05/08/at-large-race-candidates-split-on-safety-housing-and-dcs-future/" },
       { date: "2026-05-01", outlet: "East of the River", headline: "Who is Running for the Democratic Nomination for At-Large Councilmember?", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" },
@@ -761,10 +802,27 @@ export const candidates2026: Candidate[] = [
     ],
   },
 
-  { slug: "dwight-davis", name: "Dwight Davis", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dwight4dccouncil.com/", notes: "Educator and DC Public Schools community leader." },
-  { slug: "dyana-forester", name: "Dyana N.M. Forester", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dyanafordc.com/", notes: "Past president of the Metropolitan Washington Council, AFL-CIO." },
-  { slug: "fred-hill", name: "Fred Hill", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.fredhill4dc.com/", notes: "Small-business owner and former chair of the DC Board of Zoning Adjustment." },
-  { slug: "greg-jackson", name: "Greg Jackson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.jacksonfordc.com/", notes: "Gun-violence-prevention advocate with DC and federal government experience." },
+  { slug: "dwight-davis", name: "Dwight Davis", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dwight4dccouncil.com/", notes: "Educator and DC Public Schools community leader.", news: [
+    { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+    { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+    { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+  ] },
+  { slug: "dyana-forester", name: "Dyana N.M. Forester", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dyanafordc.com/", notes: "Past president of the Metropolitan Washington Council, AFL-CIO.", news: [
+    { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+    { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+    { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+  ] },
+  { slug: "fred-hill", name: "Fred Hill", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.fredhill4dc.com/", notes: "Small-business owner and former chair of the DC Board of Zoning Adjustment.", news: [
+    { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+    { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+    { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+    { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
+  ] },
+  { slug: "greg-jackson", name: "Greg Jackson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.jacksonfordc.com/", notes: "Gun-violence-prevention advocate with DC and federal government experience.", news: [
+    { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+    { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
+    { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
+  ] },
 
   // Council At-Large (special — Independent seat vacated by McDuffie running for mayor)
   {
@@ -777,6 +835,8 @@ export const candidates2026: Candidate[] = [
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     notes: "Appointed interim incumbent.",
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
+      { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
       { date: "2026-05-28", outlet: "Washington Blade (Opinion)", headline: "Dual endorsement for Independent Council-at-large: Patterson or Crawford (rank one #1, the other #2)", url: "https://www.washingtonblade.com/2026/05/28/opinion-council-at-large-dc-patterson-crawford/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
@@ -802,6 +862,7 @@ export const candidates2026: Candidate[] = [
     filingStatus: "declared",
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
       { date: "2026-05-28", outlet: "Washington Blade (Opinion)", headline: "Dual endorsement for Independent Council-at-large: Patterson or Crawford (rank Patterson #1, Crawford #2)", url: "https://www.washingtonblade.com/2026/05/28/opinion-council-at-large-dc-patterson-crawford/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
@@ -816,7 +877,9 @@ export const candidates2026: Candidate[] = [
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     notes: "Previously held an At-Large Independent seat.",
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Elissa Silverman for the At-Large (non-majority) special election", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
+      { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
     ],
@@ -829,6 +892,7 @@ export const candidates2026: Candidate[] = [
     filingStatus: "declared",
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     news: [
+      { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
     ],
@@ -844,6 +908,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     notes: "Advisory Neighborhood Commissioner; endorsed by outgoing CM Brianne Nadeau.",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Rashida Brown", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
@@ -859,6 +924,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     notes: "Advisory Neighborhood Commissioner.",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Miguel Trindade Deramo", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
@@ -882,6 +948,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     notes: "Communications manager and tenant organizer.",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Aparna Raj", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-aparna-raj/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Aparna Raj for D.C. Council Ward 1 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
@@ -913,6 +980,7 @@ export const candidates2026: Candidate[] = [
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Terry Lynch", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
     ],
@@ -926,6 +994,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
     notes: "Former Bowser administration official.",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Jackie Reyes Yanes", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-jackie-reyes-yanes/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-10", outlet: "51st", headline: "The state of the 2026 D.C. election (so far)", url: "https://51st.news/2026-dc-election-mayor-ward-1/" },
     ],
@@ -961,6 +1030,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" },
     governmentSiteUrl: "https://dccouncil.gov/council/zachary-parker/",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 5 DC Council candidate Zachary Parker", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-5-dc-council-candidate-zachary-parker/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Zachary Parker for D.C. Council Ward 5 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
@@ -977,7 +1047,9 @@ export const candidates2026: Candidate[] = [
       },
     ],
   },
-  { slug: "bernita-carmichael", name: "Bernita Carmichael", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" } },
+  { slug: "bernita-carmichael", name: "Bernita Carmichael", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" }, news: [
+    { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 5 DC Council candidate Bernita Carmichael", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-5-dc-council-candidate-bernita-carmichael/" },
+  ] },
 
   // Council Ward 6 (Democratic primary)
   {
@@ -991,6 +1063,7 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.charlesallenward6.com/",
     governmentSiteUrl: "https://dccouncil.gov/council/charles-allen/",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 6 DC Council candidate Charles Allen", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-6-dc-council-candidate-charles-allen/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Charles Allen for D.C. Council Ward 6 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
@@ -1019,10 +1092,11 @@ export const candidates2026: Candidate[] = [
     source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" },
     websiteUrl: "https://gloriaforward6.com/",
     news: [
+      { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 6 DC Council candidate Gloria Ann Nauden", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-6-dc-council-candidate-gloria-ann-nauden/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Ward 6 Council Race: A Study in Contrasts", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" },
     ],
   },
-  { slug: "michael-murphy", name: "Michael Murphy", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }, notes: "Third Democratic challenger to incumbent Allen in Ward 6.", news: [{ date: "2026-05-08", outlet: "HillRag", headline: "The Ward 6 Council Race: A Study in Contrasts", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }] },
+  { slug: "michael-murphy", name: "Michael Murphy", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }, notes: "Third Democratic challenger to incumbent Allen in Ward 6.", news: [{ date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 6 DC Council candidate Michael Murphy", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-6-dc-council-candidate-michael-murphy/" }, { date: "2026-05-08", outlet: "HillRag", headline: "The Ward 6 Council Race: A Study in Contrasts", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }] },
 
   // Shadow Senator (Democratic primary)
   { slug: "paul-strauss", name: "Paul Strauss", raceSlug: "shadow-senator", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Paul_Strauss" } },
