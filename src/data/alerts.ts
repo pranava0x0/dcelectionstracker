@@ -1,7 +1,7 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
-  { date: "2026-06-03", headline: "Early voting begins in 5 days — June 8 to 14 at every Vote Center, 8:30am–7pm, with same-day registration", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
+  { date: "2026-06-08", headline: "Early voting is happening now through June 14 at every Vote Center, 8:30am–7pm, with same-day registration available", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
   { date: "2026-06-01", headline: "DC Chapter of NOW endorses Lewis George for mayor, Schwalb for AG, Mendelson for chair, Owolewa + Silverman for at-large, Raj/Frumin/Parker/Allen for ward council seats", href: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
   { date: "2026-06-01", headline: "Out-of-DC mail-ballot request deadline is today — voters who won't be in the District during the June 16 primary must submit a request by end of business", href: "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request" },
   { date: "2026-05-29", headline: "DC Police Union calls Lewis George's pension-fund affordable-housing proposal an 'automatic disqualifier' after Fox 5 debate", href: "https://www.washingtonexaminer.com/news/campaigns/state/4574949/dc-police-union-janeese-lewis-george-leverage-pension-housing/" },

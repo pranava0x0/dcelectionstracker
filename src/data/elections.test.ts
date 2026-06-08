@@ -371,9 +371,10 @@ describe("News data integrity — detect silent drops and anomalies (BL-42 v3)",
   it("news items are sorted descending by date (most recent first)", () => {
     for (const c of candidates2026) {
       if (!c.news || c.news.length < 2) continue;
-      for (let i = 0; i < c.news.length - 1; i++) {
-        const curr = c.news[i].date;
-        const next = c.news[i + 1].date;
+      const news = c.news!;
+      for (let i = 0; i < news.length - 1; i++) {
+        const curr = news[i]!.date;
+        const next = news[i + 1]!.date;
         expect(curr >= next, `${c.name}: news[${i}] (${curr}) is not >= news[${i + 1}] (${next})`).toBe(true);
       }
     }
