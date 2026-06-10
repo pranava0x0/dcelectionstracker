@@ -257,6 +257,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-09", outlet: "Washington Times", headline: "D.C. mayoral candidates fight it out in final days before election", url: "https://www.washingtontimes.com/news/2026/jun/9/dc-mayoral-candidates-fight-final-days-election/" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Janeese Lewis George", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-janeese-lewis-george/" },
       { date: "2026-06-05", outlet: "Washington Post", headline: "Lewis George leads in D.C. mayoral race, but many undecided, Post-Schar School polls finds", url: "https://www.washingtonpost.com/dc-md-va/2026/06/05/lewis-george-leads-dc-mayoral-race-many-undecided-post-schar-school-polls-finds/" },
       { date: "2026-06-02", outlet: "Washington Blade", headline: "JR.'s hosts meet & greet for mayoral candidate Janeese Lewis George (Capital Stonewall Democrats + Queers for Janeese GOTV canvass)", url: "https://www.washingtonblade.com/2026/06/02/lgbtq-janeese-lewis-george-event-jrs/" },
@@ -324,6 +325,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-09", outlet: "Washington Times", headline: "D.C. mayoral candidates fight it out in final days before election", url: "https://www.washingtontimes.com/news/2026/jun/9/dc-mayoral-candidates-fight-final-days-election/" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Kenyan McDuffie", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-kenyan-mcduffie/" },
       { date: "2026-06-05", outlet: "Washington Post", headline: "Lewis George leads in D.C. mayoral race, but many undecided, Post-Schar School polls finds", url: "https://www.washingtonpost.com/dc-md-va/2026/06/05/lewis-george-leads-dc-mayoral-race-many-undecided-post-schar-school-polls-finds/" },
       { date: "2026-06-04", outlet: "Washington Examiner", headline: "Obama-era Attorney General Eric Holder endorses Kenyan McDuffie for DC mayor", url: "https://www.washingtonexaminer.com/news/campaigns/state/4594897/eric-holder-endorse-kenyan-mcduffie-dc-mayor/" },

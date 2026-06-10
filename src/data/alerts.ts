@@ -1,6 +1,8 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
+  { date: "2026-06-09", headline: "DC Council gave first-vote approval to the FY2027 budget, reversing Bowser's cuts: +$60M for childcare pay equity, +469 housing vouchers, +$2M for violence prevention — second vote set for June 23", href: "https://wjla.com/news/local/dc-washington-council-budget-fiscal-year-2027-changes-savings-program-funding-muriel-bowser-violence-prevention-childcare-metro-improvements-funding-equity-community-families-schools" },
+  { date: "2026-06-09", headline: "RCV will delay June 16 primary results — DCBOE expects first tabulation round by June 21, full results certified by July 15", href: "https://www.nbcwashington.com/decision-2026/ranked-choice-voting-will-delay-dc-primary-results/4114468/" },
   { date: "2026-06-08", headline: "Early voting is happening now through June 14 at every Vote Center, 8:30am–7pm, with same-day registration available", href: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf" },
   { date: "2026-06-01", headline: "DC Chapter of NOW endorses Lewis George for mayor, Schwalb for AG, Mendelson for chair, Owolewa + Silverman for at-large, Raj/Frumin/Parker/Allen for ward council seats", href: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
   { date: "2026-06-01", headline: "Out-of-DC mail-ballot request deadline is today — voters who won't be in the District during the June 16 primary must submit a request by end of business", href: "https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request" },
