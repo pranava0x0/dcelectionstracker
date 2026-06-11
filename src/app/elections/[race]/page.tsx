@@ -68,6 +68,11 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
   // BL-46: surface the current officeholder as a factual note when they're in the race,
   // instead of relying on the race-level status pill to imply incumbency.
   const incumbent = candidates.find((c) => c.incumbent);
+  // Races profiled before position research lands (BL-59) would render an
+  // all-"No position stated" matrix — show a short factual note instead.
+  const anyPositions = candidates.some((c) =>
+    COMPARABLE_ISSUES.some((slug) => c.positions?.[slug]),
+  );
 
   return (
     <article className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
@@ -159,6 +164,7 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
         </ul>
       </section>
 
+      {anyPositions ? (
       <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />
         <span className="kicker mt-3 inline-block">Positions</span>
@@ -301,6 +307,19 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
           </table>
         </div>
       </section>
+      ) : (
+      <section className="mt-8 sm:mt-12 lg:mt-14">
+        <hr className="rule-thick" />
+        <span className="kicker mt-3 inline-block">Positions</span>
+        <h2 className="display mt-1 text-2xl text-ink sm:text-3xl">Issue-by-issue comparison</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-snug text-fg">
+          No stated positions on the six tracked issues have been compiled for this
+          race yet. Candidate profiles above carry whatever is on file — filings,
+          press, and links — and this section will populate as position research
+          lands. We only record positions candidates have stated; we don&apos;t infer.
+        </p>
+      </section>
+      )}
 
       <section className="mt-8 sm:mt-12 lg:mt-14">
         <hr className="rule-thick" />

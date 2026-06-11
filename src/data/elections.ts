@@ -687,6 +687,7 @@ export const candidates2026: Candidate[] = [
   // Council Chair (Democratic primary)
   {
     slug: "phil-mendelson",
+    summary: "Incumbent Council Chair seeking re-election; endorsed by DC NOW in the primary. Drew an ethics complaint in April 2026, reported by Washington City Paper, over alleged use of his government office for campaign activity. No positions on the six tracked issues have been compiled for this race yet.",
     name: "Phil Mendelson",
     raceSlug: "council-chair",
     party: "D",
@@ -701,11 +702,12 @@ export const candidates2026: Candidate[] = [
       { date: "2026-04-02", outlet: "Washington City Paper", headline: "Council Chair Phil Mendelson Draws Ethics Complaint For Using Government Office For Campaign Activity", url: "https://washingtoncitypaper.com/article/782998/mendelson-ethics-complaint-government-resources-campaign-activity/" },
     ],
   },
-  { slug: "calvin-gurley", name: "Calvin Gurley", raceSlug: "council-chair", party: "D", filingStatus: "declared", source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
+  { slug: "calvin-gurley", summary: "Filed to challenge Council Chair Phil Mendelson in the Democratic primary. No positions on the six tracked issues, campaign website, or press coverage have been verified yet for this candidacy.", name: "Calvin Gurley", raceSlug: "council-chair", party: "D", filingStatus: "declared", source: { label: "Ballotpedia", url: "https://ballotpedia.org/Phil_Mendelson" } },
 
   // Attorney General (Democratic primary)
   {
     slug: "brian-schwalb",
+    summary: "Incumbent Attorney General seeking re-election in a two-way primary against J.P. Szymkowicz; endorsed by DC NOW and profiled in WTOP's candidate Q&A. No positions on the six tracked issues have been compiled for this race yet.",
     name: "Brian Schwalb",
     raceSlug: "attorney-general",
     party: "D",
@@ -721,7 +723,7 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
   },
-  { slug: "jp-szymkowicz", name: "J.P. Szymkowicz", raceSlug: "attorney-general", party: "D", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, websiteUrl: "https://jp4dc.com/", news: [
+  { slug: "jp-szymkowicz", summary: "Challenging incumbent Attorney General Brian Schwalb in a two-way Democratic primary; profiled in WTOP's candidate Q&A and HillRag's race coverage. No positions on the six tracked issues have been compiled yet.", name: "J.P. Szymkowicz", raceSlug: "attorney-general", party: "D", filingStatus: "declared", source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" }, websiteUrl: "https://jp4dc.com/", news: [
     { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC attorney general candidate JP Szymkowicz", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-attorney-general-candidate-jp-szymkowicz/" },
     { date: "2026-06-05", outlet: "HillRag", headline: "A Two-Way Primary Race for Attorney General", url: "https://www.hillrag.com/2026/06/05/a-two-way-primary-race-for-attorney-general/" },
   ] },
@@ -1336,6 +1338,7 @@ export const candidates2026: Candidate[] = [
   // Council At-Large (special — Independent seat vacated by McDuffie running for mayor)
   {
     slug: "doni-crawford",
+    summary: "Appointed interim incumbent running in the nonpartisan special election for the at-large seat McDuffie vacated. Washington Blade's opinion section issued a dual endorsement of Patterson and Crawford; covered in WAMU's at-large voter guide and WABA's transportation questionnaire. No positions on the six tracked issues have been compiled yet.",
     name: "Doni Crawford",
     raceSlug: "council-at-large-special",
     party: "I",
@@ -1353,6 +1356,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "khalil-lee",
+    summary: "Running in the nonpartisan special election for the at-large seat McDuffie vacated; rated in GLAA's 2026 candidate ratings and covered in HillRag's race report. No positions on the six tracked issues have been compiled yet.",
     name: "Khalil Lee",
     raceSlug: "council-at-large-special",
     party: "I",
@@ -1365,6 +1369,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "jacque-patterson",
+    summary: "Running in the nonpartisan at-large special election; ranked first in Washington Blade's opinion dual endorsement (with Crawford second) and covered in WAMU's voter guide. No positions on the six tracked issues have been compiled yet.",
     name: "Jacque Patterson",
     raceSlug: "council-at-large-special",
     party: "I",
@@ -1379,6 +1384,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "elissa-silverman",
+    summary: "Previously held an at-large Independent seat and is seeking a return in the special election; endorsed by DC NOW and covered in WAMU's voter guide and WABA's transportation questionnaire. No positions on the six tracked issues have been compiled yet.",
     name: "Elissa Silverman",
     raceSlug: "council-at-large-special",
     party: "I",
@@ -1395,6 +1401,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "doug-sloan",
+    summary: "Running in the nonpartisan special election for the at-large seat McDuffie vacated; covered in WAMU's at-large voter guide and HillRag's race report. No positions on the six tracked issues have been compiled yet.",
     name: "Doug Sloan",
     raceSlug: "council-at-large-special",
     party: "I",
@@ -1683,6 +1690,7 @@ export const candidates2026: Candidate[] = [
   // Council Ward 3 (Democratic primary)
   {
     slug: "matthew-frumin",
+    summary: "Incumbent Ward 3 councilmember running unopposed in the Democratic primary; endorsed by DC NOW. No positions on the six tracked issues have been compiled for this race yet.",
     name: "Matthew Frumin",
     raceSlug: "council-ward-3",
     party: "D",
@@ -1701,6 +1709,7 @@ export const candidates2026: Candidate[] = [
   // Council Ward 5 (Democratic primary)
   {
     slug: "zachary-parker",
+    summary: "Incumbent Ward 5 councilmember seeking re-election; endorsed by DC NOW and profiled in WTOP's candidate Q&A. No positions on the six tracked issues have been compiled for this race yet.",
     name: "Zachary Parker",
     raceSlug: "council-ward-5",
     party: "D",
@@ -1726,13 +1735,14 @@ export const candidates2026: Candidate[] = [
       },
     ],
   },
-  { slug: "bernita-carmichael", name: "Bernita Carmichael", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" }, news: [
+  { slug: "bernita-carmichael", summary: "Challenging incumbent Zachary Parker in the Ward 5 Democratic primary; profiled in WTOP's candidate Q&A. No positions on the six tracked issues have been compiled yet.", name: "Bernita Carmichael", raceSlug: "council-ward-5", party: "D", filingStatus: "declared", source: { label: "Greater Greater Washington", url: "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements" }, news: [
     { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 5 DC Council candidate Bernita Carmichael", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-5-dc-council-candidate-bernita-carmichael/" },
   ] },
 
   // Council Ward 6 (Democratic primary)
   {
     slug: "charles-allen",
+    summary: "Incumbent Ward 6 councilmember seeking re-election against two challengers; endorsed by DC NOW, profiled in WTOP's candidate Q&A, and featured in HillRag's 'study in contrasts' race coverage. No positions on the six tracked issues have been compiled for this race yet.",
     name: "Charles Allen",
     raceSlug: "council-ward-6",
     party: "D",
@@ -1764,6 +1774,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "gloria-a-nauden",
+    summary: "Challenging incumbent Charles Allen in the Ward 6 Democratic primary; profiled in WTOP's candidate Q&A and HillRag's race coverage. No positions on the six tracked issues have been compiled yet.",
     name: "Gloria A. Nauden",
     raceSlug: "council-ward-6",
     party: "D",
@@ -1775,10 +1786,10 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-08", outlet: "HillRag", headline: "The Ward 6 Council Race: A Study in Contrasts", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" },
     ],
   },
-  { slug: "michael-murphy", name: "Michael Murphy", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }, notes: "Third Democratic challenger to incumbent Allen in Ward 6.", news: [{ date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 6 DC Council candidate Michael Murphy", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-6-dc-council-candidate-michael-murphy/" }, { date: "2026-05-08", outlet: "HillRag", headline: "The Ward 6 Council Race: A Study in Contrasts", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }] },
+  { slug: "michael-murphy", summary: "Third Democratic challenger to incumbent Allen in Ward 6; profiled in WTOP's candidate Q&A and HillRag's race coverage. No positions on the six tracked issues have been compiled yet.", name: "Michael Murphy", raceSlug: "council-ward-6", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }, notes: "Third Democratic challenger to incumbent Allen in Ward 6.", news: [{ date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 6 DC Council candidate Michael Murphy", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-6-dc-council-candidate-michael-murphy/" }, { date: "2026-05-08", outlet: "HillRag", headline: "The Ward 6 Council Race: A Study in Contrasts", url: "https://www.hillrag.com/2026/05/08/the-ward-6-council-race-a-study-in-contrasts/" }] },
 
   // Shadow Senator (Democratic primary)
-  { slug: "paul-strauss", name: "Paul Strauss", raceSlug: "shadow-senator", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Paul_Strauss" } },
+  { slug: "paul-strauss", summary: "Incumbent Shadow Senator seeking re-election to the statehood-advocacy seat, which carries no congressional vote, salary, or office. No positions on the six tracked issues or recent press coverage have been compiled yet.", name: "Paul Strauss", raceSlug: "shadow-senator", party: "D", filingStatus: "declared", incumbent: true, source: { label: "Ballotpedia", url: "https://ballotpedia.org/Paul_Strauss" } },
 
   // Shadow Representative (Democratic primary) — Owolewa not running; declared field unconfirmed in v1.
 ];
@@ -1797,16 +1808,25 @@ export function getCandidateBySlug(slug: string): Candidate | undefined {
   return candidates2026.find((c) => c.slug === slug);
 }
 
-// Races that get a dedicated /elections/[race]/ page + per-candidate profiles (BL-32 v1
-// scope). Limited to the 4 open seats with the most declared candidates and press
-// coverage. Other races are still discoverable via /elections/ (BL-03 expand-on-click) and
-// can be promoted into this list once their candidate pool fills out and the data-refresh
-// skill has populated bios + positions.
+// Races that get a dedicated /elections/[race]/ page + per-candidate profiles.
+// Now every 2026 race with at least one declared candidate on file (BL-32 v1 was
+// the 4 marquee open seats; expanded 2026-06-11). The marquee 4 stay first — they
+// lead the nav popout and the /elections/ grid sort. shadow-representative is
+// excluded until a candidate is on file (a profiled race must have ≥1 candidate;
+// see elections.test.ts). Position/news research for the newly added races is
+// backlogged (BL-59) — their candidate pages render from existing data.
 export const PROFILED_RACE_SLUGS = [
   "mayor",
   "council-at-large-bonds",
   "council-ward-1",
   "us-house-delegate",
+  "council-chair",
+  "attorney-general",
+  "council-at-large-special",
+  "council-ward-3",
+  "council-ward-5",
+  "council-ward-6",
+  "shadow-senator",
 ];
 
 // External voter-research tools to link from each per-race page (BL-32). Per-race

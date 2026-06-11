@@ -113,8 +113,12 @@ src/
     officials/page.tsx
     elections/page.tsx
     elections/[race]/page.tsx           # per-seat race page, generateStaticParams from
-                                        # PROFILED_RACE_SLUGS (mayor, council-at-large-bonds,
-                                        # council-ward-1, us-house-delegate). dynamicParams=false. (BL-32)
+                                        # PROFILED_RACE_SLUGS — all 11 races with ≥1 candidate
+                                        # on file (marquee 4 first; shadow-representative joins
+                                        # when a candidate files). dynamicParams=false. (BL-32)
+                                        # Comparison matrix renders only when ≥1 candidate has
+                                        # ≥1 stated position; otherwise a short factual note
+                                        # (position research for new races = BL-59).
     elections/[race]/[candidate]/page.tsx # per-candidate profile, generateStaticParams from
                                         # candidatesForRace(race).map((c) => ({race, candidate: c.slug})).
                                         # dynamicParams=false. (BL-32)
