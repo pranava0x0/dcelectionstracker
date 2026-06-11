@@ -11,6 +11,7 @@ import {
   getCandidateBySlug,
   getRaceBySlug,
   type ComparableIssueSlug,
+  type NewsItem,
 } from "@/data/elections";
 import { getIssueBySlug } from "@/data/issues";
 import { partyTone } from "@/lib/party";
@@ -43,6 +44,43 @@ function issueTitle(slug: ComparableIssueSlug): string {
 }
 
 type LinkEntry = { label: string; url: string };
+
+function newsByDateDesc(items: NewsItem[]): NewsItem[] {
+  return [...items].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+}
+
+// One row of the "Recent press & social" list — shared by the top-6 list and
+// the "Show all" overflow so the markup can't drift between the two.
+function NewsRow({ item }: { item: NewsItem }): JSX.Element {
+  return (
+    <li className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-4">
+      <div className="flex items-baseline gap-2 sm:w-28">
+        <time
+          className="font-mono text-[11px] font-semibold uppercase tracking-wider text-primary"
+          dateTime={item.date}
+        >
+          {item.date}
+        </time>
+        {item.kind === "social" ? (
+          <span className="rounded-sm bg-ink px-1 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white">
+            Social
+          </span>
+        ) : null}
+      </div>
+      <a
+        href={item.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[15px] leading-snug text-fg hover:text-primary sm:flex-1"
+      >
+        {item.headline}
+      </a>
+      <span className="inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted">
+        {item.outlet} ↗
+      </span>
+    </li>
+  );
+}
 
 // Reference links for the "About this candidate" disclosure. Campaign site,
 // government site, socials, OCF, and DCBOE all render in the top link row
@@ -114,6 +152,7 @@ export default async function CandidateProfilePage({ params }: { params: Promise
           kicker="What's happening"
           title="Recent themes"
           meta={`${candidate.newsThemes.length} ${candidate.newsThemes.length === 1 ? "theme" : "themes"} · last 60 days`}
+          defaultOpen
         >
           <ul className="space-y-4">
             {candidate.newsThemes.map((theme) => {
@@ -161,13 +200,16 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         </DisclosureSection>
       ) : null}
 
-      {/* Positions — default-collapsed DisclosureSection. Body text normalized to
-          one size (text-sm) with leading-snug so the per-issue stance cards aren't
+      {/* Positions — default-open when the candidate has stated ≥1 position
+          (the page's highest-value content; no click to reach it). Collapsed
+          only when there's nothing to show. Body text normalized to one size
+          (text-sm) with leading-snug so the per-issue stance cards aren't
           competing with metadata at multiple sizes. */}
       <DisclosureSection
         kicker="Positions"
         title="Where they stand"
         meta={`${statedIssues.length} of ${COMPARABLE_ISSUES.length} stated`}
+        defaultOpen={statedIssues.length > 0}
       >
         {statedIssues.length === 0 ? (
           <p className="max-w-3xl text-sm italic leading-snug text-subtle">
@@ -226,49 +268,20 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         )}
       </DisclosureSection>
 
-      {/* Recent press & social — disclosure, default closed (page-wide rule).
-          Shows top 6 items; users can expand via disclosure to see all. */}
+      {/* Recent press & social — default-open per the page IA (BL-58): the
+          top 6 items are visible without a click; the rest sit behind the
+          nested "Show all" disclosure. */}
       {candidate.news && candidate.news.length > 0 ? (
         <DisclosureSection
           kicker="Coverage"
           title="Recent press & social"
           meta={`${candidate.news.length} ${candidate.news.length === 1 ? "item" : "items"} · last 60 days`}
+          defaultOpen
         >
           <ol className="border-y border-rule bg-paper">
-            {[...candidate.news]
-              .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
-              .slice(0, 6)
-              .map((n) => (
-                <li
-                  key={`${n.date}-${n.url}`}
-                  className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-4"
-                >
-                  <div className="flex items-baseline gap-2 sm:w-28">
-                    <time
-                      className="font-mono text-[11px] font-semibold uppercase tracking-wider text-primary"
-                      dateTime={n.date}
-                    >
-                      {n.date}
-                    </time>
-                    {n.kind === "social" ? (
-                      <span className="rounded-sm bg-ink px-1 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white">
-                        Social
-                      </span>
-                    ) : null}
-                  </div>
-                  <a
-                    href={n.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[15px] leading-snug text-fg hover:text-primary sm:flex-1"
-                  >
-                    {n.headline}
-                  </a>
-                  <span className="inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted">
-                    {n.outlet} ↗
-                  </span>
-                </li>
-              ))}
+            {newsByDateDesc(candidate.news).slice(0, 6).map((n) => (
+              <NewsRow key={`${n.date}-${n.url}`} item={n} />
+            ))}
           </ol>
           {candidate.news.length > 6 ? (
             <details className="mt-4 border-t border-rule pt-4">
@@ -276,40 +289,9 @@ export default async function CandidateProfilePage({ params }: { params: Promise
                 Show all {candidate.news.length} items ↓
               </summary>
               <ol className="border-y border-rule bg-paper mt-2">
-                {[...candidate.news]
-                  .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
-                  .slice(6)
-                  .map((n) => (
-                    <li
-                      key={`${n.date}-${n.url}`}
-                      className="flex flex-col gap-1 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-4"
-                    >
-                      <div className="flex items-baseline gap-2 sm:w-28">
-                        <time
-                          className="font-mono text-[11px] font-semibold uppercase tracking-wider text-primary"
-                          dateTime={n.date}
-                        >
-                          {n.date}
-                        </time>
-                        {n.kind === "social" ? (
-                          <span className="rounded-sm bg-ink px-1 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white">
-                            Social
-                          </span>
-                        ) : null}
-                      </div>
-                      <a
-                        href={n.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[15px] leading-snug text-fg hover:text-primary sm:flex-1"
-                      >
-                        {n.headline}
-                      </a>
-                      <span className="inline-block py-1 font-mono text-xs font-semibold uppercase tracking-wider text-muted">
-                        {n.outlet} ↗
-                      </span>
-                    </li>
-                  ))}
+                {newsByDateDesc(candidate.news).slice(6).map((n) => (
+                  <NewsRow key={`${n.date}-${n.url}`} item={n} />
+                ))}
               </ol>
             </details>
           ) : null}

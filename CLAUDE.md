@@ -144,6 +144,11 @@ src/
     VotingRecordMatrix.tsx         # Council voting record matrix + per-member mini-record (BL-12 + BL-01)
     AddressLookup.tsx              # "use client" — DC address → ward/ANC/SMD/ballot via MAR API (BL-02)
                                    # User-triggered fetch through corsproxy.io. No load-time call.
+    VoteNowBanner.tsx              # phase-aware "you can vote right now" banner (server component).
+                                   # Copy from src/lib/election-phase.ts + BUILD_DATE; self-clearing
+                                   # outside the voting window. Full variant on / and /elections/;
+                                   # `compact` strip on race pages. Replaced the exact-date-match
+                                   # milestone banner on the homepage (2026-06-11).
     CollapsibleSection.tsx         # mobile-only collapse (<sm), inline at sm+. Used on /elections/ + /issues/[slug]/.
     DisclosureSection.tsx          # always-collapsible (every viewport) with `defaultOpen` + `meta`
                                    # props. Used on candidate profile pages (BL-58) to keep the page
@@ -177,6 +182,9 @@ src/
   lib/
     party.ts                       # partyTone() — party label/color mapping
     headline.ts                    # build-time hero countdown copy
+    election-phase.ts              # classifyVotingPhase() + votingNotice() — pure, date-window
+                                   # copy for VoteNowBanner. PRIMARY_VOTING_WINDOW mirrors the
+                                   # sourced importantDates entries in src/data/elections.ts.
     viewport.ts                    # classifyViewport(width) — pure, Tailwind-aligned
     useViewport.ts                 # client hook (only when CSS can't express the branch)
     rcv.ts                         # IRV algorithm + BASE_ELECTORATE (BL-16)
@@ -224,6 +232,7 @@ Unit tests live next to the modules they cover and run via [vitest](https://vite
 - `src/lib/party.test.ts` — `partyTone()` mapping for every documented party plus the unknown-fallback.
 - `src/lib/headline.test.ts` — `timeUntilPrimaryHeadline()` across past, <7d, 1w, 5w (the launch headline), 8w, and >12w (numeric fallback) regimes.
 - `src/lib/viewport.test.ts` — `classifyViewport()` across phone/tablet/desktop bands, exact breakpoint boundaries, the desktop-window-resized-narrow case, and non-finite fallbacks.
+- `src/lib/election-phase.test.ts` — `classifyVotingPhase()` across all six phases including exact boundary days (mail start, early-voting first/last day, election eve, primary day, day after); `votingNotice()` copy per phase, null outside the window, window-parameterized copy (no hard-coded dates); `formatMonthDay()` timezone safety.
 - `src/lib/rcv.test.ts` — `runIRV()` instant-runoff algorithm: first-round majority, lowest-candidate elimination + transfer, exhausted ballots, lowest-first-round-support tiebreaker, alphabetical-last tiebreaker, the documented base-electorate scenarios (B wins without user; user `[A,C,B]` flips to A on tiebreak).
 - `src/lib/rcv-rankings.test.ts` — pure helpers for the RCV simulator's ranking state: `userBallotFromRankings()` (rank-order projection), `nextRank()` (gap-filling sequential rank), `withoutRank()` (renumber-on-removal), `userVoteJourney()` (trace a ballot through eliminated candidates round-by-round). Refactored out of `RcvSimulator.tsx` for testability.
 - `src/data/elections.test.ts` — `getRaceBySlug()` and `candidatesForRace()` (alphabetical sort, withdrawn filter, unknown-slug fallback) plus dataset-integrity invariants: every `Candidate.raceSlug` references a real Race; every candidate has a sourced label + url; at most one incumbent per race; all Race slugs are unique. Also (BL-19) every `ComparableIssueSlug` has a tag-line, every populated `Position` cites a sourceLabel + http(s) sourceUrl + non-empty stance, position keys reference known issue slugs, and stances stay ≤ 30 words. Also (BL-32) every `Candidate.slug` is unique kebab-case; `PROFILED_RACE_SLUGS` references real races and each profiled race has ≥1 candidate; `getCandidateBySlug()` works; `externalToolsForRace()` returns ≥2 common tools per race with valid URLs. Catches silent data drift the data-refresh skill could introduce.

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AddressLookup } from "@/components/AddressLookup";
 import { Countdown } from "@/components/Countdown";
 import { JumpStrip } from "@/components/JumpStrip";
+import { VoteNowBanner } from "@/components/VoteNowBanner";
 import {
   PRIMARY_DATE,
   GENERAL_DATE,
@@ -49,6 +50,8 @@ export default function ElectionsPage(): JSX.Element {
         Ranked-choice voting debuts in this primary under Initiative 83. All ~345
         Advisory Neighborhood Commission seats are on the November 3 ballot.
       </p>
+
+      <VoteNowBanner />
 
       <JumpStrip
         chips={[
@@ -129,8 +132,34 @@ export default function ElectionsPage(): JSX.Element {
           </a>
           .
         </p>
+
+        <Link
+          href="/elections/compare/"
+          className="card card-hover mt-5 block px-5 py-4 sm:px-6"
+        >
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="kicker !text-fg">Compare</span>
+            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
+              See positions <span aria-hidden>→</span>
+            </span>
+          </div>
+          <p className="mt-2 text-sm leading-snug text-fg sm:text-[15px]">
+            Side-by-side candidate positions on housing, public safety, budget,
+            schools, transportation, statehood, and ranked-choice voting for the
+            three profiled races. Every stance links to a primary source.
+          </p>
+        </Link>
+
+        {/* Races with full profile pages (candidate profiles, positions, press)
+            sort first — they're where a voter's click pays off most. Stable
+            sort keeps the editorial order within each group. */}
         <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {races2026.map((r) => {
+          {[...races2026]
+            .sort(
+              (a, b) =>
+                Number(profiledRaces.has(b.slug)) - Number(profiledRaces.has(a.slug)),
+            )
+            .map((r) => {
             const stripe =
               r.status === "open"
                 ? "card-stripe-red"
@@ -245,23 +274,6 @@ export default function ElectionsPage(): JSX.Element {
             );
           })}
         </ul>
-
-        <Link
-          href="/elections/compare/"
-          className="card card-hover mt-6 block px-5 py-4 sm:px-6"
-        >
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="kicker !text-fg">Compare</span>
-            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
-              See positions <span aria-hidden>→</span>
-            </span>
-          </div>
-          <p className="mt-2 text-sm leading-snug text-fg sm:text-[15px]">
-            Side-by-side candidate positions on housing, public safety, budget,
-            schools, transportation, statehood, and ranked-choice voting for the
-            three profiled races. Every stance links to a primary source.
-          </p>
-        </Link>
       </section>
 
       <section id="action" className="mt-8 scroll-mt-16 sm:mt-12 lg:mt-14">

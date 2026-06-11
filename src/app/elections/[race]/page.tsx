@@ -14,6 +14,7 @@ import {
 } from "@/data/elections";
 import { getIssueBySlug } from "@/data/issues";
 import { partyTone } from "@/lib/party";
+import { VoteNowBanner } from "@/components/VoteNowBanner";
 
 type Params = { race: string };
 
@@ -92,6 +93,7 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
       <p className="mt-3 max-w-3xl text-lg font-medium leading-snug text-primary sm:mt-4 sm:text-xl">
         {race.oneLine}
       </p>
+      <VoteNowBanner compact />
       <hr className="mt-6 rule-thick sm:mt-8" />
 
       <section className="mt-8 sm:mt-10">
@@ -106,6 +108,17 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
         <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {candidates.map((c) => {
             const tone = partyTone(c.party);
+            // Depth meta: tell the voter what's behind the click before they
+            // spend it — positions stated and press items tracked.
+            const statedCount = COMPARABLE_ISSUES.filter((slug) => c.positions?.[slug]).length;
+            const newsCount = c.news?.length ?? 0;
+            const depthParts: string[] = [];
+            if (statedCount > 0) {
+              depthParts.push(`${statedCount}/${COMPARABLE_ISSUES.length} positions`);
+            }
+            if (newsCount > 0) {
+              depthParts.push(`${newsCount} press item${newsCount === 1 ? "" : "s"}`);
+            }
             return (
               <li key={c.slug}>
                 <Link
@@ -129,8 +142,15 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
                     {c.filingStatus}
                   </div>
                   {c.notes ? <p className="mt-3 text-sm leading-snug text-fg">{c.notes}</p> : null}
-                  <div className="mt-3 font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
-                    View profile <span aria-hidden>→</span>
+                  <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-primary">
+                      View profile <span aria-hidden>→</span>
+                    </span>
+                    {depthParts.length > 0 ? (
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-subtle">
+                        {depthParts.join(" · ")}
+                      </span>
+                    ) : null}
                   </div>
                 </Link>
               </li>

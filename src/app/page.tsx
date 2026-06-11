@@ -3,6 +3,7 @@ import { AddressLookup } from "@/components/AddressLookup";
 import { Countdown } from "@/components/Countdown";
 import { IssueCard } from "@/components/IssueCard";
 import { LatestCard } from "@/components/LatestCard";
+import { VoteNowBanner } from "@/components/VoteNowBanner";
 import { issues } from "@/data/issues";
 import { alerts } from "@/data/alerts";
 import { PRIMARY_DATE, GENERAL_DATE, importantDates } from "@/data/elections";
@@ -15,9 +16,6 @@ export default function HomePage(): JSX.Element {
     .slice(0, 4);
   const latest = alerts.slice(0, 3);
   const primaryHeadline = timeUntilPrimaryHeadline(PRIMARY_DATE);
-  // Surface today's milestone (registration deadline, early-voting open/close,
-  // Election Day) as a banner. Self-clearing: no match → null → nothing renders.
-  const todayMilestone = importantDates.find((d) => d.iso === BUILD_DATE) ?? null;
 
   return (
     <>
@@ -43,52 +41,24 @@ export default function HomePage(): JSX.Element {
             below links to a primary source.
           </p>
 
-          {todayMilestone ? (
-            <aside
-              aria-label="Today's election milestone"
-              className="card card-stripe-red mt-6 flex flex-col gap-1 px-4 py-3 sm:mt-8 sm:flex-row sm:items-baseline sm:gap-4"
-            >
-              <span className="kicker shrink-0">
-                Today ·{" "}
-                <time className="text-fg" dateTime={todayMilestone.iso}>
-                  {todayMilestone.iso}
-                </time>
-              </span>
-              <p className="text-sm leading-snug text-fg">
-                {todayMilestone.label}
-                {todayMilestone.source ? (
-                  <>
-                    {" "}
-                    <a
-                      href={todayMilestone.source.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="whitespace-nowrap font-mono text-xs font-semibold uppercase tracking-wider text-muted hover:text-primary"
-                    >
-                      {todayMilestone.source.label} ↗
-                    </a>
-                  </>
-                ) : null}
-              </p>
-            </aside>
-          ) : null}
+          <VoteNowBanner />
 
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
-            <a
-              href="https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-sm bg-primary px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-primary-fg hover:opacity-90 sm:py-2"
-            >
-              Are you registered?
-            </a>
             <a
               href="https://dcgis.maps.arcgis.com/apps/instant/nearby/index.html?appid=763576faa0b1470ca0559c377cf3b497"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-sm border border-rule bg-paper px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg sm:py-2"
+              className="rounded-sm bg-primary px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-primary-fg hover:opacity-90 sm:py-2"
             >
               Where do I vote? ↗
+            </a>
+            <a
+              href="https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-sm border border-rule bg-paper px-4 py-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-fg hover:bg-bg sm:py-2"
+            >
+              Are you registered? ↗
             </a>
             <a
               href="https://www.dcboe.org/voters/casting-your-vote/mail-ballot-request"
@@ -105,6 +75,17 @@ export default function HomePage(): JSX.Element {
               Who currently holds office →
             </Link>
           </div>
+
+          <hr className="mt-12 rule-thick" />
+          <span className="kicker mt-3 inline-block">Lookup</span>
+          <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
+            What&apos;s on your ballot?
+          </h2>
+          <p className="mt-3 max-w-3xl text-[15px] text-fg">
+            Enter your DC address to see your ward, the races on your June 16 primary
+            ballot, and how your current Council member has voted on tracked bills.
+          </p>
+          <AddressLookup />
 
           <hr className="mt-12 rule-thick" />
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -125,17 +106,6 @@ export default function HomePage(): JSX.Element {
               </li>
             ))}
           </ul>
-
-          <hr className="mt-12 rule-thick" />
-          <span className="kicker mt-3 inline-block">Lookup</span>
-          <h2 className="display mt-1 text-2xl text-ink sm:text-3xl lg:text-4xl">
-            What&apos;s on your ballot?
-          </h2>
-          <p className="mt-3 max-w-3xl text-[15px] text-fg">
-            Enter your DC address to see your ward, the races on your June 16 primary
-            ballot, and how your current Council member has voted on tracked bills.
-          </p>
-          <AddressLookup />
         </div>
       </section>
 
