@@ -43,8 +43,6 @@ function issueTitle(slug: ComparableIssueSlug): string {
   return getIssueBySlug(slug)?.title ?? slug;
 }
 
-type LinkEntry = { label: string; url: string };
-
 function newsByDateDesc(items: NewsItem[]): NewsItem[] {
   return [...items].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }
@@ -82,14 +80,6 @@ function NewsRow({ item }: { item: NewsItem }): JSX.Element {
   );
 }
 
-// Reference links for the "About this candidate" disclosure. Campaign site,
-// government site, socials, OCF, and DCBOE all render in the top link row
-// (see SocialIconRow), so only the announcement-source citation is here.
-function referenceLinksFor(candidate: ReturnType<typeof getCandidateBySlug>): LinkEntry[] {
-  if (!candidate) return [];
-  return [{ label: candidate.source.label, url: candidate.source.url }];
-}
-
 export default async function CandidateProfilePage({ params }: { params: Promise<Params> }): Promise<JSX.Element> {
   const { race: raceSlug, candidate: candidateSlug } = await params;
   const candidate = getCandidateBySlug(candidateSlug);
@@ -98,13 +88,9 @@ export default async function CandidateProfilePage({ params }: { params: Promise
 
   const tone = partyTone(candidate.party);
   const sameRace = candidatesForRace(race.slug);
-  const referenceLinks = referenceLinksFor(candidate);
   const statedIssues = COMPARABLE_ISSUES.filter((slug) => candidate.positions?.[slug]);
   const unstatedIssues = COMPARABLE_ISSUES.filter((slug) => !candidate.positions?.[slug]);
-  const aboutMetaParts: string[] = [];
-  if (candidate.bio) aboutMetaParts.push("Bio");
-  aboutMetaParts.push("Source");
-  const aboutMeta = aboutMetaParts.join(" · ");
+  const aboutMeta = "Bio";
 
   return (
     <article className="mx-auto max-w-4xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
@@ -145,6 +131,30 @@ export default async function CandidateProfilePage({ params }: { params: Promise
 
       {candidate.notes ? (
         <p className="mt-2 max-w-3xl text-sm leading-snug text-fg">{candidate.notes}</p>
+      ) : null}
+
+      {/* At a glance — AI-generated digest of the data tracked below (positions,
+          themes, coverage). Labeled as such; every underlying claim is sourced
+          in the sections that follow. */}
+      {candidate.summary ? (
+        <aside
+          aria-label="At a glance"
+          className="card card-stripe-black mt-5 max-w-3xl px-4 py-4 sm:mt-6 sm:px-5"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <span className="kicker">At a glance</span>
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-subtle">
+              AI summary of tracked data
+            </span>
+          </div>
+          <p className="mt-2 text-sm leading-snug text-fg sm:text-[15px]">
+            {candidate.summary}
+          </p>
+          <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-subtle">
+            Generated from the sourced positions, themes, and coverage below — nothing
+            beyond what&apos;s cited on this page.
+          </p>
+        </aside>
       ) : null}
 
       {candidate.newsThemes && candidate.newsThemes.length > 0 ? (
@@ -298,34 +308,20 @@ export default async function CandidateProfilePage({ params }: { params: Promise
         </DisclosureSection>
       ) : null}
 
-      {/* About — disclosure. Bio + announcement-source citation. OCF/DCBOE filings,
-          campaign site, gov site, and socials all live in the top link row now. */}
-      <DisclosureSection
-        kicker="Reference"
-        title="About this candidate"
-        meta={aboutMeta}
-      >
-        {candidate.bio ? (
+      {/* About — disclosure, rendered only when there's an actual bio. With no
+          bio the section was an empty shell holding one citation link, which now
+          lives in the footer strip instead. */}
+      {candidate.bio ? (
+        <DisclosureSection
+          kicker="Reference"
+          title="About this candidate"
+          meta={aboutMeta}
+        >
           <p className="max-w-3xl text-base leading-relaxed text-fg sm:text-[17px]">
             {candidate.bio}
           </p>
-        ) : null}
-        <ul className={"grid grid-cols-1 gap-2" + (candidate.bio ? " mt-5" : "")}>
-          {referenceLinks.map((l) => (
-            <li key={l.url}>
-              <a
-                href={l.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card card-hover block px-4 py-3 text-sm text-fg hover:text-primary"
-              >
-                Announcement source · {l.label}{" "}
-                <span aria-hidden className="text-subtle">↗</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </DisclosureSection>
+        </DisclosureSection>
+      ) : null}
 
       {/* Footer strip — other candidates in this race + a back link. Compact, no h2. */}
       <footer className="mt-8 border-t border-rule pt-6 sm:mt-12 lg:mt-14">
@@ -346,12 +342,22 @@ export default async function CandidateProfilePage({ params }: { params: Promise
               </li>
             ))}
         </ul>
-        <Link
-          href={`/elections/${race.slug}/`}
-          className="mt-4 inline-block font-mono text-[11px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
-        >
-          ← Back to {race.office} race overview
-        </Link>
+        <div className="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          <Link
+            href={`/elections/${race.slug}/`}
+            className="inline-block font-mono text-[11px] font-bold uppercase tracking-wider text-primary hover:opacity-80"
+          >
+            ← Back to {race.office} race overview
+          </Link>
+          <a
+            href={candidate.source.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block font-mono text-[11px] font-semibold uppercase tracking-wider text-muted hover:text-primary"
+          >
+            Announcement source · {candidate.source.label} ↗
+          </a>
+        </div>
       </footer>
     </article>
   );

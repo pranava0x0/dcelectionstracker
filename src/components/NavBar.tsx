@@ -22,11 +22,15 @@ const triggerClass =
   "block whitespace-nowrap font-mono text-[11px] font-semibold uppercase tracking-wider text-white/70 transition-colors hover:text-white sm:py-3 sm:text-xs";
 
 // Popout panel: hidden on mobile entirely, shown at sm+ when the group is
-// hovered OR has keyboard focus inside it. Positioned `top-full` so it
-// abuts the trigger row (no hover gap), `mt-0` so the mouse can travel
-// from trigger into popout without losing :hover.
+// hovered OR contains keyboard focus. Keyboard focus is detected with
+// :focus-visible (not :focus-within) — a mouse click also focuses the
+// trigger link, and plain focus-within kept the popout stuck open after
+// click-navigation until the user clicked elsewhere. :focus-visible only
+// matches keyboard focus, so tab-navigation still opens the menu while
+// mouse users get pure hover behavior. Positioned `top-full` so it abuts
+// the trigger row (no hover gap).
 const popoutClass =
-  "hidden sm:group-hover:block sm:group-focus-within:block sm:absolute sm:left-0 sm:top-full sm:z-40 sm:border sm:border-rule sm:bg-paper sm:py-1 sm:text-fg sm:shadow-xl";
+  "hidden sm:group-hover:block sm:group-has-[:focus-visible]:block sm:absolute sm:left-0 sm:top-full sm:z-40 sm:border sm:border-rule sm:bg-paper sm:py-1 sm:text-fg sm:shadow-xl";
 
 const popoutItemClass =
   "block px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-fg transition-colors hover:bg-bg hover:text-primary";

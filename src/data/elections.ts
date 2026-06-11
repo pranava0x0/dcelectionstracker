@@ -126,6 +126,11 @@ export type Candidate = {
   instagramUrl?: string;
   facebookUrl?: string;
   notes?: string;
+  // AI-generated "at a glance" digest shown at the top of the profile page.
+  // Grounding rule: derived ONLY from data already in this file (positions,
+  // newsThemes, notes, bio) — no outside claims, no editorializing. ≤ 80 words.
+  // Regenerate whenever positions/themes change materially.
+  summary?: string;
   bio?: string; // ≤ 2 sentences, factual only — never editorial. Shown on the per-candidate profile page (BL-32).
   // Comparison-matrix positions (BL-19). Sparse — only populate cells you can cite directly
   // from the candidate (website, press release, debate quote). Reporter characterizations
@@ -242,6 +247,7 @@ export const candidates2026: Candidate[] = [
   // Mayor (Democratic primary)
   {
     slug: "janeese-lewis-george",
+    summary: "Leads the progressive lane with labor, LGBTQ, urbanist, and statehood-coalition endorsements. Platform: publicly owned mixed-income housing with stronger rent stabilization, prevention-first Community Hubs in all eight wards, dedicated regional WMATA funding, and rescinding MPD's ICE-cooperation order. Recently faced backlash for attending indicted ex-councilmember Trayon White's birthday picnic.",
     name: "Janeese Lewis George",
     raceSlug: "mayor",
     party: "D",
@@ -331,6 +337,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "kenyan-mcduffie",
+    summary: "Former at-large councilmember who resigned his seat to run; backed by establishment figures including Eric Holder, Anthony Williams, and the restaurant association. Anchors his campaign on a $4B RFK-site redevelopment, 1,000 new MPD officers, violence-as-public-health prevention, and a day-one order ending MPD cooperation with federal immigration enforcement.",
     name: "Kenyan McDuffie",
     raceSlug: "mayor",
     party: "D",
@@ -416,6 +423,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "vincent-orange",
+    summary: "Former councilmember and DC Chamber of Commerce president on his third mayoral run. 'The Orange Plan' leads with public safety including curfews for minors, revenue growth without tax increases, workforce housing and tiny homes for residents earning under $50,000, and skepticism of DDOT street redesigns.",
     name: "Vincent Orange",
     raceSlug: "mayor",
     party: "D",
@@ -483,6 +491,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "gary-goodweather",
+    summary: "Real-estate developer, Army veteran, and first-time candidate with stated positions on all six tracked issues: a 50,000-homes-by-2032 plan with 20-day by-right permits, fare-free Metro for DC residents, full MPD staffing, and 'Super Home Rule' reforms toward statehood.",
     name: "Gary Goodweather",
     raceSlug: "mayor",
     party: "D",
@@ -534,6 +543,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "hope-solomon",
+    summary: "First-time candidate and laid-off federal contractor running on government efficiency and affordability. Tracked positions are limited to fully staffing MPD with a community-policing focus and criticism of the school lottery; nothing stated yet on statehood, housing, budget, or transportation.",
     name: "Hope Solomon",
     raceSlug: "mayor",
     party: "D",
@@ -572,6 +582,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "rini-sampath",
+    summary: "First-time candidate and government contractor with stated positions on all six tracked issues, including 36,000+ new housing units, a rental junk-fee ban, fee sunset reviews, and defending DC autonomy through litigation. Contested her exclusion from the Fox 5 / Georgetown debate, saying she met the 1,000-donor Fair Elections threshold.",
     name: "Rini Sampath",
     raceSlug: "mayor",
     party: "D",
@@ -636,6 +647,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "ernest-johnson",
+    summary: "Platform centers on community policing with body cameras and gun buybacks, new revenue from taxing exempt high-value properties and commuter tolls, and a phonics-first early-grades overhaul targeting 95% third-grade reading proficiency. No stated positions tracked on statehood or housing.",
     name: "Ernest Johnson",
     raceSlug: "mayor",
     party: "D",
@@ -670,7 +682,7 @@ export const candidates2026: Candidate[] = [
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
     ],
   },
-  { slug: "kathy-henderson", name: "Kathy Henderson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" }, websiteUrl: "http://electkathyhendersondcmayor.com/", notes: "Ballot-access status disputed in May 2026 press; verify with DCBOE primary candidate list before relying on this entry." },
+  { slug: "kathy-henderson", summary: "No positions on the six tracked issues have been verified from her campaign site or press coverage. Ballot-access status was disputed in May 2026 reporting — confirm against the DCBOE primary candidate list.", name: "Kathy Henderson", raceSlug: "mayor", party: "D", filingStatus: "declared", source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" }, websiteUrl: "http://electkathyhendersondcmayor.com/", notes: "Ballot-access status disputed in May 2026 press; verify with DCBOE primary candidate list before relying on this entry." },
 
   // Council Chair (Democratic primary)
   {
@@ -717,6 +729,7 @@ export const candidates2026: Candidate[] = [
   // US House Delegate (Democratic primary)
   {
     slug: "brooke-pinto",
+    summary: "Ward 2 councilmember leading the delegate field in fundraising; drew coverage for releasing a 67-page opposition dossier on rival Robert White. Platform: empower local police over federal intervention, citing her Secure DC and Peace DC bills, a $15,000 rent tax deduction, and diversifying DC's economy beyond federal jobs.",
     name: "Brooke Pinto",
     raceSlug: "us-house-delegate",
     party: "D",
@@ -776,6 +789,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "robert-white",
+    summary: "At-large councilmember running with Congressional Black Caucus, labor, and statehood-coalition support; publicly demanded Pinto withdraw over her opposition dossier. Platform: statehood as the top priority, youth-program crime prevention, federal housing resources, and tax incentives to draw private-sector jobs downtown.",
     name: "Robert White",
     raceSlug: "us-house-delegate",
     party: "D",
@@ -835,6 +849,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "kinney-zalesne",
+    summary: "Calls DC's lack of representation 'a national disgrace rooted in racism' and seeks a strategic 'grand bargain' on Capitol Hill. Platform pairs gun-violence prevention funding with affordable-housing partnerships, defense of career civil servants, and economic diversification into technology and healthcare. No stated position tracked on transportation.",
     name: "Kinney Zalesne",
     raceSlug: "us-house-delegate",
     party: "D",
@@ -877,6 +892,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "trent-holbrook",
+    summary: "Former senior legislative counsel to Del. Norton, arguing inside-the-system experience wins the statehood fight. Platform: a local prosecutor's office accountable to DC residents, DC-appointed judges, federal-employee pay raises and shutdown backpay, and protecting DC Tuition Assistance Grants. No stated positions tracked on housing or transportation.",
     name: "Trent Holbrook",
     raceSlug: "us-house-delegate",
     party: "D",
@@ -929,6 +945,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "gregory-jaczko",
+    summary: "Former Nuclear Regulatory Commission chair under the Obama administration. His one tracked stated position: exempt DC residents from federal income tax until statehood. No other positions on tracked issues have been verified from his site or coverage.",
     name: "Gregory Jaczko",
     raceSlug: "us-house-delegate",
     party: "D",
@@ -953,6 +970,7 @@ export const candidates2026: Candidate[] = [
   // Council At-Large (open Democratic seat — Bonds retiring)
   {
     slug: "kevin-b-chavous",
+    summary: "Former community and policy director for retiring incumbent Anita Bonds, who endorsed him. Platform: smart enforcement focused on violent crime and repeat offenders, affordable supply through zoning, ADUs, and adaptive reuse, and early-childhood education expansion. No stated positions tracked on budget or transportation.",
     name: "Kevin B. Chavous",
     raceSlug: "council-at-large-bonds",
     party: "D",
@@ -994,6 +1012,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "candace-tiana-nelson",
+    summary: "Former ANC 4A commissioner. Platform pairs tenant-side housing policy — stronger rent stabilization, TOPA, and rental assistance — with bus rapid transit for wards 7–8, a standalone Council education committee, and spending oversight before new budget commitments. No stated position tracked on public safety.",
     name: "Candace Tiana Nelson",
     raceSlug: "council-at-large-bonds",
     party: "D",
@@ -1039,6 +1058,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "leniqua-jenkins",
+    summary: "Former Ward 7 ANC commissioner and Bonds staffer. Stated platform focuses on three tracked issues: safety through youth programs and community-based violence prevention, homeownership expansion with down-payment assistance, and an early-literacy push targeting 50% third-grade reading proficiency.",
     name: "Leniqua'dominique Jenkins",
     raceSlug: "council-at-large-bonds",
     party: "D",
@@ -1073,6 +1093,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "oye-owolewa",
+    summary: "Current US shadow representative backed by the Working Families Party, DC NOW, and the public-power campaign. Platform: preservation-first housing with CPI-capped rent increases, a millionaires tax and higher capital-gains taxes, fare reduction with enforcement moved out of MPD, tuition-free UDC, and removing police from DCPS schools.",
     name: "Oye Owolewa",
     raceSlug: "council-at-large-bonds",
     party: "D",
@@ -1142,9 +1163,10 @@ export const candidates2026: Candidate[] = [
       },
     ],
   },
-  { slug: "nate-fleming", name: "Nate Fleming", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former shadow representative." },
+  { slug: "nate-fleming", summary: "Former shadow representative. No positions on the six tracked issues have been verified from press coverage, and no campaign website is on file.", name: "Nate Fleming", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" }, notes: "Former shadow representative." },
   {
     slug: "lisa-raymond",
+    summary: "Former DC State Board of Education president with stated positions on all six tracked issues; GGWash's at-large endorsement called her the most reliable on housing and transit. Platform: faster permitting alongside rent-stabilization defense, focus on carjackings and illegal guns, and PreK expansion with educator pay raises.",
     name: "Lisa Raymond",
     raceSlug: "council-at-large-bonds",
     party: "D",
@@ -1205,7 +1227,7 @@ export const candidates2026: Candidate[] = [
     ],
   },
 
-  { slug: "dwight-davis", name: "Dwight Davis", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dwight4dccouncil.com/", notes: "Educator and DC Public Schools community leader.", positions: {
+  { slug: "dwight-davis", summary: "Educator and DCPS community leader who frames education as his core crime-reduction strategy. Platform: mixed-income workforce housing in all wards, anti-displacement protections for longtime residents and seniors, and career pathways with educator retention. No stated positions tracked on budget or transportation.", name: "Dwight Davis", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dwight4dccouncil.com/", notes: "Educator and DC Public Schools community leader.", positions: {
     statehood: {
       stance: "Defend home rule and budget autonomy, support an independent attorney general, and build national coalitions for statehood and voting representation.",
       sourceLabel: "Campaign site — Issues",
@@ -1231,7 +1253,7 @@ export const candidates2026: Candidate[] = [
     { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
     { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
   ] },
-  { slug: "dyana-forester", name: "Dyana N.M. Forester", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dyanafordc.com/", notes: "Past president of the Metropolitan Washington Council, AFL-CIO.", positions: {
+  { slug: "dyana-forester", summary: "Former president of the Metropolitan Washington Council, AFL-CIO, running a labor-aligned campaign: stronger TOPA and deeply affordable housing, MPD hiring with de-escalation training and oversight, community schools in all eight wards, and a budget that 'puts working families first.' No stated position tracked on transportation.", name: "Dyana N.M. Forester", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dyanafordc.com/", notes: "Past president of the Metropolitan Washington Council, AFL-CIO.", positions: {
     statehood: {
       stance: "Statehood advocate; pledges to defend DC autonomy, push back against federal overreach, and keep the fight for congressional representation alive.",
       sourceLabel: "Campaign site — Policy Priorities",
@@ -1262,7 +1284,7 @@ export const candidates2026: Candidate[] = [
     { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
     { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
   ] },
-  { slug: "fred-hill", name: "Fred Hill", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.fredhill4dc.com/", notes: "Small-business owner and former chair of the DC Board of Zoning Adjustment.", positions: {
+  { slug: "fred-hill", summary: "Small-business owner and former chair of the DC Board of Zoning Adjustment. Stated positions cover three tracked issues: defending Home Rule, collaborative community safety with expanded mental-health services, and data-driven 'smart growth' housing without displacement. Nothing stated yet on budget, transportation, or schools.", name: "Fred Hill", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.fredhill4dc.com/", notes: "Small-business owner and former chair of the DC Board of Zoning Adjustment.", positions: {
     statehood: {
       stance: "Defend Home Rule against attempts to erode it; DC residents should decide local matters without outside political interference.",
       sourceLabel: "Campaign site — Issues",
@@ -1284,7 +1306,7 @@ export const candidates2026: Candidate[] = [
     { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
     { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
   ] },
-  { slug: "greg-jackson", name: "Greg Jackson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.jacksonfordc.com/", notes: "Gun-violence-prevention advocate with DC and federal government experience.", positions: {
+  { slug: "greg-jackson", summary: "Gun-violence-prevention advocate with DC and federal government experience. Platform leads with evidence-based prevention and root-cause investment, housing at all income levels with renter protections, and increased childcare and school funding. No stated positions tracked on budget or transportation.", name: "Greg Jackson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.jacksonfordc.com/", notes: "Gun-violence-prevention advocate with DC and federal government experience.", positions: {
     statehood: {
       stance: "Use coalition building, public pressure, and legislative action to protect DC's right to govern its budget, laws, and future.",
       sourceLabel: "Campaign site — Issues",
@@ -1388,6 +1410,7 @@ export const candidates2026: Candidate[] = [
   // Council Ward 1 (Democratic primary — open seat, Nadeau not running)
   {
     slug: "rashida-brown",
+    summary: "ANC commissioner endorsed by outgoing councilmember Brianne Nadeau. Platform: legalize apartments citywide through the Comprehensive Plan, fare-free buses and road pricing, comprehensive tax reform via a permanent revenue commission, and community policing with mental-health crisis teams — while opposing youth-curfew expansion.",
     name: "Rashida Brown",
     raceSlug: "council-ward-1",
     party: "D",
@@ -1437,6 +1460,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "miguel-trindade-deramo",
+    summary: "ANC commissioner ranked first by Capital Stonewall Democrats with a perfect GLAA score. Platform: a Housing Production Omnibus Act refocusing the trust fund on construction, a top-1% capital-gains surcharge, bus lanes on all key corridors with a connected protected-bike-lane network, and research-backed violence interruption.",
     name: "Miguel Trindade Deramo",
     raceSlug: "council-ward-1",
     party: "D",
@@ -1494,6 +1518,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "aparna-raj",
+    summary: "Tenant organizer who led a March GGWash poll 42%–25% and has consolidated progressive endorsements: WFP, roughly 11 labor unions, GGWash, GLAA, and DC NOW. Platform: rent stabilization for all multifamily renters, citywide apartment legalization, ending MPD–ICE cooperation, and free child care funded by taxes on big business.",
     name: "Aparna Raj",
     raceSlug: "council-ward-1",
     party: "D",
@@ -1560,6 +1585,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "terry-lynch",
+    summary: "Platform stresses visible street-level fixes: closing open-air drug markets, foot patrols, streetlights, and a use-it-or-lose-it policy on vacant properties with 5,000 new Ward 1 homes. Supports youth curfews paired with afterschool programs and taxing professional athletes' DC earnings. Stated positions on all six tracked issues.",
     name: "Terry Lynch",
     raceSlug: "council-ward-1",
     party: "D",
@@ -1606,6 +1632,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "jackie-reyes-yanes",
+    summary: "Former Bowser administration official with stated positions on all six tracked issues. Platform: a youth curfew paired with guaranteed youth employment, $30M Home Purchase Assistance and closed rent-control loopholes, 20% affordable units in larger developments, and budget discipline focused on core services and prevention.",
     name: "Jackie Reyes Yanes",
     raceSlug: "council-ward-1",
     party: "D",

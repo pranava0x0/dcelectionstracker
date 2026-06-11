@@ -120,20 +120,27 @@ src/
                                         # dynamicParams=false. (BL-32)
                                         # Page IA (BL-58 slim layout):
                                         #   1. hero (name + party + status + notes)
-                                        #   2. "What's happening" themes — always inline if set
+                                        #   1.5 "At a glance" — Candidate.summary, AI digest of tracked
+                                        #       data only (labeled as such); renders when set
+                                        #   2. "What's happening" themes — default open if set
                                         #   3. DisclosureSection "Where they stand" — default open if ≥1 stated
                                         #   4. DisclosureSection "Recent press & social" — default open if any
-                                        #   5. DisclosureSection "About this candidate" — default closed; bio + links
-                                        #   6. compact footer with same-race chips + back link
+                                        #   5. DisclosureSection "About this candidate" — default closed;
+                                        #      renders ONLY when Candidate.bio is set (no empty shell)
+                                        #   6. compact footer with same-race chips + back link +
+                                        #      announcement-source citation
     sources/page.tsx
     about/page.tsx                 # /about/ — editorial standard + sourcing rules (BL-41)
     globals.css
   components/
     NavBar.tsx                     # server component (BL-47) — 2-item nav
                                    # (Issues, Elections) + logo + register CTA.
-                                   # CSS-only hover/focus popouts at sm+; at
-                                   # mobile the trigger Link navigates to the
-                                   # index page on tap. No hamburger, no JS.
+                                   # CSS-only popouts at sm+: group-hover +
+                                   # group-has-[:focus-visible] (NOT focus-within —
+                                   # mouse clicks leave the trigger focused and the
+                                   # panel stuck open after navigation). At mobile
+                                   # the trigger Link navigates to the index page
+                                   # on tap. No hamburger, no JS.
     Footer.tsx
     IssueCard.tsx
     IssueDetail.tsx
@@ -165,6 +172,8 @@ src/
     officials.ts                   # Officials w/ slug FK target. councilMembers() + getOfficialBySlug() helpers.
     elections.ts                   # races2026[] + candidates2026[] linked by raceSlug (BL-03)
                                    # Candidate.slug (kebab-case, globally unique) + Candidate.bio? (BL-32)
+                                   # Candidate.summary? — AI "at a glance" digest, grounded ONLY in
+                                   # data already in this file; ≤80 words; tested in elections.test.ts
                                    # Candidate.positions?: Partial<Record<ComparableIssueSlug, Position>>
                                    # Candidate.news?: NewsItem[] — 60-day press + social log (BL-42).
                                    # NewsItem.kind?: "press" | "social" — defaults to press.

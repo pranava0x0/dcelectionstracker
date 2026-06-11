@@ -463,3 +463,35 @@ describe("News data baseline expectations (regression detection)", () => {
     expect(totalItems, `Profiled candidates dropped from baseline of 56 to ${totalItems}`).toBeGreaterThanOrEqual(56);
   });
 });
+
+describe("Candidate AI summaries (at-a-glance digest)", () => {
+  const profiled = PROFILED_RACE_SLUGS.flatMap((race) => candidatesForRace(race));
+
+  it("every profiled candidate has a non-empty summary", () => {
+    for (const c of profiled) {
+      expect(c.summary, `${c.slug} is missing a summary`).toBeTruthy();
+      expect(c.summary!.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it("summaries stay at or under 80 words and end in punctuation", () => {
+    for (const c of profiled) {
+      if (!c.summary) continue;
+      const words = c.summary.trim().split(/\s+/).length;
+      expect(words, `${c.slug} summary is ${words} words`).toBeLessThanOrEqual(80);
+      expect(/[.!?'"]$/.test(c.summary.trim()), `${c.slug} summary ends mid-sentence`).toBe(true);
+    }
+  });
+
+  it("candidates with no stated positions have summaries that say so", () => {
+    for (const c of profiled) {
+      const stated = COMPARABLE_ISSUES.filter((s) => c.positions?.[s]).length;
+      if (stated === 0 && c.summary) {
+        expect(
+          /no (stated )?positions/i.test(c.summary),
+          `${c.slug} has 0 positions but the summary doesn't disclose that`,
+        ).toBe(true);
+      }
+    }
+  });
+});
