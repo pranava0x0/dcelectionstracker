@@ -26,13 +26,10 @@ const triggerClass =
 // abuts the trigger row (no hover gap), `mt-0` so the mouse can travel
 // from trigger into popout without losing :hover.
 const popoutClass =
-  "hidden sm:group-hover:block sm:group-focus-within:block sm:absolute sm:left-0 sm:top-full sm:z-40 sm:border sm:border-rule sm:bg-paper sm:text-fg sm:shadow-xl";
+  "hidden sm:group-hover:block sm:group-focus-within:block sm:absolute sm:left-0 sm:top-full sm:z-40 sm:border sm:border-rule sm:bg-paper sm:py-1 sm:text-fg sm:shadow-xl";
 
 const popoutItemClass =
   "block px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-fg transition-colors hover:bg-bg hover:text-primary";
-
-const popoutKickerClass =
-  "block px-4 pt-3 pb-1 font-mono text-[10px] font-bold uppercase tracking-wider text-muted";
 
 export function NavBar(): JSX.Element {
   return (
@@ -63,7 +60,6 @@ export function NavBar(): JSX.Element {
               Issues
             </Link>
             <div className={popoutClass + " sm:w-72"} role="menu">
-              <span className={popoutKickerClass}>The 2026 brief</span>
               {issues.map((issue) => (
                 <Link
                   key={issue.slug}
@@ -96,7 +92,6 @@ export function NavBar(): JSX.Element {
               Elections
             </Link>
             <div className={popoutClass + " sm:w-80"} role="menu">
-              <span className={popoutKickerClass}>Who&apos;s in office</span>
               <Link
                 href="/officials/"
                 className={popoutItemClass}
@@ -104,7 +99,6 @@ export function NavBar(): JSX.Element {
               >
                 Officials directory
               </Link>
-              <span className={popoutKickerClass}>Profiled races</span>
               {profiledRaces.map((race) => (
                 <Link
                   key={race.slug}
