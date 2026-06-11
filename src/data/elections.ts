@@ -144,6 +144,12 @@ export type Candidate = {
   // candidate; each theme's supportingUrls must appear in news[]. Rendered as
   // the "What's happening" block near the top of the profile page.
   newsThemes?: NewsTheme[];
+  // Candidate prominence metrics used for sorting (BL-??). Candidates are sorted
+  // by polling first, then signatures, then reference count, falling back to
+  // alphabetical order by name if none are present.
+  polling?: number; // percentage support in latest poll
+  signaturesCollected?: number; // petition signatures or ballot-access signatures
+  referenceCount?: number; // number of internet references (e.g., Google search results)
 };
 
 export const PRIMARY_DATE = "2026-06-16T07:00:00-04:00";
@@ -255,6 +261,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "Wikipedia — 2026 DC mayoral", url: "https://en.wikipedia.org/wiki/2026_Washington,_D.C.,_mayoral_election" },
     websiteUrl: "https://janeesefordc.com/",
     governmentSiteUrl: "https://dccouncil.gov/council/janeese-lewis-george/",
+    ocfUrl: "https://fairelections.ocf.dc.gov/public/registrantDisclosureDetails/115",
     positions: {
       housing: {
         stance: "Strengthen rent stabilization, build publicly owned mixed-income housing (Dignified Homes DC), restore TOPA tenant-purchase rights, reform zoning to add supply.",
@@ -344,6 +351,7 @@ export const candidates2026: Candidate[] = [
     filingStatus: "declared",
     source: { label: "Wikipedia — 2026 DC mayoral", url: "https://en.wikipedia.org/wiki/2026_Washington,_D.C.,_mayoral_election" },
     websiteUrl: "https://kenyanmcduffie.com/",
+    ocfUrl: "https://fairelections.ocf.dc.gov/public/registrantDisclosureDetails/188",
     notes: "Resigned At-Large Council seat to run.",
     positions: {
       housing: {
@@ -716,6 +724,7 @@ export const candidates2026: Candidate[] = [
     source: { label: "Wikipedia — 2026 DC AG", url: "https://en.wikipedia.org/wiki/2026_District_of_Columbia_Attorney_General_election" },
     governmentSiteUrl: "https://oag.dc.gov/",
     websiteUrl: "https://brianfordc.com/",
+    ocfUrl: "https://fairelections.ocf.dc.gov/public/registrantDisclosureDetails/159",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC attorney general candidate Brian Schwalb", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-attorney-general-candidate-brian-schwalb/" },
       { date: "2026-06-05", outlet: "HillRag", headline: "A Two-Way Primary Race for Attorney General", url: "https://www.hillrag.com/2026/06/05/a-two-way-primary-race-for-attorney-general/" },
@@ -737,6 +746,8 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" },
+    websiteUrl: "https://brookepintoforcongress.com/",
+    ocfUrl: "https://fairelections.ocf.dc.gov/public/registrantDisclosureDetails/110",
     positions: {
       statehood: {
         stance: "Fight to end taxation without representation; opposes federal surge, National Guard and ICE presence as proof DC can't chart its own course.",
@@ -827,6 +838,7 @@ export const candidates2026: Candidate[] = [
     notes: "At-Large Councilmember.",
     governmentSiteUrl: "https://dccouncil.gov/council/robert-c-white-jr/",
     websiteUrl: "https://www.joinrobertwhite.com/",
+    ocfUrl: "https://fairelections.ocf.dc.gov/public/registrantDisclosureDetails/112/",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Robert White", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-robert-white/" },
       { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
@@ -1134,6 +1146,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     websiteUrl: "https://www.vote4oye.com/",
+    ocfUrl: "https://fairelections.ocf.dc.gov/public/registrantDisclosureDetails/161",
     notes: "Current US Shadow Representative.",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC Council at-large candidate Oye Owolewa", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-council-at-large-candidate-oye-owolewa/" },
@@ -1390,6 +1403,8 @@ export const candidates2026: Candidate[] = [
     party: "I",
     filingStatus: "declared",
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
+    websiteUrl: "https://www.elissafordc.com/",
+    ocfUrl: "https://fairelections.ocf.dc.gov/public/registrantDisclosureDetails/97",
     notes: "Previously held an At-Large Independent seat.",
     news: [
       { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
@@ -1797,7 +1812,19 @@ export const candidates2026: Candidate[] = [
 export function candidatesForRace(raceSlug: string): Candidate[] {
   return candidates2026
     .filter((c) => c.raceSlug === raceSlug && c.filingStatus !== "withdrawn")
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => {
+      // Sort by polling (descending), then signatures, then reference count, then name
+      if ((a.polling ?? -Infinity) !== (b.polling ?? -Infinity)) {
+        return (b.polling ?? -Infinity) - (a.polling ?? -Infinity);
+      }
+      if ((a.signaturesCollected ?? -Infinity) !== (b.signaturesCollected ?? -Infinity)) {
+        return (b.signaturesCollected ?? -Infinity) - (a.signaturesCollected ?? -Infinity);
+      }
+      if ((a.referenceCount ?? -Infinity) !== (b.referenceCount ?? -Infinity)) {
+        return (b.referenceCount ?? -Infinity) - (a.referenceCount ?? -Infinity);
+      }
+      return a.name.localeCompare(b.name);
+    });
 }
 
 export function getRaceBySlug(slug: string): Race | undefined {
