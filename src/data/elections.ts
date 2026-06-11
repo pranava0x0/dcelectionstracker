@@ -255,6 +255,32 @@ export const candidates2026: Candidate[] = [
         sourceLabel: "Campaign site — Homes For All",
         sourceUrl: "https://janeesefordc.com/platform/homes-for-all/",
       },
+    
+      statehood: {
+        stance: "Personally lobby Congress for statehood, work with DC's delegate and attorney general to protect Home Rule, and rescind MPD's ICE-cooperation order.",
+        sourceLabel: "Campaign site — Stand Up For All DC",
+        sourceUrl: "https://janeesefordc.com/platform/stand-up-for-all-dc/",
+      },
+      "public-safety": {
+        stance: "Prevention, intervention, and enforcement strategy; open Community Hubs in all eight wards connecting residents to jobs, services, and mental-health support.",
+        sourceLabel: "Campaign site — Safe Communities For All",
+        sourceUrl: "https://janeesefordc.com/platform/safe-communities-for-all/",
+      },
+      budget: {
+        stance: "Says her proposals can be funded without raising taxes on working people, by cutting budget waste and closing tax loopholes.",
+        sourceLabel: "Georgetown Voice — childcare proposal coverage",
+        sourceUrl: "https://georgetownvoice.com/2026/04/28/facing-the-highest-child-care-costs-in-the-country-d-c-voters-weigh-lewis-georges-proposal/",
+      },
+      transportation: {
+        stance: "Secure dedicated long-term regional WMATA funding, add bus lanes, free buses for SNAP enrollees, fully fund the STEER Act, release congestion-pricing study.",
+        sourceLabel: "Campaign site — Reliable Transportation For All",
+        sourceUrl: "https://janeesefordc.com/platform/reliable-transportation-for-all/",
+      },
+      schools: {
+        stance: "Unify truancy referrals under one agency, expand after-school programs in all eight wards, and grow school staffing including mental-health professionals.",
+        sourceLabel: "Campaign site — Excellent Schools For All",
+        sourceUrl: "https://janeesefordc.com/platform/excellent-schools-for-all/",
+      },
     },
     news: [
       { date: "2026-06-09", outlet: "Washington Times", headline: "D.C. mayoral candidates fight it out in final days before election", url: "https://www.washingtontimes.com/news/2026/jun/9/dc-mayoral-candidates-fight-final-days-election/" },
@@ -322,6 +348,27 @@ export const candidates2026: Candidate[] = [
         stance: "Day-one executive directive ending MPD cooperation with federal immigration enforcement; defend DC autonomy against federal overreach.",
         sourceLabel: "Campaign platform",
         sourceUrl: "https://kenyanmcduffie.com/platform",
+      },
+    
+      "public-safety": {
+        stance: "Treat violence as a public-health crisis, fully implement the NEAR Act, recruit officers to cut overtime, and oppose any federal takeover of MPD.",
+        sourceLabel: "WTOP candidate questionnaire",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-kenyan-mcduffie/",
+      },
+      budget: {
+        stance: "Close the shortfall by cutting MPD overtime spending, ending underperforming programs, and reallocating funds from underspending agencies.",
+        sourceLabel: "Hill Rag — mayoral forum",
+        sourceUrl: "https://www.hillrag.com/2026/05/07/mayoral-candidates-clash-over-utility-costs-public-safety-solutions/",
+      },
+      transportation: {
+        stance: "Fully fund Metro; direct RFK-area transit money to upgrading the existing station and building Bus Rapid Transit on the H Street corridor.",
+        sourceLabel: "WTOP candidate questionnaire",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-kenyan-mcduffie/",
+      },
+      schools: {
+        stance: "End school overcrowding, fund attendance counselors in every school, and hold OSSE, DCPS, and charter LEAs accountable on special-education compliance.",
+        sourceLabel: "WTOP candidate questionnaire",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-kenyan-mcduffie/",
       },
     },
     news: [
@@ -394,6 +441,22 @@ export const candidates2026: Candidate[] = [
         sourceLabel: "Campaign site — Meet Vincent Orange",
         sourceUrl: "https://orangeformayor.com/meet-vincent-orange/",
       },
+    
+      housing: {
+        stance: "Expand attainable homeownership and rentals; supports workforce housing and tiny homes for residents earning $50,000 or less, aligned with transit and jobs.",
+        sourceLabel: "Campaign site — The Orange Plan",
+        sourceUrl: "https://orangeformayor.com/the-orange-plan/",
+      },
+      transportation: {
+        stance: "Criticizes DDOT street redesigns and questions the effectiveness of some bike lanes and traffic-calming measures.",
+        sourceLabel: "Hill Rag — mayoral forum",
+        sourceUrl: "https://www.hillrag.com/2026/05/07/mayoral-candidates-clash-over-utility-costs-public-safety-solutions/",
+      },
+      schools: {
+        stance: "Kindergarten-readiness assessments, math and reading mastery by 4th grade, and four guaranteed graduate paths including tuition-free UDC and apprenticeships.",
+        sourceLabel: "Campaign site — The Orange Plan",
+        sourceUrl: "https://orangeformayor.com/the-orange-plan/",
+      },
     },
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Vincent Orange", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-vincent-orange/" },
@@ -425,6 +488,38 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" },
+    positions: {
+      statehood: {
+        stance: "Pursue statehood through every available pathway and advance 'Super Home Rule' reforms to protect DC from congressional interference.",
+        sourceLabel: "Campaign site — Policy & Plans",
+        sourceUrl: "https://www.goodweatherfordc.com/policy-plans",
+      },
+      "public-safety": {
+        stance: "Fully staff MPD, fix the 911 system, deploy community policing, and expand youth mentorship programs.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://www.goodweatherfordc.com/issues",
+      },
+      housing: {
+        stance: "Build 50,000 homes by 2032 with 36,000 affordable; guarantee 20-day by-right permit approval; replace TOPA with cooperative-conversion and tenant-ownership programs.",
+        sourceLabel: "Campaign site — Housing",
+        sourceUrl: "https://www.goodweatherfordc.com/housing",
+      },
+      budget: {
+        stance: "Pledges line-by-line agency budget reviews and permitting reform; says a balanced budget denies the federal government an excuse to intervene.",
+        sourceLabel: "Hill Rag — mayoral forum",
+        sourceUrl: "https://www.hillrag.com/2026/05/07/mayoral-candidates-clash-over-utility-costs-public-safety-solutions/",
+      },
+      transportation: {
+        stance: "Eliminate Metro fares for DC residents ('Fare Free DC'), paired with investments in service reliability, frequency, and extended hours.",
+        sourceLabel: "Campaign site — Policy & Plans",
+        sourceUrl: "https://www.goodweatherfordc.com/policy-plans",
+      },
+      schools: {
+        stance: "Every child reading by third grade, universal dyslexia screening, chronic absenteeism below 25%, and an Advanced Technical Center in every ward.",
+        sourceLabel: "Campaign site — Policy & Plans",
+        sourceUrl: "https://www.goodweatherfordc.com/policy-plans",
+      },
+    },
     websiteUrl: "https://www.goodweatherfordc.com/",
     notes: "First-time DC candidate; real-estate developer and Army veteran.",
     news: [
@@ -444,6 +539,18 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" },
+    positions: {
+      "public-safety": {
+        stance: "Fully staff MPD, focus on officer retention and pay, and make police part of the community through community policing.",
+        sourceLabel: "Hill Rag — mayoral forum",
+        sourceUrl: "https://www.hillrag.com/2026/05/07/mayoral-candidates-clash-over-utility-costs-public-safety-solutions/",
+      },
+      schools: {
+        stance: "Criticizes the school lottery, saying too many kids are 'rolling the dice' because a guaranteed good public school still isn't guaranteed.",
+        sourceLabel: "Campaign site — About",
+        sourceUrl: "https://hopefordc.com/about",
+      },
+    },
     websiteUrl: "https://hopefordc.com/",
     notes: "First-time candidate; laid-off federal contractor.",
     news: [
@@ -470,6 +577,38 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/dc-mayoral-race-goodweather-solomon-sampath-2026/" },
+    positions: {
+      statehood: {
+        stance: "Make statehood a national Democratic Party priority, push for full voting representation, and defend DC autonomy through litigation if needed.",
+        sourceLabel: "Campaign site — Policy Overviews",
+        sourceUrl: "https://riniformayor.com/policy-overviews",
+      },
+      "public-safety": {
+        stance: "Stabilize MPD staffing, reduce overtime dependency, and order a full operational review of the public-safety ecosystem alongside prevention and youth programs.",
+        sourceLabel: "Campaign site — Policy Overviews",
+        sourceUrl: "https://riniformayor.com/policy-overviews",
+      },
+      housing: {
+        stance: "Cut the 13-month affordable-unit vacancy lag, build over 36,000 units with affordability targets, ban rental junk fees, preserve rental assistance.",
+        sourceLabel: "Campaign site — Policy Overviews",
+        sourceUrl: "https://riniformayor.com/policy-overviews",
+      },
+      budget: {
+        stance: "Defend DC's local tax decisions against congressional disapproval; eliminate duplicative fees and require sunset reviews so new fees expire unless reauthorized.",
+        sourceLabel: "Campaign site — Policy Overviews",
+        sourceUrl: "https://riniformayor.com/policy-overviews",
+      },
+      transportation: {
+        stance: "Reduce traffic deaths by prioritizing dangerous corridors, enforce bus lanes and transit-signal priority as standard operations, publish performance dashboards.",
+        sourceLabel: "Campaign site — Policy Overviews",
+        sourceUrl: "https://riniformayor.com/policy-overviews",
+      },
+      schools: {
+        stance: "Fix school buildings and staffing, cut chronic absenteeism now at 40% of students, expand afterschool programming and early-literacy initiatives.",
+        sourceLabel: "Campaign site — Policy Overviews",
+        sourceUrl: "https://riniformayor.com/policy-overviews",
+      },
+    },
     websiteUrl: "https://riniformayor.com/",
     notes: "First-time DC candidate; government contractor.",
     news: [
@@ -502,6 +641,28 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "FOX 5 DC", url: "https://www.fox5dc.com/news/candidates-running-dc-mayor-june-primary-election-2026" },
+    positions: {
+      "public-safety": {
+        stance: "Community-based policing in every ward, body cameras for all officers, gun buybacks, violence interruption; targets 25% violent-crime reduction by 2029.",
+        sourceLabel: "Campaign site — Public Safety",
+        sourceUrl: "https://ernestformayor2026.com/technology",
+      },
+      budget: {
+        stance: "Grow revenue without raising taxes on working families: tax currently exempt high-value properties and toll major commuter routes into DC.",
+        sourceLabel: "Campaign site — Revenue and Jobs",
+        sourceUrl: "https://ernestformayor2026.com/healthcare",
+      },
+      transportation: {
+        stance: "Install speed cameras in school and senior zones, build dedicated bike lanes with enforcement, and crack down on reckless bike and moped riding.",
+        sourceLabel: "Campaign site — Public Safety",
+        sourceUrl: "https://ernestformayor2026.com/technology",
+      },
+      schools: {
+        stance: "Refocus early grades on phonics-based reading and arithmetic, end social promotion, add mandatory STEM and vocational tracks; 95% third-grade reading proficiency goal.",
+        sourceLabel: "Campaign site — Education",
+        sourceUrl: "https://ernestformayor2026.com/education",
+      },
+    },
     websiteUrl: "https://ernestformayor2026.com/",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Ernest Johnson", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-ernest-johnson/" },
@@ -561,6 +722,33 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" },
+    positions: {
+      statehood: {
+        stance: "Fight to end taxation without representation; opposes federal surge, National Guard and ICE presence as proof DC can't chart its own course.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://brookepintoforcongress.com/issues/",
+      },
+      "public-safety": {
+        stance: "Empower local police, not federal intervention; cites Secure DC and Peace DC bills she championed and a resulting violent-crime drop.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://brookepintoforcongress.com/issues/",
+      },
+      housing: {
+        stance: "Make rent tax-deductible up to $15,000, legalize rowhouses in more zones, streamline permitting, tax abatements for first-time and longtime DC homeowners.",
+        sourceLabel: "Campaign site — Housing plan",
+        sourceUrl: "https://brookepintoforcongress.com/housing/",
+      },
+      budget: {
+        stance: "Diversify DC's economy beyond federal jobs into AI, healthcare, tech and defense manufacturing; expand opportunity zones; opposes Trump tariffs.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://brookepintoforcongress.com/issues/",
+      },
+      schools: {
+        stance: "Robust public-education funding and teacher pay; cites literacy legislation she championed and classroom cellphone restrictions she passed.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://brookepintoforcongress.com/issues/",
+      },
+    },
     notes: "Ward 2 Councilmember.",
     governmentSiteUrl: "https://dccouncil.gov/council/brooke-pinto/",
     websiteUrl: "https://brookepintoforcongress.com/",
@@ -593,6 +781,33 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" },
+    positions: {
+      statehood: {
+        stance: "Statehood is the top priority; protect Home Rule, defend local laws from federal override, and build national coalitions against interference.",
+        sourceLabel: "Campaign site — homepage",
+        sourceUrl: "https://www.joinrobertwhite.com/",
+      },
+      "public-safety": {
+        stance: "Invest in youth programs that prevent crime, with meaningful consequences for serious offenses; opposes MPD cooperation with federal agents that tramples rights.",
+        sourceLabel: "Campaign site — homepage",
+        sourceUrl: "https://www.joinrobertwhite.com/",
+      },
+      housing: {
+        stance: "Secure federal resources for affordable housing and support renters' rights through a 'D.C. Forward Economic Plan.'",
+        sourceLabel: "Campaign site — homepage",
+        sourceUrl: "https://www.joinrobertwhite.com/",
+      },
+      budget: {
+        stance: "Supports federal tax incentives to draw private-sector jobs downtown as DC loses federal employment.",
+        sourceLabel: "WTOP voter guide",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/dc-delegate-candidates-outline-priorities-on-statehood-economy-and-safety/",
+      },
+      schools: {
+        stance: "Fight for federal funding that supports DC teachers, improves classrooms, and prepares children for the jobs of tomorrow.",
+        sourceLabel: "Campaign site — homepage",
+        sourceUrl: "https://www.joinrobertwhite.com/",
+      },
+    },
     notes: "At-Large Councilmember.",
     governmentSiteUrl: "https://dccouncil.gov/council/robert-c-white-jr/",
     websiteUrl: "https://www.joinrobertwhite.com/",
@@ -625,6 +840,33 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "NOTUS", url: "https://www.notus.org/money/dc-delegate-candidates-election-2026-brooke-pinto-robert-white-kinney-zalesne" },
+    positions: {
+      statehood: {
+        stance: "Calls DC's lack of representation a national disgrace rooted in racism; wants a strategic 'grand bargain' on Capitol Hill for full representation.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://www.kinneyfordc.com/issues-1",
+      },
+      "public-safety": {
+        stance: "Pair effective law enforcement with prevention and community engagement; robust funding for gun-violence best practices across federal, regional and local levels.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://www.kinneyfordc.com/issues-1",
+      },
+      housing: {
+        stance: "Expand affordable housing through public, private and nonprofit partnerships, treating housing as linked to health, education and safety outcomes.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://www.kinneyfordc.com/issues-1",
+      },
+      budget: {
+        stance: "Opposes the 'assault on our federal agencies'; diversify DC's economy into technology, healthcare and creative sectors while backing career civil servants.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://www.kinneyfordc.com/issues-1",
+      },
+      schools: {
+        stance: "Reduce educational inequities by cutting truancy, supporting teachers and engaging families so every student experiences education's rewards.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://www.kinneyfordc.com/issues-1",
+      },
+    },
     websiteUrl: "https://www.kinneyfordc.com/",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Kinney Zalesne", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-kinney-zalesne/" },
@@ -640,6 +882,28 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" },
+    positions: {
+      statehood: {
+        stance: "Calls DC's disenfranchisement one of the worst enduring civil rights violations; statehood is the fix for federal control of local laws and police.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://trentholbrook.com/Issues",
+      },
+      "public-safety": {
+        stance: "Create a local prosecutor's office accountable only to DC residents and let DC appoint its own judges instead of the president.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://trentholbrook.com/Issues",
+      },
+      budget: {
+        stance: "Work for federal-employee pay raises and shutdown backpay; ensure DC receives federal funding available to states and cities.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://trentholbrook.com/Issues",
+      },
+      schools: {
+        stance: "Preserve and increase DC Tuition Assistance Grant benefits; opposes forced school vouchers.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://trentholbrook.com/Issues",
+      },
+    },
     notes: "Former senior legislative counsel to Del. Norton.",
     websiteUrl: "https://trentholbrook.com/Home",
     news: [
@@ -670,6 +934,13 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/04/30/who-is-running-for-nomination-as-dc-delegate-in-the-democratic-primary/" },
+    positions: {
+      statehood: {
+        stance: "Proposes exempting DC residents from federal income tax until statehood, citing taxes paid without full representation.",
+        sourceLabel: "51st News — delegate debate",
+        sourceUrl: "https://51st.news/washington-dc-delegate-congress-debate-white-pinto/",
+      },
+    },
     notes: "Former NRC chair (Obama administration).",
     websiteUrl: "https://gojaczko4dc.com/",
     news: [
@@ -687,6 +958,28 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" },
+    positions: {
+      statehood: {
+        stance: "Defend DC Home Rule and push back against federal interference from Congress or the White House.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://www.chavousfordc.com/platform",
+      },
+      "public-safety": {
+        stance: "Smart enforcement focused on violent crime and repeat offenders, community policing, expanded mental-health crisis response, and youth diversion programs.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://www.chavousfordc.com/platform",
+      },
+      housing: {
+        stance: "Increase affordable supply through zoning, ADUs, and adaptive reuse; expand supportive housing and rental assistance; protect tenants.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://www.chavousfordc.com/platform",
+      },
+      schools: {
+        stance: "Expand early childhood education, give schools flexibility to address low achievement, and align education spending with measurable outcomes.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://www.chavousfordc.com/platform",
+      },
+    },
     notes: "Former community and policy director for Bonds; endorsed by Bonds.",
     websiteUrl: "https://www.chavousfordc.com/",
     news: [
@@ -706,6 +999,33 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" },
+    positions: {
+      statehood: {
+        stance: "Continue the fight for statehood; refuse to preemptively comply with federal overreach and oppose congressional rollbacks of locally passed laws.",
+        sourceLabel: "Campaign site — Our Platform",
+        sourceUrl: "https://candacefordc.com/ourplatform",
+      },
+      housing: {
+        stance: "Expand rent stabilization, strengthen TOPA, and increase funding for vouchers, Emergency Rental Assistance, and permanent supportive housing.",
+        sourceLabel: "Campaign site — Our Platform",
+        sourceUrl: "https://candacefordc.com/ourplatform",
+      },
+      budget: {
+        stance: "Emphasizes good oversight of how public dollars are spent, reviewing existing spending before new commitments.",
+        sourceLabel: "51st voter guide",
+        sourceUrl: "https://51st.news/at-large-candidates-dc-council-anita-bonds/",
+      },
+      transportation: {
+        stance: "Bus rapid transit for wards 7-8, protected bike lanes toward Vision Zero goals, and study congestion pricing to fund transit subsidies.",
+        sourceLabel: "Campaign site — Our Platform",
+        sourceUrl: "https://candacefordc.com/ourplatform",
+      },
+      schools: {
+        stance: "Reestablish a standalone education committee, partner with the teachers union on pay and retention, expand funding for high-need students.",
+        sourceLabel: "Campaign site — Our Platform",
+        sourceUrl: "https://candacefordc.com/ourplatform",
+      },
+    },
     notes: "Former ANC 4A commissioner.",
     websiteUrl: "https://www.candacefordc.com/",
     news: [
@@ -724,6 +1044,23 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" },
+    positions: {
+      "public-safety": {
+        stance: "Safety through stability and investment: youth programs, mental-health care, community-based violence prevention, and stronger police-community trust.",
+        sourceLabel: "Campaign site — Safety",
+        sourceUrl: "https://www.votejenkinsfordc.com/safety",
+      },
+      housing: {
+        stance: "Expand homeownership with down-payment assistance and community-based lending, invest in affordable housing, protect tenants from unfair practices.",
+        sourceLabel: "Campaign site — Housing",
+        sourceUrl: "https://www.votejenkinsfordc.com/housing",
+      },
+      schools: {
+        stance: "Evidence-based literacy instruction from pre-K through grade 3, high-impact tutoring, and a 50% third-grade reading proficiency goal.",
+        sourceLabel: "Campaign site — Literacy",
+        sourceUrl: "https://www.votejenkinsfordc.com/literacy",
+      },
+    },
     notes: "Former Ward 7 ANC commissioner and Bonds staffer.",
     websiteUrl: "https://www.votejenkinsfordc.com/",
     news: [
@@ -741,6 +1078,38 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "HillRag", url: "https://www.hillrag.com/2026/01/15/race-is-on-for-at-large-council-seat/" },
+    positions: {
+      statehood: {
+        stance: "Statehood now; oppose congressional overrides, protect voter-approved initiatives, and decouple District policy from harmful federal actions.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://vote4oye.com/issues",
+      },
+      "public-safety": {
+        stance: "Remove police from DCPS schools, fund violence interruption and civilian mental-health crisis response, increase MPD oversight and transparency.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://vote4oye.com/issues",
+      },
+      housing: {
+        stance: "Preservation first: restore TOPA protections, fully fund Emergency Rental Assistance, and cap rent-stabilized increases at the Consumer Price Index.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://vote4oye.com/issues",
+      },
+      budget: {
+        stance: "Raise capital-gains taxes, enact a millionaires tax above $500,000, strengthen the mansion tax, and add accountability to TIF subsidies.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://vote4oye.com/issues",
+      },
+      transportation: {
+        stance: "Back the DMV Moves regional Metro funding plan, reduce and eliminate fares, and move traffic and fare enforcement out of MPD.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://vote4oye.com/issues",
+      },
+      schools: {
+        stance: "Make UDC tuition-free, expand afterschool and summer programs, and increase investment in historically underfunded schools.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://vote4oye.com/issues",
+      },
+    },
     websiteUrl: "https://www.vote4oye.com/",
     notes: "Current US Shadow Representative.",
     news: [
@@ -781,6 +1150,38 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/at-large-candidates-dc-council-anita-bonds/" },
+    positions: {
+      statehood: {
+        stance: "Oppose congressional interference in DC laws, protect locally raised dollars from riders and delays, fight for full House and Senate representation.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://lisaraymondfordc.com/issues/",
+      },
+      "public-safety": {
+        stance: "Focus on serious violent crime like carjackings and illegal guns; support a well-trained, adequately staffed police force with stronger transparency.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://lisaraymondfordc.com/issues/",
+      },
+      housing: {
+        stance: "Streamline permitting to speed construction, defend rent stabilization and eviction protections, and invest in the Housing Production Trust Fund.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://lisaraymondfordc.com/issues/",
+      },
+      budget: {
+        stance: "Protect DC's budget from congressional interference; reduce excessive fees and taxes burdening small, neighborhood-serving businesses.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://lisaraymondfordc.com/issues/",
+      },
+      transportation: {
+        stance: "Multi-modal transit serving all eight wards, explore congestion pricing, support electrified transit and low-stress bike networks.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://lisaraymondfordc.com/issues/",
+      },
+      schools: {
+        stance: "Expand PreK seats with educator pay raises, competitive teacher compensation, faster school modernization, and career-technical pathways.",
+        sourceLabel: "Campaign site — Issues",
+        sourceUrl: "https://lisaraymondfordc.com/issues/",
+      },
+    },
     websiteUrl: "https://lisaraymondfordc.com/",
     notes: "Former president of the DC State Board of Education.",
     news: [
@@ -804,23 +1205,107 @@ export const candidates2026: Candidate[] = [
     ],
   },
 
-  { slug: "dwight-davis", name: "Dwight Davis", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dwight4dccouncil.com/", notes: "Educator and DC Public Schools community leader.", news: [
+  { slug: "dwight-davis", name: "Dwight Davis", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dwight4dccouncil.com/", notes: "Educator and DC Public Schools community leader.", positions: {
+    statehood: {
+      stance: "Defend home rule and budget autonomy, support an independent attorney general, and build national coalitions for statehood and voting representation.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "https://dwight4dccouncil.com/issues/",
+    },
+    "public-safety": {
+      stance: "Says crime drops with an educated populace; treats investment in education as his core crime-reduction strategy.",
+      sourceLabel: "51st voter guide",
+      sourceUrl: "https://51st.news/at-large-candidates-dc-council-anita-bonds/",
+    },
+    housing: {
+      stance: "Expand mixed-income workforce housing in all wards, protect longtime residents and seniors from displacement, build near transit.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "https://dwight4dccouncil.com/issues/",
+    },
+    schools: {
+      stance: "High-performing schools regardless of zip code: career pathways, middle-school programming, educator retention, and school mental-health supports.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "https://dwight4dccouncil.com/issues/",
+    },
+  }, news: [
     { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
     { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
     { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
   ] },
-  { slug: "dyana-forester", name: "Dyana N.M. Forester", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dyanafordc.com/", notes: "Past president of the Metropolitan Washington Council, AFL-CIO.", news: [
+  { slug: "dyana-forester", name: "Dyana N.M. Forester", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.dyanafordc.com/", notes: "Past president of the Metropolitan Washington Council, AFL-CIO.", positions: {
+    statehood: {
+      stance: "Statehood advocate; pledges to defend DC autonomy, push back against federal overreach, and keep the fight for congressional representation alive.",
+      sourceLabel: "Campaign site — Policy Priorities",
+      sourceUrl: "https://www.dyanafordc.com/policy-priorities",
+    },
+    "public-safety": {
+      stance: "Backs local MPD hiring, de-escalation and mental-health crisis training, sustained violence-prevention investment, and strong police oversight.",
+      sourceLabel: "Campaign site — Policy Priorities",
+      sourceUrl: "https://www.dyanafordc.com/policy-priorities",
+    },
+    housing: {
+      stance: "Strengthen TOPA, expand deeply affordable housing options, and protect tenants and workers from being priced out.",
+      sourceLabel: "Campaign site — Policy Priorities",
+      sourceUrl: "https://www.dyanafordc.com/policy-priorities",
+    },
+    budget: {
+      stance: "Says the budget must be balanced in a way true to DC values that puts working families first.",
+      sourceLabel: "51st voter guide",
+      sourceUrl: "https://51st.news/at-large-candidates-dc-council-anita-bonds/",
+    },
+    schools: {
+      stance: "Champion the community-schools model with wraparound supports across all eight wards and needs-based DCPS funding.",
+      sourceLabel: "Campaign site — Policy Priorities",
+      sourceUrl: "https://www.dyanafordc.com/policy-priorities",
+    },
+  }, news: [
     { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
     { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
     { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
   ] },
-  { slug: "fred-hill", name: "Fred Hill", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.fredhill4dc.com/", notes: "Small-business owner and former chair of the DC Board of Zoning Adjustment.", news: [
+  { slug: "fred-hill", name: "Fred Hill", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.fredhill4dc.com/", notes: "Small-business owner and former chair of the DC Board of Zoning Adjustment.", positions: {
+    statehood: {
+      stance: "Defend Home Rule against attempts to erode it; DC residents should decide local matters without outside political interference.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "http://fredhill4dc.com/issues/",
+    },
+    "public-safety": {
+      stance: "Improve safety through collaboration among community leaders, nonprofits, mental-health professionals, and police, expanding mental-health and youth services.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "http://fredhill4dc.com/issues/",
+    },
+    housing: {
+      stance: "Expand affordable housing through thoughtful, data-driven smart growth grounded in community input, creating opportunity without displacement.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "http://fredhill4dc.com/issues/",
+    },
+  }, news: [
     { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
     { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
     { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
     { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
   ] },
-  { slug: "greg-jackson", name: "Greg Jackson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.jacksonfordc.com/", notes: "Gun-violence-prevention advocate with DC and federal government experience.", news: [
+  { slug: "greg-jackson", name: "Greg Jackson", raceSlug: "council-at-large-bonds", party: "D", filingStatus: "declared", source: { label: "East of the River", url: "https://eastoftheriverdcnews.com/2026/05/01/who-is-running-for-the-democratic-nomination-for-at-large-councilmember/" }, websiteUrl: "https://www.jacksonfordc.com/", notes: "Gun-violence-prevention advocate with DC and federal government experience.", positions: {
+    statehood: {
+      stance: "Use coalition building, public pressure, and legislative action to protect DC's right to govern its budget, laws, and future.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "https://www.jacksonfordc.com/issues",
+    },
+    "public-safety": {
+      stance: "Evidence-based prevention before violence occurs, gun-violence reduction, addressing root causes, and holding offenders accountable.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "https://www.jacksonfordc.com/issues",
+    },
+    housing: {
+      stance: "Build housing at all income levels, protect renters, expand homeownership pathways, and help long-term residents keep their homes.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "https://www.jacksonfordc.com/issues",
+    },
+    schools: {
+      stance: "Prioritize increased funding for childcare, all schools, and safe spaces so youth can thrive from cradle to career.",
+      sourceLabel: "Campaign site — Issues",
+      sourceUrl: "https://www.jacksonfordc.com/issues",
+    },
+  }, news: [
     { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
     { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
     { date: "2026-05-29", outlet: "The DC Line", headline: "jonetta rose barras: Nine at-large DC Council Democratic primary candidates fight to win a political lottery", url: "https://thedcline.org/2026/05/29/jonetta-rose-barras-nine-at-large-dc-council-democratic-primary-candidates-fight-to-win-a-political-lottery/" },
@@ -908,6 +1393,39 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
+    positions: {
+      statehood: {
+        stance: "Calls this the gravest Home Rule threat in DC history; would work strategically with the mayor, use federal lobbying experience, organize grassroots statehood movements.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/",
+      },
+      "public-safety": {
+        stance: "Pair community policing with evidence-based violence prevention; send mental health crisis teams to some calls; opposes expanding youth curfews.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/",
+      },
+      housing: {
+        stance: "Update the Comprehensive Plan and land-use map to legalize apartments citywide; support rental assistance, down-payment help, and tenant protections.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/",
+      },
+      budget: {
+        stance: "Says the budget is balanced on the most vulnerable; proposes comprehensive tax reform and a permanent tax and revenue commission to broaden the base.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/",
+      },
+      transportation: {
+        stance: "Prioritize pedestrians, cyclists, and transit over cars: fare-free buses, protected bike lanes, road pricing, and removing parking minimums near transit.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/",
+      },
+      schools: {
+        stance: "Redirect funding to close disparities between schools west of the park and east of the river; support educator retention and school mental health services.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/",
+      },
+    },
+    websiteUrl: "https://rashidaforward1.com/",
     notes: "Advisory Neighborhood Commissioner; endorsed by outgoing CM Brianne Nadeau.",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Rashida Brown", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-rashida-brown/" },
@@ -924,6 +1442,39 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
+    positions: {
+      statehood: {
+        stance: "Calls DC statehood a civil rights issue; would pass protective laws even if Congress may overturn them; founded an ANC Home Rule caucus.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/",
+      },
+      "public-safety": {
+        stance: "Reestablish community-oriented policing under MPD's statutory obligations; fund violence-interruption programs backed by rigorous research.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/",
+      },
+      housing: {
+        stance: "Proposes a Housing Production Omnibus Act refocusing the Housing Production Trust Fund on construction; expand mixed-income housing; simplify TOPA transactions for tenants.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/",
+      },
+      budget: {
+        stance: "Backs a tiered surcharge on realized capital gains for the top 1% to fund vouchers, child tax credits, and pay equity.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/",
+      },
+      transportation: {
+        stance: "Dedicated bus lanes on all key corridors, a complete connected protected-bike-lane network, better bus shelters; backs STEER Act suits against dangerous drivers.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/",
+      },
+      schools: {
+        stance: "Create an education Council with stronger accountability for performance metrics, targeting Ward 1's low test scores and school facility maintenance.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/",
+      },
+    },
+    websiteUrl: "https://miguelward1.com/",
     notes: "Advisory Neighborhood Commissioner.",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Miguel Trindade Deramo", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-miguel-trindade-deramo/" },
@@ -948,6 +1499,39 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
+    positions: {
+      statehood: {
+        stance: "Fight for DC statehood to stop federal takeovers of MPD and the budget; never preemptively comply with the Trump administration.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://aparnafordc.com/platform",
+      },
+      "public-safety": {
+        stance: "End MPD cooperation with ICE, ban masked law enforcement, raise 911 dispatcher pay, expand crisis response teams and violence-prevention programs.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://aparnafordc.com/platform",
+      },
+      housing: {
+        stance: "Expand rent stabilization to all multifamily renters, restore and fund TOPA, legalize apartments citywide, fund Housing Production Trust Fund with production targets.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://aparnafordc.com/platform",
+      },
+      budget: {
+        stance: "Fund priorities like free child care through taxes on big business and the ultrawealthy; close corporate tax loopholes.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://aparnafordc.com/platform",
+      },
+      transportation: {
+        stance: "Reduce or eliminate parking minimums, add transit-oriented density near Metro and bus stops, improve sidewalk maintenance and bike/scooter parking.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://aparnafordc.com/platform",
+      },
+      schools: {
+        stance: "Invest in counselors, social workers, and nurses in all schools; fully fund after-school programs and summer youth employment.",
+        sourceLabel: "Campaign site — Platform",
+        sourceUrl: "https://aparnafordc.com/platform",
+      },
+    },
+    websiteUrl: "https://aparnafordc.com/",
     notes: "Communications manager and tenant organizer.",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Aparna Raj", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-aparna-raj/" },
@@ -981,6 +1565,39 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
+    positions: {
+      statehood: {
+        stance: "Says the mayor and AG must lead, but councilmembers must stand and speak with residents the federal government is threatening; tearing families apart is wrong.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/",
+      },
+      "public-safety": {
+        stance: "Close open-air drug markets, shift police to foot patrols, fix streetlights; supports youth curfews alongside expanded afterschool programs.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/",
+      },
+      housing: {
+        stance: "A use-it-or-lose-it policy on vacant properties, 5,000 new Ward 1 housing units, and closing rent-control loopholes to preserve affordable housing.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/",
+      },
+      budget: {
+        stance: "Close tax loopholes, properly tax undervalued properties, tax professional athletes' DC earnings; prioritize public health, education, and safety.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/",
+      },
+      transportation: {
+        stance: "Step up enforcement against dangerous drivers of all vehicle types, impound vehicles with outstanding tickets, require identifiers on all vehicles and bikes.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/",
+      },
+      schools: {
+        stance: "Vigorous oversight of school maintenance; robust afterschool arts, academics, and athletics programs developed with parents and principals.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/",
+      },
+    },
+    websiteUrl: "https://terrylynchfordc.com/",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Terry Lynch", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-terry-lynch/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
@@ -994,6 +1611,39 @@ export const candidates2026: Candidate[] = [
     party: "D",
     filingStatus: "declared",
     source: { label: "51st", url: "https://51st.news/ward-1-dc-council-primary-election-candidates-2026/" },
+    positions: {
+      statehood: {
+        stance: "Says DC residents deserve full autonomy from congressional interference; Council should be assertive, organized, and unified in defending Home Rule.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-jackie-reyes-yanes/",
+      },
+      "public-safety": {
+        stance: "Supports a youth curfew under 18, street lighting upgrades, guaranteed youth employment, and community-driven programs addressing root causes of crime.",
+        sourceLabel: "Campaign site",
+        sourceUrl: "https://jackieforward1.com/",
+      },
+      housing: {
+        stance: "Raise Home Purchase Assistance to $30M with $150K income limit, close rent-control loopholes, require 20% affordable units in developments over 10 units.",
+        sourceLabel: "Campaign site",
+        sourceUrl: "https://jackieforward1.com/",
+      },
+      budget: {
+        stance: "Prioritize core services, identify inefficiencies and reduce duplication, invest in prevention to avoid larger long-term costs.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-jackie-reyes-yanes/",
+      },
+      transportation: {
+        stance: "Invest in Metrobus and Metrorail reliability, safer pedestrian and protected bike infrastructure, and improved traffic enforcement.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-jackie-reyes-yanes/",
+      },
+      schools: {
+        stance: "Improve educator retention, invest in community schools and mental health services, strengthen oversight so resources reach classrooms equitably.",
+        sourceLabel: "WTOP candidate Q&A",
+        sourceUrl: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-jackie-reyes-yanes/",
+      },
+    },
+    websiteUrl: "https://jackieforward1.com/",
     notes: "Former Bowser administration official.",
     news: [
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Jackie Reyes Yanes", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-jackie-reyes-yanes/" },
