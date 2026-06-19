@@ -289,6 +289,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-16", outlet: "Washington Informer", headline: "If there was ever any doubt, let it now be laid to rest. It is the people of D.C. who elect the mayor of D.C.", url: "https://www.washingtoninformer.com/dc-mayoral-race-lewis-george/", kind: "social" },
       { date: "2026-06-09", outlet: "Washington Times", headline: "D.C. mayoral candidates fight it out in final days before election", url: "https://www.washingtontimes.com/news/2026/jun/9/dc-mayoral-candidates-fight-final-days-election/" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Janeese Lewis George", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-janeese-lewis-george/" },
       { date: "2026-06-05", outlet: "Washington Post", headline: "Lewis George leads in D.C. mayoral race, but many undecided, Post-Schar School polls finds", url: "https://www.washingtonpost.com/dc-md-va/2026/06/05/lewis-george-leads-dc-mayoral-race-many-undecided-post-schar-school-polls-finds/" },
@@ -828,6 +829,7 @@ export const candidates2026: Candidate[] = [
     governmentSiteUrl: "https://dccouncil.gov/council/robert-c-white-jr/",
     websiteUrl: "https://www.joinrobertwhite.com/",
     news: [
+      { date: "2026-06-16", outlet: "NBC Washington", headline: "Washington, D.C., thank you. This is our time. We will not yield the promise of America, because that promise belongs to us, too.", url: "https://www.nbcwashington.com/decision-2026/pinto-white-primary-congress/4117978/", kind: "social" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Robert White", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-robert-white/" },
       { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
       { date: "2026-05-13", outlet: "Free DC", headline: "Free DC endorses Robert White for Delegate to the U.S. House", url: "https://freedcproject.org/news/our-2026-endorsements-guide" },

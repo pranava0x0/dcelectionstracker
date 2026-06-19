@@ -106,6 +106,11 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-06-16",
+        headline: "Robert White wins Delegate primary; pledges confrontational stance on statehood and federal autonomy",
+        source: { label: "WJLA", url: "https://wjla.com/news/elections/robert-white-primary-win-projected-history-delegate-dc-washington-council-member-history-brooke-pinto-statehood-independent-congress-holmes-norton-housing-groceries-childcare-elections" },
+      },
+      {
         date: "2026-05-20",
         headline: "House Oversight advances H.R. 8801, DC ROADS Act, to bar DC from any congestion toll on drivers",
         source: { label: "Govinfo — H.R. 8801", url: "https://www.govinfo.gov/app/details/BILLS-119hr8801ih" },
