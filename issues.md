@@ -1,6 +1,7 @@
 # DC Elections Tracker — Issues
 
 Bug log. Populated by UAT session 2026-05-10. All bugs closed 2026-05-10.
+UAT run 31 (2026-06-20, post-primary day 4): zero new issues, zero regressions. Scheduled data-refresh run 33 paired — no post-primary candidate reactions/news in June 19-20 window (certified results expected June 21, budget second vote June 23). Build clean: 101 routes, TypeScript strict, all 144 tests pass. Test date boundary advanced to 2026-06-20. No UAT-NNN filed. BL-UAT-19/20/22/23/24/25 + UAT-022 remain open with the human owner.
 UAT run 29 (2026-06-18, post-primary day 2): zero new issues, zero regressions. Scheduled data-refresh run 29 paired — no post-primary candidate reactions/news yet (certified results expected June 21, budget second vote June 23). Static build verified at desktop/tablet/mobile across `/`, `/elections/`, `/officials/`, candidate profiles. All 144 tests pass. Build date footer auto-renders 2026-06-18. No UAT-NNN filed. BL-UAT-19/20/22/23/24/25 + UAT-022 remain open with the human owner.
 `/dc-data-refresh` run 2 (2026-05-10) shipped BL-28, BL-26, BL-23, BL-UAT-08 — no new issues filed.
 UAT run 3 (2026-05-11): 3 new issues filed (UAT-013–015). All closed 2026-05-11. UAT-014 fix also covered the same bug in `Footer.tsx`; both consolidated into `src/lib/build-date.ts`.
