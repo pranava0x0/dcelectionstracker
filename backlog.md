@@ -1006,6 +1006,19 @@ Paired with data-refresh run 12. Headline finding was a source-integrity near-mi
 
 ---
 
+## Post-Primary Status (June 22, 2026)
+
+**UAT run 33** (2026-06-22, post-primary day 6): Zero product bugs, zero regressions. Build clean (101 routes, TypeScript strict, 144 tests pass).
+
+**Awaiting June 23 budget second vote:** Council approved FY2027 budget first vote on June 9 with $60M childcare + 469 housing vouchers. Second vote scheduled June 23 at DC Council — major funding/priorities decision.
+
+**RCV detailed results pending:** DCBOE published first-round June 16 results; detailed round-by-round tabulation expected to be posted by June 21. Once live on `electionresults.dcboe.org`, need to integrate into alerts.ts and recentMoves.
+
+**Data refresh next steps:** After June 23 budget vote, scan for: post-budget-vote candidate reactions, any new Council appointments or transitions, defeated candidate statements/next-steps announcements.
+
+**Backlog held:** BL-UAT-19/20/22/23/24/25 + UAT-022 remain open with the human owner; no new items added pending post-primary equilibrium (expected ~1 week post-election).
+
+---
 
 ## Editorial backlog (non-feature)
 
