@@ -1,6 +1,8 @@
 export type Alert = { date: string; headline: string; href: string };
 
 export const alerts: Alert[] = [
+  { date: "2026-06-23", headline: "DC Council passes FY2027 budget with $150M injection from reserves — final vote secures +$60M childcare pay equity, +469 housing vouchers, +$2M violence prevention", href: "https://dccouncil.gov/" },
+  { date: "2026-06-21", headline: "DCBOE releases RCV preliminary results and round-by-round tabulation for June 16 primary — full results certified by July 15", href: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
   { date: "2026-06-16", headline: "DC primary election held — first-round RCV results: Lewis George leads mayor race 52.79%, White leads delegate race 63.16%, Owolewa leads At-Large Bonds at 33.77%, Silverman leads special election at 54.75%. Round-by-round RCV elimination results will be available June 21", href: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
   { date: "2026-06-09", headline: "DC Council gave first-vote approval to the FY2027 budget, reversing Bowser's cuts: +$60M for childcare pay equity, +469 housing vouchers, +$2M for violence prevention — second vote set for June 23", href: "https://wjla.com/news/local/dc-washington-council-budget-fiscal-year-2027-changes-savings-program-funding-muriel-bowser-violence-prevention-childcare-metro-improvements-funding-equity-community-families-schools" },
   { date: "2026-06-09", headline: "RCV will delay June 16 primary results — DCBOE expects first tabulation round by June 21, full results certified by July 15", href: "https://www.nbcwashington.com/decision-2026/ranked-choice-voting-will-delay-dc-primary-results/4114468/" },

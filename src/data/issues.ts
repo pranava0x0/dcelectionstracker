@@ -356,6 +356,11 @@ export const issues: Issue[] = [
     ],
     recentMoves: [
       {
+        date: "2026-02-28",
+        headline: "FY25 eviction crisis: 9,701 filings June 2025–Feb 2026 — highest rate since 2018, raising long-term housing affordability risks",
+        source: { label: "New America", url: "https://www.newamerica.org/insights/an-update-on-dc-evictions-june-2025-through-february-2026/" },
+      },
+      {
         date: "2026-04-01",
         headline: "DCBOE rules rent-freeze Initiative 88 a proper subject matter; petition drive begins June 3",
         source: { label: "More Affordable DC", url: "https://moreaffordabledc.org/2026/04/01/press-release-dcboe-makes-proper-subject-matter-determination/" },
@@ -466,6 +471,11 @@ export const issues: Issue[] = [
       { name: "Office of the President / OPM", role: "Drives federal RIFs, return-to-office rules, and contracting policy that determine roughly a quarter of DC's labor market." },
     ],
     recentMoves: [
+      {
+        date: "2026-06-23",
+        headline: "Council passes FY27 budget with $150M reserve injection — secures +$60M childcare pay equity, +469 housing vouchers, +$2M violence prevention",
+        source: { label: "DC Council", url: "https://dccouncil.gov/" },
+      },
       {
         date: "2026-05-25",
         headline: "Mendelson identifies ~$420M in potential FY27 funding from reserves and tax-code changes",

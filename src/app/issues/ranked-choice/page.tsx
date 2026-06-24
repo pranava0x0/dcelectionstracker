@@ -75,6 +75,11 @@ type Move = { date: string; headline: string; source: { label: string; url: stri
 
 const recentMoves: Move[] = [
   {
+    date: "2026-06-21",
+    headline: "DCBOE releases RCV preliminary results and round-by-round tabulation for June 16 primary",
+    source: { label: "DCBOE — 2026 Primary Results", url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
+  },
+  {
     date: "2026-05-29",
     headline: "Washingtonian publishes a voter-facing guide to ranked-choice voting in the DC primary",
     source: { label: "Washingtonian — Your Guide to Ranked Choice Voting in the DC Primaries", url: "https://washingtonian.com/2026/05/29/your-guide-to-ranked-choice-voting-in-the-dc-primaries/" },
