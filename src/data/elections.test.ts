@@ -348,7 +348,7 @@ describe("News data integrity — detect silent drops and anomalies (BL-42 v3)",
   });
 
   it("every news item's date is <= today and >= 2026-01-01 (catches backdated/future entries)", () => {
-    const today = "2026-06-20"; // currentDate from context
+    const today = "2026-06-24"; // currentDate from context
     const minDate = "2026-01-01";
     for (const c of candidates2026) {
       if (!c.news) continue;

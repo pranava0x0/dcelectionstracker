@@ -8,6 +8,7 @@ import {
   RACE_STATUS_LABEL,
   candidatesForRace,
   externalToolsForRace,
+  getPrimaryResult,
   getRaceBySlug,
   type Candidate,
   type ComparableIssueSlug,
@@ -124,6 +125,7 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
             if (newsCount > 0) {
               depthParts.push(`${newsCount} press item${newsCount === 1 ? "" : "s"}`);
             }
+            const result = getPrimaryResult(c.slug);
             return (
               <li key={c.slug}>
                 <Link
@@ -145,6 +147,11 @@ export default async function RacePage({ params }: { params: Promise<Params> }):
                   <div className="mt-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-muted">
                     {c.incumbent ? "Incumbent · " : ""}
                     {c.filingStatus}
+                    {result === "won" ? (
+                      <span className="ml-1 rounded-sm bg-ink px-1 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-white">Won primary</span>
+                    ) : result === "lost" ? (
+                      <span className="ml-1 text-subtle"> · Didn&apos;t advance</span>
+                    ) : null}
                   </div>
                   {c.notes ? <p className="mt-3 text-sm leading-snug text-fg">{c.notes}</p> : null}
                   <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">

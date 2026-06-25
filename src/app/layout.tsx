@@ -36,6 +36,19 @@ export default function RootLayout({
           Skip to content
         </a>
         <NavBar />
+        <div className="border-b border-rule bg-paper py-2 text-center">
+          <p className="px-4 font-mono text-[11px] uppercase tracking-wider text-muted">
+            The June 16 primary is over. This site is archived as of 2026-06-24 and will not be updated.{" "}
+            <a
+              href="https://electionresults.dcboe.org/election_results/2026-Primary-Election"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:opacity-80"
+            >
+              Certified results at DCBOE ↗
+            </a>
+          </p>
+        </div>
         <main id="main-content">{children}</main>
         <Footer />
         <CommandPalette items={buildSearchIndex()} />

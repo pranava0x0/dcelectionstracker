@@ -9,6 +9,7 @@ import {
   PROFILED_RACE_SLUGS,
   candidatesForRace,
   getCandidateBySlug,
+  getPrimaryResult,
   getRaceBySlug,
   type ComparableIssueSlug,
   type NewsItem,
@@ -91,6 +92,7 @@ export default async function CandidateProfilePage({ params }: { params: Promise
   const statedIssues = COMPARABLE_ISSUES.filter((slug) => candidate.positions?.[slug]);
   const unstatedIssues = COMPARABLE_ISSUES.filter((slug) => !candidate.positions?.[slug]);
   const aboutMeta = "Bio";
+  const primaryResult = getPrimaryResult(candidate.slug);
 
   return (
     <article className="mx-auto max-w-4xl px-4 pb-16 pt-8 sm:pb-20 sm:pt-10">
@@ -112,7 +114,7 @@ export default async function CandidateProfilePage({ params }: { params: Promise
           status + web, gov, socials, OCF, DCBOE. Wraps at narrow widths.
           Office name is in the breadcrumb so we omit "for {office}" here. */}
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <div className="flex items-baseline gap-x-2">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <span
             className={
               "inline-flex items-center rounded-sm px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider " +
@@ -125,6 +127,15 @@ export default async function CandidateProfilePage({ params }: { params: Promise
             {candidate.incumbent ? "Incumbent · " : ""}
             {candidate.filingStatus} candidate
           </span>
+          {primaryResult === "won" ? (
+            <span className="rounded-sm bg-ink px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
+              Won primary
+            </span>
+          ) : primaryResult === "lost" ? (
+            <span className="font-mono text-[11px] uppercase tracking-wider text-subtle">
+              · Didn&apos;t advance
+            </span>
+          ) : null}
         </div>
         <SocialIconRow links={candidate} name={candidate.name} />
       </div>

@@ -188,18 +188,18 @@ export const importantDates: ImportantDate[] = [
 ];
 
 export const races2026: Race[] = [
-  { slug: "mayor", office: "Mayor", status: "open", oneLine: "Open seat — Bowser not seeking a fourth term. First open mayoral race in DC since 2014. 8 declared Democrats; profile page lists the full roster." },
-  { slug: "council-chair", office: "Council Chair", status: "includes-incumbent", oneLine: "Phil Mendelson (D) unopposed by major-name challenger; Calvin Gurley also filed." },
-  { slug: "attorney-general", office: "Attorney General", status: "includes-incumbent", oneLine: "Brian Schwalb (D) seeks re-election; challenged by J.P. Szymkowicz." },
-  { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Open seat — Norton retired after 18 terms. First open Delegate race in 35 years. 5 declared Democrats." },
-  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Open Democratic seat — Anita Bonds retiring. 10 declared Democrats tracked here including Owolewa, Chavous, Forester, Jackson, and Raymond (GGWash pick)." },
-  { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Nonpartisan special election to fill the Independent seat vacated by Kenyan McDuffie. Filed: Crawford, Silverman, Patterson, Lee, Sloan." },
-  { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Open seat — Nadeau not seeking re-election. 5 active Democrats after Brian Footer suspended Dec 17, 2025." },
-  { slug: "council-ward-3", office: "Council Ward 3", status: "includes-incumbent", oneLine: "Matthew Frumin (D) unopposed in the Democratic primary." },
-  { slug: "council-ward-5", office: "Council Ward 5", status: "includes-incumbent", oneLine: "Zachary Parker (D) seeks re-election; challenged by Bernita Carmichael." },
-  { slug: "council-ward-6", office: "Council Ward 6", status: "includes-incumbent", oneLine: "Charles Allen (D) seeks re-election; challenged by Gloria Nauden and Michael Murphy." },
-  { slug: "shadow-senator", office: "Shadow Senator", status: "includes-incumbent", oneLine: "Paul Strauss (D) seeks re-election. Statehood-advocacy seat with no congressional vote, salary, or office." },
-  { slug: "shadow-representative", office: "Shadow Representative", status: "open", oneLine: "Open seat — Owolewa not seeking re-election (running for At-Large Council)." },
+  { slug: "mayor", office: "Mayor", status: "open", oneLine: "Janeese Lewis George wins Democratic primary — 52.79% first-round vote (June 16, preliminary; DCBOE certifies July 15). First open mayoral race in DC since 2014." },
+  { slug: "council-chair", office: "Council Chair", status: "includes-incumbent", oneLine: "Phil Mendelson wins Democratic primary over Calvin Gurley. Certified results due July 15." },
+  { slug: "attorney-general", office: "Attorney General", status: "includes-incumbent", oneLine: "Brian Schwalb wins Democratic primary over J.P. Szymkowicz. Certified results due July 15." },
+  { slug: "us-house-delegate", office: "U.S. House Delegate", status: "open", oneLine: "Robert White wins Democratic primary — 63.16% first-round vote (June 16, preliminary; DCBOE certifies July 15). First open Delegate race in 35 years." },
+  { slug: "council-at-large-bonds", office: "Council At-Large (Bonds seat)", status: "open", oneLine: "Oye Owolewa wins Democratic primary via RCV — led first round at 33.77% among 10 candidates (preliminary; DCBOE certifies July 15)." },
+  { slug: "council-at-large-special", office: "Council At-Large (special)", status: "special", oneLine: "Elissa Silverman wins nonpartisan special election — 54.75% first-round (June 16, preliminary; DCBOE certifies July 15)." },
+  { slug: "council-ward-1", office: "Council Ward 1", status: "open", oneLine: "Aparna Raj wins Democratic primary via RCV (preliminary; DCBOE certifies July 15). Open seat — Nadeau did not seek re-election." },
+  { slug: "council-ward-3", office: "Council Ward 3", status: "includes-incumbent", oneLine: "Matthew Frumin wins Democratic primary; ran unopposed." },
+  { slug: "council-ward-5", office: "Council Ward 5", status: "includes-incumbent", oneLine: "Zachary Parker wins Democratic primary over Bernita Carmichael. Certified results due July 15." },
+  { slug: "council-ward-6", office: "Council Ward 6", status: "includes-incumbent", oneLine: "Charles Allen wins Democratic primary over Gloria Nauden and Michael Murphy. Certified results due July 15." },
+  { slug: "shadow-senator", office: "Shadow Senator", status: "includes-incumbent", oneLine: "Paul Strauss wins Democratic primary. Statehood-advocacy seat with no congressional vote, salary, or office." },
+  { slug: "shadow-representative", office: "Shadow Representative", status: "open", oneLine: "Open seat — Owolewa not seeking re-election (ran for At-Large Council)." },
 ];
 
 export type ElectionStat = {
@@ -208,31 +208,31 @@ export type ElectionStat = {
   source: { label: string; url: string };
 };
 
-// DCBOE publishes a monthly Voter Registration Statistics PDF. Numbers below
-// reflect the most recent report; update on each refresh run.
+// Updated to primary results (June 16, 2026). Preliminary tabulation published by
+// DCBOE on June 21; full certification due July 15, 2026.
 export const electionStats: ElectionStat[] = [
   {
-    value: "478,797",
-    label: "Active registered voters in DC (Apr 30, 2026); 75% Democratic",
+    value: "Lewis George",
+    label: "Wins Democratic mayoral primary — 52.79% first-round (June 16, preliminary)",
     source: {
-      label: "DCBOE registration statistics (April 2026)",
-      url: "https://www.dcboe.org/getmedia/3c291ec7-9318-4365-a423-81a08b408e3a/Data-Statistics-Report-4_2026.pdf",
+      label: "DCBOE 2026 primary results",
+      url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
     },
   },
   {
-    value: "May 11",
-    label: "Mail ballots begin going out for the June 16 primary",
+    value: "Robert White",
+    label: "Wins Democratic delegate primary — 63.16% first-round (June 16, preliminary)",
     source: {
-      label: "DCBOE 2026 Primary Calendar",
-      url: "https://www.dcboe.org/getmedia/3a7e75bc-4a1b-4aa6-9fc3-f30163beb2b5/2026-Primary-Election-Calendar-Version-08072025.pdf",
+      label: "DCBOE 2026 primary results",
+      url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
     },
   },
   {
-    value: "55",
-    label: "Mail-ballot drop boxes citywide, open since May 22 through June 16 at 8pm",
+    value: "July 15",
+    label: "DCBOE full RCV certification date — round-by-round tabulation released June 21",
     source: {
-      label: "DCBOE — drop-box reporting",
-      url: "https://dcboe.org/dcboe/media/PDFFiles/Drop-Boxes-Reporting.pdf",
+      label: "DCBOE 2026 primary results",
+      url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
     },
   },
 ];
@@ -247,7 +247,7 @@ export const candidates2026: Candidate[] = [
   // Mayor (Democratic primary)
   {
     slug: "janeese-lewis-george",
-    summary: "Leads the progressive lane with labor, LGBTQ, urbanist, and statehood-coalition endorsements. Platform: publicly owned mixed-income housing with stronger rent stabilization, prevention-first Community Hubs in all eight wards, dedicated regional WMATA funding, and rescinding MPD's ICE-cooperation order. Recently faced backlash for attending indicted ex-councilmember Trayon White's birthday picnic.",
+    summary: "Won the June 16, 2026 Democratic mayoral primary with 52.79% first-round vote. Led the progressive lane with labor, LGBTQ, urbanist, and statehood-coalition endorsements. Platform: publicly owned mixed-income housing, prevention-first Community Hubs in all eight wards, dedicated WMATA funding, and rescinding MPD's ICE-cooperation order.",
     name: "Janeese Lewis George",
     raceSlug: "mayor",
     party: "D",
@@ -289,6 +289,7 @@ export const candidates2026: Candidate[] = [
       },
     },
     news: [
+      { date: "2026-06-21", outlet: "DCBOE", headline: "Preliminary RCV results: Lewis George leads mayoral race with 52.79% first-round — wins outright; full certification due July 15", url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
       { date: "2026-06-16", outlet: "Washington Informer", headline: "If there was ever any doubt, let it now be laid to rest. It is the people of D.C. who elect the mayor of D.C.", url: "https://www.washingtoninformer.com/dc-mayoral-race-lewis-george/", kind: "social" },
       { date: "2026-06-09", outlet: "Washington Times", headline: "D.C. mayoral candidates fight it out in final days before election", url: "https://www.washingtontimes.com/news/2026/jun/9/dc-mayoral-candidates-fight-final-days-election/" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC mayoral candidate Janeese Lewis George", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-mayoral-candidate-janeese-lewis-george/" },
@@ -314,15 +315,11 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Leading the progressive lane with labor, LGBTQ, urbanist, statehood, and women's-rights endorsements",
-        detail: "Greater Greater Washington, Capital Stonewall Democrats, the DC chapter of the National Organization for Women, labor groups, and the statehood-and-resistance coalition Free DC have endorsed Lewis George. A June 5 Washington Post–Schar School poll showed her leading the mayoral field, though many voters remained undecided; Axios reports she also led the field in DC-resident donors.",
+        headline: "Wins Democratic mayoral primary — 52.79% first-round vote, clearing majority threshold outright",
+        detail: "Lewis George cleared the majority threshold in the first round of the June 16, 2026 Democratic mayoral primary, becoming the projected Democratic nominee for mayor of DC. Preliminary results from DCBOE published June 21; full certification due July 15.",
         supportingUrls: [
-          "https://www.washingtonpost.com/dc-md-va/2026/06/05/lewis-george-leads-dc-mayoral-race-many-undecided-post-schar-school-polls-finds/",
-          "https://ggwash.org/view/102464/ggwash-endorses-janeese-lewis-george-for-dc-mayor",
-          "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/",
-          "https://freedcproject.org/news/our-2026-endorsements-guide",
-          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
-          "https://www.axios.com/local/washington-dc/2026/05/01/dc-mayor-race-janeese-lewis-george-kenyan-mcduffie",
+          "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
+          "https://www.washingtoninformer.com/dc-mayoral-race-lewis-george/",
         ],
       },
       {
@@ -792,7 +789,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "robert-white",
-    summary: "At-large councilmember running with Congressional Black Caucus, labor, and statehood-coalition support; publicly demanded Pinto withdraw over her opposition dossier. Platform: statehood as the top priority, youth-program crime prevention, federal housing resources, and tax incentives to draw private-sector jobs downtown.",
+    summary: "Won the June 16, 2026 Democratic delegate primary with 63.16% first-round vote. At-large councilmember backed by the CBC, labor, and statehood coalition. Platform: statehood as the top priority, youth-program crime prevention, federal housing resources, and tax incentives to draw private-sector jobs downtown.",
     name: "Robert White",
     raceSlug: "us-house-delegate",
     party: "D",
@@ -829,6 +826,7 @@ export const candidates2026: Candidate[] = [
     governmentSiteUrl: "https://dccouncil.gov/council/robert-c-white-jr/",
     websiteUrl: "https://www.joinrobertwhite.com/",
     news: [
+      { date: "2026-06-21", outlet: "DCBOE", headline: "Preliminary results: Robert White wins Democratic delegate primary — 63.16% first-round vote; certified July 15", url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
       { date: "2026-06-16", outlet: "NBC Washington", headline: "Washington, D.C., thank you. This is our time. We will not yield the promise of America, because that promise belongs to us, too.", url: "https://www.nbcwashington.com/decision-2026/pinto-white-primary-congress/4117978/", kind: "social" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC delegate candidate Robert White", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-delegate-candidate-robert-white/" },
       { date: "2026-05-22", outlet: "Axios DC", headline: "How DC's next delegate would handle Trump", url: "https://www.axios.com/local/washington-dc/2026/05/22/delegate-election-robert-white-brooke-pinto" },
@@ -840,13 +838,11 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Running on a CBC-, labor-, and statehood-coalition 'resistance' lane after publicly demanding Pinto withdraw over opposition dossier",
-        detail: "Washingtonian reported White's April 14 call for Pinto to withdraw. The East of the River / HillRag joint profile frames him as the progressive choice against Pinto's insider lane; Free DC formally endorsed him on May 13 as their delegate pick.",
+        headline: "Wins Democratic delegate primary outright — 63.16% first-round vote on June 16",
+        detail: "Robert White won the Democratic primary for the open US House Delegate seat with 63.16% of first-round votes, becoming the Democratic nominee. Preliminary DCBOE results published June 21; full certification due July 15.",
         supportingUrls: [
-          "https://washingtonian.com/2026/04/14/robert-white-calls-for-brooke-pinto-to-withdraw-from-dc-delegate-race-after-she-posts-very-personal-opposition-research/",
-          "https://www.hillrag.com/2026/05/08/the-delegate-race-winning-influence-leading-the-resistance-or-both/",
-          "https://eastoftheriverdcnews.com/2026/05/11/the-delegate-race-winning-influence-leading-the-resistance-or-both/",
-          "https://freedcproject.org/news/our-2026-endorsements-guide",
+          "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
+          "https://www.nbcwashington.com/decision-2026/pinto-white-primary-congress/4117978/",
         ],
       },
     ],
@@ -1097,7 +1093,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "oye-owolewa",
-    summary: "Current US shadow representative backed by the Working Families Party, DC NOW, and the public-power campaign. Platform: preservation-first housing with CPI-capped rent increases, a millionaires tax and higher capital-gains taxes, fare reduction with enforcement moved out of MPD, tuition-free UDC, and removing police from DCPS schools.",
+    summary: "Won the June 16, 2026 Democratic at-large (Bonds seat) primary via RCV, leading the 10-candidate field with 33.77% first-round. Current US shadow representative backed by WFP and DC NOW. Platform: preservation-first housing, a millionaires tax, fare reduction, and removing police from DCPS schools.",
     name: "Oye Owolewa",
     raceSlug: "council-at-large-bonds",
     party: "D",
@@ -1138,6 +1134,8 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://www.vote4oye.com/",
     notes: "Current US Shadow Representative.",
     news: [
+      { date: "2026-06-21", outlet: "DCBOE", headline: "Preliminary RCV tabulation: Owolewa wins At-Large (Bonds seat) Democratic primary — led first round at 33.77%, wins after RCV eliminations; certified July 15", url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
+      { date: "2026-06-16", outlet: "WTOP", headline: "DC primary night: RCV will delay at-large results; Owolewa leads first round with 33.77%", url: "https://wtop.com/dc-election/2026/06/dc-primary-results-night-council-at-large/" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know DC Council at-large candidate Oye Owolewa", url: "https://wtop.com/dc-election/2026/06/get-to-know-dc-council-at-large-candidate-oye-owolewa/" },
       { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
       { date: "2026-06-02", outlet: "The Washington Informer", headline: "Ranked-Choice Voting in the Democratic At-Large Race: A Chance for Collaboration — Or Not", url: "https://www.washingtoninformer.com/dc-democratic-party-candidates/" },
@@ -1155,14 +1153,11 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Moving from shadow rep to challenger for Bonds's open seat with progressive endorsements and a public-power pledge",
-        detail: "WFP, the DC chapter of the National Organization for Women, and the Public Power campaign have backed him; Washington Informer and Northeastern News profile him as the progressive alternative to the seat's outgoing incumbent. Axios highlights a heightened national profile under the Trump-era federal pressure on DC.",
+        headline: "Wins Democratic at-large (Bonds seat) primary via RCV — led first round at 33.77% among 10 candidates",
+        detail: "Owolewa led the 10-candidate field with 33.77% in the first round of June 16 ranked-choice voting and advanced through elimination rounds in DCBOE's preliminary June 21 tabulation. Full certification due July 15.",
         supportingUrls: [
-          "https://workingfamilies.org/2026/02/wfp-endorses-oye-owolewa-aparna-raj-for-dc-council/",
-          "https://www.wepowerdc.org/latest-news/rep-oye-owolewa-at-large-candidate-signs-the-public-power-pledge",
-          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
-          "https://www.washingtoninformer.com/owolewa-bonds-council-run/",
-          "https://www.axios.com/local/washington-dc/2026/01/15/dc-council-trump-shadow-representative-senator-election",
+          "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
+          "https://wtop.com/dc-election/2026/06/dc-primary-results-night-council-at-large/",
         ],
       },
     ],
@@ -1386,7 +1381,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "elissa-silverman",
-    summary: "Previously held an at-large Independent seat and is seeking a return in the special election; endorsed by DC NOW and covered in WAMU's voter guide and WABA's transportation questionnaire. No positions on the six tracked issues have been compiled yet.",
+    summary: "Won the June 16, 2026 nonpartisan at-large special election with 54.75% first-round vote. Previously held an at-large Independent seat; endorsed by DC NOW. No positions on the six tracked issues have been compiled.",
     name: "Elissa Silverman",
     raceSlug: "council-at-large-special",
     party: "I",
@@ -1394,11 +1389,23 @@ export const candidates2026: Candidate[] = [
     source: { label: "Wikipedia — 2026 DC Council", url: "https://en.wikipedia.org/wiki/2026_Council_of_the_District_of_Columbia_election" },
     notes: "Previously held an At-Large Independent seat.",
     news: [
+      { date: "2026-06-21", outlet: "DCBOE", headline: "Preliminary results: Silverman wins at-large nonpartisan special election — 54.75% first-round; certified July 15", url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
+      { date: "2026-06-16", outlet: "WTOP", headline: "DC primary night: Silverman leads nonpartisan at-large special election with 54.75% first-round", url: "https://wtop.com/dc-election/2026/06/dc-primary-results-night-council-at-large/" },
       { date: "2026-06-03", outlet: "WAMU", headline: "D.C. Voter Guide 2026: Who is running for the D.C. Council's at-large seats?", url: "https://wamu.org/story/26/06/03/dc-voter-guide-2026-who-running-for-dc-councils-at-large-seats/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Elissa Silverman for the At-Large (non-majority) special election", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-29", outlet: "Washington Area Bicyclist Association", headline: "DC is voting. What are the candidates' transportation priorities?", url: "https://waba.org/2026/05/29/dc-2026-candidates/" },
       { date: "2026-05-12", outlet: "Washington Blade", headline: "GLAA releases ratings for 18 candidates running for D.C. mayor, Council, AG", url: "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/" },
       { date: "2026-05-08", outlet: "HillRag", headline: "The Race To Replace McDuffie!", url: "https://www.hillrag.com/2026/05/08/the-race-to-replace-mcduffie/" },
+    ],
+    newsThemes: [
+      {
+        headline: "Wins nonpartisan at-large special election — 54.75% first-round on June 16",
+        detail: "Silverman won the nonpartisan special election to fill the at-large seat vacated by Kenyan McDuffie, with 54.75% of first-round votes. Preliminary DCBOE results released June 21; full certification due July 15.",
+        supportingUrls: [
+          "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
+          "https://wtop.com/dc-election/2026/06/dc-primary-results-night-council-at-large/",
+        ],
+      },
     ],
   },
   {
@@ -1527,7 +1534,7 @@ export const candidates2026: Candidate[] = [
   },
   {
     slug: "aparna-raj",
-    summary: "Tenant organizer who led a March GGWash poll 42%–25% and has consolidated progressive endorsements: WFP, roughly 11 labor unions, GGWash, GLAA, and DC NOW. Platform: rent stabilization for all multifamily renters, citywide apartment legalization, ending MPD–ICE cooperation, and free child care funded by taxes on big business.",
+    summary: "Won the Ward 1 Democratic primary via RCV on June 16, 2026, consistent with a pre-election poll lead of 42%. Tenant organizer backed by WFP, ~11 labor unions, GGWash, GLAA, and DC NOW. Platform: rent stabilization for all multifamily renters, citywide apartment legalization, ending MPD–ICE cooperation.",
     name: "Aparna Raj",
     raceSlug: "council-ward-1",
     party: "D",
@@ -1568,6 +1575,8 @@ export const candidates2026: Candidate[] = [
     websiteUrl: "https://aparnafordc.com/",
     notes: "Communications manager and tenant organizer.",
     news: [
+      { date: "2026-06-21", outlet: "DCBOE", headline: "Preliminary RCV tabulation: Raj wins Ward 1 Democratic primary; certified July 15", url: "https://electionresults.dcboe.org/election_results/2026-Primary-Election" },
+      { date: "2026-06-16", outlet: "WTOP", headline: "DC primary night: Ward 1 Democrat result to be determined by RCV; Raj leads first round", url: "https://wtop.com/dc-election/2026/06/dc-primary-results-ward-1/" },
       { date: "2026-06-07", outlet: "WTOP", headline: "Get to know Ward 1 DC Council candidate Aparna Raj", url: "https://wtop.com/dc-election/2026/06/get-to-know-ward-1-dc-council-candidate-aparna-raj/" },
       { date: "2026-06-01", outlet: "DC NOW (Nat'l Org. for Women, DC Chapter)", headline: "DCNOW endorses Aparna Raj for D.C. Council Ward 1 in the 2026 primary", url: "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections" },
       { date: "2026-05-14", outlet: "Washington Blade", headline: "Capital Stonewall Democrats endorses Janeese Lewis George for D.C. mayor", url: "https://www.washingtonblade.com/2026/05/14/capital-stonewall-democrats-endorses-janeese-lewis-george-for-d-c-mayor/" },
@@ -1580,14 +1589,11 @@ export const candidates2026: Candidate[] = [
     ],
     newsThemes: [
       {
-        headline: "Leads March GGWash poll 42%–25% and consolidating progressive endorsements — WFP, ~11 labor unions, GGWash, GLAA +10, DCNOW",
-        detail: "A March 27–29 GGWash poll of 232 likely Ward 1 Democratic primary voters put Raj at 42% among decided voters. GGWash, WFP, the DC chapter of the National Organization for Women, and nearly a dozen labor unions have endorsed her; GLAA gave her +10 on May 12.",
+        headline: "Wins Ward 1 Democratic primary via RCV — consistent with 42% pre-election poll lead",
+        detail: "Raj won the Ward 1 Democratic primary through ranked-choice voting, consistent with her 42% lead in a March GGWash poll and a broad coalition of endorsements from WFP, labor unions, GGWash, GLAA, and DCNOW. Preliminary DCBOE results released June 21; full certification due July 15.",
         supportingUrls: [
-          "https://ggwash.org/view/103003/we-polled-ward-1-on-dc-council-primary-race",
-          "https://ggwash.org/view/103101/our-2026-dc-council-democratic-primary-endorsements",
-          "https://thewash.org/2026/04/15/nearly-a-dozen-labor-unions-in-dc-endorse-aparna-raj-for-council/",
-          "https://www.dc-now.org/post/dcnow-endorses-d-c-council-candidates-in-2026-special-and-primary-elections",
-          "https://www.washingtonblade.com/2026/05/12/glaa-releases-ratings-for-18-candidates-running-for-d-c-mayor-council-ag/",
+          "https://electionresults.dcboe.org/election_results/2026-Primary-Election",
+          "https://wtop.com/dc-election/2026/06/dc-primary-results-ward-1/",
         ],
       },
     ],
@@ -1938,6 +1944,28 @@ export const COMPARABLE_ISSUES: ComparableIssueSlug[] = [
 // Race slugs that get a comparison-matrix block on /elections/ (BL-19 v1 scope).
 // Adding more races just requires populating positions for their candidates.
 export const COMPARISON_RACE_SLUGS = ["mayor", "council-at-large-bonds", "council-ward-1"];
+
+// Preliminary primary results (June 16, 2026). DCBOE published round-by-round
+// tabulation June 21; full certification due July 15, 2026.
+export const PRIMARY_WINNERS_2026 = new Set<string>([
+  "janeese-lewis-george",  // Mayor — 52.79% first-round, won outright
+  "phil-mendelson",         // Council Chair — won Democratic primary
+  "brian-schwalb",          // Attorney General — won Democratic primary
+  "robert-white",           // US Delegate — 63.16% first-round, won outright
+  "oye-owolewa",            // At-Large (Bonds) — led RCV rounds, preliminary winner
+  "elissa-silverman",       // At-Large Special — 54.75% first-round, won outright
+  "aparna-raj",             // Ward 1 — led RCV rounds, preliminary winner
+  "matthew-frumin",         // Ward 3 — unopposed Democratic primary
+  "zachary-parker",         // Ward 5 — won Democratic primary
+  "charles-allen",          // Ward 6 — won Democratic primary
+  "paul-strauss",           // Shadow Senator — won Democratic primary
+]);
+
+export function getPrimaryResult(slug: string): "won" | "lost" | null {
+  const c = getCandidateBySlug(slug);
+  if (!c || c.filingStatus === "withdrawn") return null;
+  return PRIMARY_WINNERS_2026.has(slug) ? "won" : "lost";
+}
 
 export const registrationLinks = [
   { label: "DC Board of Elections — Register or update your registration", url: "https://www.dcboe.org/voters/register-to-vote/register-update-voter-registration" },
